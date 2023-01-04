@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import numeral from "numeral";
 
 import { instance } from "../../api/axiosApi";
+import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
 
 import testImg from "../../img/test_camp_img.jpg"
 
@@ -18,10 +19,10 @@ function HomeReserve() {
     fetchReserve();
   }, [])
   return (
-    <DivBox>
+    <ItemBox>
       <BoxHeader>
-        <ItemName>캠핑장 양도</ItemName>
-        <MoreLink>더보기</MoreLink>
+        <BoxName>캠핑장 양도</BoxName>
+        <BoxMoreLink>더보기</BoxMoreLink>
       </BoxHeader>
       <ReserveBox>
         {reserve?.map((v) => {
@@ -32,36 +33,17 @@ function HomeReserve() {
                 <CardTitle>{v.campingName}</CardTitle>
                 <CardRegion>{v.address}</CardRegion>
                 <CardDate>{v.startDate}</CardDate>
-                <CardPrice>{v.price}원</CardPrice>
+                <CardPrice>{numeral(v.price).format('0,0')}원</CardPrice>
               </CardDetail>
             </ReserveCard>
           )
         })}
       </ReserveBox>
-    </DivBox>
+    </ItemBox>
   )
 }
 
 export default HomeReserve;
-
-const DivBox = styled.div`
-  padding: var(--pad2);
-`
-
-const BoxHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: var(--pad1);
-`
-const ItemName = styled.div`
-  font-size: 16px;
-`
-const MoreLink = styled(Link)`
-  color: gray;
-  text-decoration: none;
-  font-size: 12px;
-`
 
 const ReserveBox = styled.div`
   display: flex;
@@ -91,6 +73,9 @@ const CardDetail = styled.div`
 
 const CardTitle = styled.div`
   font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 const CardRegion = styled.div`
