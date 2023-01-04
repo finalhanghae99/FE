@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { instance } from "../../api/axiosApi";
+import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
 
 import testImg from "../../img/test_camp_img.jpg"
-
 
 function HomeHistory() {
   const [history, setHistory] = useState(null);
@@ -18,13 +18,11 @@ function HomeHistory() {
   useEffect(() => {
     fetchHistory();
   }, [])
-  console.log(history)
-
   return (
-    <DivBox>
+    <ItemBox>
       <BoxHeader>
-        <ItemName>최근 본 캠핑장</ItemName>
-        <MoreLink>전체보기</MoreLink>
+        <BoxName>최근 본 캠핑장</BoxName>
+        <BoxMoreLink>전체보기</BoxMoreLink>
       </BoxHeader>
       {history?.map((v) => {
         return (
@@ -37,30 +35,12 @@ function HomeHistory() {
           </HistoryBox>
         )
       })}
-    </DivBox>
+    </ItemBox>
   )
 }
 
 export default HomeHistory;
 
-const DivBox = styled.div`
-  padding: var(--pad2);
-`
-
-const BoxHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: var(--pad1);
-`
-const ItemName = styled.div`
-  font-size: 16px;
-`
-const MoreLink = styled(Link)`
-  color: gray;
-  text-decoration: none;
-  font-size: 12px;
-`
 const HistoryBox = styled.div`
   display: flex;
   border: 2px solid gray;

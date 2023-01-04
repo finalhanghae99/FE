@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
 
 import { instance } from "../../api/axiosApi";
 
@@ -15,7 +15,6 @@ function HomePopularReview() {
   useEffect(() => {
     fetchReview();
   }, [])
-
   const starRender = (score) => {
     let stars = "";
     for (let i = 0; i < score; i++) {
@@ -26,10 +25,10 @@ function HomePopularReview() {
 
 
   return (
-    <DivBox>
+    <ItemBox>
       <BoxHeader>
-        <ItemName>인기있는 리뷰</ItemName>
-        <MoreLink>더보기</MoreLink>
+        <BoxName>인기있는 리뷰</BoxName>
+        <BoxMoreLink>더보기</BoxMoreLink>
       </BoxHeader>
       <ReviewBox>
         {review?.map((v)=>{
@@ -52,31 +51,11 @@ function HomePopularReview() {
           )
         })}
       </ReviewBox>
-    </DivBox>
+    </ItemBox>
   )
 }
 
 export default HomePopularReview;
-
-
-const DivBox = styled.div`
-  padding: var(--pad2);
-`
-
-const BoxHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: var(--pad1);
-`
-const ItemName = styled.div`
-  font-size: 16px;
-`
-const MoreLink = styled(Link)`
-  color: gray;
-  text-decoration: none;
-  font-size: 12px;
-`
 
 const ReviewBox = styled.div`
   display: flex;
