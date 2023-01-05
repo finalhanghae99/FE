@@ -12,6 +12,7 @@ const ReviewAddForm = () => {
       <CampName>방문하신 캠핑장을 알려주세요.(필수)</CampName>
       <CampInput placeholder="  캠핑장명"></CampInput>
       <Detail>세부항목의 별점을 매겨주세요.(필수)</Detail>
+      <div></div>
       <StarBox>
       <div>주변환경</div>
       <Star>★★★☆☆</Star>
