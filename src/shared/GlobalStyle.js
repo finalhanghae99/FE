@@ -5,6 +5,8 @@ const GlobalStyle = createGlobalStyle`
     --color1 : #e0eafc;
     --color2 : #e8cbc0;
     --color3 : #636fa4;
+
+    --pad1: 5px;
   }
 `;
 
