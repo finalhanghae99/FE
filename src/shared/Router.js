@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
 import CampDetail from "../pages/CampDetail";
 import ReviewAdd from "../pages/ReviewAdd";
+import ReserveSearch from "../pages/ReserveSearch";
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
             <Route path="/login" element={<Login />} />
             <Route path="/campdetail" element={<CampDetail />} />
             <Route path="/reviewadd" element={<ReviewAdd />} />
+            <Route path="/reserve/search" element={<ReserveSearch />} />
           </Routes>
         </Layout>
       </BrowserRouter>
