@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import CampDetail from "../pages/CampDetail";
 import ReviewAdd from "../pages/ReviewAdd";
 import ReserveSearch from "../pages/ReserveSearch";
+import ReserveDetail from "../pages/ReserveDetail";
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
             <Route path="/campdetail" element={<CampDetail />} />
             <Route path="/reviewadd" element={<ReviewAdd />} />
             <Route path="/reserve/search" element={<ReserveSearch />} />
+            <Route path="/reserve/detail/:id" element={<ReserveDetail />} />
           </Routes>
         </Layout>
       </BrowserRouter>
