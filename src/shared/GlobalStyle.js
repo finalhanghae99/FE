@@ -7,6 +7,8 @@ const GlobalStyle = createGlobalStyle`
     --color3 : #636fa4;
 
     --pad1: 5px;
+
+    --pad2: 10px;
   }
 `;
 
