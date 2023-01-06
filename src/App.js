@@ -1,4 +1,3 @@
-import './App.css';
 import GlobalStyle from './shared/GlobalStyle';
 import Router from './shared/Router';
 
