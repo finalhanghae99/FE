@@ -35,7 +35,6 @@ function CampingSearch() {
             </div>
           )
         })}
-
       </SearchList>
     </ItemBox>
   )
