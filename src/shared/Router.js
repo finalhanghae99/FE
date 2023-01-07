@@ -8,6 +8,10 @@ import CampDetail from "../pages/CampDetail";
 import ReviewAdd from "../pages/ReviewAdd";
 import ReserveSearch from "../pages/ReserveSearch";
 import ReserveDetail from "../pages/ReserveDetail";
+import ReviewList from "../pages/ReviewList";
+import ReviewDetail from "../pages/ReviewDetail";
+import LikeReview from "../pages/LikeReview";
+import RecentViewCamp from "../pages/RecentViewCamp";
 
 function Router() {
   return (
@@ -23,6 +27,10 @@ function Router() {
             <Route path="/reviewadd" element={<ReviewAdd />} />
             <Route path="/reserve/search" element={<ReserveSearch />} />
             <Route path="/reserve/detail/:id" element={<ReserveDetail />} />
+            <Route path="/reviewlist" element={<ReviewList />} />
+            <Route path="/reviewdetail" element={<ReviewDetail />} />
+            <Route path="/likereview" element={<LikeReview />} />
+            <Route path="/recentviewcamp" element={<RecentViewCamp />} />
           </Routes>
         </Layout>
       </BrowserRouter>

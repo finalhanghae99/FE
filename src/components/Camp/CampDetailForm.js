@@ -54,7 +54,7 @@ function CampDetailForm() {
           >
             <BsPencilFill />
           </ReviewBtn>
-          <div>전체보기</div>
+          <AllBtn onClick={()=>{navigate(`/reviewlist`)}}>전체보기</AllBtn>
         </Review>
         <PostBox>
           <Pic>후기사진</Pic>
@@ -209,3 +209,8 @@ const ReviewBtn = styled.button`
   background-color: white;
   border: 1px solid white;
 `;
+
+const AllBtn = styled.button`
+  background-color: white;
+  border: 1px solid white;
+`
