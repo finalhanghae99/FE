@@ -1,5 +1,5 @@
 import React from "react";
-import CampDetailForm from "../components/CampDetail/CampDetailForm";
+import CampDetailForm from "../components/Camp/CampDetailForm";
 
 function CampDetail(){
   return(
