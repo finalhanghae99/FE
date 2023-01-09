@@ -7,26 +7,28 @@ import { AiOutlineLeft } from "react-icons/ai";
 function CampImgView(props) {
   const { img } = props
   return (
-    <ImageWindow style={{position:"relative"}}>
-      <ImgFrame>
+    // <ImageWindow style={{position:"relative"}} className={props.className}>
+      <ImgFrame className={props.className}>
         <ImgView src={img} />
       </ImgFrame>
-      <BackBtn />
-    </ImageWindow>
-
+      // {/* <BackBtn /> */}
+    // </ImageWindow>
   )
 }
 export default CampImgView;
 
 const ImageWindow = styled.div`
   position: "relative";
+  /* height: 100px; */
 `
 
 const ImgFrame = styled.div`
   width: 100%;
+  height: 100%;
   overflow: hidden;
   position: relative;
   &:after {
+    height: 100px;
     content: '';
     display: block;
     position: absolute;
@@ -35,13 +37,15 @@ const ImgFrame = styled.div`
     bottom: 0;
     left: 0;
     opacity: 1;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0)  70% ,rgba(0, 0, 0, 0)  70% , white 100%);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0)  40% ,rgba(255, 255, 255, 0.5)  60% , white 100%);
   };
 `
 const ImgView = styled.img`
   object-fit: cover;
   width: 100%;
+  height: 100%;
   background-color: blue;
+  object-position: center;
 `
 
 const BackBtn = styled(AiOutlineLeft)`
