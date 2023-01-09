@@ -12,6 +12,9 @@ import ReviewList from "../pages/ReviewList";
 import ReviewDetail from "../pages/ReviewDetail";
 import LikeReview from "../pages/LikeReview";
 import RecentViewCamp from "../pages/RecentViewCamp";
+import MyPage from "../pages/MyPage";
+import MyCamp from "../components/MyPage/MyCamp";
+import MyReview from "../components/MyPage/MyReview";
 
 function Router() {
   return (
@@ -31,6 +34,10 @@ function Router() {
             <Route path="/reviewdetail" element={<ReviewDetail />} />
             <Route path="/likereview" element={<LikeReview />} />
             <Route path="/recentviewcamp" element={<RecentViewCamp />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/mycamp" element={<MyCamp />} />
+            <Route path="/mypage/myreview" element={<MyReview />} />
+
           </Routes>
         </Layout>
       </BrowserRouter>
