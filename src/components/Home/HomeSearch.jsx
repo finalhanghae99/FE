@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { startTransition, useState } from "react";
 import styled from "styled-components";
 import { useModal } from "../../hooks/useModal";
 import RegionWindow from "../elements/RegionWindow";
 
 function HomeSearch() {
-  const {isOpen, onClose, onOpen} = useModal();
-  if(isOpen){
+  const region = useModal();
+  if(region.isOpen){
     document.body.style.position='fixed';
     document.body.style.width = "100%"
   }else {
@@ -14,7 +14,7 @@ function HomeSearch() {
   const initalCondtion = {
     keyword : "",
     address1 : "",
-    address2 : ""
+    address2 : "",
   }
   const [condition, setCondition] = useState(initalCondtion)
 
@@ -22,12 +22,11 @@ function HomeSearch() {
     const { name, value } = event.target;
     setCondition({...condition, [name] : value})
   }
-  console.log(condition)
 
   return (
     <SearchBox>
       <BtnBox>
-        <MapBtn onClick={onOpen}>지도 검색</MapBtn>
+        <MapBtn onClick={region.onOpen}>지도 검색</MapBtn>
       </BtnBox>
       <WordInput name="keyword" value={condition.keyword} onChange={changeHandler}/>
       <SearchBottom>
@@ -35,7 +34,7 @@ function HomeSearch() {
         </RegionSelect>
         <SertchBtn>검색</SertchBtn>
       </SearchBottom>
-      {isOpen && <RegionWindow name="address1" value={condition.address1} onChange={changeHandler} onClose={onClose} />}
+      {region.isOpen && <RegionWindow name="address1" value={condition.address1} onChange={changeHandler} onClose={region.onClose} />}
     </SearchBox>
   )
 }
