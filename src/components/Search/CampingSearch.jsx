@@ -27,7 +27,12 @@ function CampingSearch() {
               <SearchElement>
                 <SearchDetail>
                   <SearchName>{v.campingName}</SearchName>
-                  <SearchAddress>{`${v.address1} ${v.address2} ${v.address3} ${v.address4}`}</SearchAddress>
+                  <SearchAddress>
+                    {`${v.address1} 
+                      ${v.address2} 
+                      ${v.address3} 
+                      ${v.address4}`}
+                  </SearchAddress>
                 </SearchDetail>
                 <button>선택</button>
               </SearchElement>

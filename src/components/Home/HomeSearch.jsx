@@ -1,7 +1,9 @@
-import React, { startTransition, useState } from "react";
+import React, {useEffect, useState } from "react";
 import styled from "styled-components";
 import { useModal } from "../../hooks/useModal";
-import RegionWindow from "../elements/RegionWindow";
+import RegionPicker from "../elements/RegionPicker";
+
+import {AiOutlineDown} from "react-icons/ai";
 
 function HomeSearch() {
   const region = useModal();
@@ -18,39 +20,38 @@ function HomeSearch() {
   }
   const [condition, setCondition] = useState(initalCondtion)
 
+  useEffect(()=>{
+    setCondition({...condition, address2 : ""})
+  },[condition.address1])
+
   const changeHandler = (event) =>{
     const { name, value } = event.target;
     setCondition({...condition, [name] : value})
   }
+  console.log(condition)
 
   return (
     <SearchBox>
       <BtnBox>
-        <MapBtn onClick={region.onOpen}>지도 검색</MapBtn>
+        <MapBtn>지도 검색</MapBtn>
       </BtnBox>
       <WordInput name="keyword" value={condition.keyword} onChange={changeHandler}/>
       <SearchBottom>
-        <RegionSelect >
+        <RegionSelect onClick={region.onOpen}>
+          <div>
+            {condition.address1? `${condition.address1} ${condition.address2}` : "지역 선택"}
+          </div>
+          <AiOutlineDown />
         </RegionSelect>
         <SertchBtn>검색</SertchBtn>
       </SearchBottom>
-      {region.isOpen && <RegionWindow name="address1" value={condition.address1} onChange={changeHandler} onClose={region.onClose} />}
+      {region.isOpen && 
+        <RegionPicker onChange={changeHandler} onClose={region.onClose} />
+      }
     </SearchBox>
   )
 }
 export default HomeSearch;
-
-// export default function App() {
-//   + const { isOpen, onClose, onOpen } = useModal();
-//     return (
-//       <div className="App">
-//   +   <button onClick={onOpen} type="button" className="button openButton">
-//           Open Modal
-//         </button>
-//   +     {isOpen && <Modal onClose={onClose} />}
-//       </div>
-//     );
-//   }
 
 const SearchBox = styled.div`
   padding: var(--pad2);
@@ -76,13 +77,18 @@ const WordInput = styled.input`
 const SearchBottom = styled.div`
   display: flex;
   margin-top: var(--pad1);
-  
+  gap: var(--pad1);
 `
 
-const RegionSelect = styled.select`
+const RegionSelect = styled.div`
+  display: flex;
   height: 30px;
+  box-sizing: border-box;
+  border: 0.5px solid black;
+  border-radius: 5px;
   flex: 3;
-  margin-right: var(--pad1);
+  padding: var(--pad1);
+  justify-content: space-between;
 `
 
 const SertchBtn = styled.button`

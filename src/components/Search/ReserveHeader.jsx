@@ -1,46 +1,56 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 
 import { useModal } from "../../hooks/useModal";
-import RegionWindow from "../elements/RegionWindow";
 import DatePicker from "../elements/DatePicker";
 
 import styled from "styled-components";
+import RegionPicker from "../elements/RegionPicker";
 
 
 function ReserveHeader() {
   const region = useModal();
   const calendar = useModal();
-  if(region.isOpen || calendar.isOpen){
-    document.body.style.position='fixed';
+  if (region.isOpen || calendar.isOpen) {
+    document.body.style.position = 'fixed';
     document.body.style.width = "100%"
-  }else {
-    document.body.style.position='';
+  } else {
+    document.body.style.position = '';
   }
-
   const initialCondition = {
-    startDate : null,
-    endDate : null,
-    address1 : "",
-    address2 : "",
+    startDate: null,
+    endDate: null,
+    address1: "",
+    address2: "",
   }
   const [condition, setCondition] = useState(initialCondition);
-
-  const changeHandler = (event) =>{
+  useEffect(()=>{
+    setCondition({...condition, address2 : ""})
+  },[condition.address1])
+  const changeHandler = (event) => {
     const { name, value } = event.target;
-    setCondition({...condition, [name] : value})
+    setCondition({ ...condition, [name]: value })
   }
   return (
     <SearchBox>
       <SearchBottom>
         <DateSelect onClick={calendar.onOpen}>
-          날짜
+          <div>
+            {(condition.startDate && condition.endDate )? 
+              `${condition.startDate} ~ ${condition.endDate}` : "날짜 선택"}
+          </div>
         </DateSelect>
         <DateSelect onClick={region.onOpen}>
-          지역
+          <div>
+            {condition.address1 ? `${condition.address1} ${condition.address2}` : "지역 선택"}
+          </div>
         </DateSelect>
       </SearchBottom>
-      {region.isOpen && <RegionWindow name="address1" value={condition.address1} onChange={changeHandler} onClose={region.onClose} />}
-      {calendar.isOpen && <DatePicker condition={condition} setCondition={setCondition} onClose={calendar.onClose} />}
+      {region.isOpen && 
+        <RegionPicker onChange={changeHandler} onClose={region.onClose} />
+      }
+      {calendar.isOpen && 
+        <DatePicker condition={condition} setCondition={setCondition} onClose={calendar.onClose} />
+      }
     </SearchBox>
   )
 }
