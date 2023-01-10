@@ -1,26 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BoxHeader, ItemBox } from "./ItemBox";
 
-function RegionWindow(props) {
-  const {name, value, onChange , onClose} =props;
-  const cityList = [
-    "서울",
-    "경기",
-    "인천",
-    "강원",
-    "대전",
-    "세종",
-    "충복",
-    "충남",
-    "울산",
-    "경북",
-    "경남",
-    "전복",
-    "전남",
-    "제주"
-  ]
+import { CityObj} from "./regionData";
 
+function RegionPicker(props) {
+  const {onChange, onClose } = props;
+  const [selectCity, setSelectCity] = useState(null)
+  const [checked , setChecked] = useState(null)
+
+  const city1 = []
+  Object.keys(CityObj).forEach((key, i) => {
+    city1.push(
+      <SelectItem key={i}>
+        <RadioInput 
+          name="address1" 
+          type="radio" 
+          id={key} 
+          value={CityObj[key].official} 
+          onChange={(event) => { 
+            onChange(event); 
+            setSelectCity(key);
+            setChecked(null); 
+          }} 
+        />
+        <RadioLabel htmlFor={key}>{key}</RadioLabel>
+      </SelectItem>
+    )
+  })
+
+  const cityDiv = CityObj[`${selectCity}`]?.data
+  const city2 = cityDiv?.map((v, i) => {
+    return (
+      <SelectItem key={i}>
+        <RadioInput 
+          checked={checked === v } 
+          name='address2' 
+          type="radio" 
+          id={v} 
+          value={v}
+          onChange={(event) => { 
+            onChange(event); 
+            setChecked(v);
+          }} 
+        />
+        <RadioLabel htmlFor={v}>{v}</RadioLabel>
+      </SelectItem>
+    )
+  })
   return (
     <div>
       <OutOfModal onClick={onClose} />
@@ -30,24 +57,19 @@ function RegionWindow(props) {
         </ModalTop>
         <ItemBox>
           <SelectBox>
-            {cityList.map((v, i) => {
-              return(
-                <SelectItem key={i}>
-                  <RadioInput name={name} type="radio" id={v} value={v} onChange={onChange}/>
-                  <RadioLabel htmlFor={v}>{v}</RadioLabel>
-                </SelectItem>
-              )
-            })}
+            {city1}
           </SelectBox>
           <hr />
-
+          <SelectBox>
+            {city2}
+          </SelectBox>
         </ItemBox>
       </PopWindow>
     </div>
   )
 }
 
-export default RegionWindow;
+export default RegionPicker;
 
 const PopWindow = styled.div`
   background-color: skyblue;
@@ -91,12 +113,13 @@ const SelectBox = styled.div`
   flex-wrap: wrap;
   /* margin: auto; */
   text-align: center;
-  line-height: 40px;
+  line-height: 30px;
   width: 80%;
   margin: auto;
+  gap : var(--pad2)
 `
 const SelectItem = styled.div`
-  width: 25%;
+  /* width: 25%; */
   /* height: 50px; */
   /* margin: var(--pad2); */
 `

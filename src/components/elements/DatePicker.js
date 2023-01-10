@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import moment from 'moment';
 import styled from "styled-components";
 
 import { DayPickerRangeController } from 'react-dates'
@@ -10,26 +10,35 @@ import "./DatePicker.css"
 
 function DatePicker(props) {
   const {condition , setCondition, onClose} = props;
-  console.log(props)
   const dateFormat = "YYYY-MM-DD";
+  const initialDates = {
+    start : (condition.startDate)? moment(condition.startDate) : null,
+    end : (condition.endDate)? moment(condition.endDate) : null,
+  }
   const [focused, setFocused] = useState('startDate');
+  const [startDate, setStartDate] = useState(initialDates.start);
+  const [endDate, setEndDate] = useState(initialDates.end);
+  useEffect(()=>{
+    setCondition({...condition, startDate : startDate?.format(dateFormat), endDate : endDate?.format(dateFormat)})
+  },[startDate, endDate])
   return (
     <div>
       <OutOfModal onClick={onClose} />
       <DayPickerWindow>
         <DayPickerRangeController 
-          startDate={condition?.startDate}
-          endDate={condition?.endDate}
+          startDate={startDate}
+          endDate={endDate}
           focusedInput={focused}
+          dayAriaLabelFormat="YYYY MM DD"
           onFocusChange={(focusedInput)=>{
             setFocused(!focusedInput? 'startDate': focusedInput);
           }}
           onDatesChange={(selectedDates)=>{
             console.log(selectedDates)
             if(focused ==='startDate'){
-              setCondition({...condition, startDate : selectedDates.startDate})
+              setStartDate(selectedDates.startDate)
             }else{
-              setCondition({...condition, endDate : selectedDates.endDate})
+              setEndDate(selectedDates.endDate)
             }
           }}
           hideKeyboardShortcutsPanel = {true}
