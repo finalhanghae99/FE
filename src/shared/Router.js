@@ -15,6 +15,7 @@ import RecentViewCamp from "../pages/RecentViewCamp";
 import MyPage from "../pages/MyPage";
 import MyCamp from "../components/MyPage/MyCamp";
 import MyReview from "../components/MyPage/MyReview";
+import ReservePost from "../pages/ReservePost";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
             <Route path="/campdetail" element={<CampDetail />} />
             <Route path="/reviewadd" element={<ReviewAdd />} />
             <Route path="/reserve/search" element={<ReserveSearch />} />
+            <Route path="/reserve/post" element={<ReservePost />} />
             <Route path="/reserve/detail/:id" element={<ReserveDetail />} />
             <Route path="/reviewlist" element={<ReviewList />} />
             <Route path="/reviewdetail" element={<ReviewDetail />} />
@@ -37,7 +39,6 @@ function Router() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mycamp" element={<MyCamp />} />
             <Route path="/mypage/myreview" element={<MyReview />} />
-
           </Routes>
         </Layout>
       </BrowserRouter>
