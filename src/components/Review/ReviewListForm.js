@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import { BsPencilFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { instance } from "../../api/axiosApi";
 
 const ReviewListForm = () => {
   const navigate = useNavigate();
+  const [reviewList, setReviewList] = useState();
+
+  const fetchreviewList = async () => {
+    try {
+      const data = await instance.get("reviewlist");
+      // console.log(data)
+      if (data.status === 200) {
+        return setReviewList(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(reviewList);
+
+  useEffect(() => {
+    fetchreviewList();
+  }, []);
+
   return (
     <>
       <Main>
@@ -22,18 +42,21 @@ const ReviewListForm = () => {
         <BsPencilFill />
       </Write>
       <PostBox>
-        <Pic>후기사진</Pic>
-        <Comm>
-          <ComDiv>
-            <Pro></Pro>
-            <div>캠퍼 김씨</div>
-            <Date>2023.1.4</Date>
-          </ComDiv>
-          <Ment>
-            캠핑장이 깨끗하고 정말 좋아요. 캠핑장이 깨끗하고 정말 좋아요.
-            캠핑장이 깨끗하고 정말 좋아요.
-          </Ment>
-        </Comm>
+        {reviewList?.map((a) => {
+          return (
+            <>
+              <Pic>{a.reviewUrl}</Pic>
+              <Comm>
+                <ComDiv>
+                  <Pro></Pro>
+                  <div>{a.nickname}</div>
+                  <Date>{a.modifiedAt}</Date>
+                </ComDiv>
+                <Ment>{a.content}</Ment>
+              </Comm>
+            </>
+          );
+        })}
       </PostBox>
     </>
   );
@@ -90,6 +113,7 @@ const Comm = styled.div`
   width: 335px;
   height: 150px;
   border: 1px solid #b5b5b5;
+  margin-bottom: 15px;
 `;
 
 const ComDiv = styled.div`

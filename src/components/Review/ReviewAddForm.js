@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 import { BsXLg } from "react-icons/bs";
 import styled from "styled-components";
 
 const ReviewAddForm = () => {
+  const imgRef = useRef("");
+
+  const onUploadImg = useCallback((e) => {}, []);
+
   return (
     <MainDiv>
       <Div1>
@@ -36,7 +40,14 @@ const ReviewAddForm = () => {
         <Star>★★★☆☆</Star>
       </StarBox2>
       <Pic>캠핑장의 사진을 올려주세요.(필수)</Pic>
-      <PicBtn>+</PicBtn>
+      <PicInput
+        id="fileUpload"
+        type="file"
+        accept="image/*"
+        ref={imgRef}
+        // style={{display:"none"}}
+        onChange={onUploadImg}
+      />
       <PicBtnBox>
         <PicAdd>+</PicAdd>
         <PicAdd>+</PicAdd>
@@ -120,7 +131,7 @@ const Pic = styled.div`
   margin: 17px 96px 0px 0px;
 `;
 
-const PicBtn = styled.button`
+const PicInput = styled.input`
   width: 324px;
   height: 324px;
   margin-top: 23px;
