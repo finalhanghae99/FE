@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { instance } from "../../api/axiosApi";
 
 const ReviewDetailForm = () => {
+  const [reviewDetail, setReviewDetail] = useState();
+
+  const fetchreviewDetail = async () => {
+    try {
+      const data = await instance.get("reviewdetail");
+      console.log(data)
+      if (data.status === 200) {
+        return setReviewDetail(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(reviewDetail);
+
+  useEffect(() => {
+    fetchreviewDetail();
+  }, []);
+
   return (
     <MainDiv>
-      <Pic>리뷰 디테일 페이지</Pic>
+      <Pic>리뷰 디테일 페이지 사진</Pic>
       <Title>
-      <CampName>캠핑장 이름</CampName>
-      <Date>2023.01.05</Date>
+      <CampName>{reviewDetail?.campingName}</CampName>
+      <Date>{reviewDetail?.modifiedAt}</Date>
       </Title>
-      <Nick>nickname</Nick>
+      <Nick>{reviewDetail?.nickname}</Nick>
       <Stars>
       <StarBox>
         <div>주변환경</div>
@@ -32,7 +52,7 @@ const ReviewDetailForm = () => {
         <Star>★★★</Star>
       </StarBox2>
       </Stars>
-      <Content>캠핑장이 깨끗하고 좋아요. 캠핑장이 깨끗하고 좋아요. 캠핑장이 깨끗하고 좋아요.</Content>
+      <Content>{reviewDetail?.content}</Content>
     </MainDiv>
   )
 }

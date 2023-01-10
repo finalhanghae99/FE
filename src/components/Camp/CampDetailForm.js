@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BsPencilFill, BsBookmark } from "react-icons/bs";
 import { AiOutlineLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { instance } from "../../api/axiosApi";
 
 function CampDetailForm() {
   const navigate = useNavigate();
+  const [campDetail, setCampDetail] = useState();
+
+  const fetchCampDetail = async () => {
+    try {
+      const { data } = await instance.get("campdetail");
+      if (data.statusCode === 200) {
+        return setCampDetail(data?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(campDetail);
+
+  useEffect(() => {
+    fetchCampDetail();
+  }, []);
 
   return (
     <MainDiv>
       <StDiv>
-        <img
-          width="391"
-          height="419"
-          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDA1MjNfMjc5%2FMDAxNTkwMjE3ODAwNjg5.XwKjMgxDgZbEw2o-16H9v1HQ9yhByTSNQku4DEuJswMg.qnaprXwy7UjDJkyoJ3VfPXR7SXpbH_XSDuakylFjaU0g.JPEG.jjhye0310%2FIMG_1110.jpg&type=sc960_832"
-        ></img>
+        <img width="391" height="419" src={campDetail?.imageUrl}></img>
         <BackBtn>
           <AiOutlineLeft />
         </BackBtn>
@@ -23,22 +37,38 @@ function CampDetailForm() {
         </Mark>
       </StDiv>
       <SuvDiv>
-        <CampName>안성 용설호수 캠핑장</CampName>
-        <Address>경기도 안성시 죽산면 용설호수길 234</Address>
+        <CampName>{campDetail?.campingName}</CampName>
+        <Address>{campDetail?.address1}</Address>
         <SDiv>
-          <div>031-123-4567</div>
-          <div>홈페이지 바로가기</div>
+          <div>{campDetail?.phoneNumber}</div>
+          <a href={campDetail?.homepageUrl}>홈페이지 바로가기</a>
         </SDiv>
       </SuvDiv>
       <Environment>
         <div>캠핑장 환경</div>
-        <Ele>해변</Ele>
+        <EleDiv>
+          {campDetail?.CampingEnv.map((a) => {
+            return <Ele>{a}</Ele>;
+          })}
+        </EleDiv>
         <div>캠핑 유형</div>
-        <Ele>카라반</Ele>
+        <EleDiv>
+          {campDetail?.CampingType.map((b) => {
+            return <Ele>{b}</Ele>;
+          })}
+        </EleDiv>
         <div>캠핑장 시설 정보</div>
-        <Ele>전기</Ele>
+        <EleDiv>
+          {campDetail?.CampingFac.map((c) => {
+            return <Ele>{c}</Ele>;
+          })}
+        </EleDiv>
         <div>주변 이용가능 시설</div>
-        <Ele>해수욕</Ele>
+        <EleDiv>
+          {campDetail?.CampingSurroundFac.map((d) => {
+            return <Ele>{d}</Ele>;
+          })}
+        </EleDiv>
       </Environment>
       <Map>
         <div>위치</div>
@@ -54,21 +84,30 @@ function CampDetailForm() {
           >
             <BsPencilFill />
           </ReviewBtn>
-          <AllBtn onClick={()=>{navigate(`/reviewlist`)}}>전체보기</AllBtn>
+          <AllBtn
+            onClick={() => {
+              navigate(`/reviewlist`);
+            }}
+          >
+            전체보기
+          </AllBtn>
         </Review>
-        <PostBox>
-          <Pic>후기사진</Pic>
-          <Comm>
-            <ComDiv>
-              <div>캠퍼 김씨</div>
-              <div>2023.1.4</div>
-            </ComDiv>
-            <Ment>
-              캠핑장이 깨끗하고 정말 좋아요. 캠핑장이 깨끗하고 정말 좋아요.
-              캠핑장이 깨끗하고 정말 좋아요.
-            </Ment>
-          </Comm>
-        </PostBox>
+        {campDetail?.reviewList?.map((a) => {
+          return (
+            <PostBox key={a.id}>
+              <Pic>
+                <img src={a?.url} width="335" height="158"></img>
+              </Pic>
+              <Comm>
+                <ComDiv>
+                  <div>{a.nickname}</div>
+                  <div>{a.modifiedAt}</div>
+                </ComDiv>
+                <Ment>{a.content}</Ment>
+              </Comm>
+            </PostBox>
+          );
+        })}
       </Post>
     </MainDiv>
   );
@@ -126,6 +165,13 @@ const Environment = styled.div`
   border-bottom: 1px solid #d8d8d8;
 `;
 
+const EleDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+`;
+
 const Ele = styled.div`
   display: flex;
   flex-direction: row;
@@ -166,8 +212,8 @@ const Post = styled.div`
 
 const PostBox = styled.div`
   width: 335px;
-  height: 277px;
-  margin: 13px 0px 0px 0px;
+  height: 270px;
+  margin: 13px 0px 60px 0px;
 `;
 
 const Pic = styled.div`
@@ -180,7 +226,7 @@ const Pic = styled.div`
 `;
 
 const Comm = styled.div`
-  width: 335px;
+  width: 333px;
   height: 150px;
   border: 1px solid #b5b5b5;
 `;
@@ -213,4 +259,4 @@ const ReviewBtn = styled.button`
 const AllBtn = styled.button`
   background-color: white;
   border: 1px solid white;
-`
+`;
