@@ -107,7 +107,7 @@ const SignUpForm = () => {
       } else {
         alert("중복된 아이디 입니다.");
       }
-    } catch (error) {}
+    } catch (error) {console.log(error)}
   };
 
   const onNicknameCheck = (e) => {

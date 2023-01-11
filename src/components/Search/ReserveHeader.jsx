@@ -11,10 +11,9 @@ function ReserveHeader() {
   const region = useModal();
   const calendar = useModal();
   if (region.isOpen || calendar.isOpen) {
-    document.body.style.position = 'fixed';
-    document.body.style.width = "100%"
-  } else {
-    document.body.style.position = '';
+    document.body.style.overflow="hidden"
+  }else {
+    document.body.style.overflow='';
   }
   const initialCondition = {
     startDate: null,

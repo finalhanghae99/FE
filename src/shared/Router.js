@@ -6,16 +6,16 @@ import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
 import CampDetail from "../pages/CampDetail";
 import ReviewAdd from "../pages/ReviewAdd";
-import ReserveSearch from "../pages/ReserveSearch";
-import ReserveDetail from "../pages/ReserveDetail";
+import ReserveSearch from "../pages/reserve/ReserveSearch";
+import ReserveDetail from "../pages/reserve/ReserveDetail";
 import ReviewList from "../pages/ReviewList";
 import ReviewDetail from "../pages/ReviewDetail";
 import LikeReview from "../pages/LikeReview";
 import RecentViewCamp from "../pages/RecentViewCamp";
-import MyPage from "../pages/MyPage";
-import MyCamp from "../components/MyPage/MyCamp";
+import MyPage from "../pages/myPage/MyPage";
+import MyCamp from "../pages/myPage/MyCamp";
 import MyReview from "../components/MyPage/MyReview";
-import ReservePost from "../pages/ReservePost";
+import ReservePost from "../pages/reserve/ReservePost";
 
 function Router() {
   return (
