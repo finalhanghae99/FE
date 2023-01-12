@@ -22,7 +22,6 @@ function CampListElement(props) {
       setIsBMK(!isBMK)
     } catch (error) { console.log(error); }
   }
-  console.log(camp)
   return (
     <ItemBox>
       <div style={{ "position": "relative" }}>

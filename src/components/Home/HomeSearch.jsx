@@ -4,9 +4,11 @@ import { useModal } from "../../hooks/useModal";
 import RegionPicker from "../elements/RegionPicker";
 
 import {AiOutlineDown} from "react-icons/ai";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function HomeSearch() {
   const region = useModal();
+  const navigate = useNavigate();
   if(region.isOpen){
     document.body.style.overflow="hidden"
   }else {
@@ -20,7 +22,7 @@ function HomeSearch() {
   const [condition, setCondition] = useState(initalCondtion)
 
   useEffect(()=>{
-    setCondition({...condition, address2 : ""})
+    setCondition({...condition, address2 : null})
   },[condition.address1])
 
   const changeHandler = (event) =>{
@@ -28,6 +30,12 @@ function HomeSearch() {
     setCondition({...condition, [name] : value})
   }
   console.log(condition)
+  const searchHandler = () =>{
+    if(condition.keyword.trim() === "") condition.keyword = null;
+    if(condition.address1.trim() === "") condition.address1 = null;
+    if(condition.address2.trim() === "") condition.address2 = null;
+    navigate(`../camp/search/${condition.keyword}/${condition.address1}/${condition.address2}`);
+  }
 
   return (
     <SearchBox>
@@ -42,7 +50,7 @@ function HomeSearch() {
           </div>
           <AiOutlineDown />
         </RegionSelect>
-        <SertchBtn>검색</SertchBtn>
+        <SertchBtn onClick={searchHandler}>검색</SertchBtn>
       </SearchBottom>
       {region.isOpen && 
         <RegionPicker onChange={changeHandler} onClose={region.onClose} />

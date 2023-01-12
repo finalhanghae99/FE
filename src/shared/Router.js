@@ -24,10 +24,10 @@ function Router() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/camp/search" element={<CampSearch />}/>
+            <Route path="/camp/search/:keyword/:address1/:address2" element={<CampSearch />}/>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/campdetail" element={<CampDetail />} />
+            <Route path="/campdetail/:id" element={<CampDetail />} />
             <Route path="/reviewadd" element={<ReviewAdd />} />
             <Route path="/reserve/search" element={<ReserveSearch />} />
             <Route path="/reserve/post" element={<ReservePost />} />

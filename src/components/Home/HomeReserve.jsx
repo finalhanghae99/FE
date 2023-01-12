@@ -11,8 +11,9 @@ function HomeReserve() {
   const [reserve, setReserve] = useState(null);
   const fetchReserve = async () => {
     try {
-      const { data } = await instance.get("reserve");
-      setReserve(data);
+      const { data } = await instance.get("reservation/listsix");
+      console.log(data)
+      setReserve(data.data);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {

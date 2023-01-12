@@ -1,34 +1,53 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BsPencilFill, BsBookmark } from "react-icons/bs";
+import { BsPencilFill, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { AiOutlineLeft } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
+
+import CampImgView from "../elements/CampImgView";
+import DetailMap from "../KakaoMap/DetailMap";
 
 function CampDetailForm() {
   const navigate = useNavigate();
-  const [campDetail, setCampDetail] = useState();
+  const [isBMK, setIsBMK] = useState(false);
 
+  const [campDetail, setCampDetail] = useState();
+  const {id} = useParams();
+  
   const fetchCampDetail = async () => {
     try {
-      const { data } = await instance.get("campdetail");
+      const { data } = await instance.get(`/camping/${id}`);
       if (data.statusCode === 200) {
-        return setCampDetail(data?.data);
+        return setCampDetail(data.data);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(campDetail);
 
   useEffect(() => {
     fetchCampDetail();
   }, []);
 
+  const position = { lat: Number(campDetail?.mapY) , lng: Number(campDetail?.mapX) }
+
   return (
     <MainDiv>
       <StDiv>
-        <img width="391" height="419" src={campDetail?.imageUrl}></img>
+      <div style={{ "position": "relative" ,  "height": "300px"}}>
+        {(campDetail?.imageUrl)? (
+          <CampImgView img={campDetail?.imageUrl} />
+        ) : (
+          <div style={{"textAlign" : "center", "lineHeight" : "300px"}}>Image Not Found</div>
+        )}
+        <BookmarkBtn>
+          {(isBMK) ?
+            <BsFillBookmarkFill /> : <BsBookmark />
+          }
+        </BookmarkBtn>
+      </div>
+        {/* <img width="391" height="419" src={campDetail?.imageUrl}></img> */}
         <BackBtn>
           <AiOutlineLeft />
         </BackBtn>
@@ -38,7 +57,7 @@ function CampDetailForm() {
       </StDiv>
       <SuvDiv>
         <CampName>{campDetail?.campingName}</CampName>
-        <Address>{campDetail?.address1}</Address>
+        <Address>{campDetail?.address3}</Address>
         <SDiv>
           <div>{campDetail?.phoneNumber}</div>
           <a href={campDetail?.homepageUrl}>홈페이지 바로가기</a>
@@ -47,32 +66,34 @@ function CampDetailForm() {
       <Environment>
         <div>캠핑장 환경</div>
         <EleDiv>
-          {campDetail?.CampingEnv.map((a) => {
-            return <Ele>{a}</Ele>;
+          {campDetail?.campingEnv.map((a,i) => {
+            return <Ele key={i}>{a}</Ele>;
           })}
         </EleDiv>
         <div>캠핑 유형</div>
         <EleDiv>
-          {campDetail?.CampingType.map((b) => {
-            return <Ele>{b}</Ele>;
+          {campDetail?.campingType.map((b,i) => {
+            return <Ele key={i}>{b}</Ele>;
           })}
         </EleDiv>
         <div>캠핑장 시설 정보</div>
         <EleDiv>
-          {campDetail?.CampingFac.map((c) => {
-            return <Ele>{c}</Ele>;
+          {campDetail?.campingFac.map((c,i) => {
+            return <Ele key={i}>{c}</Ele>;
           })}
         </EleDiv>
         <div>주변 이용가능 시설</div>
         <EleDiv>
-          {campDetail?.CampingSurroundFac.map((d) => {
-            return <Ele>{d}</Ele>;
+          {campDetail?.campingSurroundFac.map((d,i) => {
+            return <Ele key={i}>{d}</Ele>;
           })}
         </EleDiv>
       </Environment>
       <Map>
         <div>위치</div>
-        <Mapp>MAP</Mapp>
+        {(campDetail) &&
+          <DetailMap campingName={campDetail?.campingName} position={position}/>
+        }
       </Map>
       <Post>
         <Review>
@@ -123,7 +144,7 @@ const MainDiv = styled.div`
 const StDiv = styled.div`
   background-color: grey;
   width: 391px;
-  height: 419px;
+  /* height: 419px; */
 `;
 
 const BackBtn = styled.button`
@@ -260,3 +281,12 @@ const AllBtn = styled.button`
   background-color: white;
   border: 1px solid white;
 `;
+
+const BookmarkBtn = styled.div`
+    position: absolute;
+    top:20px; 
+    right:20px;
+    font-size:30px;
+    filter: drop-shadow(10px 10px 10px 10px green);
+    z-index: 5;
+`

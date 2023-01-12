@@ -34,7 +34,7 @@ const LoginForm = () => {
 
   const postLogin = async (post) => {
     try {
-      const data = await instance.post("login", post);
+      const data = await instance.post("users/login", post);
       if (data.data.statusCode === 200) {
         return data;
       } else {

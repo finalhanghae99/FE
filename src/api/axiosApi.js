@@ -8,9 +8,9 @@ export const instance = axios.create({
   headers: { "Access-Control-Allow-Origin": "*" },
 });
 
-instance.interceptors.request.use((config) => {
-  if (config.headers === undefined) return;
-  const token = getCookies("id");
-  config.headers["Authorization"] = `${token}`;
-  return config;
-});
+// instance.interceptors.request.use((config) => {
+//   if (config.headers === undefined) return;
+//   const token = getCookies("id");
+//   config.headers["Authorization"] = `${token}`;
+//   return config;
+// });
