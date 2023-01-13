@@ -4,6 +4,7 @@ import { BsPencilFill, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { AiOutlineLeft } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
+import { getCookies, setCookies } from "../../api/cookieControler";
 
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
@@ -27,10 +28,20 @@ function CampDetailForm() {
   };
 
   useEffect(() => {
+    // 캠핑장 열람 이력 저장
+    let history = getCookies("history")
+    if(history === undefined) history = []
+    history = history.filter((v)=>{
+      return v !== id
+    })
+    history.unshift(id)
+    history.splice(10)
+    setCookies("history", history, {
+      path: "/",
+      maxAge: 604800,
+    });
     fetchCampDetail();
   }, []);
-
-  console.log(campDetail)
 
   const position = { lat: Number(campDetail?.mapY) , lng: Number(campDetail?.mapX) }
 

@@ -31,10 +31,10 @@ function HomeSearch() {
   }
   console.log(condition)
   const searchHandler = () =>{
-    if(condition.keyword.trim() === "") condition.keyword = null;
-    if(condition.address1.trim() === "") condition.address1 = null;
-    if(condition.address2.trim() === "") condition.address2 = null;
-    navigate(`../camp/search/${condition.keyword}/${condition.address1}/${condition.address2}`);
+    const word1 = (condition.keyword.trim() === "")? null : condition.keyword;
+    const word2 = (condition.address1.trim() === "")? null : condition.address1;
+    const word3 = (condition.address2.trim() === "")? null : condition.address2;
+    navigate(`../camp/search/${word1}/${word2}/${word3}`);
   }
 
   return (
