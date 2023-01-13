@@ -1,11 +1,24 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import CampListElement from "./CampListElement";
+
+import { instance } from "../../api/axiosApi";
 
 const RecentViewCampForm = () => {
   const navigate = useNavigate();
+  const [myCamp, setMyCamp] = useState(null);
+  const fetchCamp = async () => {
+    try {
+      const { data } = await instance.get(`mycamp`);
+      setMyCamp(data);
+    } catch (error) { console.log(error); }
+  };
+  useEffect(() => {
+    fetchCamp();
+  }, [])
   return (
     <>
       <Main>
@@ -36,6 +49,11 @@ const RecentViewCampForm = () => {
           </Tag>
         </Suv>
       </Box>
+      {myCamp?.map((v)=>{
+        return(
+          <CampListElement key={v.id} camp={v}/>
+        )
+      })}
     </>
   );
 };

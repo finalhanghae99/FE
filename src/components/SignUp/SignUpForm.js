@@ -100,14 +100,14 @@ const SignUpForm = () => {
 
   const emailCheck = async (post) => {
     try {
-      const data = await instance.post("checkemail", post);
-      if (data.data.statusCode === 204) {
+      const data = await instance.post("users/checkemail", post);
+      if (data.data.statusCode === 200) {
         alert("사용 가능한 아이디 입니다!");
         setIsUserEmailCheck(true);
       } else {
         alert("중복된 아이디 입니다.");
       }
-    } catch (error) {}
+    } catch (error) {console.log(error)}
   };
 
   const onNicknameCheck = (e) => {
@@ -121,7 +121,7 @@ const SignUpForm = () => {
 
   const nickCheck = async (post) => {
     try {
-      const data = await instance.post("checknickname", post);
+      const data = await instance.post("users/checknickname", post);
       if (data.data.statusCode === 200) {
         alert("사용 가능한 닉네임 입니다!");
         setIsNickNameCheck(true);
@@ -137,6 +137,7 @@ const SignUpForm = () => {
   };
 
   const onClickSignUpBtn = () => {
+    console.log(useremail, nickname, password)
     dispatch(__postsignup({ useremail, nickname, password }));
     alert("회원가입 성공!");
     navigate(`/login`);

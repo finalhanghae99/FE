@@ -1,6 +1,6 @@
 import React from "react";
-import ReserveHeader from "../components/Search/ReserveHeader";
-import ReserveList from "../components/Search/ReserveList";
+import ReserveHeader from "../../components/Search/ReserveHeader";
+import ReserveList from "../../components/Search/ReserveList";
 
 function ReserveSearch() {
   return(

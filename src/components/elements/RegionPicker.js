@@ -83,6 +83,7 @@ const PopWindow = styled.div`
   border-top-right-radius: 50px;
   overscroll-behavior: contain;
   overflow-y: scroll;
+  z-index: 5;
 `
 
 const OutOfModal = styled.div`

@@ -1,47 +1,108 @@
-import React,{useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useModal } from "../../hooks/useModal";
 import { ItemBox } from "../elements/ItemBox";
 import NameSearch from "../Search/NameSearch";
+import DatePicker from "../elements/DatePicker";
 
-function ReservePostForm(){
+import { instance } from "../../api/axiosApi";
+
+function ReservePostForm() {
   const initialState = {
-    id : "",
-    campingName : "",
-    startDate : null,
-    endDate : null,
-    price : 0,
-    content : ""
+    campingName: "",
+    startDate: null,
+    endDate: null,
+    price: 0,
+    content: ""
   }
-  const [reserve , setReserve] = useState(initialState); 
-  const changeHandler = (event) =>{
+  const initialSet = {
+    isName : false,
+    isStart : false,
+    isEnd : false,
+    isContent : false
+  }
+  const [campingId , setCampingId] = useState("");
+  const [reserve, setReserve] = useState(initialState);
+  const changeHandler = (event) => {
     const { name, value } = event.target;
-    setReserve({...reserve, [name] : value})
+    setReserve({ ...reserve, [name]: value })
   }
+  const [isComp, setIsComp] = useState(false)
   const datePick = useModal();
   const campName = useModal();
-  if(campName.isOpen){
-    document.body.style.position='fixed';
+  if (campName.isOpen) {
+    document.body.style.position = 'fixed';
     document.body.style.width = "100%"
-  }else {
-    document.body.style.position='';
+  } else {
+    document.body.style.position = '';
   }
-  console.log(reserve)
-  return(
+  useEffect(()=>{
+    setIsComp(
+      Boolean(reserve.campingName)
+      && Boolean(reserve.startDate)
+      && Boolean(reserve.endDate)
+      && (reserve.content.trim() !== "")
+    )
+  },[reserve])
+  console.log(isComp)
+
+  const postFunc = async() =>{
+    try {
+      const {data} = await instance.post(`/reservation/${campingId}`, reserve)
+      console.log(data)
+      
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  const postHandler = async (event) => {
+    event.preventDefault();
+    if(reserve.price === "" || reserve.price === 0){
+      if(window.confirm("현재 양도금액을 설정되어 있지 않습니다. \n무료로 양도 하시겠습니까?")){
+        console.log("post")
+        postFunc();
+      } else {
+        console.log("not")
+        return null
+      }
+    }else {
+      if(window.confirm("양도글을 올리겠습니까?")){
+        console.log("post")
+        postFunc();
+      } else {
+        console.log("not")
+        return null
+      }
+    }
+
+  }
+  console.log(campingId, reserve, isComp)
+  return (
     <ItemBox>
       <PostForm>
-        <EventBox onClick={campName.onOpen}>캠핑장</EventBox>
-        <EventBox>일정</EventBox>
-        <PriceInput 
+        <EventBox onClick={campName.onOpen}>
+          {(campingId && reserve.campingName) ?
+            `${reserve.campingName}` : "캠핑장"}
+        </EventBox>
+        <EventBox onClick={datePick.onOpen}>
+          {(reserve.startDate && reserve.endDate) ?
+            `${reserve.startDate} ~ ${reserve.endDate}` : "일정"}
+        </EventBox>
+        <PriceInput
           type="number"
-          name = "price"
+          name="price"
           onChange={changeHandler} />
-        <PostContent 
+        <PostContent
           name="content"
-          onChange={changeHandler}/>
+          onChange={changeHandler} />
       </PostForm>
-      {campName.isOpen && <NameSearch reserve={reserve} setReserve={setReserve} onClose={campName.onClose} />}
-
+      {campName.isOpen && 
+        <NameSearch reserve={reserve} setReserve={setReserve} setCampingId={setCampingId} onClose={campName.onClose} />}
+      {datePick.isOpen &&
+        <DatePicker condition={reserve} setCondition={setReserve} onClose={datePick.onClose} />
+      }
+      <button onClick={postHandler} disabled={!isComp}>양도하기</button>
     </ItemBox>
   )
 }

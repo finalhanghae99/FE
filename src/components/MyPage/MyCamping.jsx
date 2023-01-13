@@ -10,8 +10,12 @@ import { BoxHeader, BoxName, ItemBox } from "../elements/ItemBox";
 import { Link } from "react-router-dom";
 import CampImgView from "../elements/CampImgView";
 
+import { BsFillBookmarkFill } from "react-icons/bs"
+import { BsBookmark } from "react-icons/bs"
+import CampListElement from "../Camp/CampListElement";
 
-function MyCamp() {
+
+function MyCamping() {
   const [myCamp, setMyCamp] = useState(null);
   const fetchCamp = async () => {
     try {
@@ -22,39 +26,19 @@ function MyCamp() {
   useEffect(() => {
     fetchCamp();
   }, [])
-  console.log(myCamp)
-  const category = ['Atag', 'Btag', 'Ctag', 'Dtag']
+
   return (
     <ItemBox>
       {myCamp?.map((v) => {
         return (
-          <ItemBox>
-            <ListImg img={testImg} />
-            <ItemBox>
-              <BoxHeader>
-                <BoxName>{v.campingName}</BoxName>
-                <CountView>{v.reviewCount}개의 리뷰</CountView>
-              </BoxHeader>
-              <AddressBox>{v.address1} {v.address2} {v.address3}</AddressBox>
-            </ItemBox>
-            <hr></hr>
-            <ItemBox>
-              <TagBox>
-                {v.tagCategory.map((v) => {
-                  return (
-                    <CategoryTag>{v}</CategoryTag>
-                  )
-                })}
-              </TagBox>
-            </ItemBox>
-          </ItemBox>
+          <CampListElement key={v.id} camp={v} />
         )
       })}
     </ItemBox>
   )
 }
 
-export default MyCamp;
+export default MyCamping;
 
 const ListImg = styled(CampImgView)`
   height: 150px;
@@ -84,4 +68,17 @@ const AddressBox = styled.div`
   padding: var(--pad1);
   font-size: 14px;
   color: gray;
+`
+
+const BookmarkBtn = styled.div`
+    position: absolute;
+    top:10px; 
+    right:10px;
+    /* transform: translate(-50%,-50%); */
+    /* padding:0; */
+    /* margin:0; */
+    font-size:30px;
+    filter: drop-shadow(10px 10px 10px 10px green);
+    /* box-shadow: 0px 0px 10px 0px black; */
+    z-index: 5;
 `
