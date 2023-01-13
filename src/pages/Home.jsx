@@ -12,6 +12,6 @@ function Home() {
       <HomeSearch />
       <HomeMain />
     </div>
-  )
+  );
 }
 export default Home;
