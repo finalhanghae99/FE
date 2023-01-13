@@ -99,15 +99,16 @@ const SignUpForm = () => {
   };
 
   const emailCheck = async (post) => {
+    console.log(post)
     try {
-      const data = await instance.post("checkemail", post);
-      if (data.data.statusCode === 204) {
+      const data = await instance.post(`/users/checkemail`, post);
+      if (data.data.statusCode === 200) {
         alert("사용 가능한 아이디 입니다!");
         setIsUserEmailCheck(true);
       } else {
         alert("중복된 아이디 입니다.");
       }
-    } catch (error) {}
+    } catch (error) { console.log(error) }
   };
 
   const onNicknameCheck = (e) => {
@@ -121,7 +122,7 @@ const SignUpForm = () => {
 
   const nickCheck = async (post) => {
     try {
-      const data = await instance.post("checknickname", post);
+      const data = await instance.post(`/users/checknickname`, post);
       if (data.data.statusCode === 200) {
         alert("사용 가능한 닉네임 입니다!");
         setIsNickNameCheck(true);
@@ -129,7 +130,7 @@ const SignUpForm = () => {
         alert("중복된 닉네임 입니다.");
       }
       return data;
-    } catch (error) {}
+    } catch (error) { console.log(error) }
   };
 
   const onClickLogin = () => {
