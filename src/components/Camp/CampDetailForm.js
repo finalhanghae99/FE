@@ -30,6 +30,8 @@ function CampDetailForm() {
     fetchCampDetail();
   }, []);
 
+  console.log(campDetail)
+
   const position = { lat: Number(campDetail?.mapY) , lng: Number(campDetail?.mapX) }
 
   return (

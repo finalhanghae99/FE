@@ -22,7 +22,7 @@ function HomeSearch() {
   const [condition, setCondition] = useState(initalCondtion)
 
   useEffect(()=>{
-    setCondition({...condition, address2 : null})
+    setCondition({...condition, address2 : ""})
   },[condition.address1])
 
   const changeHandler = (event) =>{

@@ -5,9 +5,12 @@ import DatePicker from "../elements/DatePicker";
 
 import styled from "styled-components";
 import RegionPicker from "../elements/RegionPicker";
+import {BsPencilFill } from "react-icons/bs"
+import { useNavigate } from "react-router-dom";
 
 
 function ReserveHeader() {
+  const navigate = useNavigate();
   const region = useModal();
   const calendar = useModal();
   if (region.isOpen || calendar.isOpen) {
@@ -50,6 +53,9 @@ function ReserveHeader() {
       {calendar.isOpen && 
         <DatePicker condition={condition} setCondition={setCondition} onClose={calendar.onClose} />
       }
+      <div style={{position:"relative", "height" : "300px"}}>
+        <PostBtn><BsPencilFill onClick={()=>{navigate("../reserve/post")}}/></PostBtn>
+      </div>
     </SearchBox>
   )
 }
@@ -76,4 +82,16 @@ const DateSelect = styled.div`
   text-align: center;
   line-height: 30px;
 
+`
+const PostBtn = styled.div`
+  background-color: lightgray;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  content: "";
+  text-align: center;
+  line-height: 30px;
+  position: absolute;
+  right : 0;
+  bottom : 0;
 `

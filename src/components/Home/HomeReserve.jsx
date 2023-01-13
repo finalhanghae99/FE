@@ -6,13 +6,14 @@ import { instance } from "../../api/axiosApi";
 import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
 
 import testImg from "../../img/test_camp_img.jpg"
+import { useNavigate } from "react-router-dom";
 
 function HomeReserve() {
+  const navigate = useNavigate();
   const [reserve, setReserve] = useState(null);
   const fetchReserve = async () => {
     try {
       const { data } = await instance.get("reservation/listsix");
-      console.log(data)
       setReserve(data.data);
     } catch (error) { console.log(error); }
   };
@@ -28,13 +29,15 @@ function HomeReserve() {
       <ReserveBox>
         {reserve?.map((v) => {
           return (
-            <ReserveCard key={v.id}>
-              <CardImg src={testImg} />
+            <ReserveCard key={v.reservationId} 
+              onClick={()=>{navigate(`../reserve/detail/${v.reservationId}`)}}>
+              <CardImg src={v.imageUrl} />
               <CardDetail>
                 <CardTitle>{v.campingName}</CardTitle>
-                <CardRegion>{v.address}</CardRegion>
+                <CardRegion>{v.address1} {v.address2}</CardRegion>
                 <CardDate>{v.startDate}</CardDate>
-                <CardPrice>{numeral(v.price).format('0,0')}원</CardPrice>
+                <CardDate> ~ {v.endDate}</CardDate>
+                <CardPrice>{numeral(v.price).format('0,0')}</CardPrice>
               </CardDetail>
             </ReserveCard>
           )

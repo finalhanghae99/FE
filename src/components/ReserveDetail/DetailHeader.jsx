@@ -16,16 +16,17 @@ function DetailHeader() {
   const [reserve, setReserve] = useState(null);
   const fetchReserve = async () => {
     try {
-      const { data } = await instance.get(`reserve/${id}`);
-      setReserve(data);
+      const { data } = await instance.get(`reservation/${id}`);
+      setReserve(data.data);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {
     fetchReserve();
   }, [])
+  console.log(reserve)
   return (
     <div>
-    <CampImgView img={testImg}/>
+    <CampImgView img={reserve?.imageUrl}/>
     <ItemBox>
       <ItemBox>
         <BoxName>{reserve?.campingName}</BoxName>
@@ -56,3 +57,4 @@ const ChatBtn = styled.button`
   font-weight: bold;
   background-color: wheat;
 `
+

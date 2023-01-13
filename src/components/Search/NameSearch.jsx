@@ -6,14 +6,15 @@ import { instance } from "../../api/axiosApi";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 
-function NameSearch({ reserve, setReserve, onClose }) {
+function NameSearch({ reserve, setReserve, setCampingId , onClose }) {
   const [keyword, setKeyword] = useState("");
   const [searchList, setSearchList] = useState(null);
 
   const fetchSearchList = async () => {
     try {
-      const { data } = await instance.get(`camp?campingName=${keyword}`);
-      setSearchList(data);
+      const { data } = await instance.get(`/camping/search?campingname=${keyword}`);
+      // const { data } = await instance.get(`camp?campingName=${keyword}`);
+      setSearchList(data.data);
     } catch (error) { console.log(error); }
   };
   const submitHandler = (event) => {
@@ -24,11 +25,12 @@ function NameSearch({ reserve, setReserve, onClose }) {
       fetchSearchList()
     }
   }
-  const clickCamp = (id, campingName) => {
-    setReserve({ ...reserve, id, campingName })
+  const clickCamp = (campingId, campingName) => {
+    setCampingId(campingId)
+    setReserve({ ...reserve, campingName })
     onClose();
   }
-  console.log(keyword)
+
   return (
     <SearchWindow>
       <button onClick={onClose}>닫기</button>
@@ -40,11 +42,11 @@ function NameSearch({ reserve, setReserve, onClose }) {
         <SearchList>
           {searchList?.map((v, i) => {
             return (
-              <div key={v.id} onClick={() => { clickCamp(v.id, v.campingName) }}>
+              <div key={v.campingId} onClick={() => { clickCamp(v.campingId, v.campingName) }}>
                 <SearchElement>
                   <SearchDetail>
                     <SearchName>{v.campingName}</SearchName>
-                    <SearchAddress>{`${v.address1} ${v.address2} ${v.address3} ${v.address4}`}</SearchAddress>
+                    <SearchAddress>{v.address3}</SearchAddress>
                   </SearchDetail>
                   <button>선택</button>
                 </SearchElement>

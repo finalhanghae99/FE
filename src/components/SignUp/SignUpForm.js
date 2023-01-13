@@ -137,6 +137,7 @@ const SignUpForm = () => {
   };
 
   const onClickSignUpBtn = () => {
+    console.log(useremail, nickname, password)
     dispatch(__postsignup({ useremail, nickname, password }));
     alert("회원가입 성공!");
     navigate(`/login`);

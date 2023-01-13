@@ -7,17 +7,19 @@ import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 import testImg from "../../img/test_camp_img.jpg"
 
+// /reservation?startDate=2023-01-08&endDate=2023-01-12&address1=강원도&address2=홍천군
+
 function ReserveList() {
   const [reserve, setReserve] = useState(null);
-  const fetchReserve = async () => {
-    try {
-      const { data } = await instance.get("reserve");
-      setReserve(data);
-    } catch (error) { console.log(error); }
-  };
-  useEffect(() => {
-    fetchReserve();
-  }, [])
+  // const fetchReserve = async () => {
+  //   try {
+  //     const { data } = await instance.get("reserve");
+  //     setReserve(data);
+  //   } catch (error) { console.log(error); }
+  // };
+  // useEffect(() => {
+  //   fetchReserve();
+  // }, [])
   return (
     <ItemBox>
       {reserve?.map((v, i) => {
