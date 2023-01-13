@@ -6,17 +6,21 @@ import { instance } from "../../api/axiosApi";
 import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
 
 import testImg from "../../img/test_camp_img.jpg"
+import { getCookies } from "../../api/cookieControler";
 
 function HomeHistory() {
   const [history, setHistory] = useState(null);
-  const fetchHistory = async () => {
+  const fetchHistory = async (record) => {
     try {
-      const { data } = await instance.get("history");
-      setHistory(data);
+      const { data } = await instance.post("/camping/listfive", {"campingIdList":record });
+      setHistory(data.data);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {
-    fetchHistory();
+    let record = getCookies("history")
+    if(record === undefined) record = []
+    record.splice(5)
+    fetchHistory(record);
   }, [])
   return (
     <ItemBox>
@@ -26,11 +30,11 @@ function HomeHistory() {
       </BoxHeader>
       {history?.map((v) => {
         return (
-          <HistoryBox key={v.id}>
-            <HistoryImg src={testImg} />
+          <HistoryBox key={v.campingId}>
+            <HistoryImg src={v.imageUrl} />
             <HistoryDetail>
               <HistoryName>{v.campingName}</HistoryName>
-              <HistoryAddress>{`${v.address1} ${v.address2} ${v.address3} ${v.address4}`}</HistoryAddress>
+              <HistoryAddress>{v.address3}</HistoryAddress>
             </HistoryDetail>
           </HistoryBox>
         )

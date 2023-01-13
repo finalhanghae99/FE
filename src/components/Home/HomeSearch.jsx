@@ -1,57 +1,64 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import styled from "styled-components";
 import { useModal } from "../../hooks/useModal";
-import RegionWindow from "../elements/RegionWindow";
+import RegionPicker from "../elements/RegionPicker";
+
+import {AiOutlineDown} from "react-icons/ai";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function HomeSearch() {
-  const {isOpen, onClose, onOpen} = useModal();
-  if(isOpen){
-    document.body.style.position='fixed';
-    document.body.style.width = "100%"
+  const region = useModal();
+  const navigate = useNavigate();
+  if(region.isOpen){
+    document.body.style.overflow="hidden"
   }else {
-    document.body.style.position='';
+    document.body.style.overflow='';
   }
   const initalCondtion = {
     keyword : "",
     address1 : "",
-    address2 : ""
+    address2 : "",
   }
   const [condition, setCondition] = useState(initalCondtion)
+
+  useEffect(()=>{
+    setCondition({...condition, address2 : ""})
+  },[condition.address1])
 
   const changeHandler = (event) =>{
     const { name, value } = event.target;
     setCondition({...condition, [name] : value})
   }
   console.log(condition)
+  const searchHandler = () =>{
+    const word1 = (condition.keyword.trim() === "")? null : condition.keyword;
+    const word2 = (condition.address1.trim() === "")? null : condition.address1;
+    const word3 = (condition.address2.trim() === "")? null : condition.address2;
+    navigate(`../camp/search/${word1}/${word2}/${word3}`);
+  }
 
   return (
     <SearchBox>
       <BtnBox>
-        <MapBtn onClick={onOpen}>지도 검색</MapBtn>
+        <MapBtn>지도 검색</MapBtn>
       </BtnBox>
       <WordInput name="keyword" value={condition.keyword} onChange={changeHandler}/>
       <SearchBottom>
-        <RegionSelect >
+        <RegionSelect onClick={region.onOpen}>
+          <div>
+            {condition.address1? `${condition.address1} ${condition.address2}` : "지역 선택"}
+          </div>
+          <AiOutlineDown />
         </RegionSelect>
-        <SertchBtn>검색</SertchBtn>
+        <SertchBtn onClick={searchHandler}>검색</SertchBtn>
       </SearchBottom>
-      {isOpen && <RegionWindow name="address1" value={condition.address1} onChange={changeHandler} onClose={onClose} />}
+      {region.isOpen && 
+        <RegionPicker onChange={changeHandler} onClose={region.onClose} />
+      }
     </SearchBox>
   )
 }
 export default HomeSearch;
-
-// export default function App() {
-//   + const { isOpen, onClose, onOpen } = useModal();
-//     return (
-//       <div className="App">
-//   +   <button onClick={onOpen} type="button" className="button openButton">
-//           Open Modal
-//         </button>
-//   +     {isOpen && <Modal onClose={onClose} />}
-//       </div>
-//     );
-//   }
 
 const SearchBox = styled.div`
   padding: var(--pad2);
@@ -77,13 +84,18 @@ const WordInput = styled.input`
 const SearchBottom = styled.div`
   display: flex;
   margin-top: var(--pad1);
-  
+  gap: var(--pad1);
 `
 
-const RegionSelect = styled.select`
+const RegionSelect = styled.div`
+  display: flex;
   height: 30px;
+  box-sizing: border-box;
+  border: 0.5px solid black;
+  border-radius: 5px;
   flex: 3;
-  margin-right: var(--pad1);
+  padding: var(--pad1);
+  justify-content: space-between;
 `
 
 const SertchBtn = styled.button`

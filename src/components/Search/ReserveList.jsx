@@ -7,18 +7,19 @@ import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 import testImg from "../../img/test_camp_img.jpg"
 
+// /reservation?startDate=2023-01-08&endDate=2023-01-12&address1=강원도&address2=홍천군
+
 function ReserveList() {
   const [reserve, setReserve] = useState(null);
-  const fetchReserve = async () => {
-    try {
-      const { data } = await instance.get("reserve");
-      setReserve(data);
-    } catch (error) { console.log(error); }
-  };
-  useEffect(() => {
-    fetchReserve();
-  }, [])
-  console.log(reserve)
+  // const fetchReserve = async () => {
+  //   try {
+  //     const { data } = await instance.get("reserve");
+  //     setReserve(data);
+  //   } catch (error) { console.log(error); }
+  // };
+  // useEffect(() => {
+  //   fetchReserve();
+  // }, [])
   return (
     <ItemBox>
       {reserve?.map((v, i) => {
@@ -42,30 +43,12 @@ function ReserveList() {
 }
 export default ReserveList;
 
-const SearchList = styled.div`
-  border: 1px solid black;
-  border-radius: 10px;
-  overflow: hidden;
-`
-
-const SearchElement = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: var(--pad2);
-`
-
 const Line = styled.div`
   border-bottom : 1px solid gray;
   content: "";
   height: 1px;
 `
-const SearchAddress = styled.div`
-  font-size: 12px;
-  color: gray;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
+
 const HistoryBox = styled.div`
   display: flex;
   /* margin-bottom: var(--pad2); */
