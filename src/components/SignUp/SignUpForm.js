@@ -99,6 +99,7 @@ const SignUpForm = () => {
   };
 
   const emailCheck = async (post) => {
+    console.log(post)
     try {
       const data = await instance.post("users/checkemail", post);
       if (data.data.statusCode === 200) {
@@ -107,7 +108,7 @@ const SignUpForm = () => {
       } else {
         alert("중복된 아이디 입니다.");
       }
-    } catch (error) {console.log(error)}
+    } catch (error) { console.log(error) }
   };
 
   const onNicknameCheck = (e) => {
@@ -129,7 +130,7 @@ const SignUpForm = () => {
         alert("중복된 닉네임 입니다.");
       }
       return data;
-    } catch (error) {}
+    } catch (error) { console.log(error) }
   };
 
   const onClickLogin = () => {
