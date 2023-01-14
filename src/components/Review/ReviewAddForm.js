@@ -139,20 +139,37 @@ const ReviewAddForm = () => {
   const onReviewadd = (e) => {
     const data = new FormData();
     images.map((v)=>{
-      data.append("reviewUrlList", v)
+      data.append("multipartFile", v)
     })
+    const contents = {
+      content,
+      score1,
+      score2,
+      score3,
+      score4,
+      score5,
+    }
+    data.append(
+      "requestReviewWriteDto",
+      new Blob([JSON.stringify(contents)], { type: "application/json" })
+    );
+    console.log(data)
+    for (let value of data.values()){
+      console.log(value)
+    }
     dispatch(
       __postreviewadd({
         id : campingId,
-        data :{
-          reviewUrlList: data,
-          content,
-          score1,
-          score2,
-          score3,
-          score4,
-          score5,
-        }
+        data: data
+        // data :{
+        //   reviewUrlList: data,
+        //   content,
+        //   score1,
+        //   score2,
+        //   score3,
+        //   score4,
+        //   score5,
+        // }
       })
     );
   };
