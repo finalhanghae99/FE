@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { instance } from "../../api/axiosApi";
 import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
@@ -9,6 +9,7 @@ import testImg from "../../img/test_camp_img.jpg"
 import { getCookies } from "../../api/cookieControler";
 
 function HomeHistory() {
+  const navigate = useNavigate();
   const [history, setHistory] = useState(null);
   const fetchHistory = async (record) => {
     try {
@@ -30,7 +31,7 @@ function HomeHistory() {
       </BoxHeader>
       {history?.map((v) => {
         return (
-          <HistoryBox key={v.campingId}>
+          <HistoryBox key={v.campingId} onClick={()=>{navigate(`campdetail/${v.campingId}`)}}>
             <HistoryImg src={v.imageUrl} />
             <HistoryDetail>
               <HistoryName>{v.campingName}</HistoryName>

@@ -12,7 +12,7 @@ export const __postreviewadd = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("payload", payload)
     try {
-      const data = await instance.post(`/review`, payload);
+      const data = await instance.post(`/review/${payload.id}`, payload.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue("error");

@@ -6,7 +6,7 @@ import { instance } from "../../api/axiosApi";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 
-function NameSearch({ reserve, setReserve, setCampingId , onClose }) {
+function NameSearch({ setCampingName, setCampingId , onClose }) {
   const [keyword, setKeyword] = useState("");
   const [searchList, setSearchList] = useState(null);
 
@@ -27,7 +27,7 @@ function NameSearch({ reserve, setReserve, setCampingId , onClose }) {
   }
   const clickCamp = (campingId, campingName) => {
     setCampingId(campingId)
-    setReserve({ ...reserve, campingName })
+    setCampingName(campingName)
     onClose();
   }
 
@@ -62,18 +62,23 @@ function NameSearch({ reserve, setReserve, setCampingId , onClose }) {
 export default NameSearch;
 
 const SearchWindow = styled.div`
-  height: 100vh;
-  width: 100vw;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
   background-color: lightskyblue;
   position: fixed;
+  /* overflow: scroll; */
   bottom: 0;
   left: 0;
+  z-index: 10;
 `
 
 const SearchList = styled.div`
   border: 1px solid black;
   border-radius: 10px;
-  overflow: hidden;
+  margin-bottom:50px;
+  height: 90vh;
+  overflow: scroll;
 `
 
 const SearchElement = styled.div`
