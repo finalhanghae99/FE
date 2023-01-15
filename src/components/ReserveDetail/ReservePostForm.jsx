@@ -44,13 +44,10 @@ function ReservePostForm() {
       && (reserve.content.trim() !== "")
     )
   },[reserve])
-  console.log(isComp)
 
   const postFunc = async() =>{
     try {
       const {data} = await instance.post(`/reservation/${campingId}`, reserve)
-      console.log(data)
-      
     } catch(error){
       console.log(error)
     }
@@ -75,9 +72,7 @@ function ReservePostForm() {
         return null
       }
     }
-
   }
-  console.log(campingId, reserve, isComp)
   return (
     <ItemBox>
       <PostForm>
