@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useModal } from "../../hooks/useModal";
 import RegionPicker from "../elements/RegionPicker";
 
+import {FiSearch} from "react-icons/fi"
+import {HiOutlineMap} from "react-icons/hi"
 import {AiOutlineDown} from "react-icons/ai";
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -40,9 +42,15 @@ function HomeSearch() {
   return (
     <SearchBox>
       <BtnBox>
-        <MapBtn>지도 검색</MapBtn>
+        <MapIcon>
+          <HiOutlineMap />
+        </MapIcon>
+        {/* <MapBtn>지도 검색</MapBtn> */}
       </BtnBox>
-      <WordInput name="keyword" value={condition.keyword} onChange={changeHandler}/>
+      <InputBox>
+        <WordInput name="keyword" value={condition.keyword} onChange={changeHandler}/>
+        <SertchBtn onClick={searchHandler}><FiSearch /></SertchBtn>
+      </InputBox>
       <SearchBottom>
         <RegionSelect onClick={region.onOpen}>
           <div>
@@ -50,7 +58,6 @@ function HomeSearch() {
           </div>
           <AiOutlineDown />
         </RegionSelect>
-        <SertchBtn onClick={searchHandler}>검색</SertchBtn>
       </SearchBottom>
       {region.isOpen && 
         <RegionPicker onChange={changeHandler} onClose={region.onClose} />
@@ -71,14 +78,25 @@ const MapBtn = styled.button`
   width: 80px;
   height: 30px;
 `
+const InputBox = styled.div`
+  padding: 24px;
+  display: flex;
+`
 
 const WordInput = styled.input`
-  height: 30px;
+  background: rgba(255,255,255,0.5);
+  color: white;
+  border-radius: 50px;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
+  height: 56px;
+  font-size: 14px;
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  padding: var(--pad1);
-  margin-top: var(--pad1);
+  /* padding: var(--pad1); */
+  /* margin: var(--interval); */
 `
 
 const SearchBottom = styled.div`
@@ -98,8 +116,16 @@ const RegionSelect = styled.div`
   justify-content: space-between;
 `
 
-const SertchBtn = styled.button`
-  width: 80px;
+const SertchBtn = styled.div`
+  /* width: 80px; */
   height: 30px;
-  flex:1;
+  font-size: 19px;
+  position: absolute;
+  right: 0;
+  top: -10px;
+	right:30px;
+`
+
+const MapIcon = styled.div`
+  font-size:20px;
 `
