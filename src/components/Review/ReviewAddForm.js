@@ -68,10 +68,6 @@ const ReviewAddForm = () => {
     // setForm(img);
     // setImgState(true);
   };
-  // console.log("pre", previewImg);
-  // console.log("img",images)
-  console.log(campingId)
-
 
   const onChangeExp = (e) => {
     setContent(e.target.value);
@@ -157,6 +153,18 @@ const ReviewAddForm = () => {
     for (let value of data.values()){
       console.log(value)
     }
+    setClicked5(clickStates);
+  };
+
+  const score1 = clicked1.filter(Boolean).length;
+  const score2 = clicked2.filter(Boolean).length;
+  const score3 = clicked3.filter(Boolean).length;
+  const score4 = clicked4.filter(Boolean).length;
+  const score5 = clicked5.filter(Boolean).length;
+  console.log(score1, score2, score3, score4, score5);
+  console.log(clicked1, clicked2, clicked3, clicked4, clicked5);
+
+  const onReviewadd = () => {
     dispatch(
       __postreviewadd({
         id : campingId,

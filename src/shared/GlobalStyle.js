@@ -2,11 +2,11 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   :root {
-    --Brand1 : #E27739;
     --Brand2 : #F5CC60;
     --Brand3 : #471B02;
     --Brand4 : #EDE0CB;
     --Brand5 : #05113D;
+    --Brand6 : #cb6225;
 
     --BackColor1 : #F5F5F5;
     --BackColor2 : #EBEBEB;
@@ -19,17 +19,18 @@ const GlobalStyle = createGlobalStyle`
 
     --pad1: 5px;
     --pad2: 10px;
-
+  
     --intarval : 24px
   }
   body {
+    font-family: 'Noto Sans KR';
     width: 100%;
     @media (min-width: 414px) {
       width : 414px;
       margin :auto;
     }
   }
+  
 `;
-
 
 export default GlobalStyle;

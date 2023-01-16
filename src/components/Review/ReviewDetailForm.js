@@ -7,7 +7,7 @@ const ReviewDetailForm = () => {
 
   const fetchreviewDetail = async () => {
     try {
-      const data = await instance.get("reviewdetail");
+      const data = await instance.get(`/review/reviewone`);
       console.log(data)
       if (data.status === 200) {
         return setReviewDetail(data.data);
@@ -32,23 +32,23 @@ const ReviewDetailForm = () => {
       <Nick>{reviewDetail?.nickname}</Nick>
       <Stars>
       <StarBox>
-        <div>주변환경</div>
+        <NameDiv>정보일치</NameDiv>
         <Star>★★★★</Star>
       </StarBox>
       <StarBox2>
-        <div>주변환경</div>
+        <NameDiv>접근성</NameDiv>
         <Star>★★★★</Star>
       </StarBox2>
       <StarBox2>
-        <div>주변환경</div>
+        <NameDiv>청결도</NameDiv>
         <Star>★★★</Star>
       </StarBox2>
       <StarBox2>
-        <div>주변환경</div>
+        <NameDiv>관리상태</NameDiv>
         <Star>★★★</Star>
       </StarBox2>
       <StarBox2>
-        <div>주변환경</div>
+        <NameDiv>편의시설</NameDiv>
         <Star>★★★</Star>
       </StarBox2>
       </Stars>
@@ -129,3 +129,7 @@ const Content = styled.div`
   width: 340px;
   margin-top: 10px;
 `
+
+const NameDiv = styled.div`
+  width: 60px;
+`;
