@@ -18,9 +18,9 @@ const ReviewAddForm = () => {
 
   const campName = useModal();
   if (campName.isOpen) {
-    document.body.style.overflow="hidden"
-  }else {
-    document.body.style.overflow='';
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
   }
   const imgRef = useRef("");
   const dispatch = useDispatch();
@@ -47,11 +47,11 @@ const ReviewAddForm = () => {
   };
 
   const onUploadImg = (e) => {
-    if(images.length + e.target.files.length > 5){
+    if (images.length + e.target.files.length > 5) {
       alert("최대 5장까지 등록가능합니다.");
       return;
     }
-    setImages([...images,...e.target.files])
+    setImages([...images, ...e.target.files]);
     // const file = e.target.files;
     // const img = new FormData();
     // console.log(file);
@@ -73,14 +73,14 @@ const ReviewAddForm = () => {
     setContent(e.target.value);
   };
 
-  const onDeleteImg = (index) =>{
+  const onDeleteImg = (index) => {
     // const newImg = [...previewImg];
-    const curImg = [...images]
+    const curImg = [...images];
     // newImg.splice(index, 1)
-    curImg.splice(index,1)
+    curImg.splice(index, 1);
     // setPreviewImg(newImg)
-    setImages(curImg)
-  }
+    setImages(curImg);
+  };
 
   // const starClick1 = (index) => {
   //   const clickStates = [...clicked1];
@@ -134,9 +134,9 @@ const ReviewAddForm = () => {
 
   const onReviewadd = (e) => {
     const data = new FormData();
-    images.map((v)=>{
-      data.append("multipartFile", v)
-    })
+    images.map((v) => {
+      data.append("multipartFile", v);
+    });
     const contents = {
       content,
       score1,
@@ -144,31 +144,19 @@ const ReviewAddForm = () => {
       score3,
       score4,
       score5,
-    }
+    };
     data.append(
       "requestReviewWriteDto",
       new Blob([JSON.stringify(contents)], { type: "application/json" })
     );
-    console.log(data)
-    for (let value of data.values()){
-      console.log(value)
+    console.log(data);
+    for (let value of data.values()) {
+      console.log(value);
     }
-    setClicked5(clickStates);
-  };
-
-  const score1 = clicked1.filter(Boolean).length;
-  const score2 = clicked2.filter(Boolean).length;
-  const score3 = clicked3.filter(Boolean).length;
-  const score4 = clicked4.filter(Boolean).length;
-  const score5 = clicked5.filter(Boolean).length;
-  console.log(score1, score2, score3, score4, score5);
-  console.log(clicked1, clicked2, clicked3, clicked4, clicked5);
-
-  const onReviewadd = () => {
     dispatch(
       __postreviewadd({
-        id : campingId,
-        data: data
+        id: campingId,
+        data: data,
         // data :{
         //   reviewUrlList: data,
         //   content,
@@ -181,6 +169,32 @@ const ReviewAddForm = () => {
       })
     );
   };
+
+  // const score1 = clicked1.filter(Boolean).length;
+  // const score2 = clicked2.filter(Boolean).length;
+  // const score3 = clicked3.filter(Boolean).length;
+  // const score4 = clicked4.filter(Boolean).length;
+  // const score5 = clicked5.filter(Boolean).length;
+  // console.log(score1, score2, score3, score4, score5);
+  // console.log(clicked1, clicked2, clicked3, clicked4, clicked5);
+
+  // const onReviewadd = () => {
+  //   dispatch(
+  //     __postreviewadd({
+  //       id : campingId,
+  //       data: data
+  //       // data :{
+  //       //   reviewUrlList: data,
+  //       //   content,
+  //       //   score1,
+  //       //   score2,
+  //       //   score3,
+  //       //   score4,
+  //       //   score5,
+  //       // }
+  //     })
+  //   );
+  // };
 
   // const deleteImg = () => {
   //   URL.revokeObjectURL(previewImg)
@@ -199,8 +213,8 @@ const ReviewAddForm = () => {
         />
         <ImgBtn onClick={onFileUpload}>+</ImgBtn>
       </label>
-    )
-  }
+    );
+  };
 
   const ImgPreview = () => {
     const imgArr = [];
@@ -208,21 +222,26 @@ const ReviewAddForm = () => {
       if (images[i]) {
         imgArr.push(
           <PicAdd2 key={i}>
-            <img width="100%" height="100%" src={URL.createObjectURL(images[i])} />
+            <img
+              width="100%"
+              height="100%"
+              src={URL.createObjectURL(images[i])}
+            />
             <BtnCircle>
-            <XBtn onClick={()=>onDeleteImg(i)}/>
+              <XBtn onClick={() => onDeleteImg(i)} />
             </BtnCircle>
           </PicAdd2>
-        )
+        );
       } else {
         imgArr.push(
-          <PicAdd key={i}><ImgPlus /></PicAdd>
-        )
+          <PicAdd key={i}>
+            <ImgPlus />
+          </PicAdd>
+        );
       }
     }
     return imgArr;
-  }
-  
+  };
 
   return (
     <MainDiv>
@@ -234,8 +253,8 @@ const ReviewAddForm = () => {
       </Div1> */}
       <CampName>방문하신 캠핑장을 알려주세요.(필수)</CampName>
       <CampInput onClick={campName.onOpen}>
-        {(campingId && campingName) ?
-          `${campingName}` : "캠핑장명"}</CampInput>
+        {campingId && campingName ? `${campingName}` : "캠핑장명"}
+      </CampInput>
       <Detail>세부항목의 별점을 매겨주세요.(필수)</Detail>
       <div>
         <StarBox>
@@ -311,15 +330,20 @@ const ReviewAddForm = () => {
       </div>
       <Pic>캠핑장의 사진을 올려주세요.(필수)</Pic>
       <PicDiv>
-        {(images[0]) ?
-          (<>
+        {images[0] ? (
+          <>
             <MainImg src={URL.createObjectURL(images[0])} />
             <BtnCircle>
-              <XBtn onClick={()=>{onDeleteImg(0)}}/>
+              <XBtn
+                onClick={() => {
+                  onDeleteImg(0);
+                }}
+              />
             </BtnCircle>
-          </>) : (
-            <ImgPlus />
-          )}
+          </>
+        ) : (
+          <ImgPlus />
+        )}
       </PicDiv>
       <PicBtnBox>
         <PictureBox>
@@ -333,8 +357,13 @@ const ReviewAddForm = () => {
         onChange={onChangeExp}
       ></ExpInput>
       <AddBtn onClick={() => onReviewadd()}>등록하기</AddBtn>
-      {campName.isOpen && 
-        <NameSearch setCampingName={setCampingName} setCampingId={setCampingId} onClose={campName.onClose} />}
+      {campName.isOpen && (
+        <NameSearch
+          setCampingName={setCampingName}
+          setCampingId={setCampingId}
+          onClose={campName.onClose}
+        />
+      )}
     </MainDiv>
   );
 };
@@ -541,21 +570,21 @@ const MainImg = styled.img`
   background-color: blue;
   object-position: center;
   position: relative;
-`
+`;
 const BtnCircle = styled.div`
-  position:absolute;
+  position: absolute;
   height: 20px;
   width: 20px;
   border-radius: 100%;
   background-color: white;
-  top : 5px;
-  right : 5px;
+  top: 5px;
+  right: 5px;
   z-index: 2;
-`
+`;
 
 const XBtn = styled(BsXLg)`
   position: absolute;
   height: 20px;
   width: 20px;
   z-index: 3;
-`
+`;
