@@ -8,8 +8,8 @@ const ReviewDetailForm = () => {
   const fetchreviewDetail = async () => {
     try {
       const data = await instance.get(`/review/reviewone`);
-      console.log(data)
-      if (data.status === 200) {
+      console.log(data);
+      if (data.statusCode === 200) {
         return setReviewDetail(data.data);
       }
     } catch (error) {
@@ -26,36 +26,39 @@ const ReviewDetailForm = () => {
     <MainDiv>
       <Pic>리뷰 디테일 페이지 사진</Pic>
       <Title>
-      <CampName>{reviewDetail?.campingName}</CampName>
-      <Date>{reviewDetail?.modifiedAt}</Date>
+        <CampName>안산 용설 호수 캠핑장{reviewDetail?.campingName}</CampName>
+        <Date>2023.1.10{reviewDetail?.modifiedAt}</Date>
       </Title>
-      <Nick>{reviewDetail?.nickname}</Nick>
+      <Suv>
+        <Pro></Pro>
+        <Nick>캠퍼 김씨{reviewDetail?.nickname}</Nick>
+      </Suv>
       <Stars>
-      <StarBox>
-        <NameDiv>정보일치</NameDiv>
-        <Star>★★★★</Star>
-      </StarBox>
-      <StarBox2>
-        <NameDiv>접근성</NameDiv>
-        <Star>★★★★</Star>
-      </StarBox2>
-      <StarBox2>
-        <NameDiv>청결도</NameDiv>
-        <Star>★★★</Star>
-      </StarBox2>
-      <StarBox2>
-        <NameDiv>관리상태</NameDiv>
-        <Star>★★★</Star>
-      </StarBox2>
-      <StarBox2>
-        <NameDiv>편의시설</NameDiv>
-        <Star>★★★</Star>
-      </StarBox2>
+        <StarBox>
+          <NameDiv>정보일치</NameDiv>
+          <Star>★★★★</Star>
+        </StarBox>
+        <StarBox2>
+          <NameDiv>편의시설</NameDiv>
+          <Star>★★★★</Star>
+        </StarBox2>
+        <StarBox2>
+          <NameDiv>관리상태</NameDiv>
+          <Star>★★★</Star>
+        </StarBox2>
+        <StarBox2>
+          <NameDiv>접근성</NameDiv>
+          <Star>★★★</Star>
+        </StarBox2>
+        <StarBox2>
+          <NameDiv>청결도</NameDiv>
+          <Star>★★★</Star>
+        </StarBox2>
       </Stars>
-      <Content>{reviewDetail?.content}</Content>
+      <Content>리뷰 내용이 들어갑니다.{reviewDetail?.content}</Content>
     </MainDiv>
-  )
-}
+  );
+};
 export default ReviewDetailForm;
 
 const MainDiv = styled.div`
@@ -69,39 +72,56 @@ const Pic = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 390px;
-  height: 415px;
-  background-color: #D9D9D9;
-`
+  width: 100%;
+  height: 407px;
+  background-color: #d9d9d9;
+`;
 
 const Title = styled.div`
-  width: 340px;
-  margin-top: 30px;
+  width: 100%;
+  margin: var(--intarval);
+  margin-bottom: none;
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const CampName = styled.div`
-  font-size: 20px;
-`
+  font-size: 18px;
+  font-weight: 700;
+  padding-left: var(--intarval);
+`;
 
 const Date = styled.div`
-  font-size: 14px;
-`
+  font-size: 12px;
+  padding-top: 6px;
+  padding-right: var(--intarval);
+`;
+
+const Suv = styled.div`
+  width: 100%;
+  display: flex;
+  margin-left: 48px;
+`;
 
 const Nick = styled.div`
-  width: 340px;
-  margin-top: 12px;
-`
+  font-size: 14px;
+  margin: 15px 0px 0px 13px;
+`;
+
+const Pro = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 100%;
+`;
 
 const Stars = styled.div`
   width: 340px;
   height: 160px;
-  border-bottom: 1px solid #BDBDBD;
   display: flex;
   align-items: center;
   flex-direction: column;
-`
+`;
 
 const StarBox = styled.div`
   display: flex;
@@ -126,9 +146,11 @@ const StarBox2 = styled.div`
 `;
 
 const Content = styled.div`
-  width: 340px;
+  border-top: 8px solid #e1e1e1;
+  padding: 24px 0px 0px 48px;
+  width: 100%;
   margin-top: 10px;
-`
+`;
 
 const NameDiv = styled.div`
   width: 60px;

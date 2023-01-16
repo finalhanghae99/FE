@@ -15,7 +15,11 @@ const StButton = styled.button`
 
 const Button = (props) => {
   return (
-    <StButton className={props.className} onClick={props.onClick}>
+    <StButton
+      className={props.className}
+      type={props.type}
+      onClick={props.onClick}
+    >
       {props.children}
     </StButton>
   );

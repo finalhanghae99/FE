@@ -1,5 +1,5 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
 const StInput = styled.input`
   width: 314px;
@@ -11,14 +11,18 @@ const StInput = styled.input`
   padding-left: 13px;
   font-size: 14px;
   outline: none;
-`
+`;
 
 const Input = (props) => {
   return (
-    <StInput className={props.className}>
+    <StInput
+      className={props.className}
+      onChange={props.onChange}
+      type={props.type}
+    >
       {props.children}
     </StInput>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;
