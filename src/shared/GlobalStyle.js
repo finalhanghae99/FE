@@ -24,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: 'Noto Sans KR';
+    background-color: var(--BackColor1);
     width: 100%;
     @media (min-width: 414px) {
       width : 414px;

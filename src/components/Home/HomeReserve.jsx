@@ -24,7 +24,7 @@ function HomeReserve() {
     <ItemBox>
       <BoxHeader>
         <BoxName>캠핑장 양도</BoxName>
-        <BoxMoreLink to="reserve/search">더보기</BoxMoreLink>
+        <BoxMoreLink to="reserve/search"></BoxMoreLink>
       </BoxHeader>
       <ReserveBox>
         {reserve?.map((v) => {
