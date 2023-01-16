@@ -8,6 +8,7 @@ import { getCookies, setCookies } from "../../api/cookieControler";
 
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
+import LikeListElement from "../Review/LikeListElement";
 
 function CampDetailForm() {
   const navigate = useNavigate();
@@ -126,20 +127,9 @@ function CampDetailForm() {
             전체보기
           </AllBtn>
         </Review>
-        {campDetail?.reviewList?.map((a) => {
+        {campDetail?.reviewList?.map((v) => {
           return (
-            <PostBox key={a.id}>
-              <Pic>
-                <img src={a?.url} width="335" height="158"></img>
-              </Pic>
-              <Comm>
-                <ComDiv>
-                  <div>{a.nickname}</div>
-                  <div>{a.modifiedAt}</div>
-                </ComDiv>
-                <Ment>{a.content}</Ment>
-              </Comm>
-            </PostBox>
+            <LikeListElement key={v.reviewId} review={v}/>
           );
         })}
       </Post>
