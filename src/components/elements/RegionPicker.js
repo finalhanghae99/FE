@@ -72,7 +72,8 @@ function RegionPicker(props) {
 export default RegionPicker;
 
 const PopWindow = styled.div`
-  background-color: skyblue;
+  background-color: white;
+  color: black;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -100,9 +101,8 @@ const ModalTop = styled.div`
   display: flex;
   justify-content: center;
 `
-
 const TopBar = styled.div`
-  background-color: blue;
+  background-color: var(--Brand6);
   border-radius: 50px;
   height: 10px;
   width: 100px;
@@ -115,7 +115,7 @@ const SelectBox = styled.div`
   /* margin: auto; */
   text-align: center;
   line-height: 30px;
-  width: 80%;
+  width: 90%;
   margin: auto;
   gap : var(--pad2)
 `
@@ -125,14 +125,15 @@ const SelectItem = styled.div`
   /* margin: var(--pad2); */
 `
 const RadioLabel = styled.label`
-  border: 1px solid blue;
+  border: 1px solid var(--Gray3);
   border-radius:50px;
   padding: var(--pad1) 15px var(--pad1) 15px;
 `
 const RadioInput = styled.input`
   display: none;
   &:checked + ${RadioLabel}{
-    background-color: blue;
+    border-color: var(--Brand6);
+    background-color: var(--Brand6);
     color: white;
   };
 `
