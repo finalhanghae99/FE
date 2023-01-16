@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import {RiArrowRightSLine} from "react-icons/ri"
 
 const ItemBox = (props) => {
   return (
@@ -29,6 +30,7 @@ const BoxName = (props) => {
 const BoxMoreLink = (props) => {
   return (
     <StLink className={props.className} to={props.to}>
+      <RiArrowRightSLine />
       {props.children}
     </StLink>
   )
@@ -38,19 +40,21 @@ export {ItemBox, BoxHeader, BoxName, BoxMoreLink};
 // export default ItemBox;
 
 const StBox = styled.div`
-  padding: var(--pad2);
+  padding: var(--interval);
 `
 const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin: var(--pad1);
+  align-items: center;
+  padding-top: 12px;
+  padding-bottom: var(--interval);
 `
 const StName = styled.div`
   font-size: 16px;
+  font-weight: bold;
 `
 const StLink = styled(Link)`
-  color: gray;
+  color: black;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 24px;
 `

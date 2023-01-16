@@ -20,10 +20,11 @@ const GlobalStyle = createGlobalStyle`
     --pad1: 5px;
     --pad2: 10px;
   
-    --intarval : 24px
+    --interval : 24px
   }
   body {
     font-family: 'Noto Sans KR';
+    background-color: var(--BackColor1);
     width: 100%;
     @media (min-width: 414px) {
       width : 414px;
