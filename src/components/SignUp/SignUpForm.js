@@ -322,7 +322,7 @@ const StDiv = styled.div`
 `;
 
 const Inp = styled(Input)`
-  width: 242px;
+  width: 245px;
   height: 32px;
   border: none;
 `;
