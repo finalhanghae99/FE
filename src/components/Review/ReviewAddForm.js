@@ -48,7 +48,7 @@ const ReviewAddForm = () => {
     setImgState(true);
   };
   console.log(previewImg);
-
+  console.log("form", form);
   const onChangeExp = (e) => {
     setContent(e.target.value);
   };
@@ -102,7 +102,7 @@ const ReviewAddForm = () => {
   console.log(score1, score2, score3, score4, score5);
   console.log(clicked1, clicked2, clicked3, clicked4, clicked5);
 
-  const onReviewadd = (e) => {
+  const onReviewadd = () => {
     dispatch(
       __postreviewadd({
         reviewUrlList: form,

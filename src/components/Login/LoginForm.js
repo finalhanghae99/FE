@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
 import { setCookies } from "../../api/cookieControler";
+import Button from "../elements/Button";
+import Input from "../elements/Input";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -47,13 +49,12 @@ const LoginForm = () => {
 
   return (
     <MainLogin>
-      <Title>로그인</Title>
-      <Logo>CI</Logo>
+      <Title></Title>
+      <Logo>로그인</Logo>
       <Id>아이디</Id>
       <StInput
         name="useremail"
         type="text"
-        placeholder="이메일"
         onChange={(e) => {
           const { value } = e.target;
           setUserEmail(value);
@@ -63,7 +64,6 @@ const LoginForm = () => {
       <StInput
         name="password"
         type="password"
-        placeholder="비밀번호"
         onChange={(e) => {
           const { value } = e.target;
           setPassword(value);
@@ -106,46 +106,50 @@ const MainLogin = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
+  width: 100%;
+`;
 
 const Title = styled.div`
-  width: 390px;
-  margin: 26px 0px 69px 0px;
+  width: 100%;
+  border-bottom: 1px solid var(--Brand4);
+  margin: 103px 0px 16px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
+`;
 
 const Logo = styled.div`
-  margin: 0px 0px 55px 0px;
-`
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 120%;
+  color: #000000;
+  margin-top: var(--intarval);
+`;
 
 const Id = styled.div`
-  width: 390px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--Brand6);
   padding-left: 55px;
-  margin: 0px 0px 12px 0px;
-`
+  margin: 36px 0px 0px 0px;
+`;
 
-const StInput = styled.input`
-  width: 308px;
-  height: 46px;
-  border: 1px solid #9E9E9E;
-  margin: 0px 0px 19px 9px;
-  padding-left: 15px;
-`
+const StInput = styled(Input)`
+  border-bottom: 1px solid var(--Brand6);
+`;
 
-const LoginBtn = styled.button`
-  width: 323px;
-  height: 68px;
-  background-color: #D9D9D9;
-  border-radius: 10px;
-  border: 1px solid #D9D9D9;
+const LoginBtn = styled(Button)`
   margin: 43px 0px 51px 8px;
-`
+`;
 
 const SignUpBtn = styled.button`
+  border: none;
+  border-bottom: 1px solid var(--Brand6);
   background-color: white;
-  border: 1px solid white;
-  margin-right: 180px;
-`
+  font-size: 14px;
+  padding-bottom: 4px;
+  font-weight: 700;
+  color: var(--Brand6);
+`;
