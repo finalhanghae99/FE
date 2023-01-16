@@ -55,15 +55,15 @@ function RegionPicker(props) {
         <ModalTop>
           <TopBar></TopBar>
         </ModalTop>
-        <ItemBox>
+        <RegionBox>
           <SelectBox>
             {city1}
           </SelectBox>
           <hr />
-          <SelectBox>
+          <SelectBox2>
             {city2}
-          </SelectBox>
-        </ItemBox>
+          </SelectBox2>
+        </RegionBox>
       </PopWindow>
     </div>
   )
@@ -77,7 +77,7 @@ const PopWindow = styled.div`
   bottom: 0;
   left: 0;
   border: none;
-  height: 400px;
+  height: 500px;
   width: 100%;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
@@ -109,6 +109,11 @@ const TopBar = styled.div`
   margin: auto;
 `
 
+const RegionBox = styled(ItemBox)`
+  height: 80%;
+  /* position: fixed; */
+`
+
 const SelectBox = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -117,8 +122,25 @@ const SelectBox = styled.div`
   line-height: 30px;
   width: 80%;
   margin: auto;
-  gap : var(--pad2)
+  gap : var(--pad2);
 `
+
+const SelectBox2 = styled.div`
+  display:  grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 30px;
+  /* flex-wrap: wrap; */
+  text-align: center;
+  line-height: 30px;
+  overflow-y: scroll;
+  width: 80%;
+  height: 50%;
+  margin: var(--pad2) auto var(--pad2) auto;
+  padding: var(--pad2);
+  gap : var(--pad2);
+`
+
+
 const SelectItem = styled.div`
   /* width: 25%; */
   /* height: 50px; */

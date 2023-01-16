@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 import { instance } from "../../api/axiosApi";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function HomePopularReview() {
+  const navigate = useNavigate();
   const [review, setReview] = useState(null);
   const fetchReview = async () => {
     try {
@@ -24,17 +26,18 @@ function HomePopularReview() {
     }
     return stars;
   };
+  console.log(review)
 
   return (
     <ItemBox>
       <BoxHeader>
         <BoxName>인기있는 리뷰</BoxName>
-        <BoxMoreLink>더보기</BoxMoreLink>
+        <BoxMoreLink to="/likereview">더보기</BoxMoreLink>
       </BoxHeader>
       <ReviewBox>
         {review?.map((v) => {
           return (
-            <ReviewCard key={v.id}>
+            <ReviewCard key={v.reviewId}>
               <ReviewName>{v.campingName}</ReviewName>
               <ScoreBox>
                 <ReviewItem>평가항목 1</ReviewItem>
