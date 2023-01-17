@@ -8,6 +8,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 function HomePopularReview() {
   const navigate = useNavigate();
   const [review, setReview] = useState(null);
+  const navigate = useNavigate();
   const fetchReview = async () => {
     try {
       const { data } = await instance.get("/review/bestsix");
@@ -16,10 +17,11 @@ function HomePopularReview() {
       console.log(error);
     }
   };
-  console.log(review)
+  console.log(review);
   useEffect(() => {
     fetchReview();
   }, []);
+  
   const starRender = (score) => {
     let stars = "";
     for (let i = 0; i < score; i++) {
@@ -27,8 +29,11 @@ function HomePopularReview() {
     }
     return stars;
   };
-  console.log(review)
   
+  const onReviewDetail = (id) => {
+    navigate(`reviewdetail/${id}`);
+  };
+
   return (
     <ItemBox>
       <BoxHeader>
@@ -38,8 +43,10 @@ function HomePopularReview() {
       <ReviewBox>
         {review?.map((v) => {
           return (
-            <ReviewCard key={v.id} img={v.imageUrl} color="blue">
-              <ReviewName>{v.campingName}</ReviewName>
+            <ReviewCard key={v.id}>
+              <ReviewName onClick={() => onReviewDetail(v.reviewId)}>
+                {v.campingName}
+              </ReviewName>
               <ScoreBox>
                 <ReviewItem>정보일치</ReviewItem>
                 <ReviewScore>{starRender(v.score1)}</ReviewScore>

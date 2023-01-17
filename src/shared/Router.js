@@ -36,7 +36,7 @@ function Router() {
             <Route path="/reserve/post" element={<ReservePost />} />
             <Route path="/reserve/detail/:id" element={<ReserveDetail />} />
             <Route path="/reviewlist" element={<ReviewList />} />
-            <Route path="/reviewdetail" element={<ReviewDetail />} />
+            <Route path="/reviewdetail/:id" element={<ReviewDetail />} />
             <Route path="/likereview" element={<LikeReview />} />
             <Route path="/recentviewcamp" element={<RecentViewCamp />} />
             <Route path="/mypage" element={<MyPage />} />

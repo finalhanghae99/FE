@@ -272,7 +272,7 @@ const ReviewAddForm = () => {
           <PostStar setScore={setScore1} />
         </StarBox>
         <StarBox2>
-          <NameDiv>접근성</NameDiv>
+          <NameDiv>편의시설</NameDiv>
           {/* {array2.map((el2) => (
             <Star key={el2}>
               <RatingBox>
@@ -286,7 +286,7 @@ const ReviewAddForm = () => {
           <PostStar setScore={setScore2} />
         </StarBox2>
         <StarBox2>
-          <NameDiv>청결도</NameDiv>
+          <NameDiv>관리상태</NameDiv>
           {/* {array3.map((el3) => (
             <Star key={el3}>
               <RatingBox>
@@ -300,7 +300,7 @@ const ReviewAddForm = () => {
           <PostStar setScore={setScore3} />
         </StarBox2>
         <StarBox2>
-          <NameDiv>관리상태</NameDiv>
+          <NameDiv>접근성</NameDiv>
           {/* {array4.map((el4) => (
             <Star key={el4}>
               <RatingBox>
@@ -314,7 +314,7 @@ const ReviewAddForm = () => {
           <PostStar setScore={setScore4} />
         </StarBox2>
         <StarBox2>
-          <NameDiv>편의시설</NameDiv>
+          <NameDiv>청결도</NameDiv>
           {/* {array5.map((el5) => (
             <Star key={el5}>
               <RatingBox>
