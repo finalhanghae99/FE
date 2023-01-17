@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 import { instance } from "../../api/axiosApi";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function HomePopularReview() {
   const [review, setReview] = useState(null);
+  const navigate = useNavigate();
   const fetchReview = async () => {
     try {
       const { data } = await instance.get("/review/bestsix");
@@ -14,16 +16,21 @@ function HomePopularReview() {
       console.log(error);
     }
   };
-  console.log(review)
+  console.log(review);
   useEffect(() => {
     fetchReview();
   }, []);
+  
   const starRender = (score) => {
     let stars = "";
     for (let i = 0; i < score; i++) {
       stars += "★";
     }
     return stars;
+  };
+
+  const onReviewDetail = (id) => {
+    navigate(`reviewdetail/${id}`);
   };
 
   return (
@@ -36,7 +43,9 @@ function HomePopularReview() {
         {review?.map((v) => {
           return (
             <ReviewCard key={v.id}>
-              <ReviewName>{v.campingName}</ReviewName>
+              <ReviewName onClick={() => onReviewDetail(v.reviewId)}>
+                {v.campingName}
+              </ReviewName>
               <ScoreBox>
                 <ReviewItem>평가항목 1</ReviewItem>
                 <ReviewScore>{starRender(v.score1)}</ReviewScore>
