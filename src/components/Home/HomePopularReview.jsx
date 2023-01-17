@@ -115,6 +115,9 @@ const ReviewName = styled.div`
   position: relative;
   z-index: 3;
   padding-bottom:30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const ScoreBox = styled.div`
