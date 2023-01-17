@@ -46,7 +46,7 @@ const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 12px;
+  /* padding-top: px; */
   padding-bottom: var(--interval);
 `
 const StName = styled.div`

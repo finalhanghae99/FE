@@ -20,7 +20,7 @@ function Home() {
           어디로 <br /> 떠나고 싶으세요?
         </MainMsg>
         <SearchWindow>
-          <HomeSearch />
+          <HomeSearch color="rgba(255,255,255,0.5)"/>
         </SearchWindow>
       </SearchVisual>
       <HomeMain />

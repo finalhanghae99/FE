@@ -9,7 +9,6 @@ import { instance } from "../../api/axiosApi";
 
 function ReservePostForm() {
   const initialState = {
-    campingName: "",
     startDate: null,
     endDate: null,
     price: 0,
@@ -21,6 +20,7 @@ function ReservePostForm() {
     isEnd : false,
     isContent : false
   }
+  const [campingName, setCampingName] = useState("");
   const [campingId , setCampingId] = useState("");
   const [reserve, setReserve] = useState(initialState);
   const changeHandler = (event) => {
@@ -38,7 +38,7 @@ function ReservePostForm() {
   }
   useEffect(()=>{
     setIsComp(
-      Boolean(reserve.campingName)
+      Boolean(campingName)
       && Boolean(reserve.startDate)
       && Boolean(reserve.endDate)
       && (reserve.content.trim() !== "")
@@ -77,8 +77,8 @@ function ReservePostForm() {
     <ItemBox>
       <PostForm>
         <EventBox onClick={campName.onOpen}>
-          {(campingId && reserve.campingName) ?
-            `${reserve.campingName}` : "캠핑장"}
+          {(campingId && campingName) ?
+            `${campingName}` : "캠핑장"}
         </EventBox>
         <EventBox onClick={datePick.onOpen}>
           {(reserve.startDate && reserve.endDate) ?
@@ -93,7 +93,7 @@ function ReservePostForm() {
           onChange={changeHandler} />
       </PostForm>
       {campName.isOpen && 
-        <NameSearch reserve={reserve} setReserve={setReserve} setCampingId={setCampingId} onClose={campName.onClose} />}
+        <NameSearch setCampingName={setCampingName} setCampingId={setCampingId} onClose={campName.onClose} />}
       {datePick.isOpen &&
         <DatePicker condition={reserve} setCondition={setReserve} onClose={datePick.onClose} />
       }

@@ -52,9 +52,9 @@ function RegionPicker(props) {
     <div>
       <OutOfModal onClick={onClose} />
       <PopWindow>
-        <ModalTop>
+        {/* <ModalTop>
           <TopBar></TopBar>
-        </ModalTop>
+        </ModalTop> */}
         <RegionBox>
           <SelectBox>
             {city1}
@@ -78,10 +78,10 @@ const PopWindow = styled.div`
   bottom: 0;
   left: 0;
   border: none;
-  height: 500px;
+  height: 365px;
   width: 100%;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
   overscroll-behavior: contain;
   overflow-y: scroll;
   z-index: 5;
@@ -110,13 +110,15 @@ const TopBar = styled.div`
 `
 
 const RegionBox = styled(ItemBox)`
-  height: 80%;
+  height: 70%;
+  margin-top: var(--pad2);
   /* position: fixed; */
 `
 
 const SelectBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 30px;
   /* margin: auto; */
   text-align: center;
   line-height: 30px;
@@ -128,16 +130,17 @@ const SelectBox = styled.div`
 const SelectBox2 = styled.div`
   display:  grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 30px;
+  grid-template-rows:repeat(auto-fill, 30px);
   /* flex-wrap: wrap; */
   text-align: center;
   line-height: 30px;
-  overflow-y: scroll;
-  width: 80%;
-  height: 50%;
+  /* overflow-y: scroll; */
+  /* width: 90%; */
+  height: 30%;
   margin: var(--pad2) auto var(--pad2) auto;
   padding: var(--pad2);
   gap : var(--pad2);
+  z-index: 10;
 `
 
 

@@ -12,9 +12,15 @@ import CampingSearch from "../../components/Search/CampingSearch";
 function CampSearch() {
   return (
     <div>
-      <HomeSearch />
+      <SearchWindow>
+        <HomeSearch color="var(--Brand5)"/>
+      </SearchWindow>
       <CampingSearch />
     </div>
   );
 }
 export default CampSearch;
+
+const SearchWindow = styled.div`
+  padding-top: 24px;
+`

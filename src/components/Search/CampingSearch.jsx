@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams , useSearchParams} from "react-router-dom";
 import styled from "styled-components";
 
 import { instance } from "../../api/axiosApi";
@@ -7,24 +7,32 @@ import { instance } from "../../api/axiosApi";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 function CampingSearch() {
-  let {keyword, address1, address2} = useParams();
-  const [searchList, setSearchList] = useState(null);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  let keyword = searchParams.get("keyword");
+  let address1 = searchParams.get("address1");
+  let address2 = searchParams.get("address2");
+  console.log(keyword, address1, address2)
+  
+
+  // let {keyword, address1, address2} = useParams();
+  const [searchList, setSearchList] = useState(null);
 
   // null 값 제거
-  if(keyword !== "null") {
+  if(keyword !== "") {
     (keyword = `campingname=${keyword}&`)}
     else { keyword = ""; }
-  if(address1 !== "null") {
+  if(address1 !== "") {
     (address1 = `address1=${address1}&`)
   } else { address1 = ""}
-  if(address2 !== "null") {
+  if(address2 !== "") {
     (address2 = `address2=${address2}&`);
   } else {address2 = ""}
 
   // 검색 조건 합치기
   let searchWord = (keyword + address1 + address2)
   searchWord = searchWord.slice(0, searchWord.length - 1)
+  console.log(searchList)
 
   const fetchSearchList = async () => {
     try {

@@ -8,7 +8,7 @@ import { HiOutlineMap } from "react-icons/hi"
 import { AiOutlineDown } from "react-icons/ai";
 import { Navigate, useNavigate } from "react-router-dom";
 
-function HomeSearch() {
+function HomeSearch({color}) {
   const region = useModal();
   const navigate = useNavigate();
   if (region.isOpen) {
@@ -36,7 +36,7 @@ function HomeSearch() {
     const word1 = (condition.keyword.trim() === "") ? null : condition.keyword;
     const word2 = (condition.address1.trim() === "") ? null : condition.address1;
     const word3 = (condition.address2.trim() === "") ? null : condition.address2;
-    navigate(`../camp/search/${word1}/${word2}/${word3}`);
+    navigate(`../camp/search?keyword=${condition.keyword}&address1=${condition.address1}&address2=${condition.address2}`);
   }
 
   return (
@@ -48,11 +48,11 @@ function HomeSearch() {
         {/* <MapBtn>지도 검색</MapBtn> */}
       </BtnBox>
       <InputBox>
-        <WordInput name="keyword" value={condition.keyword} onChange={changeHandler} placeholder="캠핑장" />
+        <WordInput name="keyword" value={condition.keyword} onChange={changeHandler} placeholder="캠핑장" color={color}/>
         <SeartchBtn onClick={searchHandler}><FiSearch /></SeartchBtn>
       </InputBox>
       <InputBox onClick={region.onOpen}>
-        <RegionBtn>
+        <RegionBtn color={color}>
           {condition.address1 ? `${condition.address1} ${condition.address2}` : "지역 선택"}
         </RegionBtn>
         <SeartchBtn>
@@ -86,7 +86,7 @@ const InputBox = styled.div`
 `
 
 const WordInput = styled.input`
-  background: rgba(255,255,255,0.5);
+  background: ${props=>props.color};
   color: white;
   border: none;
   border-radius: 50px;
@@ -106,7 +106,7 @@ const WordInput = styled.input`
 `
 
 const RegionBtn = styled.div`
-  background: rgba(255,255,255,0.5);
+  background: ${props=>props.color};
   color: white;
   border: none;
   border-radius: 50px;
@@ -119,6 +119,7 @@ const RegionBtn = styled.div`
   box-sizing: border-box;
   width: 100%;
   line-height: 56px;
+  /* overflow: hidden; */
 `
 
 const SearchBottom = styled.div`
@@ -141,13 +142,14 @@ const RegionSelect = styled.div`
 
 const SeartchBtn = styled.div`
   /* width: 80px; */
-  /* height: 30px; */
+  height: 19px;
   font-size: 19px;
   position: absolute;
   right: 50px;
   line-height: 19px;
   /* top : 50% */
-  transform: translateY(50%);
+  transform: translateY(100%);
+  color: white;
 `
 
 const MapIcon = styled.div`
