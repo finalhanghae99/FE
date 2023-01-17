@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BsPencilFill, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
-import { RiBookmarkFill, RiBookmarkLine } from "react-icons/ri"
-import { AiOutlineLeft } from "react-icons/ai";
+import { BsPencilFill } from "react-icons/bs";
+import { RiBookmarkFill, RiBookmarkLine } from "react-icons/ri";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 import { getCookies, setCookies } from "../../api/cookieControler";
@@ -31,13 +30,13 @@ function CampDetailForm() {
 
   useEffect(() => {
     // 캠핑장 열람 이력 저장
-    let history = getCookies("history")
-    if (history === undefined) history = []
+    let history = getCookies("history");
+    if (history === undefined) history = [];
     history = history.filter((v) => {
-      return v !== id
-    })
-    history.unshift(id)
-    history.splice(10)
+      return v !== id;
+    });
+    history.unshift(id);
+    history.splice(10);
     setCookies("history", history, {
       path: "/",
       maxAge: 604800,
@@ -45,30 +44,26 @@ function CampDetailForm() {
     fetchCampDetail();
   }, []);
 
-  const position = { lat: Number(campDetail?.mapY), lng: Number(campDetail?.mapX) }
+  const position = {
+    lat: Number(campDetail?.mapY),
+    lng: Number(campDetail?.mapX),
+  };
 
   return (
     <MainDiv>
       <StDiv>
-        <div style={{ "position": "relative", "height": "300px" }}>
-          {(campDetail?.imageUrl) ? (
+        <div style={{ position: "relative", height: "414px" }}>
+          {campDetail?.imageUrl ? (
             <CampImgView img={campDetail?.imageUrl} />
           ) : (
-            <div style={{ "textAlign": "center", "lineHeight": "300px" }}>Image Not Found</div>
+            <div style={{ textAlign: "center", lineHeight: "414px" }}>
+              Image Not Found
+            </div>
           )}
           <BookmarkBtn>
-            {(isBMK) ?
-              <RiBookmarkFill /> : <RiBookmarkLine />
-            }
+            {isBMK ? <RiBookmarkFill /> : <RiBookmarkLine />}
           </BookmarkBtn>
         </div>
-        {/* <img width="391" height="419" src={campDetail?.imageUrl}></img> */}
-        {/* <BackBtn>
-          <AiOutlineLeft />
-        </BackBtn>
-        <Mark>
-          <BsBookmark />
-        </Mark> */}
       </StDiv>
       <SuvDiv>
         <CampName>{campDetail?.campingName}</CampName>
@@ -79,36 +74,42 @@ function CampDetailForm() {
         </SDiv>
       </SuvDiv>
       <Environment>
-        <div>캠핑장 환경</div>
+        <EleName>캠핑장 환경</EleName>
         <EleDiv>
           {campDetail?.campingEnv.map((a, i) => {
             return <Ele key={i}>{a}</Ele>;
           })}
         </EleDiv>
-        <div>캠핑 유형</div>
+        <EleName>캠핑 유형</EleName>
         <EleDiv>
           {campDetail?.campingType.map((b, i) => {
             return <Ele key={i}>{b}</Ele>;
           })}
         </EleDiv>
-        <div>캠핑장 시설 정보</div>
+        <EleName>캠핑장 시설 정보</EleName>
         <EleDiv>
           {campDetail?.campingFac.map((c, i) => {
             return <Ele key={i}>{c}</Ele>;
           })}
         </EleDiv>
-        <div>주변 이용가능 시설</div>
-        <EleDiv>
+        <EleName>주변 이용가능 시설</EleName>
+        <EleDiv2>
           {campDetail?.campingSurroundFac.map((d, i) => {
             return <Ele key={i}>{d}</Ele>;
           })}
-        </EleDiv>
+        </EleDiv2>
       </Environment>
       <Map>
-        <div>위치</div>
-        {(campDetail) &&
-          <DetailMap campingName={campDetail?.campingName} position={position} />
-        }
+        <MapName>위치</MapName>
+        {campDetail && (
+          <MapDiv>
+            <DetailMap
+              campingName={campDetail?.campingName}
+              position={position}
+            />
+          </MapDiv>
+        )}
+        <Address2>{campDetail?.address3}</Address2>
       </Map>
       <Post>
         <Review>
@@ -129,9 +130,7 @@ function CampDetailForm() {
           </AllBtn>
         </Review>
         {campDetail?.reviewList?.map((v) => {
-          return (
-            <LikeListElement key={v.reviewId} review={v} />
-          );
+          return <LikeListElement key={v.reviewId} review={v} />;
         })}
       </Post>
     </MainDiv>
@@ -143,58 +142,73 @@ const MainDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  font-family: var(--font);
+  background-color: #f1f1f1;
 `;
 
 const StDiv = styled.div`
   background-color: grey;
-  width: 391px;
-  /* height: 419px; */
-`;
-
-const BackBtn = styled.button`
-  background-color: white;
-  border: 1px solid white;
-`;
-
-const Mark = styled.button`
-  background-color: white;
-  border: 1px solid white;
+  width: 100%;
 `;
 
 const SuvDiv = styled.div`
-  width: 336px;
-  padding: 23px 0px 21px 0px;
-  border-bottom: 1px solid #d8d8d8;
+  width: 100%;
+  border-bottom: 8px solid #e1e1e1;
 `;
 const SDiv = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #626262;
+  color: #999999;
+  margin: 12px 24px 24px 24px;
 `;
 
 const CampName = styled.div`
+  margin: 24px 24px 0px 24px;
   font-size: 18px;
+  font-weight: 700;
   color: #000000;
 `;
 
 const Address = styled.div`
-  padding: 6px 0px 2px 0px;
+  margin: 9px 0px 0px 24px;
   font-size: 14px;
-  color: #626262;
+  color: #343333;
+`;
+
+const Address2 = styled.div`
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 12px 0px 24px 24px;
 `;
 
 const Environment = styled.div`
-  width: 336px;
-  padding: 19px 0px 15px 0px;
-  border-bottom: 1px solid #d8d8d8;
+  width: 100%;
+  border-bottom: 8px solid #d8d8d8;
+  margin-top: 12px;
+  /* margin-right: 24px; */
+`;
+
+const EleName = styled.div`
+  margin: 12px 24px 0px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
 `;
 
 const EleDiv = styled.div`
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  gap: 5px;
+  flex-wrap: wrap;
+  margin: 0px 24px 0px 24px;
+  gap: 8px;
+`;
+
+const EleDiv2 = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px 24px 24px 24px;
+  gap: 8px;
 `;
 
 const Ele = styled.div`
@@ -202,71 +216,35 @@ const Ele = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 54px;
   height: 29px;
-  left: 27px;
-  top: 575px;
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0px 5px 0px;
   font-size: 14px;
-  padding: 6px 14px;
-  gap: 6px;
-  border-radius: 20px;
+  padding: 1px 12px;
+  gap: 8px;
+  border-radius: 24px;
   border: 1px solid #aaaaaa;
 `;
 
 const Map = styled.div`
-  width: 336px;
-  padding-top: 15px;
-  border-bottom: 1px solid #d8d8d8;
+  width: 100%;
+  border-bottom: 8px solid #e1e1e1;
 `;
 
-const Mapp = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: grey;
-  margin: 17px 0px 33px 0px;
-  width: 336px;
-  height: 168px;
+const MapName = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  margin: 24px 0px 20px 24px;
+`;
+
+const MapDiv = styled.div`
+  margin: 0px 24px 0px 24px;
+  border-radius: 8px;
 `;
 
 const Post = styled.div`
   width: 336px;
   padding-top: 15px;
-`;
-
-const PostBox = styled.div`
-  width: 335px;
-  height: 270px;
-  margin: 13px 0px 60px 0px;
-`;
-
-const Pic = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 335px;
-  height: 158px;
-  background-color: grey;
-`;
-
-const Comm = styled.div`
-  width: 333px;
-  height: 150px;
-  border: 1px solid #b5b5b5;
-`;
-
-const ComDiv = styled.div`
-  width: 291px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 25px 0px 0px 21px;
-`;
-
-const Ment = styled.div`
-  width: 291px;
-  margin: 25px 0px 15px 21px;
 `;
 
 const Review = styled.div`
@@ -287,11 +265,11 @@ const AllBtn = styled.button`
 `;
 
 const BookmarkBtn = styled.div`
-    position: absolute;
-    color: white;
-    top:20px; 
-    right:20px;
-    font-size:30px;
-    filter: drop-shadow(10px 10px 10px 10px green);
-    z-index: 5;
-`
+  position: absolute;
+  color: white;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  filter: drop-shadow(10px 10px 10px 10px green);
+  z-index: 5;
+`;
