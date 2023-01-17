@@ -8,6 +8,7 @@ import NameSearch from "../Search/NameSearch";
 
 import { useModal } from "../../hooks/useModal";
 import PostStar from "./PostStar";
+import { useNavigate } from "react-router-dom";
 
 const ReviewAddForm = () => {
   const [score1, setScore1] = useState();
@@ -24,6 +25,7 @@ const ReviewAddForm = () => {
   }
   const imgRef = useRef("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [campingId, setCampingId] = useState("");
   const [campingName, setCampingName] = useState("");
   const [content, setContent] = useState("");
@@ -168,6 +170,7 @@ const ReviewAddForm = () => {
         // }
       })
     );
+    navigate("/");
   };
 
   // const score1 = clicked1.filter(Boolean).length;
@@ -353,6 +356,7 @@ const ReviewAddForm = () => {
 
       <Exp>캠핑장 경험에 대해 알려주세요.(필수)</Exp>
       <ExpInput
+        type="text"
         placeholder="다른 캠퍼들이 참고 할 수 있도록 캠핑장에 대해 알려주세요."
         onChange={onChangeExp}
       ></ExpInput>
@@ -531,10 +535,11 @@ const Exp = styled.div`
 `;
 
 const ExpInput = styled.input`
-  width: 323px;
+  width: 100%;
   height: 143px;
+  word-break: normal;
   border: 1px solid #b7b7b7;
-  margin-bottom: 25px;
+  margin: 0px 24px 25px 24px;
 `;
 
 const AddBtn = styled.button`

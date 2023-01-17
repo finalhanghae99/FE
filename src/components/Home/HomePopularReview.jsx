@@ -8,7 +8,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 function HomePopularReview() {
   const navigate = useNavigate();
   const [review, setReview] = useState(null);
-  const navigate = useNavigate();
   const fetchReview = async () => {
     try {
       const { data } = await instance.get("/review/bestsix");
@@ -31,6 +30,7 @@ function HomePopularReview() {
   };
   
   const onReviewDetail = (id) => {
+    console.log("id", id)
     navigate(`reviewdetail/${id}`);
   };
 

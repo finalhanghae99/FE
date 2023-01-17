@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     --pad1: 5px;
     --pad2: 10px;
   
-    --interval : 24px
+    --interval : 24px;
   }
   body {
     font-family: 'Noto Sans KR';

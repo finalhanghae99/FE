@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Button from "../elements/Button";
 
 const ReviewDetailForm = () => {
   const [reviewDetail, setReviewDetail] = useState();
   const param = useParams();
+  const navigate = useNavigate();
 
   const settings = {
     dots: true, // 슬라이더 밑에 버튼
@@ -16,9 +18,9 @@ const ReviewDetailForm = () => {
     speed: 500, // 컨텐츠 넘어가는 속도 500ms
     slidersToShow: 1, // 보이는 컨텐츠 개수 1개
     slidesToScroll: 1, // 한번에 넘어가는 컨텐츠 수 1개
-    centerPadding: '0px',
+    centerPadding: "0px",
     // centerMode: true,
-    arrows : false,
+    arrows: false,
     // variableWidth: false
   };
 
@@ -34,6 +36,21 @@ const ReviewDetailForm = () => {
     }
   };
   console.log(reviewDetail);
+
+  const onDeleteReview = async () => {
+    try {
+      const data = await instance.delete(`/review/${param.id}`);
+      console.log(data);
+      if (data.data.statusCode === 401) {
+        alert("삭제 권한이 없습니다.");
+      } else if (data.data.statusCode === 200) {
+        alert("삭제 완료!");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const starRender = (score) => {
     let stars = "";
@@ -51,9 +68,7 @@ const ReviewDetailForm = () => {
     <MainDiv>
       <StyledSlider {...settings}>
         {reviewDetail?.reviewUrlList.map((a, i) => {
-          return (
-              <Pic key={i} src={a}></Pic>
-          )
+          return <Pic key={i} src={a}></Pic>;
         })}
       </StyledSlider>
       <Title>
@@ -91,7 +106,12 @@ const ReviewDetailForm = () => {
           <Starr>{starRender(reviewDetail?.score5)}</Starr>
         </StarBox2>
       </Stars>
-      <Content>{reviewDetail?.content}</Content>
+      <Content>
+        <Contents>
+        {reviewDetail?.content}
+          </Contents></Content>
+      <EditBtn>수정하기</EditBtn>
+      <DelBtn onClick={onDeleteReview}>삭제하기</DelBtn>
     </MainDiv>
   );
 };
@@ -111,6 +131,7 @@ const MainDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: var(--font);
 `;
 
 const Pic = styled.img`
@@ -128,7 +149,7 @@ const CampName = styled.div`
   width: 100%;
   font-size: 18px;
   font-weight: 700;
-  padding-left: var(--intarval);
+  margin-left: var(--interval);
 `;
 
 const Date = styled.div`
@@ -183,15 +204,34 @@ const StarBox2 = styled.div`
 
 const Starr = styled.div`
   color: var(--Brand6);
-`
+`;
 
 const Content = styled.div`
-  border-top: 8px solid #e1e1e1;
-  padding: 24px 0px 0px 48px;
   width: 100%;
+  border-top: 8px solid #e1e1e1;
+  padding-top: 24px;
+  margin: 0px 24px 0px 24px;
   margin-top: 10px;
 `;
 
+const Contents = styled.div`
+  margin: 0px 24px 0px 24px;
+`
+
 const NameDiv = styled.div`
   width: 60px;
+`;
+
+const EditBtn = styled(Button)`
+  margin: 40px 24px 24px 24px;
+`;
+
+const DelBtn = styled.button`
+  border: none;
+  border-bottom: 1px solid var(--Brand6);
+  background-color: white;
+  font-size: 14px;
+  padding-bottom: 4px;
+  font-weight: 700;
+  color: var(--Brand6);
 `;
