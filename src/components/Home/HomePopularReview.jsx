@@ -28,7 +28,7 @@ function HomePopularReview() {
     }
     return stars;
   };
-  
+
   const onReviewDetail = (id) => {
     console.log("id", id)
     navigate(`reviewdetail/${id}`);
@@ -38,15 +38,14 @@ function HomePopularReview() {
     <ItemBox>
       <BoxHeader>
         <BoxName>인기있는 리뷰</BoxName>
-        <BoxMoreLink></BoxMoreLink>
+        <BoxMoreLink to="likereview"></BoxMoreLink>
       </BoxHeader>
       <ReviewBox>
         {review?.map((v) => {
           return (
-            <ReviewCard key={v.id}>
-              <ReviewName onClick={() => onReviewDetail(v.reviewId)}>
-                {v.campingName}
-              </ReviewName>
+            <ReviewCard key={v.reviewId} img={v.imageUrl} onClick={()=>{onReviewDetail(v.reviewId)}}>
+              <ReviewName>{v.campingName}</ReviewName>
+
               <ScoreBox>
                 <ReviewItem>정보일치</ReviewItem>
                 <ReviewScore>{starRender(v.score1)}</ReviewScore>
@@ -116,6 +115,9 @@ const ReviewName = styled.div`
   position: relative;
   z-index: 3;
   padding-bottom:30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const ScoreBox = styled.div`

@@ -96,18 +96,18 @@ const OutOfModal = styled.div`
   height: 100vh;
   overflow: hidden;
 `
-const ModalTop = styled.div`
-  height: 50px;
-  display: flex;
-  justify-content: center;
-`
-const TopBar = styled.div`
-  background-color: var(--Brand6);
-  border-radius: 50px;
-  height: 10px;
-  width: 100px;
-  margin: auto;
-`
+// const ModalTop = styled.div`
+//   height: 50px;
+//   display: flex;
+//   justify-content: center;
+// `
+// const TopBar = styled.div`
+//   background-color: var(--Brand6);
+//   border-radius: 50px;
+//   height: 10px;
+//   width: 100px;
+//   margin: auto;
+// `
 
 const RegionBox = styled(ItemBox)`
   height: 70%;

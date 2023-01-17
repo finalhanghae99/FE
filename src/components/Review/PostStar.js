@@ -2,6 +2,7 @@ import React ,{useEffect, useState }from "react";
 
 import styled from "styled-components";
 import { ImStarFull } from "react-icons/im";
+import {IoStar} from "react-icons/io5"
 
 function PostStar({setScore}) {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
@@ -23,7 +24,7 @@ function PostStar({setScore}) {
     starArr.push(
       <Star key={i}>
         <RatingBox>
-          <ImStarFull
+          <IoStar
             className={clicked[i] && "black"}
             onClick={() => starClick(i)}
           />
@@ -42,7 +43,7 @@ function PostStar({setScore}) {
 export default PostStar;
 
 const Star = styled.div`
-  margin-left: 10px;
+  /* margin-left: 10px; */
 `;
 
 

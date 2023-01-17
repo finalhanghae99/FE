@@ -27,7 +27,7 @@ function HomeHistory() {
     <ItemBox>
       <BoxHeader>
         <BoxName>최근 본 캠핑장</BoxName>
-        <BoxMoreLink></BoxMoreLink>
+        <BoxMoreLink to="/recentviewcamp"></BoxMoreLink>
       </BoxHeader>
       <HistoryList>
       {history?.map((v) => {
