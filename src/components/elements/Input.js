@@ -10,6 +10,7 @@ const StInput = styled.input`
   margin: var(--pad3);
   padding-left: 13px;
   font-size: 14px;
+  font-family: var(--font);
   outline: none;
 `;
 

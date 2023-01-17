@@ -13,6 +13,7 @@ import { ItemBox } from "../elements/ItemBox";
 import { FiSearch } from "react-icons/fi";
 
 import Button from "../elements/Button";
+import { useNavigate } from "react-router-dom";
 
 const ReviewAddForm = () => {
   const [score1, setScore1] = useState();
@@ -29,6 +30,7 @@ const ReviewAddForm = () => {
   }
   const imgRef = useRef("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [campingId, setCampingId] = useState("");
   const [campingName, setCampingName] = useState("");
   const [content, setContent] = useState("");
@@ -173,6 +175,7 @@ const ReviewAddForm = () => {
         // }
       })
     );
+    navigate("/");
   };
 
   // const score1 = clicked1.filter(Boolean).length;
@@ -290,7 +293,6 @@ const ReviewAddForm = () => {
           <PostStar setScore={setScore1} />
         </StarBox>
         <GrayHr />
-
         <ScoreTop>
           <NameDiv>편의시설</NameDiv>
           <DetailInfo>
@@ -329,6 +331,7 @@ const ReviewAddForm = () => {
           </DetailInfo>
         </ScoreTop>
         <StarBox>
+
           <PostStar setScore={setScore5} />
         </StarBox>
       </ItemBox>
@@ -357,7 +360,6 @@ const ReviewAddForm = () => {
           <ImgPlus />
         )}
       </PicDiv> */}
-
       <GrayLine />
       <ItemBox>
         <Detail>캠핑장 경험에 대해 알려주세요.<MinText>(필수)</MinText></Detail>
@@ -374,7 +376,6 @@ const ReviewAddForm = () => {
           />
         )}
       </ItemBox>
-
     </MainDiv>
   );
 };

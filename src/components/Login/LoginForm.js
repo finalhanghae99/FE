@@ -28,7 +28,7 @@ const LoginForm = () => {
         navigate(`/`);
         setCookies("id", res.headers.authorization, {
           path: "/",
-          maxAge: 1800,
+          maxAge: 18000,
         });
       }
     });

@@ -16,10 +16,11 @@ function HomePopularReview() {
       console.log(error);
     }
   };
-  console.log(review)
+  console.log(review);
   useEffect(() => {
     fetchReview();
   }, []);
+  
   const starRender = (score) => {
     let stars = "";
     for (let i = 0; i < score; i++) {
@@ -27,14 +28,12 @@ function HomePopularReview() {
     }
     return stars;
   };
-  console.log(review)
- 
+
   const onReviewDetail = (id) => {
     console.log("id", id)
     navigate(`reviewdetail/${id}`);
   };
 
-  console.log(review)
   return (
     <ItemBox>
       <BoxHeader>
@@ -44,8 +43,9 @@ function HomePopularReview() {
       <ReviewBox>
         {review?.map((v) => {
           return (
-            <ReviewCard key={v.reviewId} img={v.imageUrl} color="blue" onClick={()=>{onReviewDetail(v.reviewId)}}>
+            <ReviewCard key={v.reviewId} img={v.imageUrl} onClick={()=>{onReviewDetail(v.reviewId)}}>
               <ReviewName>{v.campingName}</ReviewName>
+
               <ScoreBox>
                 <ReviewItem>정보일치</ReviewItem>
                 <ReviewScore>{starRender(v.score1)}</ReviewScore>
