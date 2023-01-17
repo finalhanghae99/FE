@@ -8,8 +8,8 @@ const GlobalStyle = createGlobalStyle`
     --Brand5 : #05113D;
     --Brand6 : #cb6225;
 
-    --BackColor1 : #F5F5F5;
-    --BackColor2 : #EBEBEB;
+    --BackColor1 : #f9f9f9;
+    --BackColor2 : #F1F1F1;
 
     --Gray1 : #E0E0E0;
     --Gray2 : #E7E7E7;
