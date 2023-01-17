@@ -52,18 +52,18 @@ function RegionPicker(props) {
     <div>
       <OutOfModal onClick={onClose} />
       <PopWindow>
-        <ModalTop>
+        {/* <ModalTop>
           <TopBar></TopBar>
-        </ModalTop>
-        <ItemBox>
+        </ModalTop> */}
+        <RegionBox>
           <SelectBox>
             {city1}
           </SelectBox>
           <hr />
-          <SelectBox>
+          <SelectBox2>
             {city2}
-          </SelectBox>
-        </ItemBox>
+          </SelectBox2>
+        </RegionBox>
       </PopWindow>
     </div>
   )
@@ -72,15 +72,16 @@ function RegionPicker(props) {
 export default RegionPicker;
 
 const PopWindow = styled.div`
-  background-color: skyblue;
+  background-color: white;
+  color: black;
   position: fixed;
   bottom: 0;
   left: 0;
   border: none;
-  height: 400px;
+  height: 365px;
   width: 100%;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
   overscroll-behavior: contain;
   overflow-y: scroll;
   z-index: 5;
@@ -100,39 +101,64 @@ const ModalTop = styled.div`
   display: flex;
   justify-content: center;
 `
-
 const TopBar = styled.div`
-  background-color: blue;
+  background-color: var(--Brand6);
   border-radius: 50px;
   height: 10px;
   width: 100px;
   margin: auto;
 `
 
+const RegionBox = styled(ItemBox)`
+  height: 70%;
+  margin-top: var(--pad2);
+  /* position: fixed; */
+`
+
 const SelectBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 30px;
   /* margin: auto; */
   text-align: center;
   line-height: 30px;
-  width: 80%;
+  width: 90%;
   margin: auto;
-  gap : var(--pad2)
+  gap : var(--pad2);
 `
+
+const SelectBox2 = styled.div`
+  display:  grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:repeat(auto-fill, 30px);
+  /* flex-wrap: wrap; */
+  text-align: center;
+  line-height: 30px;
+  /* overflow-y: scroll; */
+  /* width: 90%; */
+  height: 30%;
+  margin: var(--pad2) auto var(--pad2) auto;
+  padding: var(--pad2);
+  gap : var(--pad2);
+  z-index: 10;
+`
+
+
 const SelectItem = styled.div`
   /* width: 25%; */
   /* height: 50px; */
   /* margin: var(--pad2); */
 `
 const RadioLabel = styled.label`
-  border: 1px solid blue;
+  border: 1px solid var(--Gray3);
   border-radius:50px;
   padding: var(--pad1) 15px var(--pad1) 15px;
 `
 const RadioInput = styled.input`
   display: none;
   &:checked + ${RadioLabel}{
-    background-color: blue;
+    border-color: var(--Brand6);
+    background-color: var(--Brand6);
     color: white;
   };
 `

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BsPencilFill, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
+import { RiBookmarkFill, RiBookmarkLine } from "react-icons/ri"
 import { AiOutlineLeft } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
@@ -8,14 +9,15 @@ import { getCookies, setCookies } from "../../api/cookieControler";
 
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
+import LikeListElement from "../Review/LikeListElement";
 
 function CampDetailForm() {
   const navigate = useNavigate();
   const [isBMK, setIsBMK] = useState(false);
 
   const [campDetail, setCampDetail] = useState();
-  const {id} = useParams();
-  
+  const { id } = useParams();
+
   const fetchCampDetail = async () => {
     try {
       const { data } = await instance.get(`/camping/${id}`);
@@ -30,8 +32,8 @@ function CampDetailForm() {
   useEffect(() => {
     // 캠핑장 열람 이력 저장
     let history = getCookies("history")
-    if(history === undefined) history = []
-    history = history.filter((v)=>{
+    if (history === undefined) history = []
+    history = history.filter((v) => {
       return v !== id
     })
     history.unshift(id)
@@ -43,30 +45,30 @@ function CampDetailForm() {
     fetchCampDetail();
   }, []);
 
-  const position = { lat: Number(campDetail?.mapY) , lng: Number(campDetail?.mapX) }
+  const position = { lat: Number(campDetail?.mapY), lng: Number(campDetail?.mapX) }
 
   return (
     <MainDiv>
       <StDiv>
-      <div style={{ "position": "relative" ,  "height": "300px"}}>
-        {(campDetail?.imageUrl)? (
-          <CampImgView img={campDetail?.imageUrl} />
-        ) : (
-          <div style={{"textAlign" : "center", "lineHeight" : "300px"}}>Image Not Found</div>
-        )}
-        <BookmarkBtn>
-          {(isBMK) ?
-            <BsFillBookmarkFill /> : <BsBookmark />
-          }
-        </BookmarkBtn>
-      </div>
+        <div style={{ "position": "relative", "height": "300px" }}>
+          {(campDetail?.imageUrl) ? (
+            <CampImgView img={campDetail?.imageUrl} />
+          ) : (
+            <div style={{ "textAlign": "center", "lineHeight": "300px" }}>Image Not Found</div>
+          )}
+          <BookmarkBtn>
+            {(isBMK) ?
+              <RiBookmarkFill /> : <RiBookmarkLine />
+            }
+          </BookmarkBtn>
+        </div>
         {/* <img width="391" height="419" src={campDetail?.imageUrl}></img> */}
-        <BackBtn>
+        {/* <BackBtn>
           <AiOutlineLeft />
         </BackBtn>
         <Mark>
           <BsBookmark />
-        </Mark>
+        </Mark> */}
       </StDiv>
       <SuvDiv>
         <CampName>{campDetail?.campingName}</CampName>
@@ -79,25 +81,25 @@ function CampDetailForm() {
       <Environment>
         <div>캠핑장 환경</div>
         <EleDiv>
-          {campDetail?.campingEnv.map((a,i) => {
+          {campDetail?.campingEnv.map((a, i) => {
             return <Ele key={i}>{a}</Ele>;
           })}
         </EleDiv>
         <div>캠핑 유형</div>
         <EleDiv>
-          {campDetail?.campingType.map((b,i) => {
+          {campDetail?.campingType.map((b, i) => {
             return <Ele key={i}>{b}</Ele>;
           })}
         </EleDiv>
         <div>캠핑장 시설 정보</div>
         <EleDiv>
-          {campDetail?.campingFac.map((c,i) => {
+          {campDetail?.campingFac.map((c, i) => {
             return <Ele key={i}>{c}</Ele>;
           })}
         </EleDiv>
         <div>주변 이용가능 시설</div>
         <EleDiv>
-          {campDetail?.campingSurroundFac.map((d,i) => {
+          {campDetail?.campingSurroundFac.map((d, i) => {
             return <Ele key={i}>{d}</Ele>;
           })}
         </EleDiv>
@@ -105,7 +107,7 @@ function CampDetailForm() {
       <Map>
         <div>위치</div>
         {(campDetail) &&
-          <DetailMap campingName={campDetail?.campingName} position={position}/>
+          <DetailMap campingName={campDetail?.campingName} position={position} />
         }
       </Map>
       <Post>
@@ -126,20 +128,9 @@ function CampDetailForm() {
             전체보기
           </AllBtn>
         </Review>
-        {campDetail?.reviewList?.map((a) => {
+        {campDetail?.reviewList?.map((v) => {
           return (
-            <PostBox key={a.id}>
-              <Pic>
-                <img src={a?.url} width="335" height="158"></img>
-              </Pic>
-              <Comm>
-                <ComDiv>
-                  <div>{a.nickname}</div>
-                  <div>{a.modifiedAt}</div>
-                </ComDiv>
-                <Ment>{a.content}</Ment>
-              </Comm>
-            </PostBox>
+            <LikeListElement key={v.reviewId} review={v} />
           );
         })}
       </Post>
@@ -297,6 +288,7 @@ const AllBtn = styled.button`
 
 const BookmarkBtn = styled.div`
     position: absolute;
+    color: white;
     top:20px; 
     right:20px;
     font-size:30px;

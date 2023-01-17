@@ -36,15 +36,14 @@ const ImgFrame = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    opacity: 1;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0)  40% ,rgba(255, 255, 255, 0.5)  60% , white 100%);
+    opacity: 0.5;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0)  40% ,rgba(0, 0, 0, 0.5)  60% , black 100%);
   };
 `
 const ImgView = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
-  background-color: blue;
   object-position: center;
 `
 

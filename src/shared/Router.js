@@ -25,7 +25,7 @@ function Router() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
-              path="/camp/search/:keyword/:address1/:address2"
+              path="/camp/search"
               element={<CampSearch />}
             />
             <Route path="/signup" element={<SignUp />} />

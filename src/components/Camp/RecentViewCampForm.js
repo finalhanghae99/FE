@@ -6,19 +6,24 @@ import styled from "styled-components";
 import CampListElement from "./CampListElement";
 
 import { instance } from "../../api/axiosApi";
+import { getCookies } from "../../api/cookieControler";
+
 
 const RecentViewCampForm = () => {
   const navigate = useNavigate();
-  const [myCamp, setMyCamp] = useState(null);
-  const fetchCamp = async () => {
+  const [history, setHistory] = useState(null);
+  const fetchHistory = async (record) => {
     try {
-      const { data } = await instance.get(`mycamp`);
-      setMyCamp(data);
+      const { data } = await instance.post("/camping/listten", {"campingIdList":record });
+      setHistory(data.data);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {
-    fetchCamp();
+    let record = getCookies("history")
+    if(record === undefined) record = []
+    fetchHistory(record);
   }, [])
+  console.log(history)
   return (
     <>
       <Main>
@@ -49,7 +54,7 @@ const RecentViewCampForm = () => {
           </Tag>
         </Suv>
       </Box>
-      {myCamp?.map((v)=>{
+      {history?.map((v)=>{
         return(
           <CampListElement key={v.id} camp={v}/>
         )

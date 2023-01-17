@@ -24,7 +24,7 @@ function HomeReserve() {
     <ItemBox>
       <BoxHeader>
         <BoxName>캠핑장 양도</BoxName>
-        <BoxMoreLink to="reserve/search">더보기</BoxMoreLink>
+        <BoxMoreLink to="reserve/search"></BoxMoreLink>
       </BoxHeader>
       <ReserveBox>
         {reserve?.map((v) => {
@@ -52,27 +52,28 @@ export default HomeReserve;
 const ReserveBox = styled.div`
   display: flex;
   overflow: scroll;
-  gap: var(--pad2);
+  gap: 4px;
 `
 
 const ReserveCard = styled.div`
-  min-width: 150px;
-  max-width: 150px;
-  border: 2px solid gray;
+  min-width: 156px;
+  max-width: 156px;
+  /* border: 2px solid gray; */
 `
 
 const CardImg = styled.img`
   object-fit: cover;
   width: 100%;
-  height: 100px;
+  height: 156px;
   background-position: center;
+  border-radius: 6px;
 `
 
 const CardDetail = styled.div`
-  padding: var(--pad2);
+  padding-top: var(--pad2);
   display: flex;
   flex-direction: column;
-  gap: var(--pad1)
+  gap: var(--pad1);
 `
 
 const CardTitle = styled.div`
@@ -80,17 +81,23 @@ const CardTitle = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: bold;
+  padding-bottom:var(--pad1);
+
 `
 
 const CardRegion = styled.div`
   font-size: 12px;
-  color:  gray;
+  color: var(--Gray3);
 `
 
 const CardDate = styled.div`
   font-size: 12px;
+  color: var(--Gray3);
 `
 
 const CardPrice = styled.div`
-  font-size: 12px;
+  padding-top:var(--pad1);
+  font-size: 18px;
+  font-weight: bold;
 `

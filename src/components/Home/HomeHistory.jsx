@@ -27,8 +27,9 @@ function HomeHistory() {
     <ItemBox>
       <BoxHeader>
         <BoxName>최근 본 캠핑장</BoxName>
-        <BoxMoreLink>전체보기</BoxMoreLink>
+        <BoxMoreLink></BoxMoreLink>
       </BoxHeader>
+      <HistoryList>
       {history?.map((v) => {
         return (
           <HistoryBox key={v.campingId} onClick={()=>{navigate(`campdetail/${v.campingId}`)}}>
@@ -40,6 +41,7 @@ function HomeHistory() {
           </HistoryBox>
         )
       })}
+      </HistoryList>
     </ItemBox>
   )
 }
@@ -48,23 +50,43 @@ export default HomeHistory;
 
 const HistoryBox = styled.div`
   display: flex;
-  border: 2px solid gray;
-  margin-bottom: var(--pad2);
+  /* border: 2px solid gray; */
+  border-radius: 8px;
+  background-color: white;
+  /* margin-bottom: var(--pad2); */
 `
+
+const HistoryList = styled.div`
+  display: flex;
+  flex-direction:column;
+  gap: 16px;
+`
+
 const HistoryImg = styled.img`
+border-radius: 12px;
   object-fit: cover;
-  width: 75px;
-  height: 75px;
+  max-width: 96px;
+  min-width: 96px;
+  height: 96px;
+  padding: 4px;
   background-position: center;
 `
 const HistoryDetail = styled.div`
-  margin: auto 0 auto var(--pad2);
+  margin: auto 16px auto var(--pad2);
+  overflow: hidden;
 `
 const HistoryName = styled.div`
   font-size: 16px;
   font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 const HistoryAddress = styled.div`
   font-size: 12px;
+  /* width: 0%; */
   color: gray;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
