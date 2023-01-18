@@ -13,17 +13,22 @@ import {AiFillHeart, AiOutlineHeart} from "react-icons/ai"
 
 function LikeListElement(props) {
   const { review } = props;
-  const dateFormat = "YYYY-MM-DD";
+  const dateFormat = "YYYY.MM.DD";
 
   return (
     <PostBox >
       <Pic>
-        <ListImg img={review?.reviewUrlList[0]}></ListImg>
-        <LikeBtn>
-          {review.likeState? (
-            <AiFillHeart />
-          ):(<AiOutlineHeart />)}
-        </LikeBtn>
+        <ListImg img={review.reviewUrlList[0]}></ListImg>
+        <LikeBox>
+          <LikeBtn>
+            {review.likeState? (
+              <AiFillHeart />
+            ):(<AiOutlineHeart />)}
+          </LikeBtn>
+          <LikeCount>
+            {review.likeCount}
+          </LikeCount>
+        </LikeBox>
       </Pic>
       <Comm>
         <ComDiv>
@@ -31,7 +36,7 @@ function LikeListElement(props) {
             <ProfileImg img={review.profileImageUrl} />
             <div>{review.nickname}</div>
           </ListTop>
-          <div>{moment(review.modifiedAt).format(dateFormat)}</div>
+          <DateText>{moment(review.modifiedAt).format(dateFormat)}</DateText>
         </ComDiv>
         <CampName>{review?.campingName}</CampName>
         <Ment>{review.content}</Ment>
@@ -49,55 +54,71 @@ const ListImg = styled(CampImgView)`
 const CampName = styled.div`
   font-size: 18px;
   /* width: 291px; */
-  margin: 10px 0px 0px 21px;
+  /* margin: 10px 0px 0px 21px; */
 `;
 
 const ListTop = styled.div`
   display: flex;
-  line-height: 50px;
+  line-height: 40px;
   gap: var(--pad2);
+  font-size: 14px;
+`
+const DateText = styled.div`
+  color: var(--Gray3);
+  font-size: 12px;
+  padding-right: 10px;
 `
 
 const ProfileImg = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 100%;
   background-color: gray;
 `
 
 const PostBox = styled.div`
-  width: 335px;
-  height: 270px;
-  margin: 13px 0px 60px 0px;
+  /* width: 335px; */
+  /* height: 270px; */
+  /* margin: 13px 0px 60px 0px; */
+  border-radius: 8px;
+  background-color: white;
+  overflow: hidden;
 `;
 
 const Pic = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 335px;
-  height: 158px;
+  /* width: 335px; */
+  height: 200px;
   background-color: grey;
   position: relative;
 `;
 
 const Comm = styled.div`
-  width: 333px;
+  /* width: 333px; */
   /* height: 150px; */
-  border: 1px solid #b5b5b5;
+  /* border: 1px solid #b5b5b5; */
+  padding: 24px 20px 24px 20px;
 `;
 
 const ComDiv = styled.div`
-  width: 291px;
+  /* width: 291px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 25px 0px 0px 21px;
+  /* margin: 25px 0px 0px 21px; */
+  padding-bottom: 12px;
 `;
 
 const Ment = styled.div`
-  width: 291px;
-  margin: 25px 0px 15px 21px;
+  /* width: 291px; */
+  /* margin: 25px 0px 15px 21px; */
+  padding-top: 12px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 `;
 
 // const BookmarkBtn = styled.div`
@@ -109,11 +130,29 @@ const Ment = styled.div`
 //     z-index: 5;
 // `
 
-const LikeBtn = styled.div`
+const LikeBox = styled.div`
   position: absolute;
+  display: flex;
+  justify-content: right;
+  line-height: 30px;
   top:20px; 
   right:20px;
   font-size:30px;
-  filter: drop-shadow(10px 10px 10px 10px green);
+  /* filter: drop-shadow(10px 10px 10px 10px green); */
   z-index: 5;
+  color: white;
+`
+const LikeBtn = styled.div`
+  
+`
+
+const LikeCount = styled.div`
+  display: flex;
+  font-size:16px;
+  line-height: 30px;
+  padding-left: 6px;
+  /* width: 30px; */
+  justify-content: right;
+  font-weight:bold;
+  /* filter: drop-shadow(10px 10px 10px 10px green); */
 `

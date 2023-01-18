@@ -7,6 +7,7 @@ import CampListElement from "./CampListElement";
 
 import { instance } from "../../api/axiosApi";
 import { getCookies } from "../../api/cookieControler";
+import { ItemBox } from "../elements/ItemBox";
 
 
 const RecentViewCampForm = () => {
@@ -14,7 +15,7 @@ const RecentViewCampForm = () => {
   const [history, setHistory] = useState(null);
   const fetchHistory = async (record) => {
     try {
-      const { data } = await instance.post("/camping/listten", {"campingIdList":record });
+      const { data } = await instance.post("/review/listten", {"campingIdList":record });
       setHistory(data.data);
     } catch (error) { console.log(error); }
   };
@@ -25,8 +26,9 @@ const RecentViewCampForm = () => {
   }, [])
   console.log(history)
   return (
-    <>
+    <ItemBox>
       <Main>
+      {/* <Main>
         <BackBtn
           onClick={() => {
             navigate(`/`);
@@ -53,13 +55,14 @@ const RecentViewCampForm = () => {
             <Category>해변</Category>
           </Tag>
         </Suv>
-      </Box>
+      </Box> */}
       {history?.map((v)=>{
         return(
           <CampListElement key={v.id} camp={v}/>
         )
       })}
-    </>
+      </Main>
+    </ItemBox>
   );
 };
 
@@ -67,9 +70,11 @@ export default RecentViewCampForm;
 
 const Main = styled.div`
   display: flex;
-  align-items: center;
-  width: 360px;
-  margin-top: 29px;
+  /* align-items: center; */
+  /* width: 360px; */
+  /* margin-top: 29px; */
+  flex-direction: column;
+  gap: 32px;
 `;
 
 const BackBtn = styled.button`

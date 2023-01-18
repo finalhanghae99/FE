@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LikeListElement from "./LikeListElement";
 import { instance } from "../../api/axiosApi";
+import { ItemBox } from "../elements/ItemBox";
 
 const LikeReviewForm = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const LikeReviewForm = () => {
         </BackBtn>
         <div>좋아요를 많이 받은 리뷰에요</div>
       </Main>
-      <PostBox>
+      {/* <PostBox>
         <Pic>후기사진</Pic>
         <Comm>
           <ComDiv>
@@ -49,12 +50,12 @@ const LikeReviewForm = () => {
             캠핑장이 깨끗하고 정말 좋아요.
           </Ment>
         </Comm>
-      </PostBox>
+      </PostBox> */}
       {review?.map((v) => {
         return (
-          <PostBox key={v.reviewId} >
-          <LikeListElement review={v} />
-          </PostBox>
+          <ItemBox key={v.reviewId} >
+            <LikeListElement review={v} />
+          </ItemBox>
         )
       })}
     </>
@@ -79,7 +80,7 @@ const BackBtn = styled.button`
 const PostBox = styled.div`
   /* width: 335px;
   height: 277px; */
-  margin: 48px 0px 20px 28px;
+  /* margin: 48px 0px 20px 28px; */
 `;
 
 const Pic = styled.div`
