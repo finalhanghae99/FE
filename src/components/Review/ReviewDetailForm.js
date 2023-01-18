@@ -229,7 +229,7 @@ const EditBtn = styled(Button)`
 const DelBtn = styled.button`
   border: none;
   border-bottom: 1px solid var(--Brand6);
-  background-color: white;
+  background-color: var(--BackColor2);
   font-size: 14px;
   padding-bottom: 4px;
   font-weight: 700;

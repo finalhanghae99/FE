@@ -20,7 +20,7 @@ function HomePopularReview() {
   useEffect(() => {
     fetchReview();
   }, []);
-  
+
   const starRender = (score) => {
     let stars = "";
     for (let i = 0; i < score; i++) {
@@ -30,7 +30,7 @@ function HomePopularReview() {
   };
 
   const onReviewDetail = (id) => {
-    console.log("id", id)
+    console.log("id", id);
     navigate(`reviewdetail/${id}`);
   };
 
@@ -45,7 +45,6 @@ function HomePopularReview() {
           return (
             <ReviewCard key={v.reviewId} img={v.imageUrl} onClick={()=>{onReviewDetail(v.reviewId)}}>
               <ReviewName>{v.campingName}</ReviewName>
-
               <ScoreBox>
                 <ReviewItem>정보일치</ReviewItem>
                 <ReviewScore>{starRender(v.score1)}</ReviewScore>
@@ -80,24 +79,24 @@ const ReviewCard = styled.div`
   max-width: 206px;
   height: 221px;
   padding: var(--interval);
-  background-image: url(${props => props.img});
+  background-image: url(${(props) => props.img});
   background-size: cover;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
   color: white;
-  &::before{ 
+  &::before {
     background: inherit;
     filter: blur(4px);
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
   }
-  &::after{
-    content: '';
+  &::after {
+    content: "";
     display: block;
     position: absolute;
     top: 0;
@@ -105,7 +104,7 @@ const ReviewCard = styled.div`
     bottom: 0;
     left: 0;
     opacity: 0.6;
-    background:black
+    background: black;
   }
 `;
 
