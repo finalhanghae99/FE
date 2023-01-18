@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StInput = styled.input`
   width: 314px;
   height: 36px;
-  background-color: white;
+  background-color: var(--BackColor1);
   border: none;
   border-bottom: 1px solid var(--Brand6);
   margin: var(--pad3);

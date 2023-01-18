@@ -147,7 +147,7 @@ const MainDiv = styled.div`
 `;
 
 const StDiv = styled.div`
-  background-color: grey;
+  /* background-color: grey; */
   width: 100%;
 `;
 
@@ -187,7 +187,6 @@ const Environment = styled.div`
   width: 100%;
   border-bottom: 8px solid #d8d8d8;
   margin-top: 12px;
-  /* margin-right: 24px; */
 `;
 
 const EleName = styled.div`
@@ -222,7 +221,8 @@ const Ele = styled.div`
   padding: 1px 12px;
   gap: 8px;
   border-radius: 24px;
-  border: 1px solid #aaaaaa;
+  background-color: white;
+  border: 1px solid white;
 `;
 
 const Map = styled.div`
@@ -240,6 +240,7 @@ const MapName = styled.div`
 const MapDiv = styled.div`
   margin: 0px 24px 0px 24px;
   border-radius: 8px;
+  overflow: hidden;
 `;
 
 const Post = styled.div`
@@ -255,13 +256,13 @@ const Review = styled.div`
 
 const ReviewBtn = styled.button`
   margin-left: 200px;
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--BackColor2);
+  border: 1px solid var(--BackColor2);
 `;
 
 const AllBtn = styled.button`
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--BackColor2);
+  border: 1px solid var(--BackColor2);
 `;
 
 const BookmarkBtn = styled.div`

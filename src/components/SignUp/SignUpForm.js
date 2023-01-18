@@ -332,7 +332,7 @@ const CheckBtn = styled.button`
   height: 18px;
   border: none;
   border-bottom: 1px solid #343333;
-  background-color: white;
+  background-color: var(--BackColor1);
 `;
 
 const StInput = styled(Input)`
@@ -346,7 +346,7 @@ const SignUpBtn = styled(Button)`
 const Back = styled.button`
   border: none;
   border-bottom: 1px solid var(--Brand6);
-  background-color: white;
+  background-color: var(--BackColor1);
   font-size: 14px;
   padding-bottom: 4px;
   font-weight: 700;

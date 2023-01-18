@@ -124,7 +124,7 @@ const Logo = styled.div`
   font-weight: 500;
   line-height: 120%;
   color: #000000;
-  margin-top: var(--intarval);
+  margin-top: 40px;
 `;
 
 const Id = styled.div`
@@ -141,15 +141,15 @@ const StInput = styled(Input)`
 `;
 
 const LoginBtn = styled(Button)`
-  margin: 43px 0px 51px 8px;
+  margin: 43px 0px 51px 0px;
 `;
 
 const SignUpBtn = styled.button`
   border: none;
   border-bottom: 1px solid var(--Brand6);
-  background-color: white;
+  background-color: var(--BackColor1);
   font-size: 14px;
-  padding-bottom: 4px;
+  padding: 0px 0px 4px 0px;
   font-weight: 700;
   color: var(--Brand6);
 `;
