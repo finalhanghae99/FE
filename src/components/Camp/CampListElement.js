@@ -23,9 +23,9 @@ function CampListElement(props) {
     } catch (error) { console.log(error); }
   }
   return (
-    <ItemBox>
+    <ListBox>
       <div style={{ "position": "relative" }}>
-        <ListImg img={testImg} />
+        <ListImg img={camp.imageUrl} />
         <BookmarkBtn onClick={clickBMK}>
           {(isBMK) ?
             <BsFillBookmarkFill /> : <BsBookmark />
@@ -33,54 +33,92 @@ function CampListElement(props) {
         </BookmarkBtn>
       </div>
       <ItemBox>
-        <BoxHeader>
-          <BoxName>{camp.campingName}</BoxName>
-          <CountView>{camp.reviewCount}개의 리뷰</CountView>
-        </BoxHeader>
-        <AddressBox>{camp.address1} {camp.address2} {camp.address3}</AddressBox>
-      </ItemBox>
-      <hr></hr>
-      <ItemBox>
+        <DetailHeader>
+          <DetailName>{camp.campingName}</DetailName>
+          <CountView>{camp.reviewCount}개 리뷰</CountView>
+        </DetailHeader>
+        <AddressBox>{camp.address3}</AddressBox>
         <TagBox>
-          {camp.tagCategory.map((v, i) => {
+          {camp.campingEnv?.map((v, i) => {
+            return (
+              <CategoryTag key={i}>{v}</CategoryTag>
+            )
+          })}          
+          {camp.campingType?.map((v, i) => {
+            return (
+              <CategoryTag key={i}>{v}</CategoryTag>
+            )
+          })}          
+          {camp.campingFac?.map((v, i) => {
             return (
               <CategoryTag key={i}>{v}</CategoryTag>
             )
           })}
         </TagBox>
       </ItemBox>
-    </ItemBox>
+    </ListBox>
   )
 }
 
 export default CampListElement;
 
+const ListBox = styled.div`
+  border-radius: 8px;
+  overflow: hidden;
+  background-color:white;
+`
+
 const ListImg = styled(CampImgView)`
   height: 150px;
 `
-
 const CategoryTag = styled.div`
   border-radius: 50px;
-  border: 1px solid black;
+  line-height: 24px;
+  height: 24px;
+  /* font-size: 12px; */
+  /* border: 1px solid black; */
+  background-color: var(--BackColor2);
   padding: var(--pad1) var(--pad2)  var(--pad1)  var(--pad2) ;
-  flex-wrap: wrap;
+  flex-wrap: wrap; 
   font-size: 12px;
 `
 
 const TagBox = styled.div`
-  display: flex;
+  /* display: flex; */
+  display: inline-flex;
   gap: var(--pad2);
+  padding-top: var(--interval);
+  /* height: 60px; */
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 
+const DetailHeader = styled.div`
+  padding-bottom:8px;
+  display: flex;
+`
+
+const DetailName = styled(BoxName)`
+  flex:5;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
 const CountView = styled.div`
-  background-color: lightgrey;
+  background-color: var(--Brand6);
   font-size: 10px;
   font-weight: bold;
-  padding: var(--pad1);
+  padding: var(--pad1) var(--pad2) var(--pad1) var(--pad2);
+  color: white;
+  border-radius: 4px;
+  flex:1;
+  text-align: center;
 `
 
 const AddressBox = styled.div`
-  padding: var(--pad1);
+  /* padding: var(--pad1); */
   font-size: 14px;
   color: gray;
 `
@@ -89,6 +127,7 @@ const BookmarkBtn = styled.div`
     position: absolute;
     top:10px; 
     right:10px;
+    color: white;
     /* transform: translate(-50%,-50%); */
     /* padding:0; */
     /* margin:0; */
