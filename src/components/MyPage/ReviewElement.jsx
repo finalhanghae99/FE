@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef , useMemo} from "react";
 
 import { BoxHeader, BoxMoreLink, BoxName, ItemBox } from "../elements/ItemBox";
 
-import { AiOutlineHeart } from "react-icons/ai";
+import moment from "moment";
+
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import styled from "styled-components";
 
 import testImg from "../../img/test_camp_img.jpg"
@@ -38,10 +40,14 @@ function ReviewElement(props) {
         <BoxHeader>
           <BoxName>{review.campingName}</BoxName>
           <div>
-            <AiOutlineHeart /> {review.likeCount}
+            {(review.likeState)? (
+              <AiFillHeart />
+            ):(
+              <AiOutlineHeart /> )}
+            {review.likeCount}
           </div>
         </BoxHeader>
-        <ItemBox>date</ItemBox>
+        <ItemBox>{moment(review.modifiedAt).format("YYYY.MM.DD")}</ItemBox>
         <ScoreLists>
           <div>Score1</div> <div>{starRender(review.score1)}</div>
           <div>Score2</div> <div>{starRender(review.score2)}</div>
@@ -59,7 +65,7 @@ function ReviewElement(props) {
         </div>
       </ItemBox>
       <ImgLists>
-        {imgArr2.map((v, i) => {
+        {review.reviewUrlList.map((v, i) => {
           return (
             <ImgView key={i} src={v} />
           )

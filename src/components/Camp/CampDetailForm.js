@@ -9,6 +9,7 @@ import { getCookies, setCookies } from "../../api/cookieControler";
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
 import LikeListElement from "../Review/LikeListElement";
+import { ItemBox } from "../elements/ItemBox";
 
 function CampDetailForm() {
   const navigate = useNavigate();
@@ -48,7 +49,6 @@ function CampDetailForm() {
     lat: Number(campDetail?.mapY),
     lng: Number(campDetail?.mapX),
   };
-
   return (
     <MainDiv>
       <StDiv>
@@ -113,7 +113,7 @@ function CampDetailForm() {
       </Map>
       <Post>
         <Review>
-          <div>후기</div>
+          <div>리뷰({campDetail?.reviewList.length})</div>
           <ReviewBtn
             onClick={() => {
               navigate(`/reviewadd`);
@@ -130,7 +130,11 @@ function CampDetailForm() {
           </AllBtn>
         </Review>
         {campDetail?.reviewList?.map((v) => {
-          return <LikeListElement key={v.reviewId} review={v} />;
+          return (
+            <ReviewBox key={v.reviewId} >
+              <LikeListElement review={v} />
+            </ReviewBox>
+          )
         })}
       </Post>
     </MainDiv>
@@ -274,3 +278,7 @@ const BookmarkBtn = styled.div`
   filter: drop-shadow(10px 10px 10px 10px green);
   z-index: 5;
 `;
+
+const ReviewBox = styled.div`
+  margin-top: var(--interval);
+`
