@@ -9,34 +9,38 @@ import { BsPencilFill } from "react-icons/bs";
 
 import { BoxHeader, ItemBox } from "../elements/ItemBox";
 import { Link } from "react-router-dom";
+import { useModal } from "../../hooks/useModal";
+import MyInfoModify from "./MyInfoModify";
 
 function MyInfo() {
-  const id = `1`;
+  const modify = useModal();
   const [userInfo, setUserInfo] = useState(null);
   const fetchUser = async () => {
     try {
-      const { data } = await instance.get(`users/${id}`);
-      setUserInfo(data);
+      const { data } = await instance.get(`/mypage`);
+      setUserInfo(data.data);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {
     fetchUser();
   }, [])
+  console.log(userInfo)
   return (
     <ItemBox>
       <ItemBox>
         <UserHeader>
-          <UserImg src={testImg} />
+          <UserImg src={userInfo?.profileImageUrl}/>
           <UserName>{userInfo?.nickname}</UserName>
-          <ModifyIcon><BsPencilFill /></ModifyIcon>
+          <ModifyIcon onClick={modify.onOpen}><BsPencilFill /></ModifyIcon>
         </UserHeader>
       </ItemBox>
 
       <ItemBox>
-        <UserLinks>찜한 캠핑장</UserLinks><br /><hr />
-        <UserLinks>나의 리뷰</UserLinks><br /><hr />
-        <UserLinks>채팅내역</UserLinks>
+        <UserLinks to="/mypage/mycamp">찜한 캠핑장</UserLinks><br /><hr />
+        <UserLinks to="/mypage/myreview">나의 리뷰</UserLinks><br /><hr />
+        {/* <UserLinks>채팅내역</UserLinks> */}
       </ItemBox>
+      {modify.isOpen? (<MyInfoModify userInfo={userInfo} onClose={modify.onClose}/>) : null};
     </ItemBox>
   )
 }
@@ -49,6 +53,7 @@ const UserImg = styled.img`
   height: 75px;
   background-position: center;
   border-radius:100%;
+  background-color: lightgray;
 `
 
 const UserHeader = styled.div`

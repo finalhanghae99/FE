@@ -19,19 +19,19 @@ function MyCamping() {
   const [myCamp, setMyCamp] = useState(null);
   const fetchCamp = async () => {
     try {
-      const { data } = await instance.get(`mycamp`);
-      setMyCamp(data);
+      const { data } = await instance.get(`/mypage/camping`);
+      setMyCamp(data.data.responseUserCampingInfoListDtos);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {
     fetchCamp();
   }, [])
-
+  console.log(myCamp)
   return (
     <ItemBox>
       {myCamp?.map((v) => {
         return (
-          <CampListElement key={v.id} camp={v} />
+          <CampListElement key={v.campingId} camp={v} />
         )
       })}
     </ItemBox>

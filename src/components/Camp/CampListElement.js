@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import { BoxHeader, BoxName, ItemBox } from "../elements/ItemBox";
@@ -13,20 +13,23 @@ import { BsBookmark } from "react-icons/bs"
 import testImg from "../../img/test_camp_img.jpg"
 
 
+// /camping/{campingId}/like
 function CampListElement(props) {
+  const navigate = useNavigate();
   const {camp}= props;
   const [isBMK, setIsBMK] = useState(camp.campingLikeState);
   const clickBMK = async(id) =>{
     try {
-      await instance.patch(`mycamp/${camp.id}`, {"campingLikeState": !isBMK});
+      const {data} = await instance.post(`/camping/${id}/like`);
       setIsBMK(!isBMK)
     } catch (error) { console.log(error); }
   }
+  
   return (
-    <ListBox>
+    <ListBox onClick={()=>{navigate(`../campdetail/${camp.campingId}`)}}>
       <div style={{ "position": "relative" }}>
         <ListImg img={camp.imageUrl} />
-        <BookmarkBtn onClick={clickBMK}>
+        <BookmarkBtn onClick={()=>{clickBMK(camp.campingId)}}>
           {(isBMK) ?
             <BsFillBookmarkFill /> : <BsBookmark />
           }

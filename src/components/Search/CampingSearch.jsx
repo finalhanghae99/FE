@@ -3,6 +3,7 @@ import { useNavigate, useParams , useSearchParams} from "react-router-dom";
 import styled from "styled-components";
 
 import { instance } from "../../api/axiosApi";
+import CampListElement from "../Camp/CampListElement";
 
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
@@ -44,12 +45,12 @@ function CampingSearch() {
     fetchSearchList();
   }, [searchWord])
   
-
+  console.log(searchList)
   return (
     <ItemBox>
-      <BoxName>{searchList?.length}개의 검색 결과가 있어요.</BoxName>
+      <SearchCount>{searchList?.length}개의 검색 결과가 있어요.</SearchCount>
       <SearchList>
-        {searchList?.map((v, i) => {
+        {/* {searchList?.map((v, i) => {
           return (
             <div key={v.campingId}>
               <SearchElement>
@@ -64,6 +65,11 @@ function CampingSearch() {
               {(i+1 !==  searchList.length) ? <Line /> : null}
             </div>
           )
+        })} */}
+        {searchList?.map((v)=>{
+          return(
+            <CampListElement key={v.campingId} camp={v}/>
+          )
         })}
       </SearchList>
     </ItemBox>
@@ -71,10 +77,17 @@ function CampingSearch() {
 }
 export default CampingSearch;
 
+const SearchCount = styled.div`
+  margin-bottom: 16px;
+`
+
 const SearchList = styled.div`
-  border: 1px solid black;
-  border-radius: 10px;
-  overflow: hidden;
+  /* border: 1px solid black; */
+  /* border-radius: 10px; */
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 `
 
 const SearchElement = styled.div`
