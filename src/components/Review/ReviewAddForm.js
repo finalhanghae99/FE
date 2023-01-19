@@ -484,7 +484,7 @@ const ImgBtn = styled.button`
   width: 100%;
   height: 100%;
   border: none;
-  background-color: none;
+  background-color: rgba(0,0,0,0);
   color: white;
   font-size: 35px;
 `;
