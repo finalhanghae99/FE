@@ -45,8 +45,15 @@ const SignUpForm = () => {
   }, []);
 
   const onChangeNickname = useCallback((e) => {
-    setNickName(e.target.value);
-    if (e.target.value < 2 || e.target.value > 8) {
+    const nicknameRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+    const userNickName = e.target.value;
+    setNickName(userNickName);
+
+    if (
+      nicknameRegex.test(userNickName) ||
+      e.target.value < 2 ||
+      e.target.value > 8
+    ) {
       setNickNameMsg(`올바르지 않은 닉네임 형식 입니다.`);
       setIsNickName(false);
     } else {
@@ -72,21 +79,17 @@ const SignUpForm = () => {
     [password]
   );
 
-  const onChangeCheckPassword = useCallback(
-    (e) => {
-      const checkPasswordCurrent = e.target.value;
-      setCheckPassword(checkPasswordCurrent);
-
-      if (password === checkPasswordCurrent) {
-        setCheckPasswordMsg("비밀번호가 일치합니다.");
-        setIscheckPassword(true);
-      } else {
-        setCheckPasswordMsg("비밀번호가 일치하지 않습니다. 확인해주세요.");
-        setIscheckPassword(false);
-      }
-    },
-    [password]
-  );
+  const onChangeCheckPassword = useCallback((e) => {
+    const checkPasswordCurrent = e.target.value;
+    setCheckPassword(checkPasswordCurrent);
+    if (password === checkPasswordCurrent) {
+      setCheckPasswordMsg("비밀번호가 일치합니다.");
+      setIscheckPassword(true);
+    } else {
+      setCheckPasswordMsg("비밀번호가 일치하지 않습니다. 확인해주세요.");
+      setIscheckPassword(false);
+    }
+  });
 
   const onEmailCheck = (e) => {
     e.preventDefault();
@@ -109,6 +112,7 @@ const SignUpForm = () => {
         setIsUserEmailCheck(true);
       } else {
         alert("중복된 아이디 입니다.");
+        return data;
       }
     } catch (error) {
       console.log(error);
@@ -132,6 +136,7 @@ const SignUpForm = () => {
         setIsNickNameCheck(true);
       } else {
         alert("중복된 닉네임 입니다.");
+        return data;
       }
       return data;
     } catch (error) {
@@ -144,7 +149,6 @@ const SignUpForm = () => {
   };
 
   const onClickSignUpBtn = () => {
-    console.log(useremail, nickname, password);
     dispatch(__postsignup({ useremail, nickname, password }));
     alert("회원가입 성공!");
     navigate(`/login`);

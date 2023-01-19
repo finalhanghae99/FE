@@ -53,7 +53,11 @@ const ReviewDetailForm = () => {
   };
 
   const onEditReview = (id, reviewDetail) => {
-    navigate(`/reviewedit/${id}`, { state: { reviewDetail } });
+    if (reviewDetail.ownerCheck === false) {
+      alert("수정 권한이 없습니다.");
+    } else {
+      navigate(`/reviewedit/${id}`, { state: { reviewDetail } });
+    }
   };
 
   const starRender = (score) => {
