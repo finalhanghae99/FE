@@ -146,7 +146,7 @@ function CampDetailForm() {
           </ReviewBtn>
           <AllBtn
             onClick={() => {
-              navigate(`/reviewlist`);
+              navigate(`/reviewlist/${id}`);
             }}
           >
             전체보기

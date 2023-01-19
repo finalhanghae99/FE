@@ -5,7 +5,7 @@ import { BoxHeader, ItemBox } from "./ItemBox";
 import { CityObj} from "./regionData";
 
 function RegionPicker(props) {
-  const {onChange, onClose } = props;
+  const {setAddress1, setAddress2, onClose } = props;
   const [selectCity, setSelectCity] = useState(null)
   const [checked , setChecked] = useState(null)
 
@@ -18,16 +18,35 @@ function RegionPicker(props) {
           type="radio" 
           id={key} 
           value={CityObj[key].official} 
-          onChange={(event) => { 
-            onChange(event); 
+          onClick={(event) => { 
+            setAddress1(event.target.value)
             setSelectCity(key);
             setChecked(null); 
+            setAddress2("")
           }} 
         />
         <RadioLabel htmlFor={key}>{key}</RadioLabel>
       </SelectItem>
     )
   })
+  city1.push(
+    <SelectItem key="all">
+      <RadioInput 
+        name="address1" 
+        type="radio" 
+        id="all"
+        value="all"
+        onClick={(event) => { 
+          setAddress1("")
+          setSelectCity("all");
+          setChecked(null); 
+          setAddress2("")
+        }} 
+      />
+      <RadioLabel htmlFor="all">없음</RadioLabel>
+    </SelectItem>
+  )
+
 
   const cityDiv = CityObj[`${selectCity}`]?.data
   const city2 = cityDiv?.map((v, i) => {
@@ -40,7 +59,7 @@ function RegionPicker(props) {
           id={v} 
           value={v}
           onChange={(event) => { 
-            onChange(event); 
+            setAddress2(v)
             setChecked(v);
           }} 
         />
@@ -71,6 +90,7 @@ function RegionPicker(props) {
 
 export default RegionPicker;
 
+
 const PopWindow = styled.div`
   background-color: white;
   color: black;
@@ -84,7 +104,14 @@ const PopWindow = styled.div`
   border-top-right-radius: 32px;
   overscroll-behavior: contain;
   overflow-y: scroll;
-  z-index: 5;
+  z-index: 60;
+  @media (min-width: 414px) {
+    width : 414px;
+    /* top: 50%; */
+    height: 50vh;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
 `
 
 const OutOfModal = styled.div`

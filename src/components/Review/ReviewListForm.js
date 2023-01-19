@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import { BsPencilFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
+import { ItemBox } from "../elements/ItemBox";
+import LikeListElement from "./LikeListElement";
 
 const ReviewListForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [reviewList, setReviewList] = useState();
 
   const fetchreviewList = async () => {
     try {
-      const data = await instance.get("reviewlist");
-      // console.log(data)
-      if (data.status === 200) {
-        return setReviewList(data.data);
-      }
+      const { data } = await instance.get(`review/reviewall/${id}`);
+      setReviewList(data.data.responseReviewListDtos);
     } catch (error) {
       console.log(error);
     }
@@ -26,13 +26,19 @@ const ReviewListForm = () => {
     fetchreviewList();
   }, []);
 
+  if(!reviewList){
+    return(
+      <div>Loading ...</div>
+    )
+  }
+
   return (
     <>
       <Main>
-        <BackBtn>
+        {/* <BackBtn>
           <AiOutlineLeft />
-        </BackBtn>
-        <CampName>안산 용설호수 캠핑장</CampName>
+        </BackBtn> */}
+        <CampName>{reviewList[0]?.campingName}</CampName>
       </Main>
       <Write
         onClick={() => {
@@ -41,8 +47,8 @@ const ReviewListForm = () => {
       >
         <BsPencilFill />
       </Write>
-      <PostBox>
-        {reviewList?.map((a) => {
+      <ItemBox>
+        {/* {reviewList?.map((a) => {
           return (
             <>
               <Pic>{a.reviewUrl}</Pic>
@@ -56,8 +62,15 @@ const ReviewListForm = () => {
               </Comm>
             </>
           );
+        })} */}
+        {reviewList?.map((v) => {
+          return (
+            <PostBox key={v.reviewId} >
+              <LikeListElement review={v}/>
+            </PostBox>
+          );
         })}
-      </PostBox>
+      </ItemBox>
     </>
   );
 };
@@ -67,11 +80,12 @@ export default ReviewListForm;
 const Main = styled.div`
   display: flex;
   align-items: center;
-  width: 360px;
-  margin-left: 5px;
+  /* width: 360px; */
+  /* margin-left: 5px; */
 `;
 const CampName = styled.div`
-  margin-left: 95px;
+  /* margin-left: 95px; */
+  margin: var(--interval) auto var(--interval)  auto;
 `;
 
 const BackBtn = styled.button`
@@ -88,9 +102,9 @@ const Write = styled.button`
 `;
 
 const PostBox = styled.div`
-  width: 335px;
-  height: 277px;
-  margin: 34px 0px 30px 28px;
+  /* width: 335px; */
+  /* height: 277px; */
+  margin-bottom: 32px;
 `;
 
 const Pic = styled.div`
