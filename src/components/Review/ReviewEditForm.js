@@ -1,17 +1,16 @@
 import React, { useRef, useState } from "react";
 import { BsXLg } from "react-icons/bs";
-import { ImStarFull } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import {
-  __postreviewadd,
-  __putreviewadd,
-} from "../../redux/modules/reviewAddSlice";
+import { __putreviewadd } from "../../redux/modules/reviewAddSlice";
 import NameSearch from "../Search/NameSearch";
 
 import { useModal } from "../../hooks/useModal";
 import PostStar from "./PostStar";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ItemBox } from "../elements/ItemBox";
+import { FiSearch } from "react-icons/fi";
+import Button from "../elements/Button";
 
 const ReviewEditForm = () => {
   const [score1, setScore1] = useState();
@@ -88,6 +87,7 @@ const ReviewEditForm = () => {
         data: data,
       })
     );
+    alert("수정 완료!")
     navigate("/");
   };
 
@@ -109,7 +109,7 @@ const ReviewEditForm = () => {
 
   const ImgPreview = () => {
     const imgArr = [];
-    for (let i = 1; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       if (images[i]) {
         imgArr.push(
           <PicAdd2 key={i}>
@@ -136,174 +136,199 @@ const ReviewEditForm = () => {
 
   return (
     <MainDiv>
-      <CampName>방문하신 캠핑장을 알려주세요.(필수)</CampName>
-      <CampInput onClick={campName.onOpen}>
-        {campingId && campingName
-          ? `${campingName}`
-          : `${reviewDetail?.campingName}`}
-      </CampInput>
-      <Detail>세부항목의 별점을 매겨주세요.(필수)</Detail>
-      <div>
-        <StarBox>
+      <TopTitle>리뷰 수정하기</TopTitle>
+      <ItemBox>
+        <Detail>
+          방문하신 캠핑장을 알려주세요.<MinText>(필수)</MinText>
+        </Detail>
+        <InputBox>
+          <CampInput onClick={campName.onOpen}>
+            {campingId && campingName
+              ? `${campingName}`
+              : `${reviewDetail?.campingName}`}
+          </CampInput>
+          <SeartchBtn>
+            <FiSearch />
+          </SeartchBtn>
+        </InputBox>
+      </ItemBox>
+      <GrayLine />
+      <ItemBox>
+        <Detail>
+          세부항목의 별점을 매겨주세요.<MinText>(필수)</MinText>
+        </Detail>
+        <GrayHr />
+        <ScoreTop>
           <NameDiv>정보일치</NameDiv>
+          <DetailInfo>홈페이지에 나온 정보랑 일치한가요?</DetailInfo>
+        </ScoreTop>
+        <StarBox>
           <PostStar setScore={setScore1} />
         </StarBox>
-        <StarBox2>
+        <GrayHr />
+        <ScoreTop>
           <NameDiv>편의시설</NameDiv>
+          <DetailInfo>주변에 편의점, 마트 등 편의시설이 있었나요?</DetailInfo>
+        </ScoreTop>
+        <StarBox>
           <PostStar setScore={setScore2} />
-        </StarBox2>
-        <StarBox2>
+        </StarBox>
+        <GrayHr />
+        <ScoreTop>
           <NameDiv>관리상태</NameDiv>
+          <DetailInfo>위험한 부분없이 관리가 잘되어 있었나요?</DetailInfo>
+        </ScoreTop>
+        <StarBox>
           <PostStar setScore={setScore3} />
-        </StarBox2>
-        <StarBox2>
+        </StarBox>
+        <GrayHr />
+        <ScoreTop>
           <NameDiv>접근성</NameDiv>
+          <DetailInfo>접근하기 좋은 위치에 있었나요?</DetailInfo>
+        </ScoreTop>
+        <StarBox>
           <PostStar setScore={setScore4} />
-        </StarBox2>
-        <StarBox2>
+        </StarBox>
+        <GrayHr />
+        <ScoreTop>
           <NameDiv>청결도</NameDiv>
+          <DetailInfo>
+            청소와 정리가 잘되어 있었나요?(화장실, 분리수거 등)
+          </DetailInfo>
+        </ScoreTop>
+        <StarBox>
           <PostStar setScore={setScore5} />
-        </StarBox2>
-      </div>
-      <Pic>캠핑장의 사진을 올려주세요.(필수)</Pic>
-      <PicDiv>
-        {images[0] ? (
-          <>
-            <MainImg src={URL.createObjectURL(images[0])} />
-            <BtnCircle>
-              <XBtn
-                onClick={() => {
-                  onDeleteImg(0);
-                }}
-              />
-            </BtnCircle>
-          </>
-        ) : (
-          <ImgPlus />
+        </StarBox>
+      </ItemBox>
+      <GrayLine />
+      <ItemBox>
+        <Detail>
+          캠핑장의 사진을 올려주세요.<MinText>(필수)</MinText>
+        </Detail>
+        <PicBtnBox>
+          <PictureBox>
+            <ImgPreview />
+          </PictureBox>
+        </PicBtnBox>
+      </ItemBox>
+      <GrayLine />
+      <ItemBox>
+        <Detail>
+          캠핑장 경험에 대해 알려주세요.<MinText>(필수)</MinText>
+        </Detail>
+        <ExpInput
+          type="text"
+          placeholder="다른 캠퍼들이 참고 할 수 있도록 캠핑장에 대해 알려주세요."
+          onChange={onChangeExp}
+          value={contents}
+        ></ExpInput>
+        <AddBtn onClick={() => onReviewEdit(reviewDetail.reviewId)}>
+          수정하기
+        </AddBtn>
+        {campName.isOpen && (
+          <NameSearch
+            setCampingName={setCampingName}
+            setCampingId={setCampingId}
+            onClose={campName.onClose}
+          />
         )}
-      </PicDiv>
-      <PicBtnBox>
-        <PictureBox>
-          <ImgPreview />
-        </PictureBox>
-      </PicBtnBox>
-      <Exp>캠핑장 경험에 대해 알려주세요.(필수)</Exp>
-      <ExpInput
-        type="text"
-        placeholder="다른 캠퍼들이 참고 할 수 있도록 캠핑장에 대해 알려주세요."
-        onChange={onChangeExp}
-        value={contents}
-      ></ExpInput>
-      <AddBtn onClick={() => onReviewEdit(reviewDetail.reviewId)}>
-        수정하기
-      </AddBtn>
-      {campName.isOpen && (
-        <NameSearch
-          setCampingName={setCampingName}
-          setCampingId={setCampingId}
-          onClose={campName.onClose}
-        />
-      )}
+      </ItemBox>
+      <CanBox>
+        <CanBtn
+          onClick={() => navigate(`/reviewdetail/${reviewDetail.reviewId}`)}
+        >
+          취소
+        </CanBtn>
+      </CanBox>
     </MainDiv>
   );
 };
 
 export default ReviewEditForm;
 
+const TopTitle = styled.div`
+  margin-top: var(--interval);
+  text-align: center;
+  font-size: 20px;
+`;
+
+const GrayHr = styled.div`
+  height: 1px;
+  background-color: var(--Gray1);
+  margin-top: 12px;
+  margin-bottom: var(--interval);
+`;
+
 const MainDiv = styled.div`
+  width: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  background-color: var(--BackColor1);
 `;
 
-const CampName = styled.div`
-  width: 390px;
-  padding-left: 27px;
-  margin: 39px 0px 7px 27px;
+const InputBox = styled.div`
+  display: flex;
+  position: relative;
 `;
-
 const CampInput = styled.div`
-  width: 335px;
-  height: 38px;
-  border: 1px solid #898989;
-  border-radius: 5px;
-  margin: 0px 0px 0px 2px;
+  width: 100%;
+  height: 56px;
+  line-height: 56px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 36px;
+  padding-left: var(--interval);
+  padding-right: var(--interval);
+`;
+
+const SeartchBtn = styled.div`
+  height: 19px;
+  font-size: 19px;
+  position: absolute;
+  right: 24px;
+  line-height: 19px;
+  transform: translateY(100%);
 `;
 
 const Detail = styled.div`
-  width: 390px;
   height: 19px;
-  padding-left: 27px;
-  margin: 27px 0px 0px 27px;
+  padding-bottom: 16px;
+`;
+const MinText = styled.a`
+  font-size: 12px;
+`;
+
+const ScoreTop = styled.div`
+  display: flex;
+  align-items: flex-end;
+  margin: 0 6px 16px 6px;
 `;
 
 const NameDiv = styled.div`
   width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+`;
+const DetailInfo = styled.div`
+  font-size: 12px;
 `;
 
 const StarBox = styled.div`
+  font-size: 32px;
   display: flex;
-  width: 265px;
-  font-size: 14px;
-  color: #757575;
-  padding-left: 27px;
-  margin: 17px 96px 0px 0px;
-`;
-
-const StarBox2 = styled.div`
-  display: flex;
-  width: 265px;
-  font-size: 14px;
-  color: #757575;
-  padding-left: 27px;
-  margin: 8px 96px 0px 0px;
+  gap: 8px;
+  justify-content: center;
 `;
 
 const PictureBox = styled.div`
   display: flex;
+  gap: 6px;
   justify-content: space-between;
-  width: 324px;
-  margin-right: 5px;
-`;
-
-const Pic = styled.div`
-  width: 265px;
-  padding-left: 27px;
-  margin: 17px 96px 0px 0px;
-`;
-
-const PicDiv = styled.div`
-  width: 324px;
-  height: 324px;
-  margin-top: 23px;
-  background-color: white;
-  border: 1px solid #a8a8a8;
-  font-size: 42px;
-  position: relative;
-
-  input {
-    display: none;
-  }
-  img {
-    z-index: 1;
-  }
-  label {
-    z-index: 0;
-    width: 324px;
-    height: 324px;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
 `;
 
 const PicBtnBox = styled.div`
   display: flex;
   flex-direction: row;
-  width: 324px;
-  margin-top: 23px;
 `;
 
 const PicAdd = styled.div`
@@ -311,12 +336,12 @@ const PicAdd = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 72px;
-  height: 72px;
-  background-color: white;
+  width: 60px;
+  height: 60px;
+  background-color: var(--Gray4);
+  color: white;
   border: 1px solid #a8a8a8;
   font-size: 32px;
-  margin-left: 5px;
 `;
 
 const PicAdd2 = styled.div`
@@ -324,73 +349,81 @@ const PicAdd2 = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 72px;
-  height: 72px;
+  width: 60px;
+  height: 60px;
   background-color: white;
   border: 1px solid #a8a8a8;
   font-size: 32px;
-  margin-left: 5px;
   position: relative;
 
   img {
-    width: 72px;
-    height: 77px;
+    width: 60px;
+    height: 60px;
   }
 `;
 
 const ImgBtn = styled.button`
   width: 100%;
   height: 100%;
-  border: 1px solid white;
-  background-color: white;
+  border: none;
+  background: none;
+  color: white;
   font-size: 35px;
 `;
 
-const Exp = styled.div`
-  width: 390px;
-  margin-top: 27px;
-  margin-bottom: 17px;
-  padding-left: 54px;
-`;
-
-const ExpInput = styled.input`
+const ExpInput = styled.textarea`
+  box-sizing: border-box;
   width: 100%;
-  height: 143px;
-  word-break: normal;
-  border: 1px solid #b7b7b7;
-  margin: 0px 24px 25px 24px;
-`;
-
-const AddBtn = styled.button`
-  width: 324px;
-  height: 53px;
-  border: 1px solid #d9d9d9;
-  background-color: #d9d9d9;
+  height: 158px;
+  border: 1px solid var(--Gray3);
   border-radius: 10px;
+  margin-bottom: 25px;
+  padding: 16px;
+  resize: none;
 `;
 
-const MainImg = styled.img`
-  object-fit: cover;
+const AddBtn = styled(Button)`
   width: 100%;
-  height: 100%;
-  background-color: blue;
-  object-position: center;
-  position: relative;
 `;
+
 const BtnCircle = styled.div`
   position: absolute;
-  height: 20px;
-  width: 20px;
-  border-radius: 100%;
-  background-color: white;
-  top: 5px;
-  right: 5px;
+  height: 14px;
+  width: 14px;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0px;
+  right: 0px;
   z-index: 2;
 `;
 
 const XBtn = styled(BsXLg)`
   position: absolute;
-  height: 20px;
-  width: 20px;
+  height: 7px;
+  width: 7px;
+  translate: 50% 50%;
   z-index: 3;
+  color: white;
+`;
+const GrayLine = styled.div`
+  background-color: var(--Gray1);
+  height: 8px;
+  width: 100%;
+`;
+
+const CanBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CanBtn = styled.button`
+  width: 38px;
+  border: none;
+  border-bottom: 1px solid var(--Brand6);
+  background-color: var(--BackColor1);
+  font-size: 14px;
+  padding-bottom: 4px;
+  font-weight: 700;
+  color: var(--Brand6);
 `;
