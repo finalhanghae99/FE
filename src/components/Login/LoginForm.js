@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useSearchParams} from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
 import { setCookies } from "../../api/cookieControler";
@@ -8,6 +8,8 @@ import Input from "../elements/Input";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const directUrl = searchParams.get('redirect');
   const [useremail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,7 +27,7 @@ const LoginForm = () => {
       if (res === undefined) {
         navigate(`/login`);
       } else {
-        navigate(`/`);
+        (directUrl) ? (navigate(`/${directUrl}`)) : (navigate("/"))
         setCookies("id", res.headers.authorization, {
           path: "/",
           maxAge: 18000,

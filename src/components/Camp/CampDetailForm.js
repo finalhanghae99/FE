@@ -13,11 +13,19 @@ import { ItemBox } from "../elements/ItemBox";
 
 function CampDetailForm() {
   const navigate = useNavigate();
-  const [isBMK, setIsBMK] = useState(false);
 
   const [campDetail, setCampDetail] = useState();
+  const [reviewList, setReviewList] = useState();
   const { id } = useParams();
 
+  const [isBMK, setIsBMK] = useState();
+  const clickBMK = async(id) =>{
+    try {
+      const {data} = await instance.post(`/camping/${id}/like`);
+      console.log(data)
+      setIsBMK(!isBMK)
+    } catch (error) { console.log(error); }
+  }
   const fetchCampDetail = async () => {
     try {
       const { data } = await instance.get(`/camping/${id}`);
@@ -28,7 +36,16 @@ function CampDetailForm() {
       console.log(error);
     }
   };
-
+  const fetchReviewDetail = async() =>{
+    try {
+      const { data } = await instance.get(`/review/listfive/${id}`);
+      if (data.statusCode === 200) {
+        return setReviewList(data.data.responseReviewListDtos);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     // 캠핑장 열람 이력 저장
     let history = getCookies("history");
@@ -43,12 +60,18 @@ function CampDetailForm() {
       maxAge: 604800,
     });
     fetchCampDetail();
+    fetchReviewDetail();
   }, []);
+
+  useEffect(()=>{
+    setIsBMK(campDetail?.campingLikeState)
+  },[campDetail])
 
   const position = {
     lat: Number(campDetail?.mapY),
     lng: Number(campDetail?.mapX),
   };
+
   return (
     <MainDiv>
       <StDiv>
@@ -60,7 +83,7 @@ function CampDetailForm() {
               Image Not Found
             </div>
           )}
-          <BookmarkBtn>
+          <BookmarkBtn onClick={()=>clickBMK(id)}>
             {isBMK ? <RiBookmarkFill /> : <RiBookmarkLine />}
           </BookmarkBtn>
         </div>
@@ -129,7 +152,7 @@ function CampDetailForm() {
             전체보기
           </AllBtn>
         </Review>
-        {campDetail?.reviewList?.map((v) => {
+        {reviewList?.map((v) => {
           return (
             <ReviewBox key={v.reviewId} >
               <LikeListElement review={v} />

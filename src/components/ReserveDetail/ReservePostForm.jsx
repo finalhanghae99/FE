@@ -14,12 +14,7 @@ function ReservePostForm() {
     price: 0,
     content: ""
   }
-  const initialSet = {
-    isName : false,
-    isStart : false,
-    isEnd : false,
-    isContent : false
-  }
+
   const [campingName, setCampingName] = useState("");
   const [campingId , setCampingId] = useState("");
   const [reserve, setReserve] = useState(initialState);
@@ -31,10 +26,9 @@ function ReservePostForm() {
   const datePick = useModal();
   const campName = useModal();
   if (campName.isOpen) {
-    document.body.style.position = 'fixed';
-    document.body.style.width = "100%"
+    document.body.style.overflow = "hidden";
   } else {
-    document.body.style.position = '';
+    document.body.style.overflow = "";
   }
   useEffect(()=>{
     setIsComp(

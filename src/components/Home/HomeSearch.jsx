@@ -31,12 +31,15 @@ function HomeSearch({color}) {
     const { name, value } = event.target;
     setCondition({ ...condition, [name]: value })
   }
-  console.log(condition)
   const searchHandler = () => {
     const word1 = (condition.keyword.trim() === "") ? null : condition.keyword;
     const word2 = (condition.address1.trim() === "") ? null : condition.address1;
     const word3 = (condition.address2.trim() === "") ? null : condition.address2;
-    navigate(`../camp/search?keyword=${condition.keyword}&address1=${condition.address1}&address2=${condition.address2}`);
+    if(word1 || word2 || word3){
+      navigate(`../camp/search?keyword=${condition.keyword}&address1=${condition.address1}&address2=${condition.address2}`);
+    } else {
+      alert("캠핑장 이름 또는 지역을 입력 해주세요")
+    }
   }
 
   return (

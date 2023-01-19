@@ -11,6 +11,12 @@ const StButton = styled.button`
   background-color: var(--Brand6);
   border-radius: 36px;
   border: 1px solid #d9d9d9;
+  &:hover {
+    &:not([disabled]){
+    background-color: white;
+    color: Black;
+    border: 3px solid black;
+  }}
 `;
 
 const Button = (props) => {
@@ -19,6 +25,7 @@ const Button = (props) => {
       className={props.className}
       type={props.type}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.children}
     </StButton>

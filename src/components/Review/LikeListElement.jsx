@@ -9,24 +9,45 @@ import CampImgView from "../elements/CampImgView";
 
 import {AiFillHeart, AiOutlineHeart} from "react-icons/ai"
 
+import { instance } from "../../api/axiosApi";
+
+import { getCookies } from "../../api/cookieControler";
+
 // likeState
 
 function LikeListElement(props) {
   const { review } = props;
   const dateFormat = "YYYY.MM.DD";
+  const [isLike, setIsLike] = useState(review.likeState);
+  const [likeCount, setLikeCount] = useState(review.likeCount)
+
+  const clickLike = async(event,id) =>{
+    event.stopPropagation();
+    const token = getCookies("id")
+    if(!token) {
+      alert("로그인이 필요 합니다.")
+      return ;
+    }
+    try {
+      const {data} = await instance.post(`/review/${id}/like`);
+      console.log(data);
+      (isLike)? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
+      setIsLike(!isLike)
+    } catch (error) { console.log(error); }
+  }
 
   return (
     <PostBox >
       <Pic>
         <ListImg img={review.reviewUrlList[0]}></ListImg>
         <LikeBox>
-          <LikeBtn>
-            {review.likeState? (
+          <LikeBtn onClick={(event)=>{clickLike(event, review.reviewId)}}>
+            {isLike? (
               <AiFillHeart />
             ):(<AiOutlineHeart />)}
           </LikeBtn>
           <LikeCount>
-            {review.likeCount}
+            {likeCount}
           </LikeCount>
         </LikeBox>
       </Pic>
@@ -151,6 +172,7 @@ const LikeCount = styled.div`
   font-size:16px;
   line-height: 30px;
   padding-left: 6px;
+  width: 15px;
   /* width: 30px; */
   justify-content: right;
   font-weight:bold;
