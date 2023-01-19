@@ -41,6 +41,8 @@ export {ItemBox, BoxHeader, BoxName, BoxMoreLink};
 
 const StBox = styled.div`
   padding: var(--interval);
+  width: 100%;
+  box-sizing: border-box;
 `
 const StHeader = styled.div`
   display: flex;

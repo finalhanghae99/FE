@@ -16,32 +16,34 @@ function HomeSearch({color}) {
   } else {
     document.body.style.overflow = '';
   }
-  const initalCondtion = {
-    keyword: "",
-    address1: "",
-    address2: "",
-  }
-  const [condition, setCondition] = useState(initalCondtion)
+  // const initalCondtion = {
+  //   keyword: "",
+  //   address1: "",
+  //   address2: "",
+  // }
+  // const [condition, setCondition] = useState(initalCondtion)
+  const [keyword, setKeyword] = useState("")
+  const [address1, setAddress1] = useState("")
+  const [address2, setAddress2] = useState("")
 
-  useEffect(() => {
-    setCondition({ ...condition, address2: "" })
-  }, [condition.address1])
+  // useEffect(() => {
+  //   setCondition({ ...condition, address2: "" })
+  // }, [condition.address1])
 
-  const changeHandler = (event) => {
-    const { name, value } = event.target;
-    setCondition({ ...condition, [name]: value })
-  }
+  // const changeHandler = (event) => {
+  //   const { name, value } = event.target;
+  //   setCondition({ ...condition, [name]: value })
+  // }
   const searchHandler = () => {
-    const word1 = (condition.keyword.trim() === "") ? null : condition.keyword;
-    const word2 = (condition.address1.trim() === "") ? null : condition.address1;
-    const word3 = (condition.address2.trim() === "") ? null : condition.address2;
+    const word1 = (keyword.trim() === "") ? null : keyword;
+    const word2 = (address1.trim() === "") ? null : address1;
+    const word3 = (address2.trim() === "") ? null : address2;
     if(word1 || word2 || word3){
-      navigate(`../camp/search?keyword=${condition.keyword}&address1=${condition.address1}&address2=${condition.address2}`);
+      navigate(`../camp/search?keyword=${keyword}&address1=${address1}&address2=${address2}`);
     } else {
       alert("캠핑장 이름 또는 지역을 입력 해주세요")
     }
   }
-
   return (
     <SearchBox>
       <BtnBox>
@@ -51,19 +53,19 @@ function HomeSearch({color}) {
         {/* <MapBtn>지도 검색</MapBtn> */}
       </BtnBox>
       <InputBox>
-        <WordInput name="keyword" value={condition.keyword} onChange={changeHandler} placeholder="캠핑장" color={color}/>
+        <WordInput name="keyword" value={keyword} onChange={(event)=>{setKeyword(event.target.value)}} placeholder="캠핑장" color={color}/>
         <SeartchBtn onClick={searchHandler}><FiSearch /></SeartchBtn>
       </InputBox>
       <InputBox onClick={region.onOpen}>
         <RegionBtn color={color}>
-          {condition.address1 ? `${condition.address1} ${condition.address2}` : "지역 선택"}
+          {address1 ? `${address1} ${address2}` : "지역 선택"}
         </RegionBtn>
         <SeartchBtn>
           <AiOutlineDown />
         </SeartchBtn>
       </InputBox>
       {region.isOpen &&
-        <RegionPicker onChange={changeHandler} onClose={region.onClose} />
+        <RegionPicker setAddress1={setAddress1} setAddress2={setAddress2} onClose={region.onClose} />
       }
     </SearchBox>
   )
@@ -73,7 +75,7 @@ export default HomeSearch;
 const SearchBox = styled.div`
   padding-left: var(--interval);
   padding-right: var(--interval);
-
+  position: relative;
 `
 const BtnBox = styled.div`
   display: flex;

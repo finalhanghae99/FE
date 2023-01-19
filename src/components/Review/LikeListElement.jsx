@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import moment from 'moment';
 
@@ -16,6 +16,7 @@ import { getCookies } from "../../api/cookieControler";
 // likeState
 
 function LikeListElement(props) {
+  const navigate = useNavigate();
   const { review } = props;
   const dateFormat = "YYYY.MM.DD";
   const [isLike, setIsLike] = useState(review.likeState);
@@ -37,7 +38,7 @@ function LikeListElement(props) {
   }
 
   return (
-    <PostBox >
+    <PostBox onClick={()=>{navigate(`/reviewdetail/${review.reviewId}`)}}>
       <Pic>
         <ListImg img={review.reviewUrlList[0]}></ListImg>
         <LikeBox>
@@ -59,7 +60,7 @@ function LikeListElement(props) {
           </ListTop>
           <DateText>{moment(review.modifiedAt).format(dateFormat)}</DateText>
         </ComDiv>
-        <CampName>{review?.campingName}</CampName>
+        {/* <CampName>{review?.campingName}</CampName> */}
         <Ment>{review.content}</Ment>
       </Comm>
     </PostBox>
@@ -104,6 +105,7 @@ const PostBox = styled.div`
   border-radius: 8px;
   background-color: white;
   overflow: hidden;
+  border: 1px solid var(--Gray2);
 `;
 
 const Pic = styled.div`

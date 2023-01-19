@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment"
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
@@ -6,11 +7,19 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Button from "../elements/Button";
+import { ItemBox } from "../elements/ItemBox";
+import { getCookies } from "../../api/cookieControler";
+
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
+
 
 const ReviewDetailForm = () => {
   const [reviewDetail, setReviewDetail] = useState();
   const param = useParams();
   const navigate = useNavigate();
+
+  const [isLike, setIsLike] = useState();
+  const [likeCount, setLikeCount] = useState(0)
 
   const settings = {
     dots: true, // 슬라이더 밑에 버튼
@@ -23,11 +32,15 @@ const ReviewDetailForm = () => {
     arrows: false,
     // variableWidth: false
   };
+  useEffect(() => {
+    setIsLike(reviewDetail?.likeState)
+    setLikeCount(reviewDetail?.likeCount)
+  }, [reviewDetail])
+
 
   const fetchreviewDetail = async () => {
     try {
       const { data } = await instance.get(`/review/reviewone/${param.id}`);
-      console.log(data);
       if (data.statusCode === 200) {
         return setReviewDetail(data.data);
       }
@@ -35,7 +48,6 @@ const ReviewDetailForm = () => {
       console.log(error);
     }
   };
-  console.log(reviewDetail);
 
   const onDeleteReview = async () => {
     try {
@@ -61,12 +73,29 @@ const ReviewDetailForm = () => {
   };
 
   const starRender = (score) => {
-    let stars = "";
+    let stars = [];
     for (let i = 0; i < score; i++) {
-      stars += "★";
+      stars.push(<StarText key={i} style={{color:"var(--Brand6)"}}>★</StarText>);
+    }
+    for(let i = score; i < 5 ; i++){
+      stars.push(<StarText key={i} style={{color:"var(--Gray1)"}}>★</StarText>)
     }
     return stars;
   };
+
+  const clickLike = async(id) =>{
+    const token = getCookies("id")
+    if(!token) {
+      alert("로그인이 필요 합니다.")
+      return ;
+    }
+    try {
+      const {data} = await instance.post(`/review/${id}/like`);
+      console.log(data);
+      (isLike)? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
+      setIsLike(!isLike)
+    } catch (error) { console.log(error); }
+  }
 
   useEffect(() => {
     fetchreviewDetail();
@@ -74,46 +103,62 @@ const ReviewDetailForm = () => {
 
   return (
     <MainDiv>
-      <StyledSlider {...settings}>
-        {reviewDetail?.reviewUrlList.map((a, i) => {
-          return <Pic key={i} src={a}></Pic>;
-        })}
-      </StyledSlider>
-      <Title>
-        <Pro></Pro>
-        <Nick>{reviewDetail?.nickname}</Nick>
-        <Date>{reviewDetail?.modifiedAt.slice(0, 10)}</Date>
-      </Title>
-      <Suv>
-        <CampName>{reviewDetail?.campingName}</CampName>
-      </Suv>
-      <Stars>
-        <StarBox>
-          <NameDiv>정보일치</NameDiv>
-          <Star>({reviewDetail?.score1})</Star>
-          <Starr>{starRender(reviewDetail?.score1)}</Starr>
-        </StarBox>
-        <StarBox2>
-          <NameDiv>편의시설</NameDiv>
-          <Star>({reviewDetail?.score2})</Star>
-          <Starr>{starRender(reviewDetail?.score2)}</Starr>
-        </StarBox2>
-        <StarBox2>
-          <NameDiv>관리상태</NameDiv>
-          <Star>({reviewDetail?.score3})</Star>
-          <Starr>{starRender(reviewDetail?.score3)}</Starr>
-        </StarBox2>
-        <StarBox2>
-          <NameDiv>접근성</NameDiv>
-          <Star>({reviewDetail?.score4})</Star>
-          <Starr>{starRender(reviewDetail?.score4)}</Starr>
-        </StarBox2>
-        <StarBox2>
-          <NameDiv>청결도</NameDiv>
-          <Star>({reviewDetail?.score5})</Star>
-          <Starr>{starRender(reviewDetail?.score5)}</Starr>
-        </StarBox2>
-      </Stars>
+      <ViewWindow>
+        <StyledSlider {...settings}>
+          {reviewDetail?.reviewUrlList.map((a, i) => {
+            return <Pic key={i} src={a}></Pic>;
+          })}
+        </StyledSlider>
+      </ViewWindow>
+      <LikeBox>
+        <div onClick={()=>{clickLike(reviewDetail?.reviewId)}}>
+          {isLike ? <AiFillHeart /> : <AiOutlineHeart />}
+        </div>
+        <LikeCount>
+          {likeCount}
+        </LikeCount>
+      </LikeBox>
+
+      <ItemBox>
+        <Title>
+          <UserInfo>
+            <Pro src={reviewDetail?.profileImageUrl}></Pro>
+            <Nick>{reviewDetail?.nickname}</Nick>
+          </UserInfo>
+          <Date>{moment(reviewDetail?.modifiedAt).format("YYYY.MM.DD")}</Date>
+        </Title>
+        <Suv>
+          <CampName>{reviewDetail?.campingName}</CampName>
+        </Suv>
+        <Stars>
+          <StarBox2>
+            <NameDiv>정보일치</NameDiv>
+            <Star>({reviewDetail?.score1})</Star>
+            <Starr>{starRender(reviewDetail?.score1)}</Starr>
+          </StarBox2>
+          <StarBox2>
+            <NameDiv>편의시설</NameDiv>
+            <Star>({reviewDetail?.score2})</Star>
+            <Starr>{starRender(reviewDetail?.score2)}</Starr>
+          </StarBox2>
+          <StarBox2>
+            <NameDiv>관리상태</NameDiv>
+            <Star>({reviewDetail?.score3})</Star>
+            <Starr>{starRender(reviewDetail?.score3)}</Starr>
+          </StarBox2>
+          <StarBox2>
+            <NameDiv>접근성</NameDiv>
+            <Star>({reviewDetail?.score4})</Star>
+            <Starr>{starRender(reviewDetail?.score4)}</Starr>
+          </StarBox2>
+          <StarBox2>
+            <NameDiv>청결도</NameDiv>
+            <Star>({reviewDetail?.score5})</Star>
+            <Starr>{starRender(reviewDetail?.score5)}</Starr>
+          </StarBox2>
+        </Stars>
+      </ItemBox>
+
       <Content>
         <Contents>{reviewDetail?.content}</Contents>
       </Content>
@@ -128,11 +173,38 @@ const ReviewDetailForm = () => {
 };
 export default ReviewDetailForm;
 
+const ViewWindow = styled.div`
+  width: 100%;
+  position: relative;
+  &:after {
+    height: 100px;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0)  40% ,rgba(0, 0, 0, 0.5)  60% , black 100%);
+  };
+`
+
 const StyledSlider = styled(Slider)`
-  display: flex;
+  width: 100%;
+  /* display: flex;*/
   .slick-list {
-    width: 390px;
-    margin: 0px 0px -45px 0px;
+    /* width: 390px; */
+    /* margin: 0px 0px -45px 0px; */
+  } 
+  .slick-dots{
+    bottom: 25px;
+  }
+  .slick-dots li button:before{
+    color: white;
+  }
+  .slick-dots li.slick-active button:before{
+    color: black;
   }
 `;
 
@@ -152,33 +224,43 @@ const Pic = styled.img`
 
 const Title = styled.div`
   width: 100%;
-  margin: 60px 0px 20px 48px;
+  padding: 0px 0px 24px 0px;
   display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  line-height: 40px;
 `;
+
+const UserInfo = styled.div`
+  display: flex;
+  line-height: 40px;
+`
 
 const CampName = styled.div`
   width: 100%;
   font-size: 18px;
   font-weight: 700;
-  margin-left: var(--interval);
+  /* margin-left: var(--interval); */
 `;
 
 const Date = styled.div`
   font-size: 12px;
-  margin: 14px 0px 0px 180px;
+  color: var(--Gray3);
+  /* margin: 14px 0px 0px 180px; */
 `;
 
 const Suv = styled.div`
   width: 100%;
+  padding-bottom: 18px;
   display: flex;
 `;
 
 const Nick = styled.div`
   font-size: 14px;
-  margin: 15px 0px 0px 13px;
+  margin-left: 8px;
 `;
 
-const Pro = styled.div`
+const Pro = styled.img`
   width: 40px;
   height: 40px;
   border: 1px solid black;
@@ -186,16 +268,16 @@ const Pro = styled.div`
 `;
 
 const Stars = styled.div`
-  width: 340px;
-  height: 160px;
+  /* width: 340px; */
+  /* height: 160px; */
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-direction: column;
 `;
 
 const StarBox = styled.div`
   display: flex;
-  width: 265px;
+  /* width: 265px; */
   font-size: 14px;
   padding-left: 23px;
   margin: 17px 96px 0px 0px;
@@ -203,20 +285,28 @@ const StarBox = styled.div`
 
 const Star = styled.div`
   width: 17px;
-  margin: 0px 10px 0px 0px;
+  padding: 0 8px 0 0px;
+  /* margin: 8px; */
+  /* margin: 0px 10px 0px 0px; */
 `;
 
 const StarBox2 = styled.div`
   display: flex;
-  width: 265px;
+  /* width: 265px; */
   font-size: 14px;
-  padding-left: 23px;
-  margin: 8px 96px 0px 0px;
+  /* padding-left: 23px; */
+  /* margin: 8px 96px 0px 0px; */
+  padding-bottom: 9px;
+  line-height: 18px;
 `;
 
-const Starr = styled.div`
-  color: var(--Brand6);
+const Starr = styled.span`
 `;
+const StarText = styled.span`
+  color: ${props=>props.color};
+  font-size: 18px;
+  line-height: 18px;
+`
 
 const Content = styled.div`
   width: 100%;
@@ -247,3 +337,28 @@ const DelBtn = styled.button`
   font-weight: 700;
   color: var(--Brand6);
 `;
+
+
+const LikeCount = styled.div`
+  display: flex;
+  font-size:16px;
+  line-height: 30px;
+  padding-left: 6px;
+  width: 15px;
+  /* width: 30px; */
+  justify-content: right;
+  font-weight:bold;
+  /* filter: drop-shadow(10px 10px 10px 10px green); */
+`
+const LikeBox = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: right;
+  line-height: 30px;
+  top:20px; 
+  right:20px;
+  font-size:30px;
+  /* filter: drop-shadow(10px 10px 10px 10px green); */
+  z-index: 5;
+  color: white;
+`

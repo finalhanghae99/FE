@@ -40,7 +40,7 @@ function MyInfo() {
         <UserLinks to="/mypage/myreview">나의 리뷰</UserLinks><br /><hr />
         {/* <UserLinks>채팅내역</UserLinks> */}
       </ItemBox>
-      {modify.isOpen? (<MyInfoModify userInfo={userInfo} onClose={modify.onClose}/>) : null};
+      {modify.isOpen? (<MyInfoModify userInfo={userInfo} onClose={modify.onClose}/>) : null}
     </ItemBox>
   )
 }

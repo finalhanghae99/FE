@@ -30,7 +30,7 @@ const LoginForm = () => {
         (directUrl) ? (navigate(`/${directUrl}`)) : (navigate("/"))
         setCookies("id", res.headers.authorization, {
           path: "/",
-          maxAge: 18000,
+          maxAge: 3500,
         });
       }
     });
