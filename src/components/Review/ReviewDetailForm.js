@@ -52,6 +52,10 @@ const ReviewDetailForm = () => {
     }
   };
 
+  const onEditReview = (id, reviewDetail) => {
+    navigate(`/reviewedit/${id}`, { state: { reviewDetail } });
+  };
+
   const starRender = (score) => {
     let stars = "";
     for (let i = 0; i < score; i++) {
@@ -107,10 +111,13 @@ const ReviewDetailForm = () => {
         </StarBox2>
       </Stars>
       <Content>
-        <Contents>
-        {reviewDetail?.content}
-          </Contents></Content>
-      <EditBtn>수정하기</EditBtn>
+        <Contents>{reviewDetail?.content}</Contents>
+      </Content>
+      <EditBtn
+        onClick={() => onEditReview(reviewDetail?.reviewId, reviewDetail)}
+      >
+        수정하기
+      </EditBtn>
       <DelBtn onClick={onDeleteReview}>삭제하기</DelBtn>
     </MainDiv>
   );
@@ -191,6 +198,7 @@ const StarBox = styled.div`
 `;
 
 const Star = styled.div`
+  width: 17px;
   margin: 0px 10px 0px 0px;
 `;
 
@@ -216,7 +224,7 @@ const Content = styled.div`
 
 const Contents = styled.div`
   margin: 0px 24px 0px 24px;
-`
+`;
 
 const NameDiv = styled.div`
   width: 60px;

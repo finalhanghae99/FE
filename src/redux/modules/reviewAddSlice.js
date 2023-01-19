@@ -22,6 +22,21 @@ export const __postreviewadd = createAsyncThunk(
   }
 );
 
+export const __putreviewadd = createAsyncThunk(
+  "reviewput",
+  async (payload, thunkAPI) => {
+    console.log("payload", payload)
+    try {
+      const data = await instance.put(`/review/${payload.id}`, payload.data,{
+        headers :{"Content-Type": `multipart/form-data`}
+      });
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error");
+    }
+  }
+);
+
 const reviewAddSlice = createSlice({
   name: "reviewadd",
   initialState,
@@ -37,6 +52,10 @@ const reviewAddSlice = createSlice({
     builder.addCase(__postreviewadd.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+    });
+    builder.addCase(__putreviewadd.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.review = action.payload;
     });
   },
 });
