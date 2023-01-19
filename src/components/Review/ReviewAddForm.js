@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { BsXLg } from "react-icons/bs";
 import { ImStarFull } from "react-icons/im";
 import { useDispatch } from "react-redux";
@@ -14,13 +14,14 @@ import { FiSearch } from "react-icons/fi";
 
 import Button from "../elements/Button";
 import { useNavigate } from "react-router-dom";
+import { getCookies } from "../../api/cookieControler";
 
 const ReviewAddForm = () => {
-  const [score1, setScore1] = useState();
-  const [score2, setScore2] = useState();
-  const [score3, setScore3] = useState();
-  const [score4, setScore4] = useState();
-  const [score5, setScore5] = useState();
+  const [score1, setScore1] = useState(0);
+  const [score2, setScore2] = useState(0);
+  const [score3, setScore3] = useState(0);
+  const [score4, setScore4] = useState(0);
+  const [score5, setScore5] = useState(0);
 
   const campName = useModal();
   if (campName.isOpen) {
@@ -48,6 +49,15 @@ const ReviewAddForm = () => {
   // const [clicked3, setClicked3] = useState([false, false, false, false, false]);
   // const [clicked4, setClicked4] = useState([false, false, false, false, false]);
   // const [clicked5, setClicked5] = useState([false, false, false, false, false]);
+  const [isComp, setIsComp] = useState(false)
+
+  useEffect(()=>{
+    setIsComp(
+      Boolean(campingName)
+      && Boolean(images)
+      && (content.trim() !== "")
+    )
+  },[campingId, content, images])
 
   const onFileUpload = () => {
     imgRef.current.click();
@@ -140,6 +150,11 @@ const ReviewAddForm = () => {
   // console.log(score1, score2, score3, score4, score5)
 
   const onReviewadd = (e) => {
+    const token = getCookies("id")
+    if(!token){
+      alert("로그인 정보가 없습니다. 로그인후 다시 시도 해주세요.")
+      return;
+    }
     const data = new FormData();
     images.map((v) => {
       data.append("multipartFile", v);
@@ -335,7 +350,7 @@ const ReviewAddForm = () => {
           placeholder="다른 캠퍼들이 참고 할 수 있도록 캠핑장에 대해 알려주세요."
           onChange={onChangeExp}
         ></ExpInput>
-        <AddBtn onClick={() => onReviewadd()}>등록하기</AddBtn>
+        <AddBtn disabled={!isComp} onClick={() => onReviewadd()}>등록하기</AddBtn>
         {campName.isOpen && (
           <NameSearch
             setCampingName={setCampingName}
@@ -469,7 +484,7 @@ const ImgBtn = styled.button`
   width: 100%;
   height: 100%;
   border: none;
-  background: none;
+  background-color: none;
   color: white;
   font-size: 35px;
 `;

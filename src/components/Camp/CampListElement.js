@@ -10,6 +10,8 @@ import { instance } from "../../api/axiosApi";
 import { BsFillBookmarkFill } from "react-icons/bs"
 import { BsBookmark } from "react-icons/bs"
 
+import { getCookies } from "../../api/cookieControler";
+
 import testImg from "../../img/test_camp_img.jpg"
 
 
@@ -18,7 +20,13 @@ function CampListElement(props) {
   const navigate = useNavigate();
   const {camp}= props;
   const [isBMK, setIsBMK] = useState(camp.campingLikeState);
-  const clickBMK = async(id) =>{
+  const clickBMK = async(event, id) =>{
+    event.stopPropagation();
+    const token = getCookies("id")
+    if(!token) {
+      alert("로그인이 필요 합니다.")
+      return ;
+    }
     try {
       const {data} = await instance.post(`/camping/${id}/like`);
       setIsBMK(!isBMK)
@@ -29,7 +37,7 @@ function CampListElement(props) {
     <ListBox onClick={()=>{navigate(`../campdetail/${camp.campingId}`)}}>
       <div style={{ "position": "relative" }}>
         <ListImg img={camp.imageUrl} />
-        <BookmarkBtn onClick={()=>{clickBMK(camp.campingId)}}>
+        <BookmarkBtn onClick={(event)=>{clickBMK(event, camp.campingId)}}>
           {(isBMK) ?
             <BsFillBookmarkFill /> : <BsBookmark />
           }

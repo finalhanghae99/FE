@@ -7,11 +7,21 @@ import campFireImg from "../../img/CampFire.svg"
 
 import {BsArrowRightShort} from "react-icons/bs"
 
+import { getCookies } from "../../api/cookieControler";
+
 function HomeRecommend(){
   const navigate = useNavigate();
+
+  const navEvent = () =>{
+    const token = getCookies("id");
+    (token)? (navigate("/reviewadd")) : (
+      navigate("/login?redirect=reviewadd")
+    )
+  }
+
   return(
     <ItemBox>
-      <RevLinkBtn onClick={()=>{navigate("/reviewadd")}}>
+      <RevLinkBtn onClick={()=>{navEvent()}}>
         <ImgView src={campFireImg}/>
         <BtnText>
           <SmallText>

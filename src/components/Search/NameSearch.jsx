@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { instance } from "../../api/axiosApi";
+import { FiSearch } from "react-icons/fi"
 
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
@@ -35,23 +36,23 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
     <SearchWindow>
       <button onClick={onClose}>닫기</button>
       <ItemBox>
-        <form onSubmit={submitHandler}>
-          <WordInput name="keyword" onChange={(event) => { setKeyword(event.target.value) }} />
-        </form>
+        <InputBox onSubmit={submitHandler}>
+          {/* <form onSubmit={submitHandler}> */}
+            <WordInput name="keyword" onChange={(event) => { setKeyword(event.target.value) }} />
+            <SeartchBtn><FiSearch /></SeartchBtn>
+          {/* </form> */}
+        </InputBox>
         <BoxName>{searchList?.length}개의 검색 결과가 있어요.</BoxName>
         <SearchList>
           {searchList?.map((v, i) => {
             return (
-              <div key={v.campingId} onClick={() => { clickCamp(v.campingId, v.campingName) }}>
-                <SearchElement>
+                <SearchElement key={v.campingId} onClick={() => { clickCamp(v.campingId, v.campingName) }}>
                   <SearchDetail>
                     <SearchName>{v.campingName}</SearchName>
                     <SearchAddress>{v.address3}</SearchAddress>
                   </SearchDetail>
-                  <button>선택</button>
+                  <SelectBtn>선택</SelectBtn>
                 </SearchElement>
-                {(i + 1 !== searchList.length) ? <Line /> : null}
-              </div>
             )
           })}
         </SearchList>
@@ -61,11 +62,13 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
 }
 export default NameSearch;
 
+
+
 const SearchWindow = styled.div`
   box-sizing: border-box;
   height: 100%;
   width: 100%;
-  background-color: lightskyblue;
+  background-color: var(--Gray2);
   position: fixed;
   /* overflow: scroll; */
   bottom: 0;
@@ -74,8 +77,8 @@ const SearchWindow = styled.div`
 `
 
 const SearchList = styled.div`
-  border: 1px solid black;
-  border-radius: 10px;
+  /* border: 1px solid black; */
+  /* border-radius: 10px; */
   margin-bottom:50px;
   height: 90vh;
   overflow: scroll;
@@ -84,7 +87,11 @@ const SearchList = styled.div`
 const SearchElement = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: var(--pad2);
+  padding: var(--interval);
+  background-color: white;
+  border-radius: 8px;
+  margin-top: 16px;
+
 `
 
 const Line = styled.div`
@@ -103,6 +110,7 @@ const SearchName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-bottom: 8px;
 `
 const SearchAddress = styled.div`
   font-size: 12px;
@@ -111,11 +119,58 @@ const SearchAddress = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 `
+// const WordInput = styled.input`
+//   height: 30px;
+//   display: flex;
+//   box-sizing: border-box;
+//   width: 100%;
+//   padding: var(--pad1);
+//   margin-top: var(--pad1);
+// `
+
 const WordInput = styled.input`
-  height: 30px;
+  /* background: ${props=>props.color}; */
+  /* color: white; */
+  border: none;
+  border-radius: 50px;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
+  height: 56px;
+  font-size: 14px;
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  padding: var(--pad1);
-  margin-top: var(--pad1);
+  /* padding: var(--pad1); */
+  /* margin: var(--interval); */
+  &::placeholder{
+    /* color: white; */
+  }
+`
+
+const SeartchBtn = styled.button`
+  /* width: 80px; */
+  border: none;
+  background-color: rgba(0,0,0,0);
+  height: 19px;
+  font-size: 19px;
+  position: absolute;
+  right: 50px;
+  line-height: 19px;
+  /* top : 50% */
+  transform: translateY(100%);
+`
+
+const InputBox = styled.form`
+  padding-bottom: 16px;
+  display: flex;
+`
+const SelectBtn = styled.button`
+  border: none;
+  border-radius:4px;
+  background-color: var(--Brand6);
+  color: white;
+  line-height: 20px;
+  /* padding: 4px 16px 4px 16px; */
+  width: 60px;
 `

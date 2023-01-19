@@ -58,7 +58,7 @@ const RecentViewCampForm = () => {
       </Box> */}
       {history?.map((v)=>{
         return(
-          <CampListElement key={v.id} camp={v}/>
+          <CampListElement key={v.campingId} camp={v}/>
         )
       })}
       </Main>

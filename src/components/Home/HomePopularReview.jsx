@@ -16,7 +16,6 @@ function HomePopularReview() {
       console.log(error);
     }
   };
-  console.log(review);
   useEffect(() => {
     fetchReview();
   }, []);
