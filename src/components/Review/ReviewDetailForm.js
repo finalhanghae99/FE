@@ -222,6 +222,8 @@ const MainDiv = styled.div`
 const Pic = styled.img`
   width: 100%;
   height: 407px;
+  object-position: center;
+  object-fit: contain;
 `;
 
 const Title = styled.div`

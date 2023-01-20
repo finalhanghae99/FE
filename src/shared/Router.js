@@ -17,6 +17,7 @@ import MyCamp from "../pages/myPage/MyCamp";
 import MyReview from "../components/MyPage/MyReview";
 import ReservePost from "../pages/reserve/ReservePost";
 import ReviewEdit from "../pages/review/ReviewEdit";
+import NotFount from "./NotFound";
 
 function Router() {
   return (
@@ -44,6 +45,7 @@ function Router() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mycamp" element={<MyCamp />} />
             <Route path="/mypage/myreview" element={<MyReview />} />
+            <Route path="*" element={<NotFount />} />
           </Routes>
         </Layout>
       </BrowserRouter>
