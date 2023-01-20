@@ -1,8 +1,9 @@
 import React from "react";
+import styled from "styled-components";
 import BottomBar from "./BottomBar";
 
 function Footer() {
-  return <div>Footer</div>;
+  return <Foot></Foot>;
 }
 function Layout({ children }) {
   return (
@@ -14,3 +15,8 @@ function Layout({ children }) {
   );
 }
 export default Layout;
+
+const Foot = styled.div`
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0);
+`;

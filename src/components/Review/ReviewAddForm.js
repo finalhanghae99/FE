@@ -49,15 +49,11 @@ const ReviewAddForm = () => {
   // const [clicked3, setClicked3] = useState([false, false, false, false, false]);
   // const [clicked4, setClicked4] = useState([false, false, false, false, false]);
   // const [clicked5, setClicked5] = useState([false, false, false, false, false]);
-  const [isComp, setIsComp] = useState(false)
+  const [isComp, setIsComp] = useState(false);
 
-  useEffect(()=>{
-    setIsComp(
-      Boolean(campingName)
-      && Boolean(images)
-      && (content.trim() !== "")
-    )
-  },[campingId, content, images])
+  useEffect(() => {
+    setIsComp(Boolean(campingName) && Boolean(images) && content.trim() !== "");
+  }, [campingId, content, images]);
 
   const onFileUpload = () => {
     imgRef.current.click();
@@ -150,9 +146,9 @@ const ReviewAddForm = () => {
   // console.log(score1, score2, score3, score4, score5)
 
   const onReviewadd = (e) => {
-    const token = getCookies("id")
-    if(!token){
-      alert("로그인 정보가 없습니다. 로그인후 다시 시도 해주세요.")
+    const token = getCookies("id");
+    if (!token) {
+      alert("로그인 정보가 없습니다. 로그인후 다시 시도 해주세요.");
       return;
     }
     const data = new FormData();
@@ -350,7 +346,9 @@ const ReviewAddForm = () => {
           placeholder="다른 캠퍼들이 참고 할 수 있도록 캠핑장에 대해 알려주세요."
           onChange={onChangeExp}
         ></ExpInput>
-        <AddBtn disabled={!isComp} onClick={() => onReviewadd()}>등록하기</AddBtn>
+        <AddBtn disabled={!isComp} onClick={() => onReviewadd()}>
+          등록하기
+        </AddBtn>
         {campName.isOpen && (
           <NameSearch
             setCampingName={setCampingName}
@@ -368,6 +366,7 @@ export default ReviewAddForm;
 const TopTitle = styled.div`
   text-align: center;
   font-size: 20px;
+  margin-top: var(--interval);
 `;
 
 const GrayHr = styled.div`
@@ -381,7 +380,7 @@ const MainDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--BackColor1);
+  background-color: var(--BackColor2);
 `;
 
 const InputBox = styled.div`
@@ -484,7 +483,7 @@ const ImgBtn = styled.button`
   width: 100%;
   height: 100%;
   border: none;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   font-size: 35px;
 `;
