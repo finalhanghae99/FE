@@ -9,6 +9,7 @@ function Layout({ children }) {
   return (
     <div>
       {children}
+      <Footer />
       <BottomBar />
     </div>
   );

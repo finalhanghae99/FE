@@ -20,6 +20,11 @@ function CampDetailForm() {
 
   const [isBMK, setIsBMK] = useState();
   const clickBMK = async(id) =>{
+    const token = getCookies("id")
+    if(!token) {
+      alert("로그인이 필요 합니다.")
+      return ;
+    }
     try {
       const {data} = await instance.post(`/camping/${id}/like`);
       console.log(data)
@@ -75,7 +80,7 @@ function CampDetailForm() {
   return (
     <MainDiv>
       <StDiv>
-        <div style={{ position: "relative", height: "414px" }}>
+        <div style={{ position: "relative", height: "414px"}}>
           {campDetail?.imageUrl ? (
             <CampImgView img={campDetail?.imageUrl} />
           ) : (
