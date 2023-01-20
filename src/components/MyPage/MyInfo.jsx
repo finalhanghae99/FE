@@ -66,9 +66,7 @@ function MyInfo() {
         <hr />
         {/* <UserLinks>채팅내역</UserLinks> */}
       </ItemBox>
-      {modify.isOpen ? (
-        <MyInfoModify userInfo={userInfo} onClose={modify.onClose} />
-      ) : null}
+      {modify.isOpen? (<MyInfoModify userInfo={userInfo} onClose={modify.onClose}/>) : null}
     </ItemBox>
   );
 }

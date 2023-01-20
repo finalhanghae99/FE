@@ -73,14 +73,21 @@ const SearchWindow = styled.div`
   /* overflow: scroll; */
   bottom: 0;
   left: 0;
-  z-index: 10;
+  z-index: 60;
+  @media (min-width: 414px) {
+    width : 414px;
+    /* top: 50%; */
+    /* height: 50vh; */
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
 `
 
 const SearchList = styled.div`
   /* border: 1px solid black; */
   /* border-radius: 10px; */
   margin-bottom:50px;
-  height: 90vh;
+  height: 80vh;
   overflow: scroll;
 `
 

@@ -31,7 +31,8 @@ const GlobalStyle = createGlobalStyle`
       margin :auto;
     }
   }
-  
 `;
+
+
 
 export default GlobalStyle;

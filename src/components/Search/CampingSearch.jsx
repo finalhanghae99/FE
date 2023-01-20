@@ -13,7 +13,6 @@ function CampingSearch() {
   let keyword = searchParams.get("keyword");
   let address1 = searchParams.get("address1");
   let address2 = searchParams.get("address2");
-  console.log(keyword, address1, address2)
  
   // let {keyword, address1, address2} = useParams();
   const [searchList, setSearchList] = useState(null);
@@ -43,7 +42,6 @@ function CampingSearch() {
     fetchSearchList();
   }, [searchWord])
   
-  console.log(searchList)
   return (
     <ItemBox>
       <SearchCount>{searchList?.length}개의 검색 결과가 있어요.</SearchCount>
