@@ -104,7 +104,6 @@ const SignUpForm = () => {
   };
 
   const emailCheck = async (post) => {
-    console.log(post);
     try {
       const data = await instance.post("users/checkemail", post);
       if (data.data.statusCode === 200) {
@@ -332,7 +331,7 @@ const Inp = styled(Input)`
 `;
 
 const CheckBtn = styled.button`
-  width: 61px;
+  /* width: 61px; */
   height: 18px;
   border: none;
   border-bottom: 1px solid #343333;

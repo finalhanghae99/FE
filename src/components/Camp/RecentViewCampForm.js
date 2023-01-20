@@ -27,6 +27,9 @@ const RecentViewCampForm = () => {
   console.log(history)
   return (
     <ItemBox>
+      <ItemBox>
+        <ItemName>최근 본 캠핑장 입니다.</ItemName>
+      </ItemBox>
       <Main>
       {/* <Main>
         <BackBtn
@@ -77,78 +80,9 @@ const Main = styled.div`
   gap: 32px;
 `;
 
-const BackBtn = styled.button`
-  background-color: white;
-  border: 1px solid white;
-  margin: 0px 88px 0px 10px;
-`;
-
-const Box = styled.div`
-  width: 336px;
-  height: 366px;
-  margin: 75px 0px 0px 27px;
-`;
-
-const Pic = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 336px;
-  height: 186px;
-  background-color: #d9d9d9;
-`;
-
-const CampName = styled.div`
-  width: 306px;
-  display: flex;
-  justify-content: space-between;
-  margin: 0px 0px 0px 17px;
-`;
-
-const Name = styled.div`
-  margin-top: 19px;
-  font-size: 16px;
-`;
-
-const Rev = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #d9d9d9;
-  margin-top: 19px;
-  font-size: 10px;
-`;
-
-const Suv = styled.div`
-  border-bottom: 1px solid #b5b5b5;
-  border-left: 1px solid #b5b5b5;
-  border-right: 1px solid #b5b5b5;
-`;
-
-const Add = styled.div`
-  margin: 7px 0px 0px 17px;
-  color: #7a7a7a;
-  font-size: 14px;
-`;
-
-const Tag = styled.div`
-  display: flex;
-  word-break: break-all;
-  width: 336px;
-  height: 88px;
-  margin-top: 20px;
-  border-top: 1px solid #b5b5b5;
-  padding: 11px 0px 0px 0px;
-`;
-
-const Category = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  height: 29px;
-  border: 1px solid #aaaaaa;
-  border-radius: 20px;
-  margin: 0px 0px 0px 10px;
-  padding: 0px 14px 0px 14px;
-`;
+const ItemName = styled.div`
+  margin: auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+`

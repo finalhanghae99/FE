@@ -139,9 +139,10 @@ function CampDetailForm() {
         )}
         <Address2>{campDetail?.address3}</Address2>
       </Map>
-      <Post>
+      <ItemBox>
         <Review>
           <div>리뷰({campDetail?.reviewList.length})</div>
+          <div>
           <ReviewBtn
             onClick={() => {
               navigate(`/reviewadd`);
@@ -156,6 +157,7 @@ function CampDetailForm() {
           >
             전체보기
           </AllBtn>
+          </div>
         </Review>
         {reviewList?.map((v) => {
           return (
@@ -164,7 +166,7 @@ function CampDetailForm() {
             </ReviewBox>
           )
         })}
-      </Post>
+      </ItemBox>
     </MainDiv>
   );
 }
@@ -276,18 +278,19 @@ const MapDiv = styled.div`
 `;
 
 const Post = styled.div`
-  width: 336px;
+  width: 100%;
   padding-top: 15px;
 `;
 
 const Review = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: space-between;
 `;
 
 const ReviewBtn = styled.button`
-  margin-left: 200px;
+  /* margin-left: 200px; */
   background-color: var(--BackColor2);
   border: 1px solid var(--BackColor2);
 `;

@@ -31,6 +31,9 @@ function MyReview() {
 
   return (
     <ItemBox>
+        <ItemBox>
+          <ItemName>내가 작성한 리뷰</ItemName>
+        </ItemBox>
       {review?.map((v) => {
         return (
           <ReviewElement key={v.reviewId} review={v} />
@@ -41,3 +44,11 @@ function MyReview() {
 }
 
 export default MyReview;
+
+
+const ItemName = styled.div`
+  margin: auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+`
