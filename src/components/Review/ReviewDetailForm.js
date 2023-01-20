@@ -109,8 +109,7 @@ const ReviewDetailForm = () => {
             return <Pic key={i} src={a}></Pic>;
           })}
         </StyledSlider>
-      </ViewWindow>
-      <LikeBox>
+        <LikeBox>
         <div onClick={()=>{clickLike(reviewDetail?.reviewId)}}>
           {isLike ? <AiFillHeart /> : <AiOutlineHeart />}
         </div>
@@ -118,6 +117,9 @@ const ReviewDetailForm = () => {
           {likeCount}
         </LikeCount>
       </LikeBox>
+
+      </ViewWindow>
+     
 
       <ItemBox>
         <Title>
