@@ -23,7 +23,6 @@ function DetailHeader() {
   useEffect(() => {
     fetchReserve();
   }, [])
-  console.log(reserve)
   return (
     <div>
     <CampImgView img={reserve?.imageUrl}/>

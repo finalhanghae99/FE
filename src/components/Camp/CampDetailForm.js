@@ -11,6 +11,8 @@ import DetailMap from "../KakaoMap/DetailMap";
 import LikeListElement from "../Review/LikeListElement";
 import { ItemBox } from "../elements/ItemBox";
 
+import Button from "../elements/Button";
+
 function CampDetailForm() {
   const navigate = useNavigate();
 
@@ -19,14 +21,14 @@ function CampDetailForm() {
   const { id } = useParams();
 
   const [isBMK, setIsBMK] = useState();
-  const clickBMK = async(id) =>{
+  const clickBMK = async (id) => {
     const token = getCookies("id")
-    if(!token) {
+    if (!token) {
       alert("로그인이 필요 합니다.")
-      return ;
+      return;
     }
     try {
-      const {data} = await instance.post(`/camping/${id}/like`);
+      const { data } = await instance.post(`/camping/${id}/like`);
       console.log(data)
       setIsBMK(!isBMK)
     } catch (error) { console.log(error); }
@@ -41,7 +43,7 @@ function CampDetailForm() {
       console.log(error);
     }
   };
-  const fetchReviewDetail = async() =>{
+  const fetchReviewDetail = async () => {
     try {
       const { data } = await instance.get(`/review/listfive/${id}`);
       if (data.statusCode === 200) {
@@ -68,19 +70,28 @@ function CampDetailForm() {
     fetchReviewDetail();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setIsBMK(campDetail?.campingLikeState)
-  },[campDetail])
+  }, [campDetail])
 
   const position = {
     lat: Number(campDetail?.mapY),
     lng: Number(campDetail?.mapX),
   };
 
+  const moreNavigate = () =>{
+    if(reviewList.length === 0){
+      alert("리뷰 정보가 없습니다");
+      return;
+    } else{
+      navigate(`/reviewlist/${id}`)
+    }
+  }
+
   return (
     <MainDiv>
       <StDiv>
-        <div style={{ position: "relative", height: "414px"}}>
+        <div style={{ position: "relative", height: "414px" }}>
           {campDetail?.imageUrl ? (
             <CampImgView img={campDetail?.imageUrl} />
           ) : (
@@ -88,7 +99,7 @@ function CampDetailForm() {
               Image Not Found
             </div>
           )}
-          <BookmarkBtn onClick={()=>clickBMK(id)}>
+          <BookmarkBtn onClick={() => clickBMK(id)}>
             {isBMK ? <RiBookmarkFill /> : <RiBookmarkLine />}
           </BookmarkBtn>
         </div>
@@ -143,20 +154,13 @@ function CampDetailForm() {
         <Review>
           <div>리뷰({campDetail?.reviewList.length})</div>
           <div>
-          <ReviewBtn
-            onClick={() => {
-              navigate(`/reviewadd`);
-            }}
-          >
-            <BsPencilFill />
-          </ReviewBtn>
-          <AllBtn
-            onClick={() => {
-              navigate(`/reviewlist/${id}`);
-            }}
-          >
-            전체보기
-          </AllBtn>
+            <ReviewBtn
+              onClick={() => {
+                navigate(`/reviewadd`);
+              }}
+            >
+              <BsPencilFill />
+            </ReviewBtn>
           </div>
         </Review>
         {reviewList?.map((v) => {
@@ -167,6 +171,9 @@ function CampDetailForm() {
           )
         })}
       </ItemBox>
+      <Button onClick={() => {
+        moreNavigate();
+      }}>전체보기</Button>
     </MainDiv>
   );
 }

@@ -8,6 +8,7 @@ import RegionPicker from "../elements/RegionPicker";
 import {BsPencilFill } from "react-icons/bs"
 import { useNavigate } from "react-router-dom";
 
+import { getCookies } from "../../api/cookieControler";
 
 function ReserveHeader() {
   const navigate = useNavigate();
@@ -32,6 +33,15 @@ function ReserveHeader() {
     const { name, value } = event.target;
     setCondition({ ...condition, [name]: value })
   }
+  const postNavigate = () =>{
+    const token = getCookies("id")
+    if(!token) {
+      alert("로그인이 필요 합니다.")
+      return ;
+    } else{
+    navigate("../reserve/post")
+    }
+  }
   return (
     <SearchBox>
       <SearchBottom>
@@ -54,7 +64,7 @@ function ReserveHeader() {
         <DatePicker condition={condition} setCondition={setCondition} onClose={calendar.onClose} />
       }
       <div style={{position:"relative", "height" : "300px"}}>
-        <PostBtn><BsPencilFill onClick={()=>{navigate("../reserve/post")}}/></PostBtn>
+        <PostBtn><BsPencilFill onClick={postNavigate}/></PostBtn>
       </div>
     </SearchBox>
   )
