@@ -23,11 +23,19 @@ function HomeHistory() {
     record.splice(5)
     fetchHistory(record);
   }, [])
+  const token = getCookies("id")
+
   return (
     <ItemBox>
       <BoxHeader>
         <BoxName>최근 본 캠핑장</BoxName>
-        <BoxMoreLink to="/recentviewcamp"></BoxMoreLink>
+        {(token)? (
+           <BoxMoreLink to="/recentviewcamp"></BoxMoreLink>
+        ):(
+          <div onClick={()=>alert("로그인이 필요 합니다.")}>
+            <BoxMoreLink></BoxMoreLink>
+          </div>
+        )}
       </BoxHeader>
       <HistoryList>
       {history?.map((v) => {

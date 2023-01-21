@@ -29,6 +29,9 @@ function MyCamping() {
   console.log(myCamp)
   return (
     <ItemBox>
+        <ItemBox>
+          <ItemName>내가 찜한 캠핑장</ItemName>
+        </ItemBox>
       {myCamp?.map((v) => {
         return (
           <CampListElement key={v.campingId} camp={v} />
@@ -81,4 +84,11 @@ const BookmarkBtn = styled.div`
     filter: drop-shadow(10px 10px 10px 10px green);
     /* box-shadow: 0px 0px 10px 0px black; */
     z-index: 5;
+`
+
+const ItemName = styled.div`
+  margin: auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 `
