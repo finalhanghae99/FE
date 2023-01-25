@@ -4,14 +4,8 @@ import ReviewDetailForm from "../../components/Review/ReviewDetailForm";
 
 function ReviewDetail() {
   return (
-    <ReviewPage>
-      <ReviewDetailForm />
-    </ReviewPage>
+    <ReviewDetailForm />
   );
 }
 
 export default ReviewDetail;
-
-const ReviewPage = styled.div`
-  background-color: var(--BackColor2);
-`;

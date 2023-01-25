@@ -4,9 +4,7 @@ import styled from "styled-components";
 
 function RecentViewCamp() {
   return(
-    <BackColor>
-      <RecentViewCampForm />
-    </BackColor>
+    <RecentViewCampForm />
   ) 
 }
 
