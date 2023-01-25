@@ -40,10 +40,7 @@ function ReserveHeader() {
   useEffect(() => {
     try {
       const { data } = instance.get(
-        `/reservation?startDate=${condition.startDate}
-          &endDate=${condition.endDate}
-          &address1=${address1}
-          &address2=${address2}`);
+        `/reservation?startDate=${condition.startDate}&endDate=${condition.endDate}&address1=${address1}&address2=${address2}`);
       setReserve(data.data);
     } catch (error) { console.log(error); }
   }, [region.isOpen, calendar.isOpen])

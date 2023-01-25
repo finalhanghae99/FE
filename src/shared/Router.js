@@ -19,6 +19,8 @@ import ReservePost from "../pages/reserve/ReservePost";
 import ReviewEdit from "../pages/review/ReviewEdit";
 import NotFount from "./NotFound";
 import ScrollTop from "./ScrollTop";
+import ChatPage from "../pages/chat/ChatPage";
+import ChatDetail from "../pages/chat/ChatDetail";
 
 function Router() {
   return (
@@ -47,6 +49,8 @@ function Router() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mycamp" element={<MyCamp />} />
             <Route path="/mypage/myreview" element={<MyReview />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/chat/room/:id" element={<ChatDetail />} />
             <Route path="*" element={<NotFount />} />
           </Routes>
         </Layout>
