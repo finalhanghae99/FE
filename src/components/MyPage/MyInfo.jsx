@@ -43,6 +43,8 @@ function MyInfo() {
   }, []);
   console.log(userInfo);
   return (
+    <>
+    <Title></Title>
     <ItemBox>
       <ItemBox>
         <UserHeader>
@@ -53,25 +55,27 @@ function MyInfo() {
           </ModifyIcon>
         </UserHeader>
       </ItemBox>
-
-      <ItemBox>
+      <ItemBox2>
         <UserLinks to="/mypage/mycamp">찜한 캠핑장</UserLinks>
-        <br />
-        <hr />
         <UserLinks to="/mypage/myreview">나의 리뷰</UserLinks>
-        <br />
-        <hr />
-        <UserBtn type="button" onClick={logOut}>로그아웃</UserBtn>
-        <br />
-        <hr />
+        <UserLinks>나의 캠핑장 양도 글</UserLinks>
+        <UserLinks>채팅 내역</UserLinks>
+        <div><UserBtn type="button" onClick={logOut}>로그아웃</UserBtn></div>
         {/* <UserLinks>채팅내역</UserLinks> */}
-      </ItemBox>
+      </ItemBox2>
       {modify.isOpen? (<MyInfoModify userInfo={userInfo} onClose={modify.onClose}/>) : null}
     </ItemBox>
+    </>
   );
 }
 
 export default MyInfo;
+
+const Title = styled.div`
+  width: 100%;
+  height: 103px;
+  border-bottom: 1px solid var(--Brand4);
+`
 
 const UserImg = styled.img`
   object-fit: cover;
@@ -94,11 +98,24 @@ const UserName = styled.div`
   margin-left: var(--pad2);
 `;
 
+const ItemBox2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  margin: var(--interval);
+`
+
 const UserLinks = styled(Link)`
+  width: 100%;
   text-decoration: none;
   color: black;
-  font-weight: bold;
-  padding: var(--pad2);
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 24px;
+  padding-left: var(--pad2);
+  padding-bottom: var(--interval);
+  border-bottom: 1px solid var(--Gray1);
 `;
 
 const UserBtn = styled.button`
@@ -107,7 +124,7 @@ const UserBtn = styled.button`
   text-decoration: none;
   color: black;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 400;
   padding-left: var(--pad2);
 `;
 

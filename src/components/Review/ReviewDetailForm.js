@@ -17,7 +17,6 @@ const ReviewDetailForm = () => {
   const [reviewDetail, setReviewDetail] = useState();
   const param = useParams();
   const navigate = useNavigate();
-
   const [isLike, setIsLike] = useState();
   const [likeCount, setLikeCount] = useState(0)
 
@@ -268,26 +267,13 @@ const Pro = styled.img`
 `;
 
 const Stars = styled.div`
-  /* width: 340px; */
-  /* height: 160px; */
   display: flex;
-  /* align-items: center; */
   flex-direction: column;
-`;
-
-const StarBox = styled.div`
-  display: flex;
-  /* width: 265px; */
-  font-size: 14px;
-  padding-left: 23px;
-  margin: 17px 96px 0px 0px;
 `;
 
 const Star = styled.div`
   width: 17px;
   padding: 0 8px 0 0px;
-  /* margin: 8px; */
-  /* margin: 0px 10px 0px 0px; */
 `;
 
 const StarBox2 = styled.div`

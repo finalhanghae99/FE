@@ -49,7 +49,7 @@ const StHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   /* padding-top: px; */
-  padding-bottom: var(--interval);
+  /* padding-bottom: var(--interval); */
 `
 const StName = styled.div`
   font-size: 16px;
