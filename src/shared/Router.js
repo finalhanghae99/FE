@@ -18,11 +18,13 @@ import MyReview from "../components/MyPage/MyReview";
 import ReservePost from "../pages/reserve/ReservePost";
 import ReviewEdit from "../pages/review/ReviewEdit";
 import NotFount from "./NotFound";
+import ScrollTop from "./ScrollTop";
 
 function Router() {
   return (
     <>
       <BrowserRouter>
+        <ScrollTop />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />

@@ -6,6 +6,7 @@ import NameSearch from "../Search/NameSearch";
 import DatePicker from "../elements/DatePicker";
 
 import { instance } from "../../api/axiosApi";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function ReservePostForm() {
   const initialState = {
@@ -14,7 +15,7 @@ function ReservePostForm() {
     price: 0,
     content: ""
   }
-
+  const navigate = useNavigate();
   const [campingName, setCampingName] = useState("");
   const [campingId , setCampingId] = useState("");
   const [reserve, setReserve] = useState(initialState);
@@ -43,7 +44,6 @@ function ReservePostForm() {
     try {
       const {data} = await instance.post(`/reservation/${campingId}`, reserve)
     } catch(error){
-      console.log(error)
     }
   }
 
@@ -51,18 +51,15 @@ function ReservePostForm() {
     event.preventDefault();
     if(reserve.price === "" || reserve.price === 0){
       if(window.confirm("현재 양도금액을 설정되어 있지 않습니다. \n무료로 양도 하시겠습니까?")){
-        console.log("post")
         postFunc();
       } else {
-        console.log("not")
         return null
       }
     }else {
       if(window.confirm("양도글을 올리겠습니까?")){
-        console.log("post")
         postFunc();
+        navigate("../")
       } else {
-        console.log("not")
         return null
       }
     }

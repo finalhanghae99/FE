@@ -20,7 +20,7 @@ function LikeListElement(props) {
   const { review } = props;
   const dateFormat = "YYYY.MM.DD";
   const [isLike, setIsLike] = useState(review.likeState);
-  const [likeCount, setLikeCount] = useState(review.likeCount)
+  const [likeCount, setLikeCount] = useState(review.likeCount);
 
   const clickLike = async(event,id) =>{
     event.stopPropagation();
