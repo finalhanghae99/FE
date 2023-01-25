@@ -34,7 +34,6 @@ function DatePicker(props) {
             setFocused(!focusedInput? 'startDate': focusedInput);
           }}
           onDatesChange={(selectedDates)=>{
-            console.log(selectedDates)
             if(focused ==='startDate'){
               setStartDate(selectedDates.startDate)
             }else{

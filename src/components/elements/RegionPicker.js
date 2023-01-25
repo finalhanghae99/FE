@@ -22,7 +22,7 @@ function RegionPicker(props) {
             setAddress1(event.target.value)
             setSelectCity(key);
             setChecked(null); 
-            setAddress2("")
+            setAddress2("");
           }} 
         />
         <RadioLabel htmlFor={key}>{key}</RadioLabel>

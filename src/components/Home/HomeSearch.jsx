@@ -91,9 +91,9 @@ const InputBox = styled.div`
 `
 
 const WordInput = styled.input`
-  background: ${props=>props.color};
-  color: white;
-  border: none;
+  /* background: ${props=>props.color}; */
+  color: black;
+  border: 2px solid var(--Gray2);
   border-radius: 50px;
   box-sizing: border-box;
   padding-left: 24px;
@@ -105,15 +105,12 @@ const WordInput = styled.input`
   width: 100%;
   /* padding: var(--pad1); */
   /* margin: var(--interval); */
-  &::placeholder{
-    color: white;
-  }
 `
 
 const RegionBtn = styled.div`
-  background: ${props=>props.color};
-  color: white;
-  border: none;
+  /* background: ${props=>props.color}; */
+  /* color: white; */
+  border: 2px solid var(--Gray2);
   border-radius: 50px;
   box-sizing: border-box;
   padding-left: 24px;
@@ -154,7 +151,7 @@ const SeartchBtn = styled.div`
   line-height: 19px;
   /* top : 50% */
   transform: translateY(100%);
-  color: white;
+  /* color: white; */
 `
 
 const MapIcon = styled.div`

@@ -6,6 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 import { getCookies, setCookies } from "../../api/cookieControler";
 
+import bmkFill from "../../img/icons/bmkFill.svg"
+import bmkLine from "../../img/icons/bmkLine.svg"
+
+
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
 import LikeListElement from "../Review/LikeListElement";
@@ -100,7 +104,7 @@ function CampDetailForm() {
             </div>
           )}
           <BookmarkBtn onClick={() => clickBMK(id)}>
-            {isBMK ? <RiBookmarkFill /> : <RiBookmarkLine />}
+            {isBMK ? <img src={bmkFill} /> : <img src={bmkLine} />}
           </BookmarkBtn>
         </div>
       </StDiv>
@@ -184,7 +188,7 @@ const MainDiv = styled.div`
   align-items: center;
   flex-direction: column;
   font-family: var(--font);
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
 `;
 
 const StDiv = styled.div`
@@ -218,7 +222,7 @@ const Address = styled.div`
 `;
 
 const Address2 = styled.div`
-  width: 100%;
+  /* width: 100%; */
   font-size: 14px;
   font-weight: 400;
   margin: 12px 0px 24px 24px;
@@ -262,8 +266,8 @@ const Ele = styled.div`
   padding: 1px 12px;
   gap: 8px;
   border-radius: 24px;
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--BackColor2);
+  /* border: 1px solid var(--Gray1); */
 `;
 
 const Map = styled.div`

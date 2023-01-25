@@ -16,7 +16,7 @@ const LoginForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (useremail === "" || password === "") {
-      alert("아이디, 비밀번호를 확인해주세요.");
+      alert("아이디, 비밀번호를 확인해주세요."); 
       return;
     } else {
     }
@@ -110,13 +110,15 @@ const MainLogin = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
+  margin: var(--interval);
+  box-sizing: border-box;
 `;
 
 const Title = styled.div`
-  width: 100%;
+  /* width: 100%; */
   border-bottom: 1px solid var(--Brand4);
-  margin: 103px 0px 16px 0px;
+  margin: 103px 0px 0px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,7 +138,7 @@ const Id = styled.div`
   font-size: 14px;
   font-weight: 700;
   color: var(--Brand6);
-  padding-left: 55px;
+  /* padding-left: 55px; */
   margin: 36px 0px 0px 0px;
 `;
 
