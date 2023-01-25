@@ -10,6 +10,10 @@ import { instance } from "../../api/axiosApi";
 import { BsFillBookmarkFill } from "react-icons/bs"
 import { BsBookmark } from "react-icons/bs"
 
+import BMKFill from "../../img/icons/bmkFill.svg"
+import BMKLine from "../../img/icons/bmkLine.svg"
+
+
 import { getCookies } from "../../api/cookieControler";
 
 import testImg from "../../img/test_camp_img.jpg"
@@ -37,16 +41,16 @@ function CampListElement(props) {
     <ListBox onClick={()=>{navigate(`../campdetail/${camp.campingId}`)}}>
       <div style={{ "position": "relative" }}>
         <ListImg img={camp.imageUrl} />
+        <CountView>{camp.reviewCount}개 리뷰</CountView>
         <BookmarkBtn onClick={(event)=>{clickBMK(event, camp.campingId)}}>
           {(isBMK) ?
-            <BsFillBookmarkFill /> : <BsBookmark />
+            <img src={BMKFill} /> : <img src={BMKLine} />
           }
         </BookmarkBtn>
       </div>
       <ItemBox>
         <DetailHeader>
           <DetailName>{camp.campingName}</DetailName>
-          <CountView>{camp.reviewCount}개 리뷰</CountView>
         </DetailHeader>
         <AddressBox>{camp.address3}</AddressBox>
         <TagBox>
@@ -77,6 +81,7 @@ const ListBox = styled.div`
   border-radius: 8px;
   overflow: hidden;
   background-color:white;
+  border: 2px solid var(--Gray2);
 `
 
 const ListImg = styled(CampImgView)`
@@ -118,14 +123,16 @@ const DetailName = styled(BoxName)`
   text-overflow: ellipsis;
 `
 const CountView = styled.div`
-  background-color: var(--Brand6);
+  background-color: white;
   font-size: 10px;
   font-weight: bold;
   padding: var(--pad1) var(--pad2) var(--pad1) var(--pad2);
-  color: white;
   border-radius: 4px;
   flex:1;
   text-align: center;
+  position: absolute;
+  top:10px; 
+  left:10px;
 `
 
 const AddressBox = styled.div`
@@ -136,14 +143,13 @@ const AddressBox = styled.div`
 
 const BookmarkBtn = styled.div`
     position: absolute;
-    top:10px; 
-    right:10px;
+    top:20px; 
+    right:20px;
     color: white;
     /* transform: translate(-50%,-50%); */
     /* padding:0; */
     /* margin:0; */
-    font-size:30px;
-    filter: drop-shadow(10px 10px 10px 10px green);
+    /* font-size:30px; */
     /* box-shadow: 0px 0px 10px 0px black; */
     z-index: 5;
 `

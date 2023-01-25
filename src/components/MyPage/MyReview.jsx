@@ -56,4 +56,10 @@ const Title = styled.div`
   justify-content: center;
   font-size: 18px;
   font-weight: 500;
+
+const ItemName = styled.div`
+  margin: auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 `

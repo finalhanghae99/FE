@@ -5,9 +5,7 @@ import styled from "styled-components";
 
 function LikeReview() {
   return (
-    <BackColor>
-      <LikeReviewForm />
-    </BackColor>
+    <LikeReviewForm />
   )
 }
 

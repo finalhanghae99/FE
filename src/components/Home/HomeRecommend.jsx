@@ -4,6 +4,8 @@ import styled from "styled-components";
 import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
 
 import campFireImg from "../../img/CampFire.svg"
+import campBtn from "../../img/CampBtn.svg"
+
 
 import {BsArrowRightShort} from "react-icons/bs"
 
@@ -22,7 +24,7 @@ function HomeRecommend(){
   return(
     <ItemBox>
       <RevLinkBtn onClick={()=>{navEvent()}}>
-        <ImgView src={campFireImg}/>
+        <ImgView src={campBtn}/>
         <BtnText>
           <SmallText>
             캠핑 다녀오셨나요?
@@ -42,30 +44,32 @@ export default HomeRecommend;
 
 const RevLinkBtn = styled.button`
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
   height: 100px;
   box-sizing: border-box;
   width: 100%;
   background-color: white;
-  margin-top: var(--pad2);
+  padding: 9px 18px 9px 18px;
   display: flex;
   align-items: center;
   gap:9px;
+  box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.12);
+  justify-content: space-between;
 `
 
 const ImgView = styled.img`
   object-fit: cover;
   object-position: center;
-  flex: 2;
+  /* flex: 2; */
 `
 
 const BtnText = styled.div`
-  flex: 4;
+  /* flex: 4; */
   text-align: left;
 `
 
 const ArrowImg = styled.div`
-  flex:1;
+  /* flex:1; */
   font-size: 24px;
   color: var(--Brand6);
   text-align: left;

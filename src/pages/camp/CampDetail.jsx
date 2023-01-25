@@ -4,9 +4,7 @@ import CampDetailForm from "../../components/Camp/CampDetailForm";
 
 function CampDetail(){
   return(
-    <CampPage>
-      <CampDetailForm />
-    </CampPage>
+    <CampDetailForm />
   )
 }
 

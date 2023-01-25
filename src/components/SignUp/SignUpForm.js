@@ -104,7 +104,6 @@ const SignUpForm = () => {
   };
 
   const emailCheck = async (post) => {
-    console.log(post);
     try {
       const data = await instance.post("users/checkemail", post);
       if (data.data.statusCode === 200) {
@@ -159,7 +158,7 @@ const SignUpForm = () => {
       <Title></Title>
       <Logo>회원가입</Logo>
       <Id>아이디</Id>
-      <div style={{ position: "relative" }}>
+      <InputBox>
         <StDiv>
           <Inp
             type="text"
@@ -185,7 +184,7 @@ const SignUpForm = () => {
             {useremailMsg}
           </Span>
         )}
-      </div>
+      </InputBox>
       <Id>닉네임</Id>
       <div style={{ position: "relative" }}>
         <StDiv>
@@ -284,6 +283,11 @@ const SignUpForm = () => {
 
 export default SignUpForm;
 
+const InputBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const MainSignUp = styled.div`
   display: flex;
   align-items: center;
@@ -332,7 +336,7 @@ const Inp = styled(Input)`
 `;
 
 const CheckBtn = styled.button`
-  width: 61px;
+  /* width: 61px; */
   height: 18px;
   border: none;
   border-bottom: 1px solid #343333;

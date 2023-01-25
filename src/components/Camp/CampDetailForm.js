@@ -6,10 +6,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 import { getCookies, setCookies } from "../../api/cookieControler";
 
+import bmkFill from "../../img/icons/bmkFill.svg"
+import bmkLine from "../../img/icons/bmkLine.svg"
+
+
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
 import LikeListElement from "../Review/LikeListElement";
 import { ItemBox } from "../elements/ItemBox";
+
+import Button from "../elements/Button";
 
 function CampDetailForm() {
   const navigate = useNavigate();
@@ -19,9 +25,14 @@ function CampDetailForm() {
   const { id } = useParams();
 
   const [isBMK, setIsBMK] = useState();
-  const clickBMK = async(id) =>{
+  const clickBMK = async (id) => {
+    const token = getCookies("id")
+    if (!token) {
+      alert("로그인이 필요 합니다.")
+      return;
+    }
     try {
-      const {data} = await instance.post(`/camping/${id}/like`);
+      const { data } = await instance.post(`/camping/${id}/like`);
       console.log(data)
       setIsBMK(!isBMK)
     } catch (error) { console.log(error); }
@@ -36,7 +47,7 @@ function CampDetailForm() {
       console.log(error);
     }
   };
-  const fetchReviewDetail = async() =>{
+  const fetchReviewDetail = async () => {
     try {
       const { data } = await instance.get(`/review/listfive/${id}`);
       if (data.statusCode === 200) {
@@ -63,14 +74,23 @@ function CampDetailForm() {
     fetchReviewDetail();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setIsBMK(campDetail?.campingLikeState)
-  },[campDetail])
+  }, [campDetail])
 
   const position = {
     lat: Number(campDetail?.mapY),
     lng: Number(campDetail?.mapX),
   };
+
+  const moreNavigate = () =>{
+    if(reviewList.length === 0){
+      alert("리뷰 정보가 없습니다");
+      return;
+    } else{
+      navigate(`/reviewlist/${id}`)
+    }
+  }
 
   return (
     <MainDiv>
@@ -83,8 +103,8 @@ function CampDetailForm() {
               Image Not Found
             </div>
           )}
-          <BookmarkBtn onClick={()=>clickBMK(id)}>
-            {isBMK ? <RiBookmarkFill /> : <RiBookmarkLine />}
+          <BookmarkBtn onClick={() => clickBMK(id)}>
+            {isBMK ? <img src={bmkFill} /> : <img src={bmkLine} />}
           </BookmarkBtn>
         </div>
       </StDiv>
@@ -134,23 +154,18 @@ function CampDetailForm() {
         )}
         <Address2>{campDetail?.address3}</Address2>
       </Map>
-      <Post>
+      <ItemBox>
         <Review>
           <div>리뷰({campDetail?.reviewList.length})</div>
-          <ReviewBtn
-            onClick={() => {
-              navigate(`/reviewadd`);
-            }}
-          >
-            <BsPencilFill />
-          </ReviewBtn>
-          <AllBtn
-            onClick={() => {
-              navigate(`/reviewlist/${id}`);
-            }}
-          >
-            전체보기
-          </AllBtn>
+          <div>
+            <ReviewBtn
+              onClick={() => {
+                navigate(`/reviewadd`);
+              }}
+            >
+              <BsPencilFill />
+            </ReviewBtn>
+          </div>
         </Review>
         {reviewList?.map((v) => {
           return (
@@ -159,7 +174,10 @@ function CampDetailForm() {
             </ReviewBox>
           )
         })}
-      </Post>
+      </ItemBox>
+      <Button onClick={() => {
+        moreNavigate();
+      }}>전체보기</Button>
     </MainDiv>
   );
 }
@@ -170,7 +188,7 @@ const MainDiv = styled.div`
   align-items: center;
   flex-direction: column;
   font-family: var(--font);
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
 `;
 
 const StDiv = styled.div`
@@ -204,7 +222,7 @@ const Address = styled.div`
 `;
 
 const Address2 = styled.div`
-  width: 100%;
+  /* width: 100%; */
   font-size: 14px;
   font-weight: 400;
   margin: 12px 0px 24px 24px;
@@ -248,8 +266,8 @@ const Ele = styled.div`
   padding: 1px 12px;
   gap: 8px;
   border-radius: 24px;
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--BackColor2);
+  /* border: 1px solid var(--Gray1); */
 `;
 
 const Map = styled.div`
@@ -271,18 +289,19 @@ const MapDiv = styled.div`
 `;
 
 const Post = styled.div`
-  width: 336px;
+  width: 100%;
   padding-top: 15px;
 `;
 
 const Review = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: space-between;
 `;
 
 const ReviewBtn = styled.button`
-  margin-left: 200px;
+  /* margin-left: 200px; */
   background-color: var(--BackColor2);
   border: 1px solid var(--BackColor2);
 `;

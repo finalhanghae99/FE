@@ -42,7 +42,11 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
             <SeartchBtn><FiSearch /></SeartchBtn>
           {/* </form> */}
         </InputBox>
-        <BoxName>{searchList?.length}개의 검색 결과가 있어요.</BoxName>
+        {(searchList?.length == 0)?(
+          <BoxName>검색 결과가 업습니다.</BoxName>
+        ):(
+          <BoxName>{searchList?.length}개의 검색 결과가 있어요.</BoxName>
+        )}
         <SearchList>
           {searchList?.map((v, i) => {
             return (
@@ -51,7 +55,6 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
                     <SearchName>{v.campingName}</SearchName>
                     <SearchAddress>{v.address3}</SearchAddress>
                   </SearchDetail>
-                  <SelectBtn>선택</SelectBtn>
                 </SearchElement>
             )
           })}
@@ -68,7 +71,7 @@ const SearchWindow = styled.div`
   box-sizing: border-box;
   height: 100%;
   width: 100%;
-  background-color: var(--Gray2);
+  background-color: white;
   position: fixed;
   /* overflow: scroll; */
   bottom: 0;
@@ -98,7 +101,10 @@ const SearchElement = styled.div`
   background-color: white;
   border-radius: 8px;
   margin-top: 16px;
-
+  border: 1px solid var(--Gray1);
+  &:hover{
+    border: 1px solid var(--Brand6);
+  }
 `
 
 const Line = styled.div`
@@ -138,7 +144,7 @@ const SearchAddress = styled.div`
 const WordInput = styled.input`
   /* background: ${props=>props.color}; */
   /* color: white; */
-  border: none;
+  border: 1px solid var(--Gray1);
   border-radius: 50px;
   box-sizing: border-box;
   padding-left: 24px;

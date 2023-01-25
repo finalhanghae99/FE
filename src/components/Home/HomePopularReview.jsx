@@ -68,8 +68,9 @@ export default HomePopularReview;
 
 const ReviewBox = styled.div`
   display: flex;
-  overflow: scroll;
-  gap: var(--pad2);
+  overflow-x: scroll;
+  gap: 16px;
+  padding-bottom: var(--interval);
 `;
 
 const ReviewCard = styled.div`

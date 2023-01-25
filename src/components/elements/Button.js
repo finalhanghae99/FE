@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StButton = styled.button`
-  width: 327px;
+  width: 100%;
   height: 56px;
   font-size: 16px;
   font-weight: 700;
@@ -11,12 +11,9 @@ const StButton = styled.button`
   background-color: var(--Brand6);
   border-radius: 36px;
   border: 1px solid #d9d9d9;
-  &:hover {
-    &:not([disabled]){
-    background-color: white;
-    color: Black;
-    border: 3px solid black;
-  }}
+  &:disabled{
+    background-color: var(--Gray3);
+  }
 `;
 
 const Button = (props) => {

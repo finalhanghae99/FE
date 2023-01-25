@@ -8,19 +8,17 @@ import HomeReserve from "../components/Home/HomeReserve";
 import HomeSearch from "../components/Home/HomeSearch";
 
 import nightImg from "../img/night_star.png" 
+import keyimg from "../img/MainCampImg.svg"
 
 function Home() {
   return (
     <div>
       <SearchVisual>
         <ImgFrame>
-          <KeyImg src={nightImg}/>
+          <KeyImg src={keyimg}/>
         </ImgFrame>
-        <MainMsg>
-          어디로 <br /> 떠나고 싶으세요?
-        </MainMsg>
         <SearchWindow>
-          <HomeSearch color="rgba(255,255,255,0.5)"/>
+          <HomeSearch />
         </SearchWindow>
       </SearchVisual>
       <HomeMain />
@@ -30,21 +28,17 @@ function Home() {
 export default Home;
 
 const SearchVisual = styled.div`
-  height: 400px;
+  /* height: 400px; */
   width: 100%;
-  background-color: var(--Brand5);
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
   position: relative;
   overflow: hidden;
-  color: white;
+  /* color: ; */
 `
 const KeyImg = styled.img`
   object-fit: cover;
-  width: 100%;
-  height: 80%;
   object-position: center;
-  position: absolute;
+  /* position: absolute; */
+  margin: auto;
 `
 
 const MainMsg = styled.div`
@@ -58,26 +52,13 @@ const MainMsg = styled.div`
 `
 
 const ImgFrame = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  &:after {
-    height: 100%;
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 1;
-    background-image: linear-gradient(0deg, var(--Brand5) 25% , rgba(0,0,0,0) 100%);
-  };
+  display: flex;
+  justify-content: center;
+  margin-top: 37px;
 `
 
 const SearchWindow = styled.div`
-  position: absolute;
+  /* position: absolute;
   top: 178px;
-  width: 100%;
+  width: 100%; */
 `

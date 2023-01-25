@@ -17,11 +17,14 @@ import MyCamp from "../pages/myPage/MyCamp";
 import MyReview from "../components/MyPage/MyReview";
 import ReservePost from "../pages/reserve/ReservePost";
 import ReviewEdit from "../pages/review/ReviewEdit";
+import NotFount from "./NotFound";
+import ScrollTop from "./ScrollTop";
 
 function Router() {
   return (
     <>
       <BrowserRouter>
+        <ScrollTop />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -44,6 +47,7 @@ function Router() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mycamp" element={<MyCamp />} />
             <Route path="/mypage/myreview" element={<MyReview />} />
+            <Route path="*" element={<NotFount />} />
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -108,8 +108,7 @@ const ReviewDetailForm = () => {
             return <Pic key={i} src={a}></Pic>;
           })}
         </StyledSlider>
-      </ViewWindow>
-      <LikeBox>
+        <LikeBox>
         <div onClick={()=>{clickLike(reviewDetail?.reviewId)}}>
           {isLike ? <AiFillHeart /> : <AiOutlineHeart />}
         </div>
@@ -117,6 +116,9 @@ const ReviewDetailForm = () => {
           {likeCount}
         </LikeCount>
       </LikeBox>
+
+      </ViewWindow>
+     
 
       <ItemBox>
         <Title>
@@ -219,6 +221,8 @@ const MainDiv = styled.div`
 const Pic = styled.img`
   width: 100%;
   height: 407px;
+  object-position: center;
+  object-fit: contain;
 `;
 
 const Title = styled.div`

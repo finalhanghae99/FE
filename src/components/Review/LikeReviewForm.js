@@ -31,10 +31,12 @@ const LikeReviewForm = () => {
   return (
     <>
       <Main>
-        <BackBtn onClick={() => { navigate(`/`) }}>
+        {/* <BackBtn onClick={() => { navigate(`/`) }}>
           <AiOutlineLeft />
-        </BackBtn>
-        <div>좋아요를 많이 받은 리뷰에요</div>
+        </BackBtn> */}
+        <ItemBox>
+          <ItemName>좋아요를 많이 받은 리뷰 입니다.</ItemName>
+        </ItemBox>
       </Main>
       {/* <PostBox>
         <Pic>후기사진</Pic>
@@ -67,7 +69,7 @@ export default LikeReviewForm;
 const Main = styled.div`
   display: flex;
   align-items: center;
-  width: 360px;
+  /* width: 360px; */
   margin-top: 29px;
 `;
 
@@ -127,3 +129,9 @@ const CampName = styled.div`
   width: 291px;
   margin: 10px 0px 0px 21px;
 `;
+const ItemName = styled.div`
+  margin: auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+`

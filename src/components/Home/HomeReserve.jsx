@@ -49,10 +49,12 @@ function HomeReserve() {
 
 export default HomeReserve;
 
+
 const ReserveBox = styled.div`
   display: flex;
-  overflow: scroll;
-  gap: 4px;
+  overflow-x: scroll;
+  gap: 16px;
+  padding-bottom: var(--interval);
 `
 
 const ReserveCard = styled.div`
