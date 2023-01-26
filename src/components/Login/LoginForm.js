@@ -5,6 +5,7 @@ import { instance } from "../../api/axiosApi";
 import { setCookies } from "../../api/cookieControler";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
+import Alert from "../elements/Alert";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -16,7 +17,10 @@ const LoginForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (useremail === "" || password === "") {
-      alert("아이디, 비밀번호를 확인해주세요."); 
+      Alert({
+        body:"아이디, 비밀번호를 확인해주세요."
+      })
+      // alert("아이디, 비밀번호를 확인해주세요."); 
       return;
     } else {
     }
@@ -32,7 +36,10 @@ const LoginForm = () => {
           path: "/",
           maxAge: 3600,
         });
-        alert("로그인 완료!");
+        Alert({
+          body: "로그인 완료!"
+        })
+        // alert("로그인 완료!");
         navigate("/");
       }
     });
@@ -44,7 +51,10 @@ const LoginForm = () => {
       if (data.data.statusCode === 200) {
         return data;
       } else {
-        alert("아이디 비밀번호를 확인해주세요.");
+        Alert({
+          body:"아이디 비밀번호를 확인해주세요."
+        })
+        // alert("아이디 비밀번호를 확인해주세요.");
       }
     } catch (error) {
       console.log(error);

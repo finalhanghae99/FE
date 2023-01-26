@@ -10,15 +10,20 @@ import campBtn from "../../img/CampBtn.svg"
 import {BsArrowRightShort} from "react-icons/bs"
 
 import { getCookies } from "../../api/cookieControler";
+import Confirm from "../elements/Confirm";
 
 function HomeRecommend(){
   const navigate = useNavigate();
 
-  const navEvent = () =>{
-    const token = getCookies("id");
-    (token)? (navigate("/reviewadd")) : (
-      navigate("/login?redirect=reviewadd")
-    )
+  const navEvent = async () =>{
+    // const token = getCookies("id");
+    // (token)? (navigate("/reviewadd")) : (
+    //   navigate("/login?redirect=reviewadd")
+    // )
+    const isConfirm = await Confirm({
+      body: 'TEST CONFIRM'
+    });
+    console.log(isConfirm)
   }
 
   return(
