@@ -1,5 +1,5 @@
 import React from "react";
-import ReservePostForm from "../../components/ReserveDetail/ReservePostForm";
+import ReservePostForm from "../../components/Reserve/ReservePostForm";
 
 function ReservePost(){
   return(
