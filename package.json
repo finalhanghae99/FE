@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.2",
     "json-server": "^0.17.1",
+    "net": "^1.0.2",
     "numeral": "^2.0.6",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
