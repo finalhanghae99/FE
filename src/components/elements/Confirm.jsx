@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 import styled from "styled-components";
 
-function ModalAlert({ body, cleanup}) {
+function ModalConfirm({ body, resolve , cleanup}) {
   const [show, setShow] = useState(true);
 
   const abort = async() => {
+    resolve(false)
     await setShow(false)
     cleanup()
   }
-
+  const confirm = async () => {
+    resolve(true)
+    await setShow(false)
+    cleanup()
+  }
   if (show) {
     document.body.style.overflow = "hidden"
   } else {
@@ -26,7 +31,8 @@ function ModalAlert({ body, cleanup}) {
               {body}
             </MsgBox>
             <BtnBox>
-              <OrangeBtn onClick={abort}>확인</OrangeBtn>
+              <WhiteBtn onClick={confirm}>네</WhiteBtn>
+              <OrangeBtn onClick={abort}>아니요</OrangeBtn>
             </BtnBox>
           </ModalWindow>
         </>
@@ -35,27 +41,29 @@ function ModalAlert({ body, cleanup}) {
   )
 }
 
-const Alert = ({ body }) => {
+const Confirm = ({ body }) => {
   const alert = ReactDOM.createRoot(document.getElementById('alert'));
   const cleanup =() =>{
     alert.unmount();
   }
-  const promise = new Promise(() => {
+  const promise = new Promise((resolve, reject) => {
     try {
       alert.render(
-        <ModalAlert
+        <ModalConfirm
           body={body}
+          resolve={resolve}
           cleanup={cleanup}
         />
       )
     } catch (error) {
+      reject(error);
       console.log(error);
     }
   });
   return promise;
 }
 
-export default Alert;
+export default Confirm;
 
 const OutOfModal = styled.div`
   background-color: rgba(0,0,0,0.5);

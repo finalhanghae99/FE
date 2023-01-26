@@ -13,6 +13,7 @@ import { useModal } from "../../hooks/useModal";
 import MyInfoModify from "./MyInfoModify";
 import { useCookies } from "react-cookie";
 import { getCookies } from "../../api/cookieControler";
+import Confirm from "../elements/Confirm";
 
 function MyInfo() {
   const modify = useModal();
@@ -29,8 +30,12 @@ function MyInfo() {
     }
   };
 
-  const logOut = () => {
-    if (!window.confirm("로그아웃 하시겠습니까?")) {
+  const logOut = async() => {
+    const isConfirm = await Confirm({
+      body: "로그아웃 하시겠습니까?"
+    })
+    if (!isConfirm){
+    // if (!window.confirm("로그아웃 하시겠습니까?")) {
       return;
     } else {
       removeCookie("id", { path: "/" });
