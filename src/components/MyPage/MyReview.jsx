@@ -58,6 +58,7 @@ const Title = styled.div`
   font-size: 18px;
   font-weight: 500;
 `
+
 const ItemName = styled.div`
   margin: auto;
   text-align: center;

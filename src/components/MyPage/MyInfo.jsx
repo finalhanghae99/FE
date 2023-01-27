@@ -12,6 +12,7 @@ import starIcon from "../../img/Star.svg"
 import bookMark from "../../img/BookMark.svg"
 import myCamp from "../../img/MyCamp.svg"
 import myChat from "../../img/MyChat.svg"
+import Confirm from "../elements/Confirm";
 
 function MyInfo() {
   const modify = useModal();
@@ -28,8 +29,12 @@ function MyInfo() {
     }
   };
 
-  const logOut = () => {
-    if (!window.confirm("로그아웃 하시겠습니까?")) {
+  const logOut = async() => {
+    const isConfirm = await Confirm({
+      body: "로그아웃 하시겠습니까?"
+    })
+    if (!isConfirm){
+    // if (!window.confirm("로그아웃 하시겠습니까?")) {
       return;
     } else {
       removeCookie("id", { path: "/" });

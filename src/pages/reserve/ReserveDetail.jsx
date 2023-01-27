@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from "react";
-import DetailHeader from "../../components/ReserveDetail/DetailHeader";
+import DetailHeader from "../../components/Reserve/DetailHeader";
 
 
 function ReserveDetail(){

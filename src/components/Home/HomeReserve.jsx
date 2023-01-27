@@ -7,6 +7,7 @@ import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox";
 
 import testImg from "../../img/test_camp_img.jpg"
 import { useNavigate } from "react-router-dom";
+import ReserveListElement from "../Reserve/ReserveListElement";
 
 function HomeReserve() {
   const navigate = useNavigate();
@@ -29,17 +30,18 @@ function HomeReserve() {
       <ReserveBox>
         {reserve?.map((v) => {
           return (
-            <ReserveCard key={v.reservationId} 
-              onClick={()=>{navigate(`../reserve/detail/${v.reservationId}`)}}>
-              <CardImg src={v.imageUrl} />
-              <CardDetail>
-                <CardTitle>{v.campingName}</CardTitle>
-                <CardRegion>{v.address1} {v.address2}</CardRegion>
-                <CardDate>{v.startDate}</CardDate>
-                <CardDate> ~ {v.endDate}</CardDate>
-                <CardPrice>{numeral(v.price).format('0,0')}</CardPrice>
-              </CardDetail>
-            </ReserveCard>
+            // <ReserveCard key={v.reservationId} 
+            //   onClick={()=>{navigate(`../reserve/detail/${v.reservationId}`)}}>
+            //   <CardImg src={v.imageUrl} />
+            //   <CardDetail>
+            //     <CardTitle>{v.campingName}</CardTitle>
+            //     <CardRegion>{v.address1} {v.address2}</CardRegion>
+            //     <CardDate>{v.startDate}</CardDate>
+            //     <CardDate> ~ {v.endDate}</CardDate>
+            //     <CardPrice>{numeral(v.price).format('0,0')}</CardPrice>
+            //   </CardDetail>
+            // </ReserveCard>
+            <ReserveListElement key={v.reservationId} reserve={v}/>
           )
         })}
       </ReserveBox>
