@@ -16,7 +16,6 @@ function ReserveEditForm() {
   };
   const navigate = useNavigate();
   const [reserve, setReserve] = useState(initialState);
-  const [reserves, setReserves] = useState(null);
   const { id } = useParams();
   const [isComp, setIsComp] = useState(false);
   const datePick = useModal();
@@ -25,7 +24,7 @@ function ReserveEditForm() {
     try {
       const { data } = await instance.get(`reservation/${id}`);
       console.log(data)
-      setReserves(data.data);
+      setReserve(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -43,8 +42,8 @@ function ReserveEditForm() {
   useEffect(() => {
     setIsComp(
       Boolean(reserve.startDate) &&
-        Boolean(reserve.endDate) &&
-        reserve.content.trim() !== ""
+      Boolean(reserve.endDate) &&
+      reserve.content.trim() !== ""
     );
   }, [reserve]);
 
@@ -83,10 +82,10 @@ function ReserveEditForm() {
     <ItemBox>
       <PostForm onSubmit={editHandler}>
         <InputBox>
-          <WordInput>{reserves?.campingName}</WordInput>
+          <WordInput>{reserve?.campingName}</WordInput>
         </InputBox>
         <EventBox onClick={datePick.onOpen}>
-          {reserves?.startDate} ~ {reserves?.endDate}
+          {reserve?.startDate} ~ {reserve?.endDate}
         </EventBox>
         <PriceInput
           type="number"
@@ -95,13 +94,13 @@ function ReserveEditForm() {
           placeholder="금액을 입력해주세요"
           min="0"
           onChange={changeHandler}
-          defaultValue={reserves?.price}
+          value={reserve?.price}
         />
         <PostContent
           name="content"
           placeholder="게시글 내용을 작성해주세요"
           onChange={changeHandler}
-          defaultValue={reserves?.content}
+          value={reserve?.content}
         />
         <Button disabled={!isComp}>수정하기</Button>
       </PostForm>
