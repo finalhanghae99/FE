@@ -59,7 +59,7 @@ function ReservePostForm() {
         return null
       }
     } else {
-      if (window.confirm("양도글을 올리겠습니까?")) {
+      if (window.confirm("양도글을 등록하시겠습니까?")) {
         postFunc();
         navigate("../")
       } else {

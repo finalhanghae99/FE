@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import numeral from "numeral";
-
 import styled from "styled-components";
-
 import { instance } from "../../api/axiosApi";
 import CampImgView from "../elements/CampImgView";
-
-import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
-
-import testImg from "../../img/test_camp_img.jpg";
+import { ItemBox } from "../elements/ItemBox";
 import Button from "../elements/Button";
 
 function DetailHeader() {
@@ -45,7 +40,7 @@ function DetailHeader() {
     if (reserve.ownerCheck === false) {
       alert("수정 권한이 없습니다.");
     } else {
-      navigate(`/reserve/edit/${id}`, { state: { reserve } });
+      navigate(`/reserve/edit/${id}`);
     }
   }
 
