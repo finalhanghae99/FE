@@ -6,6 +6,7 @@ import DatePicker from "../elements/DatePicker";
 import styled from "styled-components";
 import RegionPicker from "../elements/RegionPicker";
 import { BsPencilFill } from "react-icons/bs"
+import {HiOutlinePencilAlt} from "react-icons/hi"
 import { useNavigate } from "react-router-dom";
 
 import { getCookies } from "../../api/cookieControler";
@@ -92,7 +93,7 @@ function ReserveHeader() {
         <DatePicker condition={condition} setCondition={setCondition} onClose={calendar.onClose} />
       }
       <div>
-        <PostBtn onClick={postNavigate} ><BsPencilFill style={{color:"white"}}/></PostBtn>
+        <PostBtn onClick={postNavigate} ><HiOutlinePencilAlt style={{color:"white"}}/></PostBtn>
       </div>
       <ItemBox>
         <NoneMsg>
@@ -147,6 +148,7 @@ const PostBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
 `
 
 const RegionBtn = styled.div`

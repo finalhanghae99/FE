@@ -40,7 +40,7 @@ function ReviewElement(props) {
 
   const commenter = useMemo(() => {
     // 조건에 따라 게시글을 보여주는 함수
-    const shortReview = review.content.slice(0, textLimit.current) // 원본에서 글자 수만큼 잘라서 짧은 버전을 준비하자
+    const shortReview = review.content.slice(0, textLimit.current); // 원본에서 글자 수만큼 잘라서 짧은 버전을 준비하자
     if (review.content.length > textLimit.current) {
       // 원본이 길면 (원본 글자수 > 제한된 갯수)
       if (isShowMore) {
@@ -124,12 +124,10 @@ function ReviewElement(props) {
       <br />
       <hr color="#E0E0E0" />
       <BtnBox>
-        <ReviewBtn onClick={() => onDeleteReview(review.reviewId)}>
-          삭제
-        </ReviewBtn>
-        <ReviewBtn onClick={() => onEditReview(review?.reviewId, review)}>
+        <DelBtn onClick={() => onDeleteReview(review.reviewId)}>삭제</DelBtn>
+        <EditBtn onClick={() => onEditReview(review?.reviewId, review)}>
           수정
-        </ReviewBtn>
+        </EditBtn>
       </BtnBox>
     </div>
   );
@@ -186,18 +184,26 @@ const ImgView = styled.img`
 const BtnBox = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 20px 0px 40px 0px;
   gap: var(--pad2);
   border-bottom: 8px solid var(--BackColor2);
 `;
 
-const ReviewBtn = styled.button`
-  border: none;
-  background-color: var(--BackColor1);
-  border-bottom: 1px solid #444444;
-  height: 20px;
-  width: 40px;
+const DelBtn = styled.button`
+  width: 154px;
+  height: 33px;
+  border: 1px solid var(--Brand6);
+  background-color: white;
+  color: var(--Brand6);
+`;
+
+const EditBtn = styled.button`
+  width: 154px;
+  height: 33px;
+  border: 1px solid var(--Brand6);
+  background-color: var(--Brand6);
+  color: white;
 `;
 
 const StarText = styled.span`

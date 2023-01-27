@@ -12,7 +12,8 @@ function MyReview() {
   const fetchReview = async () => {
     try {
       const { data } = await instance.get(`/mypage/review`);
-      serReview(data.data.responseReviewListDtos);
+      console.log(data)
+      serReview(data.data.responseReviewOneDtoList);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {
@@ -56,7 +57,7 @@ const Title = styled.div`
   justify-content: center;
   font-size: 18px;
   font-weight: 500;
-
+`
 const ItemName = styled.div`
   margin: auto;
   text-align: center;

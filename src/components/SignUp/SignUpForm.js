@@ -154,130 +154,134 @@ const SignUpForm = () => {
   };
 
   return (
-    <MainSignUp>
+    <>
       <Title></Title>
-      <Logo>회원가입</Logo>
-      <Id>아이디</Id>
-      <InputBox>
-        <StDiv>
-          <Inp
-            type="text"
-            placeholder="이메일을 입력해주세요."
-            onChange={onChangeUserEmail}
-          />
-          <CheckBtn
-            type="button"
-            onClick={(e) => {
-              onEmailCheck(e);
-            }}
-          >
-            중복확인
-          </CheckBtn>
-        </StDiv>
-        {useremail.length > 0 && (
-          <Span
-            style={{
-              color: isUserEmail ? "#000000" : "#f85032",
-              position: "absolute",
-            }}
-          >
-            {useremailMsg}
-          </Span>
-        )}
-      </InputBox>
-      <Id>닉네임</Id>
-      <div style={{ position: "relative" }}>
-        <StDiv>
-          <Inp
-            type="text"
-            placeholder="닉네임을 입력해주세요."
-            onChange={onChangeNickname}
-          />
-          <CheckBtn
-            type="button"
-            onClick={(e) => {
-              onNicknameCheck(e);
-            }}
-          >
-            중복확인
-          </CheckBtn>
-        </StDiv>
+      <MainSignUp>
+        <Logo>회원가입</Logo>
+        <Id>아이디</Id>
+        <InputBox>
+          <div style={{ position: "relative" }}>
+            <StDiv>
+              <Inp
+                type="text"
+                placeholder="이메일을 입력해주세요."
+                onChange={onChangeUserEmail}
+              />
+              <CheckBtn
+                type="button"
+                onClick={(e) => {
+                  onEmailCheck(e);
+                }}
+              >
+                중복확인
+              </CheckBtn>
+            </StDiv>
+            {useremail.length > 0 && (
+              <Span
+                style={{
+                  color: isUserEmail ? "#000000" : "#f85032",
+                  position: "absolute",
+                }}
+              >
+                {useremailMsg}
+              </Span>
+            )}
+          </div>
+        </InputBox>
+        <Id>닉네임</Id>
+        <div style={{ position: "relative" }}>
+          <StDiv>
+            <Inp
+              type="text"
+              placeholder="닉네임을 입력해주세요."
+              onChange={onChangeNickname}
+            />
+            <CheckBtn
+              type="button"
+              onClick={(e) => {
+                onNicknameCheck(e);
+              }}
+            >
+              중복확인
+            </CheckBtn>
+          </StDiv>
 
-        {nickname.length > 1 && (
-          <Span
-            style={{
-              color: isNickName ? "#000000" : "#f85032",
-              position: "absolute",
-            }}
-          >
-            {nicknameMsg}
-          </Span>
-        )}
-      </div>
-      <Id>비밀번호</Id>
-      <div style={{ position: "relative" }}>
-        <StDiv>
-          <StInput
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            onChange={onChangePassword}
-          />
-        </StDiv>
-        {password.length > 0 && (
-          <Span
-            style={{
-              color: isPassword ? "#000000" : "#f85032",
-              position: "absolute",
-            }}
-          >
-            {passwordMsg}
-          </Span>
-        )}
-      </div>
-      <Id>비밀번호 확인</Id>
-      <div style={{ position: "relative" }}>
-        <StDiv>
-          <StInput
-            type="password"
-            placeholder="비멀번호를 확인해주세요."
-            onChange={onChangeCheckPassword}
-          />
-        </StDiv>
-        {checkPassword.length > 0 && (
-          <Span
-            style={{
-              color: isCheckPassword ? "#000000" : "#f85032",
-              position: "absolute",
-            }}
-          >
-            {checkPasswordMsg}
-          </Span>
-        )}
-      </div>
-      <SignUpBtn
-        type="submit"
-        disabled={
-          !(
-            isUserEmail &&
-            isNickName &&
-            isPassword &&
-            isCheckPassword &&
-            isUserEmailCheck &&
-            isNickNameCheck
-          )
-        }
-        onClick={onClickSignUpBtn}
-      >
-        회원가입 완료
-      </SignUpBtn>
-      <Back
-        onClick={() => {
-          onClickLogin();
-        }}
-      >
-        뒤로가기
-      </Back>
-    </MainSignUp>
+          {nickname.length > 1 && (
+            <Span
+              style={{
+                color: isNickName ? "#000000" : "#f85032",
+                position: "absolute",
+              }}
+            >
+              {nicknameMsg}
+            </Span>
+          )}
+        </div>
+        <Id>비밀번호</Id>
+        <div style={{ position: "relative" }}>
+          <StDivv>
+            <StInput
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              onChange={onChangePassword}
+            />
+          </StDivv>
+          {password.length > 0 && (
+            <Span
+              style={{
+                color: isPassword ? "#000000" : "#f85032",
+                position: "absolute",
+              }}
+            >
+              {passwordMsg}
+            </Span>
+          )}
+        </div>
+        <Id>비밀번호 확인</Id>
+        <div style={{ position: "relative" }}>
+          <StDivv>
+            <StInput
+              type="password"
+              placeholder="비밀번호를 확인해주세요."
+              onChange={onChangeCheckPassword}
+            />
+          </StDivv>
+          {checkPassword.length > 0 && (
+            <Span
+              style={{
+                color: isCheckPassword ? "#000000" : "#f85032",
+                position: "absolute",
+              }}
+            >
+              {checkPasswordMsg}
+            </Span>
+          )}
+        </div>
+        <SignUpBtn
+          type="submit"
+          disabled={
+            !(
+              isUserEmail &&
+              isNickName &&
+              isPassword &&
+              isCheckPassword &&
+              isUserEmailCheck &&
+              isNickNameCheck
+            )
+          }
+          onClick={onClickSignUpBtn}
+        >
+          회원가입 완료
+        </SignUpBtn>
+        <Back
+          onClick={() => {
+            onClickLogin();
+          }}
+        >
+          뒤로가기
+        </Back>
+      </MainSignUp>
+    </>
   );
 };
 
@@ -286,19 +290,20 @@ export default SignUpForm;
 const InputBox = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const MainSignUp = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: var(--interval);
 `;
 
 const Title = styled.div`
   width: 100%;
   border-bottom: 1px solid var(--Brand4);
-  margin: 103px 0px 16px 0px;
+  margin: 89px 0px 16px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,15 +323,20 @@ const Id = styled.div`
   font-size: 14px;
   font-weight: 700;
   color: var(--Brand6);
-  padding-left: 55px;
-  margin: 36px 0px 0px 0px;
+  margin: 36px 0px 0px 31px;
 `;
 
 const StDiv = styled.div`
-  width: 331px;
+  width: 100%;
   height: 36px;
   margin-top: 10px;
   border-bottom: 1px solid var(--Brand6);
+`;
+
+const StDivv = styled.div`
+  width: 303px;
+  height: 36px;
+  margin-top: 10px;
 `;
 
 const Inp = styled(Input)`
@@ -336,11 +346,10 @@ const Inp = styled(Input)`
 `;
 
 const CheckBtn = styled.button`
-  /* width: 61px; */
   height: 18px;
   border: none;
   border-bottom: 1px solid #343333;
-  background-color: var(--BackColor1);
+  background-color: white;
 `;
 
 const StInput = styled(Input)`
@@ -354,7 +363,7 @@ const SignUpBtn = styled(Button)`
 const Back = styled.button`
   border: none;
   border-bottom: 1px solid var(--Brand6);
-  background-color: var(--BackColor1);
+  background-color: white;
   font-size: 14px;
   padding-bottom: 4px;
   font-weight: 700;
@@ -362,6 +371,6 @@ const Back = styled.button`
 `;
 
 const Span = styled.span`
-  padding-top: 4px;
-  padding-left: 7px;
+  padding: 4px 0px 0px 7px;
+  font-size: 13px;
 `;

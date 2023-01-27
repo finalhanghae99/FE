@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BsPencilFill } from "react-icons/bs";
-import { RiBookmarkFill, RiBookmarkLine } from "react-icons/ri";
+import { HiOutlinePencilAlt } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 import { getCookies, setCookies } from "../../api/cookieControler";
 
-import bmkFill from "../../img/icons/bmkFill.svg"
-import bmkLine from "../../img/icons/bmkLine.svg"
-
+import bmkFill from "../../img/icons/bmkFill.svg";
+import bmkLine from "../../img/icons/bmkLine.svg";
 
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
@@ -26,17 +24,19 @@ function CampDetailForm() {
 
   const [isBMK, setIsBMK] = useState();
   const clickBMK = async (id) => {
-    const token = getCookies("id")
+    const token = getCookies("id");
     if (!token) {
-      alert("로그인이 필요 합니다.")
+      alert("로그인이 필요 합니다.");
       return;
     }
     try {
       const { data } = await instance.post(`/camping/${id}/like`);
-      console.log(data)
-      setIsBMK(!isBMK)
-    } catch (error) { console.log(error); }
-  }
+      console.log(data);
+      setIsBMK(!isBMK);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const fetchCampDetail = async () => {
     try {
       const { data } = await instance.get(`/camping/${id}`);
@@ -56,7 +56,7 @@ function CampDetailForm() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   useEffect(() => {
     // 캠핑장 열람 이력 저장
     let history = getCookies("history");
@@ -75,22 +75,22 @@ function CampDetailForm() {
   }, []);
 
   useEffect(() => {
-    setIsBMK(campDetail?.campingLikeState)
-  }, [campDetail])
+    setIsBMK(campDetail?.campingLikeState);
+  }, [campDetail]);
 
   const position = {
     lat: Number(campDetail?.mapY),
     lng: Number(campDetail?.mapX),
   };
 
-  const moreNavigate = () =>{
-    if(reviewList.length === 0){
+  const moreNavigate = () => {
+    if (reviewList.length === 0) {
       alert("리뷰 정보가 없습니다");
       return;
-    } else{
-      navigate(`/reviewlist/${id}`)
+    } else {
+      navigate(`/reviewlist/${id}`);
     }
-  }
+  };
 
   return (
     <MainDiv>
@@ -163,21 +163,25 @@ function CampDetailForm() {
                 navigate(`/reviewadd`);
               }}
             >
-              <BsPencilFill />
+              <HiOutlinePencilAlt />
             </ReviewBtn>
           </div>
         </Review>
         {reviewList?.map((v) => {
           return (
-            <ReviewBox key={v.reviewId} >
+            <ReviewBox key={v.reviewId}>
               <LikeListElement review={v} />
             </ReviewBox>
-          )
+          );
         })}
       </ItemBox>
-      <Button onClick={() => {
-        moreNavigate();
-      }}>전체보기</Button>
+      <Button
+        onClick={() => {
+          moreNavigate();
+        }}
+      >
+        전체보기
+      </Button>
     </MainDiv>
   );
 }
@@ -267,7 +271,6 @@ const Ele = styled.div`
   gap: 8px;
   border-radius: 24px;
   background-color: var(--BackColor2);
-  /* border: 1px solid var(--Gray1); */
 `;
 
 const Map = styled.div`
@@ -288,11 +291,6 @@ const MapDiv = styled.div`
   overflow: hidden;
 `;
 
-const Post = styled.div`
-  width: 100%;
-  padding-top: 15px;
-`;
-
 const Review = styled.div`
   display: flex;
   align-items: center;
@@ -301,14 +299,10 @@ const Review = styled.div`
 `;
 
 const ReviewBtn = styled.button`
-  /* margin-left: 200px; */
-  background-color: var(--BackColor2);
-  border: 1px solid var(--BackColor2);
-`;
-
-const AllBtn = styled.button`
-  background-color: var(--BackColor2);
-  border: 1px solid var(--BackColor2);
+  background-color: white;
+  border: white;
+  font-size: 25px;
+  margin-top: var(--pad1);
 `;
 
 const BookmarkBtn = styled.div`
@@ -323,4 +317,4 @@ const BookmarkBtn = styled.div`
 
 const ReviewBox = styled.div`
   margin-top: var(--interval);
-`
+`;

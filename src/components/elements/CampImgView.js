@@ -24,7 +24,7 @@ const ImageWindow = styled.div`
 
 const ImgFrame = styled.div`
   width: 100%;
-  height: 100%;
+  height: 407px;
   overflow: hidden;
   position: relative;
   &:after {
