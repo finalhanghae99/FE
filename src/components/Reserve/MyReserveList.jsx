@@ -21,10 +21,10 @@ function MyReserveList({reserve}) {
     if(!isConfirm){
       return null
     }else{
-      // try {
-      //   const { data } = await instance.post(`/reservation/changestate/${reserve.reservationId}`);
-      //   console.log(data);
-      // } catch (error) { console.log(error); }
+      try {
+        const { data } = await instance.post(`/reservation/changestate/${reserve.reservationId}`);
+        console.log(data);
+      } catch (error) { console.log(error); }
       setIsTrade(!isTrade)
     }
   };
