@@ -12,7 +12,8 @@ function MyReview() {
   const fetchReview = async () => {
     try {
       const { data } = await instance.get(`/mypage/review`);
-      serReview(data.data.responseReviewListDtos);
+      console.log(data)
+      serReview(data.data.responseReviewOneDtoList);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {

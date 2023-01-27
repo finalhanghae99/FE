@@ -35,7 +35,7 @@ const ReviewAddForm = () => {
   const [campingId, setCampingId] = useState("");
   const [campingName, setCampingName] = useState("");
   const [content, setContent] = useState("");
-  const [imgState, setImgState] = useState(false);
+  // const [imgState, setImgState] = useState(false);
   // const [previewImg, setPreviewImg] = useState([]);
   const [images, setImages] = useState([]);
   // const [form, setForm] = useState();

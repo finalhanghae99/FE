@@ -36,7 +36,6 @@ const ReviewDetailForm = () => {
     setLikeCount(reviewDetail?.likeCount)
   }, [reviewDetail])
 
-
   const fetchreviewDetail = async () => {
     try {
       const { data } = await instance.get(`/review/reviewone/${param.id}`);
@@ -47,14 +46,14 @@ const ReviewDetailForm = () => {
       console.log(error);
     }
   };
-
+  
   const onDeleteReview = async () => {
     try {
       const data = await instance.delete(`/review/${param.id}`);
       console.log(data);
-      if (data.data.statusCode === 401) {
+      if (reviewDetail?.ownerCheck === false) {
         alert("삭제 권한이 없습니다.");
-      } else if (data.data.statusCode === 200) {
+      } else if (reviewDetail?.ownerCheck === true) {
         alert("삭제 완료!");
         navigate("/");
       }
@@ -116,10 +115,7 @@ const ReviewDetailForm = () => {
           {likeCount}
         </LikeCount>
       </LikeBox>
-
       </ViewWindow>
-     
-
       <ItemBox>
         <Title>
           <UserInfo>
@@ -193,10 +189,7 @@ const ViewWindow = styled.div`
 
 const StyledSlider = styled(Slider)`
   width: 100%;
-  /* display: flex;*/
   .slick-list {
-    /* width: 390px; */
-    /* margin: 0px 0px -45px 0px; */
   } 
   .slick-dots{
     bottom: 25px;
@@ -243,13 +236,11 @@ const CampName = styled.div`
   width: 100%;
   font-size: 18px;
   font-weight: 700;
-  /* margin-left: var(--interval); */
 `;
 
 const Date = styled.div`
   font-size: 12px;
   color: var(--Gray3);
-  /* margin: 14px 0px 0px 180px; */
 `;
 
 const Suv = styled.div`
@@ -282,10 +273,7 @@ const Star = styled.div`
 
 const StarBox2 = styled.div`
   display: flex;
-  /* width: 265px; */
   font-size: 14px;
-  /* padding-left: 23px; */
-  /* margin: 8px 96px 0px 0px; */
   padding-bottom: 9px;
   line-height: 18px;
 `;
@@ -308,6 +296,7 @@ const Content = styled.div`
 
 const Contents = styled.div`
   margin: 0px 24px 0px 24px;
+  word-break: break-all;
 `;
 
 const NameDiv = styled.div`
@@ -321,13 +310,12 @@ const EditBtn = styled(Button)`
 const DelBtn = styled.button`
   border: none;
   border-bottom: 1px solid var(--Brand6);
-  background-color: var(--BackColor2);
+  background-color: white;
   font-size: 14px;
   padding-bottom: 4px;
   font-weight: 700;
   color: var(--Brand6);
 `;
-
 
 const LikeCount = styled.div`
   display: flex;
@@ -335,10 +323,8 @@ const LikeCount = styled.div`
   line-height: 30px;
   padding-left: 6px;
   width: 15px;
-  /* width: 30px; */
   justify-content: right;
   font-weight:bold;
-  /* filter: drop-shadow(10px 10px 10px 10px green); */
 `
 const LikeBox = styled.div`
   position: absolute;
@@ -348,7 +334,6 @@ const LikeBox = styled.div`
   top:20px; 
   right:20px;
   font-size:30px;
-  /* filter: drop-shadow(10px 10px 10px 10px green); */
   z-index: 5;
   color: white;
 `

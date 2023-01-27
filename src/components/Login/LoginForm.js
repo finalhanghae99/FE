@@ -120,13 +120,11 @@ const MainLogin = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* width: 100%; */
   margin: var(--interval);
   box-sizing: border-box;
 `;
 
 const Title = styled.div`
-  /* width: 100%; */
   border-bottom: 1px solid var(--Brand4);
   margin: 103px 0px 0px 0px;
   display: flex;
@@ -148,8 +146,7 @@ const Id = styled.div`
   font-size: 14px;
   font-weight: 700;
   color: var(--Brand6);
-  /* padding-left: 55px; */
-  margin: 36px 0px 0px 0px;
+  margin: 36px 0px 12px 0px;
 `;
 
 const StInput = styled(Input)`

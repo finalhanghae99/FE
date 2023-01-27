@@ -6,6 +6,7 @@ import DatePicker from "../elements/DatePicker";
 import styled from "styled-components";
 import RegionPicker from "../elements/RegionPicker";
 import { BsPencilFill } from "react-icons/bs"
+import {HiOutlinePencilAlt} from "react-icons/hi"
 import { useNavigate } from "react-router-dom";
 
 import { getCookies } from "../../api/cookieControler";
@@ -169,6 +170,7 @@ const PostBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
 `
 
 const BtnPostition = styled.div`

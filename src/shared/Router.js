@@ -19,6 +19,7 @@ import ReservePost from "../pages/reserve/ReservePost";
 import ReviewEdit from "../pages/review/ReviewEdit";
 import NotFount from "./NotFound";
 import ScrollTop from "./ScrollTop";
+import ReserveEdit from "../pages/reserve/ReserveEdit";
 
 function Router() {
   return (
@@ -38,6 +39,7 @@ function Router() {
             <Route path="/reviewadd" element={<ReviewAdd />} />
             <Route path="/reserve/search" element={<ReserveSearch />} />
             <Route path="/reserve/post" element={<ReservePost />} />
+            <Route path="/reserve/edit/:id" element={<ReserveEdit />} />
             <Route path="/reserve/detail/:id" element={<ReserveDetail />} />
             <Route path="/reviewlist/:id" element={<ReviewList />} />
             <Route path="/reviewdetail/:id" element={<ReviewDetail />} />
