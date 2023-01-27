@@ -1,12 +1,12 @@
 import React from "react";
-import ReserveEditForm from "../../components/ReserveDetail/ReserveEditForm";
+import ReserveEditForm from "../../components/Reserve/ReserveEditForm";
 
-function ReserveEdit(){
-  return(
+function ReserveEdit() {
+  return (
     <div>
       <ReserveEditForm />
     </div>
-  )
+  );
 }
 
 export default ReserveEdit;

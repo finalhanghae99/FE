@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useModal } from "../../hooks/useModal";
 import { ItemBox } from "../elements/ItemBox";
-import NameSearch from "../Search/NameSearch";
 import DatePicker from "../elements/DatePicker";
 import { instance } from "../../api/axiosApi";
-import { useLocation, useNavigate } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../elements/Button";
 
 function ReserveEditForm() {
@@ -17,74 +15,78 @@ function ReserveEditForm() {
     content: "",
   };
   const navigate = useNavigate();
-  const [campingName, setCampingName] = useState("");
-  const [campingId, setCampingId] = useState("");
   const [reserve, setReserve] = useState(initialState);
-  const location = useLocation();
-  const reserves = location.state.reserve;
+  const [reserves, setReserves] = useState(null);
+  const { id } = useParams();
+  const [isComp, setIsComp] = useState(false);
+  const datePick = useModal();
 
-  console.log("22222222", reserves);
+  const fetchReserve = async () => {
+    try {
+      const { data } = await instance.get(`reservation/${id}`);
+      console.log(data)
+      setReserves(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const changeHandler = (event) => {
     const { name, value } = event.target;
     setReserve({ ...reserve, [name]: value });
   };
-  console.log("1111111", reserve);
-  const [isComp, setIsComp] = useState(false);
-  const datePick = useModal();
-  const campName = useModal();
-  if (campName.isOpen) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-  }
+
+  useEffect(() => {
+    fetchReserve();
+  }, []);
+
   useEffect(() => {
     setIsComp(
-      Boolean(campingName) &&
-        Boolean(reserve.startDate) &&
+      Boolean(reserve.startDate) &&
         Boolean(reserve.endDate) &&
         reserve.content.trim() !== ""
     );
   }, [reserve]);
 
-  const postFunc = async () => {
+  const editFunc = async () => {
     try {
-      const { data } = await instance.post(
-        `/reservation/${campingId}`,
-        reserve
-      );
-    } catch (error) {}
+      const { data } = await instance.put(`/reservation/${id}`, reserve);
+      return data
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const postHandler = async (event) => {
+  const editHandler = async (event) => {
     event.preventDefault();
-    if (reserve.price === "" || reserve.price == 0) {
+    if (reserve.price === "" || reserve.price === 0) {
       if (
         window.confirm(
           "현재 양도금액을 설정되어 있지 않습니다. \n무료로 양도 하시겠습니까?"
         )
       ) {
-        postFunc();
+        editFunc();
       } else {
         return null;
       }
     } else {
-      if (window.confirm("양도글을 올리겠습니까?")) {
-        postFunc();
+      if (window.confirm("양도글을 수정하시겠습니까?")) {
+        editFunc();
         navigate("../");
       } else {
         return null;
       }
     }
   };
+
   return (
     <ItemBox>
-      <PostForm onSubmit={postHandler}>
+      <PostForm onSubmit={editHandler}>
         <InputBox>
-          <WordInput>{reserves.campingName}</WordInput>
+          <WordInput>{reserves?.campingName}</WordInput>
         </InputBox>
         <EventBox onClick={datePick.onOpen}>
-          {reserves.startDate} ~ {reserves.endDate}
+          {reserves?.startDate} ~ {reserves?.endDate}
         </EventBox>
         <PriceInput
           type="number"
@@ -93,15 +95,15 @@ function ReserveEditForm() {
           placeholder="금액을 입력해주세요"
           min="0"
           onChange={changeHandler}
-          value={reserves.price}
+          defaultValue={reserves?.price}
         />
         <PostContent
           name="content"
           placeholder="게시글 내용을 작성해주세요"
           onChange={changeHandler}
-          value={reserves.content}
+          defaultValue={reserves?.content}
         />
-        <Button disabled={!isComp}>등록하기</Button>
+        <Button disabled={!isComp}>수정하기</Button>
       </PostForm>
       {datePick.isOpen && (
         <DatePicker
@@ -126,6 +128,7 @@ const EventBox = styled.div`
   margin-bottom: var(--pad2);
   box-sizing: border-box;
 `;
+
 const PriceInput = styled.input`
   border: 0.5px solid black;
   border-radius: 5px;
@@ -152,7 +155,7 @@ const PostContent = styled.textarea`
   height: 240px;
   margin-bottom: 56px;
 `;
-const InputBox = styled.form`
+const InputBox = styled.div`
   padding-bottom: 16px;
   display: flex;
   align-items: center;
@@ -172,16 +175,4 @@ const WordInput = styled.div`
   box-sizing: border-box;
   width: 100%;
   line-height: 52px;
-`;
-const SeartchBtn = styled.button`
-  /* width: 80px; */
-  border: none;
-  background-color: rgba(0, 0, 0, 0);
-  height: 19px;
-  font-size: 19px;
-  position: absolute;
-  right: 24px;
-  line-height: 19px;
-  /* top : 50% */
-  /* transform: translateY(100%); */
 `;
