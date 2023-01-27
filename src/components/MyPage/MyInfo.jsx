@@ -7,12 +7,14 @@ import { useModal } from "../../hooks/useModal";
 import MyInfoModify from "./MyInfoModify";
 import { useCookies } from "react-cookie";
 import { getCookies } from "../../api/cookieControler";
-import logout from "../../img/User_Icon.svg";
+// import logout from "../../img/User_Icon.svg";
 import starIcon from "../../img/Star.svg"
 import bookMark from "../../img/BookMark.svg"
 import myCamp from "../../img/MyCamp.svg"
 import myChat from "../../img/MyChat.svg"
 import Confirm from "../elements/Confirm";
+import { ReactComponent as logout } from "../../img/User_Icon.svg";
+
 
 function MyInfo() {
   const modify = useModal();
@@ -29,12 +31,12 @@ function MyInfo() {
     }
   };
 
-  const logOut = async() => {
+  const logOut = async () => {
     const isConfirm = await Confirm({
       body: "로그아웃 하시겠습니까?"
     })
-    if (!isConfirm){
-    // if (!window.confirm("로그아웃 하시겠습니까?")) {
+    if (!isConfirm) {
+      // if (!window.confirm("로그아웃 하시겠습니까?")) {
       return;
     } else {
       removeCookie("id", { path: "/" });
@@ -48,7 +50,7 @@ function MyInfo() {
   console.log(userInfo);
   return (
     <>
-      <Title></Title>
+      {/* <Title></Title> */}
       <ItemBox>
         <UserHeader>
           <UserImg src={userInfo?.profileImageUrl} />
@@ -57,24 +59,45 @@ function MyInfo() {
       </ItemBox>
       <UserName>{userInfo?.nickname}</UserName>
       <ItemBox2>
-        <UserLinks to="/mypage/mycamp">
-        <BookDiv><img src={bookMark} style={{width:"100%"}}/></BookDiv>
-          <ContentName>찜한 캠핑장</ContentName>
+        <LinkList>
+          <UserLinks to="/mypage/mycamp">
+            <IconBox>
+              <img src={bookMark} />
+            </IconBox>
+            찜한 캠핑장
           </UserLinks>
-        <UserLinks to="/mypage/myreview">
-        <img src={starIcon} />
-          나의 리뷰</UserLinks>
-        <UserLinks to="/mypage/myreserve">
-          <img src={myCamp} />
-          나의 캠핑장 양도 글</UserLinks>
-        <UserLinks>
-          <img src={myChat} />
-          채팅 내역</UserLinks>
+        </LinkList>
+        <LinkList>
+          <UserLinks to="/mypage/myreview">
+            <IconBox>
+              <img src={starIcon} />
+            </IconBox>
+            나의 리뷰</UserLinks>
+        </LinkList>
+        <LinkList>
+          <UserLinks to="/mypage/myreserve">
+            <IconBox>
+              <img src={myCamp} />
+            </IconBox>
+            나의 캠핑장 양도 글</UserLinks>
+        </LinkList>
+        <LinkList style={{border:"none"}}>
+          <UserLinks>
+            <IconBox>
+              <img src={myChat} />
+            </IconBox>
+            채팅 내역</UserLinks>
+        </LinkList>
+      </ItemBox2>
+        <GrayBorder />
+        <ItemBox2>
+        <LinkList style={{border:"none"}}>
           <UserBtn type="button" onClick={logOut}>
-          <Logout src={logout} />
+              <Logout />
             로그아웃
           </UserBtn>
-      </ItemBox2>
+        </LinkList>
+        </ItemBox2>
       {modify.isOpen ? (
         <MyInfoModify userInfo={userInfo} onClose={modify.onClose} />
       ) : null}
@@ -83,6 +106,12 @@ function MyInfo() {
 }
 
 export default MyInfo;
+
+const GrayBorder = styled.div`
+  background-color: var(--BackColor2);
+  height: 8px;
+  width: 100%;
+`
 
 const Title = styled.div`
   width: 100%;
@@ -115,9 +144,8 @@ const UserName = styled.div`
   align-items: center;
   font-size: 16px;
   font-weight: bold;
-  margin-left: var(--pad1);
   padding-bottom: 32px;
-  border-bottom: 8px solid var(--BackColor2);
+  /* border-bottom: 8px solid var(--BackColor2); */
 `;
 
 const ItemBox2 = styled.div`
@@ -128,18 +156,18 @@ const ItemBox2 = styled.div`
 
 const UserLinks = styled(Link)`
   display: flex;
-  width: 100%;
+  /* width: 100%; */
   text-decoration: none;
   color: black;
   font-weight: 400;
   font-size: 16px;
-  margin-bottom: 24px;
-  padding-left: var(--pad2);
-  padding-bottom: var(--interval);
-  border-bottom: 1px solid var(--Gray1);
+  /* margin-bottom: 24px; */
+  /* padding-left: var(--pad2); */
+  /* padding-bottom: var(--interval); */
+  /* border-bottom: 1px solid var(--Gray1); */
 `;
 
-const UserBtn = styled.button`
+const UserBtn = styled.div`
   display: flex;
   align-items: center;
   border: none;
@@ -148,7 +176,7 @@ const UserBtn = styled.button`
   color: black;
   font-size: 16px;
   font-weight: 400;
-  padding-left: var(--pad2);
+  /* padding-left: var(--pad2); */
 `;
 
 const ModifyIcon = styled.div`
@@ -158,10 +186,13 @@ const ModifyIcon = styled.div`
   border-bottom: 1px solid var(--Gray4);
 `;
 
-const Logout = styled.img`
+const Logout = styled(logout)`
   object-position: center;
   object-fit: cover;
   padding-right: var(--pad2);
+  & path {
+    stroke: black;
+  }
 `
 
 const BookDiv = styled.div`
@@ -175,4 +206,26 @@ const BookDiv = styled.div`
 const ContentName = styled.div`
   height: 20px;
   line-height: 20px;
+`
+
+const LinkList = styled.div`
+  display: flex;
+  /* width: 100%; */
+  text-decoration: none;
+  color: black;
+  font-weight: 400;
+  font-size: 16px;
+  /* margin-bottom: 24px; */
+  padding-left: var(--pad2);
+  /* padding-bottom: var(--interval); */
+  border-bottom: 1px solid var(--Gray1);
+  height: 68px;
+  align-items: center;
+`
+
+const IconBox = styled.div`
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+  color:black;
 `

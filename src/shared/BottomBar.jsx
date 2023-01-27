@@ -5,7 +5,7 @@ import { getCookies } from "../api/cookieControler";
 
 import CampIcon from "../img/Camp_Icon.svg"
 import StarIcon from "../img/Star_Icon.svg"
-import UserIcon from "../img/User_Icon.svg"
+import {ReactComponent as UserImg} from "../img/User_Icon.svg"
 
 function BottomBar() {
   const navigate = useNavigate();
@@ -27,9 +27,7 @@ function BottomBar() {
         <BarIcon
           onClick={() => { navigate("/") }}
           src={StarIcon} />
-        <BarIcon
-          onClick={UserCheck}
-          src={UserIcon} />
+        <UserIcon onClick={UserCheck}/>
     </BarBody>
 
   )
@@ -66,3 +64,10 @@ const BarIcon = styled.img`
   object-fit: cover;
 `
 
+const UserIcon = styled(UserImg)`
+  height: 32px;
+  width: 32px;
+  & path {
+    stroke: var(--Brand6);
+  }
+`
