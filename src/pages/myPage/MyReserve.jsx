@@ -1,9 +1,12 @@
 import React from "react";
+import MyReservation from "../../components/MyPage/MyReservation";
+
+
 
 function MyReserve(){
   return(
     <div>
-      나의 캠핑장 양도
+      <MyReservation />
     </div>
   )
 }
