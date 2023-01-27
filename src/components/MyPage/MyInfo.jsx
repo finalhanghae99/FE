@@ -64,7 +64,7 @@ function MyInfo() {
         <UserLinks to="/mypage/myreview">
         <img src={starIcon} />
           나의 리뷰</UserLinks>
-        <UserLinks>
+        <UserLinks to="/mypage/myreserve">
           <img src={myCamp} />
           나의 캠핑장 양도 글</UserLinks>
         <UserLinks>
