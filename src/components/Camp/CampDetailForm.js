@@ -4,10 +4,9 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 import { getCookies, setCookies } from "../../api/cookieControler";
-
+import Alert from "../elements/Alert";
 import bmkFill from "../../img/icons/bmkFill.svg";
 import bmkLine from "../../img/icons/bmkLine.svg";
-
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
 import LikeListElement from "../Review/LikeListElement";
@@ -26,7 +25,7 @@ function CampDetailForm() {
   const clickBMK = async (id) => {
     const token = getCookies("id");
     if (!token) {
-      alert("로그인이 필요 합니다.");
+      Alert({ body: "로그인이 필요 합니다." });
       return;
     }
     try {
@@ -85,7 +84,7 @@ function CampDetailForm() {
 
   const moreNavigate = () => {
     if (reviewList.length === 0) {
-      alert("리뷰 정보가 없습니다");
+      Alert({ body: "리뷰 정보가 없습니다" });
       return;
     } else {
       navigate(`/reviewlist/${id}`);
@@ -192,11 +191,9 @@ const MainDiv = styled.div`
   align-items: center;
   flex-direction: column;
   font-family: var(--font);
-  /* background-color: #f1f1f1; */
 `;
 
 const StDiv = styled.div`
-  /* background-color: grey; */
   width: 100%;
 `;
 
@@ -226,7 +223,6 @@ const Address = styled.div`
 `;
 
 const Address2 = styled.div`
-  /* width: 100%; */
   font-size: 14px;
   font-weight: 400;
   margin: 12px 0px 24px 24px;

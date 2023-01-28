@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import styled from "styled-components";
 import { BoxHeader, BoxName, ItemBox } from "../elements/ItemBox";
-
 import CampImgView from "../elements/CampImgView";
 import { instance } from "../../api/axiosApi";
-
 import { BsFillBookmarkFill } from "react-icons/bs"
 import { BsBookmark } from "react-icons/bs"
-
 import BMKFill from "../../img/icons/bmkFill.svg"
 import BMKLine from "../../img/icons/bmkLine.svg"
-
-
 import { getCookies } from "../../api/cookieControler";
-
-import testImg from "../../img/test_camp_img.jpg"
-
+import Alert from "../elements/Alert";
 
 // /camping/{campingId}/like
 function CampListElement(props) {
@@ -28,7 +20,7 @@ function CampListElement(props) {
     event.stopPropagation();
     const token = getCookies("id")
     if(!token) {
-      alert("로그인이 필요 합니다.")
+      Alert({ body: "로그인이 필요 합니다." })
       return ;
     }
     try {

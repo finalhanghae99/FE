@@ -2,28 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
-
-import campFireImg from "../../img/CampFire.svg"
 import campBtn from "../../img/CampBtn.svg"
-
-
 import {BsArrowRightShort} from "react-icons/bs"
-
 import { getCookies } from "../../api/cookieControler";
-import Confirm from "../elements/Confirm";
 
 function HomeRecommend(){
   const navigate = useNavigate();
 
   const navEvent = async () =>{
-    // const token = getCookies("id");
-    // (token)? (navigate("/reviewadd")) : (
-    //   navigate("/login?redirect=reviewadd")
-    // )
-    const isConfirm = await Confirm({
-      body: 'TEST CONFIRM'
-    });
-    console.log(isConfirm)
+    const token = getCookies("id");
+    (token)? (navigate("/reviewadd")) : (
+      navigate("/login?redirect=reviewadd")
+    )
   }
 
   return(

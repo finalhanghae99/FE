@@ -6,9 +6,11 @@ import moment from 'moment';
 import { ItemBox } from "../elements/ItemBox";
 import { instance } from "../../api/axiosApi";
 import Confirm from "../elements/Confirm";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __compMyReserves, __delMyReserves } from "../../redux/modules/reservesSlice";
+
+import { useNavigate } from "react-router-dom";
+
 
 function MyReserveList({reserve}) {
   const dispatch = useDispatch();

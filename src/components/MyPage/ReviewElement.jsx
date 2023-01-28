@@ -159,11 +159,6 @@ const ContentsBox = styled.div`
   width: 100%;
   margin-top: 16px;
   word-break: break-all;
-  /* white-space: normal; */
-  /* display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden; */
 `;
 
 const ImgLists = styled.div`

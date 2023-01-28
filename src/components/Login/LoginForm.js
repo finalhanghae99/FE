@@ -39,7 +39,6 @@ const LoginForm = () => {
         Alert({
           body: "로그인 완료!"
         })
-        // alert("로그인 완료!");
         navigate("/");
       }
     });
@@ -54,7 +53,6 @@ const LoginForm = () => {
         Alert({
           body:"아이디 비밀번호를 확인해주세요."
         })
-        // alert("아이디 비밀번호를 확인해주세요.");
       }
     } catch (error) {
       console.log(error);

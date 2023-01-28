@@ -14,6 +14,7 @@ function ReserveEditForm() {
     price: 0,
     content: "",
   };
+  
   const navigate = useNavigate();
   const [reserve, setReserve] = useState(initialState);
   const { id } = useParams();
