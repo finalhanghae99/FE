@@ -7,10 +7,12 @@ import { ItemBox } from "../elements/ItemBox";
 import { instance } from "../../api/axiosApi";
 import Confirm from "../elements/Confirm";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { __compMyReserves, __delMyReserves } from "../../redux/modules/reservesSlice";
 
 function MyReserveList({reserve}) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isTrade, setIsTrade] = useState(reserve.tradeState)
   const startDate = moment(reserve.startDate).format("YYYY년 MM월 DD일")
   const endDate = moment(reserve.endDate).format("YYYY년 MM월 DD일")
 
@@ -21,11 +23,12 @@ function MyReserveList({reserve}) {
     if(!isConfirm){
       return null
     }else{
-      try {
-        const { data } = await instance.post(`/reservation/changestate/${reserve.reservationId}`);
-        console.log(data);
-      } catch (error) { console.log(error); }
-      setIsTrade(!isTrade)
+      // try {
+      //   const { data } = await instance.post(`/reservation/changestate/${reserve.reservationId}`);
+      //   console.log(data);
+      // } catch (error) { console.log(error); }
+      // setIsTrade(!isTrade)
+      dispatch(__compMyReserves(reserve.reservationId));
     }
   };
   const delReserve = async () =>{
@@ -35,10 +38,11 @@ function MyReserveList({reserve}) {
     if(!isConfirm){
       return null
     }else{
-      try {
-        const { data } = await instance.delete(`/reservation/${reserve.reservationId}`);
-        console.log(data);
-      } catch (error) { console.log(error); }
+      // try {
+      //   const { data } = await instance.delete(`/reservation/${reserve.reservationId}`);
+      //   console.log(data);
+      // } catch (error) { console.log(error); }
+      dispatch(__delMyReserves({id: reserve.reservationId}));
     }
   }
   return (
@@ -53,7 +57,7 @@ function MyReserveList({reserve}) {
             <ReservePrice>{numeral(reserve.price).format('0,0')}</ReservePrice>
           </ReserveDetail>
         </ReserveBox>
-        {(isTrade) ? (
+        {(reserve.tradeState) ? (
           <BtnBox>
             <WhiteBtn onClick={()=>{delReserve()}}>삭제</WhiteBtn>
             <OrangeBtn onClick={()=>{navigate(`/reserve/edit/${reserve.reservationId}`)}}>수정</OrangeBtn>
