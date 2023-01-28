@@ -23,6 +23,7 @@ function MyInfo() {
   const fetchUser = async () => {
     try {
       const { data } = await instance.get(`/mypage`);
+      console.log(data)
       setUserInfo(data.data);
     } catch (error) {
       console.log(error);
