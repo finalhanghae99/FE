@@ -7,14 +7,12 @@ import { useModal } from "../../hooks/useModal";
 import MyInfoModify from "./MyInfoModify";
 import { useCookies } from "react-cookie";
 import { getCookies } from "../../api/cookieControler";
-// import logout from "../../img/User_Icon.svg";
-import starIcon from "../../img/Star.svg"
-import bookMark from "../../img/BookMark.svg"
-import myCamp from "../../img/MyCamp.svg"
-import myChat from "../../img/MyChat.svg"
+import starIcon from "../../img/Star.svg";
+import bookMark from "../../img/BookMark.svg";
+import myCamp from "../../img/MyCamp.svg";
+import myChat from "../../img/MyChat.svg";
 import Confirm from "../elements/Confirm";
 import { ReactComponent as logout } from "../../img/User_Icon.svg";
-
 
 function MyInfo() {
   const modify = useModal();
@@ -33,10 +31,9 @@ function MyInfo() {
 
   const logOut = async () => {
     const isConfirm = await Confirm({
-      body: "로그아웃 하시겠습니까?"
-    })
+      body: "로그아웃 하시겠습니까?",
+    });
     if (!isConfirm) {
-      // if (!window.confirm("로그아웃 하시겠습니까?")) {
       return;
     } else {
       removeCookie("id", { path: "/" });
@@ -50,7 +47,6 @@ function MyInfo() {
   console.log(userInfo);
   return (
     <>
-      {/* <Title></Title> */}
       <ItemBox>
         <UserHeader>
           <UserImg src={userInfo?.profileImageUrl} />
@@ -72,32 +68,35 @@ function MyInfo() {
             <IconBox>
               <img src={starIcon} />
             </IconBox>
-            나의 리뷰</UserLinks>
+            나의 리뷰
+          </UserLinks>
         </LinkList>
         <LinkList>
           <UserLinks to="/mypage/myreserve">
             <IconBox>
               <img src={myCamp} />
             </IconBox>
-            나의 캠핑장 양도 글</UserLinks>
+            나의 캠핑장 양도 글
+          </UserLinks>
         </LinkList>
-        <LinkList style={{border:"none"}}>
+        <LinkList style={{ border: "none" }}>
           <UserLinks>
             <IconBox>
               <img src={myChat} />
             </IconBox>
-            채팅 내역</UserLinks>
+            채팅 내역
+          </UserLinks>
         </LinkList>
       </ItemBox2>
-        <GrayBorder />
-        <ItemBox2>
-        <LinkList style={{border:"none"}}>
+      <GrayBorder />
+      <ItemBox2>
+        <LinkList style={{ border: "none" }}>
           <UserBtn type="button" onClick={logOut}>
-              <Logout />
+            <Logout />
             로그아웃
           </UserBtn>
         </LinkList>
-        </ItemBox2>
+      </ItemBox2>
       {modify.isOpen ? (
         <MyInfoModify userInfo={userInfo} onClose={modify.onClose} />
       ) : null}
@@ -111,12 +110,6 @@ const GrayBorder = styled.div`
   background-color: var(--BackColor2);
   height: 8px;
   width: 100%;
-`
-
-const Title = styled.div`
-  width: 100%;
-  height: 103px;
-  border-bottom: 1px solid var(--Brand4);
 `;
 
 const UserImg = styled.img`
@@ -126,7 +119,7 @@ const UserImg = styled.img`
   background-position: center;
   border-radius: 100%;
   background-color: lightgray;
-  margin: 15px 0px 0px 130px;
+  margin: 15px 0px 0px 125px;
 `;
 
 const UserHeader = styled.div`
@@ -145,7 +138,6 @@ const UserName = styled.div`
   font-size: 16px;
   font-weight: bold;
   padding-bottom: 32px;
-  /* border-bottom: 8px solid var(--BackColor2); */
 `;
 
 const ItemBox2 = styled.div`
@@ -156,15 +148,10 @@ const ItemBox2 = styled.div`
 
 const UserLinks = styled(Link)`
   display: flex;
-  /* width: 100%; */
   text-decoration: none;
   color: black;
   font-weight: 400;
   font-size: 16px;
-  /* margin-bottom: 24px; */
-  /* padding-left: var(--pad2); */
-  /* padding-bottom: var(--interval); */
-  /* border-bottom: 1px solid var(--Gray1); */
 `;
 
 const UserBtn = styled.div`
@@ -176,7 +163,6 @@ const UserBtn = styled.div`
   color: black;
   font-size: 16px;
   font-weight: 400;
-  /* padding-left: var(--pad2); */
 `;
 
 const ModifyIcon = styled.div`
@@ -193,39 +179,23 @@ const Logout = styled(logout)`
   & path {
     stroke: black;
   }
-`
-
-const BookDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 16px;
-  height: 16px;
-`
-
-const ContentName = styled.div`
-  height: 20px;
-  line-height: 20px;
-`
+`;
 
 const LinkList = styled.div`
   display: flex;
-  /* width: 100%; */
   text-decoration: none;
   color: black;
   font-weight: 400;
   font-size: 16px;
-  /* margin-bottom: 24px; */
   padding-left: var(--pad2);
-  /* padding-bottom: var(--interval); */
   border-bottom: 1px solid var(--Gray1);
   height: 68px;
   align-items: center;
-`
+`;
 
 const IconBox = styled.div`
   display: flex;
   align-items: center;
   padding-right: 12px;
-  color:black;
-`
+  color: black;
+`;

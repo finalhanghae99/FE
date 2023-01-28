@@ -1,7 +1,5 @@
 import React ,{useEffect, useState }from "react";
-
 import styled from "styled-components";
-import { ImStarFull } from "react-icons/im";
 import {IoStar} from "react-icons/io5"
 
 function PostStar({setScore}) {

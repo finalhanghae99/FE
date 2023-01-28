@@ -6,6 +6,7 @@ import { instance } from "../../api/axiosApi";
 import { __postsignup } from "../../redux/modules/signUpSlice";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
+import Alert from "../elements/Alert";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -94,10 +95,10 @@ const SignUpForm = () => {
   const onEmailCheck = (e) => {
     e.preventDefault();
     if (useremail.length === 0) {
-      alert("이메일을 입력해주세요.");
+      Alert({ body: "이메일을 입력해주세요." });
       return;
     } else if (!useremailRegex.test(useremail)) {
-      alert("올바른 이메일형식이 아닙니다.");
+      Alert({ body: "올바른 이메일형식이 아닙니다." });
       return;
     }
     emailCheck({ useremail });
@@ -107,10 +108,10 @@ const SignUpForm = () => {
     try {
       const data = await instance.post("users/checkemail", post);
       if (data.data.statusCode === 200) {
-        alert("사용 가능한 아이디 입니다!");
+        Alert({ body: "사용 가능한 아이디 입니다!" });
         setIsUserEmailCheck(true);
       } else {
-        alert("중복된 아이디 입니다.");
+        Alert({ body: "중복된 아이디 입니다." });
         return data;
       }
     } catch (error) {
@@ -121,7 +122,7 @@ const SignUpForm = () => {
   const onNicknameCheck = (e) => {
     e.preventDefault();
     if (nickname.length === 0) {
-      alert("닉네임을 입력해주세요.");
+      Alert({ body: "닉네임을 입력해주세요." });
       return;
     }
     nickCheck({ nickname });
@@ -131,10 +132,10 @@ const SignUpForm = () => {
     try {
       const data = await instance.post("users/checknickname", post);
       if (data.data.statusCode === 200) {
-        alert("사용 가능한 닉네임 입니다!");
+        Alert({ body: "사용 가능한 닉네임 입니다!" });
         setIsNickNameCheck(true);
       } else {
-        alert("중복된 닉네임 입니다.");
+        Alert({ body: "중복된 닉네임 입니다." });
         return data;
       }
       return data;
@@ -149,7 +150,9 @@ const SignUpForm = () => {
 
   const onClickSignUpBtn = () => {
     dispatch(__postsignup({ useremail, nickname, password }));
-    alert("회원가입 성공!");
+    Alert({
+      body: "회원가입 완료!",
+    });
     navigate(`/login`);
   };
 

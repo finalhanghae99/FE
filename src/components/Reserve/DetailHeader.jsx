@@ -6,6 +6,7 @@ import { instance } from "../../api/axiosApi";
 import CampImgView from "../elements/CampImgView";
 import { ItemBox } from "../elements/ItemBox";
 import Button from "../elements/Button";
+import Alert from "../elements/Alert";
 
 function DetailHeader() {
   const { id } = useParams();
@@ -20,15 +21,15 @@ function DetailHeader() {
       console.log(error);
     }
   };
-
+  console.log(reserve)
   const onDeleteReserve = async () => {
     try {
       const data = await instance.delete(`/reservation/${id}`);
       console.log(data);
       if (reserve?.ownerCheck === false) {
-        alert("삭제 권한이 없습니다.");
+        Alert({ body: "삭제 권한이 없습니다."});
       } else if (reserve?.ownerCheck === true) {
-        alert("삭제 완료!");
+        Alert({ body: "삭제 완료!" });
         navigate("/");
       }
     } catch (error) {
@@ -38,7 +39,7 @@ function DetailHeader() {
 
   const onEditReserve = () => {
     if (reserve.ownerCheck === false) {
-      alert("수정 권한이 없습니다.");
+      Alert({ body: "수정 권한이 없습니다." });
     } else {
       navigate(`/reserve/edit/${id}`);
     }
@@ -55,6 +56,8 @@ function DetailHeader() {
         <MiddleBox>
           <UserImg src={reserve?.profileImageUrl} />
           <Nickname>{reserve?.nickname}</Nickname>
+          {reserve?.ownerCheck ? (reserve?.tradeState) ? "" : <StateDiv>양도완료</StateDiv> : 
+           ""}
         </MiddleBox>
         <Name>{reserve?.campingName}</Name>
         <SubText>{reserve?.address3}</SubText>
@@ -68,11 +71,15 @@ function DetailHeader() {
         <Price>
           <div>{numeral(reserve?.price).format("0,0")}원</div>
         </Price>
-        <ChatBtn onClick={onEditReserve}>수정하기</ChatBtn>
       </ItemBox>
+      {reserve?.ownerCheck ?
+      <>
+        <ChatBtn onClick={onEditReserve}>수정하기</ChatBtn>
       <DelBox>
         <DelBtn onClick={onDeleteReserve}>삭제하기</DelBtn>
       </DelBox>
+      </>
+    : (reserve?.tradeState) ? <ChatBtn>채팅하기</ChatBtn> : <EndBtn>양도완료</EndBtn>}
     </div>
   );
 }
@@ -119,8 +126,7 @@ const Nickname = styled.div`
 const Price = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin: var(--interval);
-  margin-top: 40px;
+  margin: 40px 0px 0px 24px;
   font-weight: bold;
   font-size: 18px;
 `;
@@ -139,6 +145,7 @@ const DelBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 24px;
 `;
 
 const DelBtn = styled.button`
@@ -150,3 +157,24 @@ const DelBtn = styled.button`
   font-weight: 700;
   color: var(--Brand6);
 `;
+
+const EndBtn = styled(Button)`
+  color: #999999;
+  background-color: var(--Gray2);
+  border: 1px solid var(--Gray2);
+`
+
+const StateDiv = styled.div`
+  width: 77px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  border: 1px solid var(--Brand6);
+  background-color: white;
+  color: var(--Brand6);
+  position: absolute;
+  top: 439px;
+  left: 284px;
+`

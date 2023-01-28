@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { __putreviewadd } from "../../redux/modules/reviewAddSlice";
 import NameSearch from "../Search/NameSearch";
-
+import Alert from "../elements/Alert";
 import { useModal } from "../../hooks/useModal";
 import PostStar from "./PostStar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const ReviewEditForm = () => {
 
   const onUploadImg = (e) => {
     if (images.length + e.target.files.length > 5) {
-      alert("최대 5장까지 등록가능합니다.");
+      Alert({ body: "최대 5장까지 등록가능합니다." });
       return;
     }
     setImages([...images, ...e.target.files]);
@@ -87,7 +87,7 @@ const ReviewEditForm = () => {
         data: data,
       })
     );
-    alert("수정 완료!")
+    Alert({ body: "수정 완료!" })
     navigate("/");
   };
 
