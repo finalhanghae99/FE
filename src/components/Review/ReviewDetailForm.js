@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Button from "../elements/Button";
 import { ItemBox } from "../elements/ItemBox";
 import { getCookies } from "../../api/cookieControler";
-
+import Alert from "../elements/Alert";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
 
@@ -52,9 +52,9 @@ const ReviewDetailForm = () => {
       const data = await instance.delete(`/review/${param.id}`);
       console.log(data);
       if (reviewDetail?.ownerCheck === false) {
-        alert("삭제 권한이 없습니다.");
+        Alert({ body: "삭제 권한이 없습니다." });
       } else if (reviewDetail?.ownerCheck === true) {
-        alert("삭제 완료!");
+        Alert({ body: "삭제 완료!" });
         navigate("/");
       }
     } catch (error) {
@@ -64,7 +64,7 @@ const ReviewDetailForm = () => {
 
   const onEditReview = (id, reviewDetail) => {
     if (reviewDetail.ownerCheck === false) {
-      alert("수정 권한이 없습니다.");
+      Alert({ body: "수정 권한이 없습니다." });
     } else {
       navigate(`/reviewedit/${id}`, { state: { reviewDetail } });
     }
@@ -84,7 +84,7 @@ const ReviewDetailForm = () => {
   const clickLike = async(id) =>{
     const token = getCookies("id")
     if(!token) {
-      alert("로그인이 필요 합니다.")
+      Alert({ body: "로그인이 필요 합니다." })
       return ;
     }
     try {
