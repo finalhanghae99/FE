@@ -2,9 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import numeral from "numeral";
+import moment from "moment";
 
 function ReserveListElement({reserve}) {
   const navigate = useNavigate();
+  const startDate = moment(reserve.startDate).format("YYYY년 MM월 DD일");
+  const endDate = moment(reserve.endDate).format("YYYY년 MM월 DD일");
+
 
   return (
     <ReserveCard
@@ -13,8 +17,8 @@ function ReserveListElement({reserve}) {
       <CardDetail>
         <CardTitle>{reserve.campingName}</CardTitle>
         <CardRegion>{reserve.address1} {reserve.address2}</CardRegion>
-        <CardDate>{reserve.startDate}</CardDate>
-        <CardDate> ~ {reserve.endDate}</CardDate>
+        <CardDate>{startDate}</CardDate>
+        <CardDate> ~ {endDate}</CardDate>
         <CardPrice>{numeral(reserve.price).format('0,0')}</CardPrice>
       </CardDetail>
     </ReserveCard>

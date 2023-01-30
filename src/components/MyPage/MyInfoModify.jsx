@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { AiOutlineClose, AiOutlineCamera } from "react-icons/ai";
+import { AiOutlineCamera } from "react-icons/ai";
 
 function MyInfoModify(props) {
   const imgRef = useRef("");

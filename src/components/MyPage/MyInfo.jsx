@@ -20,12 +20,17 @@ function MyInfo() {
   const navigate = useNavigate();
   const [cookie, setCookie, removeCookie] = useCookies();
   const token = getCookies("id");
+
   const fetchUser = async () => {
-    try {
-      const { data } = await instance.get(`/mypage`);
-      setUserInfo(data.data);
-    } catch (error) {
-      console.log(error);
+    if (!token) {
+      navigate("/login")
+    } else {
+      try {
+        const { data } = await instance.get(`/mypage`);
+        setUserInfo(data.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -42,7 +47,7 @@ function MyInfo() {
   };
 
   useEffect(() => {
-    fetchUser();
+      fetchUser();
   }, []);
   console.log(userInfo);
   return (

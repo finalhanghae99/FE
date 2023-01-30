@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-
-import { BoxHeader, BoxMoreLink, BoxName, ItemBox } from "../elements/ItemBox";
-
+import React, { useState, useRef, useMemo } from "react";
+import Confirm from "../elements/Confirm";
+import { BoxHeader, ItemBox } from "../elements/ItemBox";
 import moment from "moment";
-
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import styled from "styled-components";
-
 import testImg from "../../img/test_camp_img.jpg";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
@@ -56,8 +53,11 @@ function ReviewElement(props) {
   };
 
   const onDeleteReview = async () => {
-    if (!window.confirm("삭제 하시겠습니까?")) {
-      return;
+    const isConfirm = await Confirm({
+      body: "삭제 하시겠습니까?",
+    });
+    if (!isConfirm) {
+      return null;
     } else {
       try {
         const data = await instance.delete(`/review/${review.reviewId}`);
@@ -66,54 +66,55 @@ function ReviewElement(props) {
         console.log(error);
       }
     }
-    navigate("/");
   };
 
   return (
     <div>
       <ItemBox>
-        <BoxHeader>
-          <CampName>{review.campingName}</CampName>
-          <div>
-            {review.likeState ? <AiFillHeart /> : <AiOutlineHeart />}
-            {review.likeCount}
+        <div onClick={() => navigate(`/reviewdetail/${review.reviewId}`)}>
+          <BoxHeader>
+            <CampName>{review.campingName}</CampName>
+            <div>
+              {review.likeState ? <AiFillHeart /> : <AiOutlineHeart />}
+              {review.likeCount}
+            </div>
+          </BoxHeader>
+          <Date>{moment(review.modifiedAt).format("YYYY.MM.DD")}</Date>
+          <ScoreLists>
+            <Stars>
+              <StarBox2>
+                <NameDiv>정보일치</NameDiv>
+                <Star>({review?.score1})</Star>
+                <Starr>{starRender(review?.score1)}</Starr>
+              </StarBox2>
+              <StarBox2>
+                <NameDiv>편의시설</NameDiv>
+                <Star>({review?.score2})</Star>
+                <Starr>{starRender(review?.score2)}</Starr>
+              </StarBox2>
+              <StarBox2>
+                <NameDiv>관리상태</NameDiv>
+                <Star>({review?.score3})</Star>
+                <Starr>{starRender(review?.score3)}</Starr>
+              </StarBox2>
+              <StarBox2>
+                <NameDiv>접근성</NameDiv>
+                <Star>({review?.score4})</Star>
+                <Starr>{starRender(review?.score4)}</Starr>
+              </StarBox2>
+              <StarBox2>
+                <NameDiv>청결도</NameDiv>
+                <Star>({review?.score5})</Star>
+                <Starr>{starRender(review?.score5)}</Starr>
+              </StarBox2>
+            </Stars>
+          </ScoreLists>
+          <ContentsBox>{commenter}</ContentsBox>
+          {/* <BoxMoreLink>...더보기</BoxMoreLink> */}
+          <div onClick={() => setIsShowMore(!isShowMore)}>
+            {review.content.length > textLimit.current && // 버튼명은 조건에 따라 달라진다
+              (isShowMore ? "[닫기]" : "...[더보기]")}
           </div>
-        </BoxHeader>
-        <Date>{moment(review.modifiedAt).format("YYYY.MM.DD")}</Date>
-        <ScoreLists>
-          <Stars>
-            <StarBox2>
-              <NameDiv>정보일치</NameDiv>
-              <Star>({review?.score1})</Star>
-              <Starr>{starRender(review?.score1)}</Starr>
-            </StarBox2>
-            <StarBox2>
-              <NameDiv>편의시설</NameDiv>
-              <Star>({review?.score2})</Star>
-              <Starr>{starRender(review?.score2)}</Starr>
-            </StarBox2>
-            <StarBox2>
-              <NameDiv>관리상태</NameDiv>
-              <Star>({review?.score3})</Star>
-              <Starr>{starRender(review?.score3)}</Starr>
-            </StarBox2>
-            <StarBox2>
-              <NameDiv>접근성</NameDiv>
-              <Star>({review?.score4})</Star>
-              <Starr>{starRender(review?.score4)}</Starr>
-            </StarBox2>
-            <StarBox2>
-              <NameDiv>청결도</NameDiv>
-              <Star>({review?.score5})</Star>
-              <Starr>{starRender(review?.score5)}</Starr>
-            </StarBox2>
-          </Stars>
-        </ScoreLists>
-        <ContentsBox>{commenter}</ContentsBox>
-        {/* <BoxMoreLink>...더보기</BoxMoreLink> */}
-        <div onClick={() => setIsShowMore(!isShowMore)}>
-          {review.content.length > textLimit.current && // 버튼명은 조건에 따라 달라진다
-            (isShowMore ? "[닫기]" : "...[더보기]")}
         </div>
       </ItemBox>
       <ImgLists>

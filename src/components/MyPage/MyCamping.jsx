@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import { instance } from "../../api/axiosApi";
-
 import styled from "styled-components";
-
-import testImg from "../../img/test_camp_img.jpg"
-
-import { BoxHeader, BoxName, ItemBox } from "../elements/ItemBox";
-import { Link } from "react-router-dom";
+import { ItemBox } from "../elements/ItemBox";
 import CampImgView from "../elements/CampImgView";
-
-import { BsFillBookmarkFill } from "react-icons/bs"
-import { BsBookmark } from "react-icons/bs"
 import CampListElement from "../Camp/CampListElement";
 
 

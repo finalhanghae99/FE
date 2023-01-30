@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import Alert from "../elements/Alert";
 import { instance } from "../../api/axiosApi";
 import { FiSearch } from "react-icons/fi"
 
@@ -21,7 +21,7 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
   const submitHandler = (event) => {
     event.preventDefault();
     if (keyword.trim() === "") {
-      alert("입력 해주세요")
+      Alert({ body:"입력 해주세요" })
     } else {
       fetchSearchList()
     }
