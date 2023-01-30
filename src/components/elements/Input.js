@@ -20,6 +20,7 @@ const Input = (props) => {
       className={props.className}
       onChange={props.onChange}
       type={props.type}
+      disabled={props.disabled}
       placeholder={props.placeholder}
     >
       {props.children}

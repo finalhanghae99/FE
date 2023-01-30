@@ -21,6 +21,12 @@ function DatePicker(props) {
   useEffect(()=>{
     setCondition({...condition, startDate : startDate?.format(dateFormat), endDate : endDate?.format(dateFormat)})
   },[startDate, endDate])
+
+  const dateBlocked = (day) =>{
+    const bool = day.isBefore(moment());
+    return bool
+  }
+
   return (
     <div>
       <OutOfModal onClick={onClose} />
@@ -36,11 +42,14 @@ function DatePicker(props) {
           onDatesChange={(selectedDates)=>{
             if(focused ==='startDate'){
               setStartDate(selectedDates.startDate)
+              setCondition({...condition, endDate : null});
+              setEndDate(null);
             }else{
               setEndDate(selectedDates.endDate)
             }
           }}
           hideKeyboardShortcutsPanel = {true}
+          isDayBlocked={dateBlocked}
         />
       </DayPickerWindow>
     </div>

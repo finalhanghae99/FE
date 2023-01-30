@@ -56,8 +56,7 @@ function DetailHeader() {
         <MiddleBox>
           <UserImg src={reserve?.profileImageUrl} />
           <Nickname>{reserve?.nickname}</Nickname>
-          {reserve?.ownerCheck ? (reserve?.tradeState) ? "" : <StateDiv>양도완료</StateDiv> : 
-           ""}
+          {reserve?.ownerCheck ? (reserve?.tradeState) ? "" : <StateDiv>양도완료</StateDiv> : ""}
         </MiddleBox>
         <Name>{reserve?.campingName}</Name>
         <SubText>{reserve?.address3}</SubText>
@@ -139,6 +138,7 @@ const Line = styled.div`
 const Contents = styled.div`
   width: 100%;
   word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 const DelBox = styled.div`

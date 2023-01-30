@@ -67,6 +67,7 @@ function ReservePostForm() {
       }
     }
   }
+  console.log(reserve)
   return (
     <ItemBox>
       <PostForm onSubmit={postHandler}>

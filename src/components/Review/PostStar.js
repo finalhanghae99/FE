@@ -2,7 +2,7 @@ import React ,{useEffect, useState }from "react";
 import styled from "styled-components";
 import {IoStar} from "react-icons/io5"
 
-function PostStar({setScore}) {
+function PostStar({setScore , initialScore}) {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const score = clicked.filter(Boolean).length;
 
@@ -14,9 +14,14 @@ function PostStar({setScore}) {
     setClicked(clickStates);
   };
   useEffect(()=>{
+    const initialState = clicked.map((v, i)=>{
+      return (i < initialScore)? true : false
+    })
+    setClicked(initialState)
+  },[])
+  useEffect(()=>{
     setScore(score)
   },[score])
-
   const starArr = [];
   for (let i = 0; i < 5; i++) {
     starArr.push(
