@@ -5,6 +5,8 @@ import moment from "moment";
 import { ItemBox } from "../elements/ItemBox";
 import { instance } from "../../api/axiosApi";
 import Confirm from "../elements/Confirm";
+import { useDispatch } from "react-redux";
+import { __compMyReserves, __delMyReserves } from "../../redux/modules/reservesSlice";
 import { useNavigate } from "react-router-dom";
 
 function MyReserveList({ reserve }) {
@@ -48,6 +50,7 @@ function MyReserveList({ reserve }) {
       }
     }
   };
+  
   return (
     <ListElement>
       <ItemBox>

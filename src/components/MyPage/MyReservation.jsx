@@ -2,25 +2,23 @@ import React, { useState, useEffect } from "react";
 import { instance } from "../../api/axiosApi";
 import styled from "styled-components";
 import MyReserveList from "../Reserve/MyReserveList";
+import { useDispatch, useSelector } from "react-redux";
+import { __getMyReserves } from "../../redux/modules/reservesSlice";
+
 
 function MyReservation() {
-  const [myReserve, setMyReserve] = useState(null);
-  const fetchCamp = async () => {
-    try {
-      const { data } = await instance.get(`/mypage/reservation`);
-      setMyReserve(data.data.responseSearchDtoList);
-    } catch (error) { console.log(error); }
-  };
+  const dispatch = useDispatch()
+  const { isLoading, error, reserves } = useSelector((state) => state.reserves);
+  console.log(reserves)
   useEffect(() => {
-    fetchCamp();
+    // fetchCamp();
+    dispatch(__getMyReserves());
   }, [])
-
-  console.log(myReserve)
   return (
     <div>
       <Title>나의 캠핑장 양도</Title>
       <ListBox>
-      {myReserve?.map((v) => {
+      {reserves?.map((v) => {
         return <MyReserveList key={v.reservationId} reserve={v}/>
       })}
       </ListBox>
