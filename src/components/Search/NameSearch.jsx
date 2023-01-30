@@ -4,6 +4,8 @@ import Alert from "../elements/Alert";
 import { instance } from "../../api/axiosApi";
 import { FiSearch } from "react-icons/fi"
 
+import {ReactComponent as xIcon} from "../../img/icons/x-mark.svg"
+
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 
@@ -34,7 +36,9 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
 
   return (
     <SearchWindow>
-      <button onClick={onClose}>닫기</button>
+      <HeadBtn> 
+        <XIcon onClick={onClose}></XIcon>
+      </HeadBtn>
       <ItemBox>
         <InputBox onSubmit={submitHandler}>
           {/* <form onSubmit={submitHandler}> */}
@@ -43,9 +47,9 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
           {/* </form> */}
         </InputBox>
         {(searchList?.length == 0)?(
-          <BoxName>검색 결과가 업습니다.</BoxName>
+          <CtnRes>검색 결과가 업습니다.</CtnRes>
         ):(
-          <BoxName>{searchList?.length}개의 검색 결과가 있어요.</BoxName>
+          <CtnRes>{searchList?.length}개의 검색 결과가 있어요.</CtnRes>
         )}
         <SearchList>
           {searchList?.map((v, i) => {
@@ -65,7 +69,20 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
 }
 export default NameSearch;
 
+const HeadBtn = styled.div`
+  display: flex;
+  justify-content: end;
+  margin: 24px;
+`
 
+const XIcon = styled(xIcon)`
+  height: 16px;
+  width: 16px;
+`
+
+const CtnRes = styled(BoxName)`
+  margin-bottom: 12px;
+`
 
 const SearchWindow = styled.div`
   box-sizing: border-box;
@@ -90,7 +107,7 @@ const SearchList = styled.div`
   /* border: 1px solid black; */
   /* border-radius: 10px; */
   margin-bottom:50px;
-  height: 80vh;
+  height: 70vh;
   overflow: scroll;
 `
 

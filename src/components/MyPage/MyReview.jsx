@@ -3,28 +3,34 @@ import { instance } from "../../api/axiosApi";
 import { ItemBox } from "../elements/ItemBox";
 import styled from "styled-components";
 import ReviewElement from "./ReviewElement";
+import { useDispatch, useSelector } from "react-redux";
+import { __getMyReviews } from "../../redux/modules/myReviewsSlice";
 
 function MyReview() {
+  const dispatch = useDispatch();
   const [review, serReview] = useState(null);
-  const fetchReview = async () => {
-    try {
-      const { data } = await instance.get(`/mypage/review`);
-      console.log(data);
-      serReview(data.data.responseReviewOneDtoList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { isLoading, error, myReviews } = useSelector((state) => state.myReviews);
+
+  // const fetchReview = async () => {
+  //   try {
+  //     const { data } = await instance.get(`/mypage/review`);
+  //     console.log(data);
+  //     serReview(data.data.responseReviewOneDtoList);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   useEffect(() => {
-    fetchReview();
+    // fetchReview();
+    dispatch(__getMyReviews());
   }, []);
-  console.log(review);
+  console.log(myReviews);
 
   return (
     <div>
       <Title>내가 작성한 리뷰</Title>
       <ItemBox>
-        {review?.map((v) => {
+        {myReviews?.map((v) => {
           return (
               <ReviewElement key={v.reviewId} review={v} />
           );

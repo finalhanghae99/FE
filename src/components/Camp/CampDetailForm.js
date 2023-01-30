@@ -114,7 +114,7 @@ function CampDetailForm() {
         <SDiv>
           <div>{campDetail?.phoneNumber}</div>
           {campDetail?.homepageUrl === "" ?
-          "" : <a href={campDetail?.homepageUrl} target='_black'>홈페이지 바로가기</a>
+          "" : <a href={campDetail?.homepageUrl} target='_blank'>홈페이지 바로가기</a>
           }
           
         </SDiv>
