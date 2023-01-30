@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-
 import { useModal } from "../../hooks/useModal";
 import DatePicker from "../elements/DatePicker";
-
 import styled from "styled-components";
 import RegionPicker from "../elements/RegionPicker";
 import { BsPencilFill } from "react-icons/bs"
-import {HiOutlinePencilAlt} from "react-icons/hi"
 import { useNavigate } from "react-router-dom";
-
+import Alert from "../elements/Alert";
 import { getCookies } from "../../api/cookieControler";
-
 import { ItemBox } from "../elements/ItemBox";
 import { AiOutlineDown } from "react-icons/ai";
-
 import { instance } from "../../api/axiosApi";
 import ReserveListElement from "../Reserve/ReserveListElement";
 
@@ -23,6 +18,7 @@ function ReserveHeader() {
   const navigate = useNavigate();
   const region = useModal();
   const calendar = useModal();
+
   if (region.isOpen || calendar.isOpen) {
     document.body.style.overflow = "hidden"
   } else {
@@ -66,7 +62,7 @@ function ReserveHeader() {
   const postNavigate = () => {
     const token = getCookies("id")
     if (!token) {
-      alert("로그인이 필요 합니다.")
+      Alert({ body: "로그인이 필요 합니다." })
       return;
     } else {
       navigate("../reserve/post")

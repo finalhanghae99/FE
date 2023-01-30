@@ -56,6 +56,7 @@ function CampDetailForm() {
       console.log(error);
     }
   };
+  console.log(campDetail)
   useEffect(() => {
     // 캠핑장 열람 이력 저장
     let history = getCookies("history");
@@ -112,7 +113,10 @@ function CampDetailForm() {
         <Address>{campDetail?.address3}</Address>
         <SDiv>
           <div>{campDetail?.phoneNumber}</div>
-          <a href={campDetail?.homepageUrl}>홈페이지 바로가기</a>
+          {campDetail?.homepageUrl === "" ?
+          "" : <a href={campDetail?.homepageUrl} target='_black'>홈페이지 바로가기</a>
+          }
+          
         </SDiv>
       </SuvDiv>
       <Environment>

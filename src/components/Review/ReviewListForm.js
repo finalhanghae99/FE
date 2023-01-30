@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineLeft } from "react-icons/ai";
 import { BsPencilFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
