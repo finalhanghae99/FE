@@ -50,7 +50,7 @@ function ReservePostForm() {
         reserve
       );
       if (data.statusCode === 200) {
-        return console.log(data);
+        navigate("../");
       } else {
         Alert({ body: "로그인을 해주세요." });
       }
@@ -65,7 +65,6 @@ function ReservePostForm() {
       });
       if (isConfirm) {
         postFunc();
-        navigate("../");
       } else {
         return null;
       }
@@ -75,7 +74,6 @@ function ReservePostForm() {
       });
       if (elseConfirm) {
         postFunc();
-        navigate("../");
       } else {
         return null;
       }
@@ -88,7 +86,7 @@ function ReservePostForm() {
           <WordInput onClick={campName.onOpen}>
             {campingId && campingName ? `${campingName}` : "캠핑장 찾기"}
           </WordInput>
-          <SeartchBtn>
+          <SeartchBtn onClick={campName.onOpen}>
             <FiSearch />
           </SeartchBtn>
         </InputBox>
@@ -189,7 +187,7 @@ const WordInput = styled.div`
   width: 100%;
   line-height: 52px;
 `;
-const SeartchBtn = styled.button`
+const SeartchBtn = styled.div`
   /* width: 80px; */
   border: none;
   background-color: rgba(0, 0, 0, 0);
