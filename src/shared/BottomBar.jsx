@@ -25,7 +25,7 @@ function BottomBar() {
           onClick={() => { navigate("/") }}
           src={CampIcon} />
         <BarIcon
-          onClick={() => { navigate("/") }}
+          onClick={() => { navigate("/reviewadd") }}
           src={StarIcon} />
         <UserIcon onClick={UserCheck}/>
     </BarBody>

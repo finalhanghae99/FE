@@ -7,11 +7,14 @@ import CampImgView from "../elements/CampImgView";
 import { ItemBox } from "../elements/ItemBox";
 import Button from "../elements/Button";
 import Alert from "../elements/Alert";
+import moment from "moment";
 
 function DetailHeader() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [reserve, setReserve] = useState(null);
+  const startDate = moment(reserve?.startDate).format("YYYY년 MM월 DD일");
+  const endDate = moment(reserve?.endDate).format("YYYY년 MM월 DD일");
 
   const fetchReserve = async () => {
     try {
@@ -21,13 +24,13 @@ function DetailHeader() {
       console.log(error);
     }
   };
-  console.log(reserve)
+  console.log(reserve);
   const onDeleteReserve = async () => {
     try {
       const data = await instance.delete(`/reservation/${id}`);
       console.log(data);
       if (reserve?.ownerCheck === false) {
-        Alert({ body: "삭제 권한이 없습니다."});
+        Alert({ body: "삭제 권한이 없습니다." });
       } else if (reserve?.ownerCheck === true) {
         Alert({ body: "삭제 완료!" });
         navigate("/");
@@ -43,7 +46,7 @@ function DetailHeader() {
     } else {
       navigate(`/reserve/edit/${id}`);
     }
-  }
+  };
 
   useEffect(() => {
     fetchReserve();
@@ -56,12 +59,21 @@ function DetailHeader() {
         <MiddleBox>
           <UserImg src={reserve?.profileImageUrl} />
           <Nickname>{reserve?.nickname}</Nickname>
-          {reserve?.ownerCheck ? (reserve?.tradeState) ? "" : <StateDiv>양도완료</StateDiv> : ""}
+
+          {reserve?.ownerCheck ? (
+            reserve?.tradeState ? (
+              ""
+            ) : (
+              <StateDiv>양도완료</StateDiv>
+            )
+          ) : (
+            ""
+          )}
         </MiddleBox>
         <Name>{reserve?.campingName}</Name>
         <SubText>{reserve?.address3}</SubText>
         <div>
-          {reserve?.startDate} ~ {reserve?.endDate.slice(5, 10)}
+          {startDate} ~ {endDate.slice(10, 13)}
         </div>
       </ItemBox>
       <Line />
@@ -71,14 +83,18 @@ function DetailHeader() {
           <div>{numeral(reserve?.price).format("0,0")}원</div>
         </Price>
       </ItemBox>
-      {reserve?.ownerCheck ?
-      <>
-        <ChatBtn onClick={onEditReserve}>수정하기</ChatBtn>
-      <DelBox>
-        <DelBtn onClick={onDeleteReserve}>삭제하기</DelBtn>
-      </DelBox>
-      </>
-    : (reserve?.tradeState) ? <ChatBtn>채팅하기</ChatBtn> : <EndBtn>양도완료</EndBtn>}
+      {reserve?.ownerCheck ? (
+        <>
+          <ChatBtn onClick={onEditReserve}>수정하기</ChatBtn>
+          <DelBox>
+            <DelBtn onClick={onDeleteReserve}>삭제하기</DelBtn>
+          </DelBox>
+        </>
+      ) : reserve?.tradeState ? (
+        <ChatBtn>채팅하기</ChatBtn>
+      ) : (
+        <EndBtn>양도완료</EndBtn>
+      )}
     </div>
   );
 }
@@ -162,7 +178,7 @@ const EndBtn = styled(Button)`
   color: #999999;
   background-color: var(--Gray2);
   border: 1px solid var(--Gray2);
-`
+`;
 
 const StateDiv = styled.div`
   width: 77px;
@@ -177,4 +193,4 @@ const StateDiv = styled.div`
   position: absolute;
   top: 439px;
   left: 284px;
-`
+`;
