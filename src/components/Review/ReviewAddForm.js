@@ -35,8 +35,17 @@ const ReviewAddForm = () => {
   const [isComp, setIsComp] = useState(false);
 
   useEffect(() => {
-    setIsComp(Boolean(campingName) && Boolean(images) && content.trim() !== "");
-  }, [campingId, content, images]);
+    setIsComp(
+      Boolean(campingName) && 
+      Boolean(images.length) && 
+      content.trim() !== "" &&
+      score1 !== 0 && 
+      score2 !== 0 && 
+      score3 !== 0 && 
+      score4 !== 0 && 
+      score5 !== 0
+      );
+  }, [campingId, content, images, score1, score2, score3, score4, score5]);
 
   const onFileUpload = () => {
     imgRef.current.click();
@@ -165,7 +174,7 @@ const ReviewAddForm = () => {
           <DetailInfo>홈페이지에 나온 정보랑 일치한가요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore1} />
+          <PostStar setScore={setScore1} initialScore={score1} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -173,7 +182,7 @@ const ReviewAddForm = () => {
           <DetailInfo>주변에 편의점, 마트 등 편의시설이 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore2} />
+          <PostStar setScore={setScore2} initialScore={score2}/>
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -181,7 +190,7 @@ const ReviewAddForm = () => {
           <DetailInfo>위험한 부분없이 관리가 잘되어 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore3} />
+          <PostStar setScore={setScore3} initialScore={score3}/>
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -189,7 +198,7 @@ const ReviewAddForm = () => {
           <DetailInfo>접근하기 좋은 위치에 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore4} />
+          <PostStar setScore={setScore4} initialScore={score4}/>
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -199,7 +208,7 @@ const ReviewAddForm = () => {
           </DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore5} />
+          <PostStar setScore={setScore5} initialScore={score5}/>
         </StarBox>
       </ItemBox>
       <GrayLine />

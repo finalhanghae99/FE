@@ -43,9 +43,6 @@ function ReserveHeader() {
     //   setReserve(res.data.data.responseSearchDtoList)
     // })
   }, [region.isOpen, calendar.isOpen])
-  console.log(reserve)
-  console.log(condition, address1, address2)
-
   const setResult = () => {
     const city2 = (address2 === "")? ("") : (`&address2=${address2}`)
     try {

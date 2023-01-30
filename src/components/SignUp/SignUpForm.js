@@ -167,6 +167,7 @@ const SignUpForm = () => {
             <StDiv>
               <Inp
                 type="text"
+                disabled={isUserEmailCheck}
                 placeholder="이메일을 입력해주세요."
                 onChange={onChangeUserEmail}
               />
@@ -196,6 +197,7 @@ const SignUpForm = () => {
           <StDiv>
             <Inp
               type="text"
+              disabled={isNickNameCheck}
               placeholder="닉네임을 입력해주세요."
               onChange={onChangeNickname}
             />

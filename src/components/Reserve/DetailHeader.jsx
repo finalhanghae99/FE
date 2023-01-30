@@ -59,6 +59,7 @@ function DetailHeader() {
         <MiddleBox>
           <UserImg src={reserve?.profileImageUrl} />
           <Nickname>{reserve?.nickname}</Nickname>
+
           {reserve?.ownerCheck ? (
             reserve?.tradeState ? (
               ""
@@ -153,6 +154,7 @@ const Line = styled.div`
 const Contents = styled.div`
   width: 100%;
   word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 const DelBox = styled.div`

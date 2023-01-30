@@ -5,16 +5,33 @@ import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox";
 import campBtn from "../../img/CampBtn.svg"
 import {BsArrowRightShort} from "react-icons/bs"
 import { getCookies } from "../../api/cookieControler";
+import { instance } from "../../api/axiosApi";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function HomeRecommend(){
   const navigate = useNavigate();
+  const token = getCookies("id");
+  const [nickname,setNickname ]= useState();
+
+  const setName = async () =>{
+    try{
+      const {data} = await instance.get('/usernick');
+      if(data.statusCode === 200 ) setNickname(data.data.nickname + "님 \n")
+    }catch(error){
+      console.log(error);
+    }
+  }
 
   const navEvent = async () =>{
-    const token = getCookies("id");
     (token)? (navigate("/reviewadd")) : (
       navigate("/login?redirect=reviewadd")
     )
   }
+
+  useEffect(()=>{
+    setName();
+  },[])
 
   return(
     <ItemBox>
@@ -22,7 +39,7 @@ function HomeRecommend(){
         <ImgView src={campBtn}/>
         <BtnText>
           <SmallText>
-            캠핑 다녀오셨나요?
+            {(nickname)&& (nickname)}캠핑 다녀오셨나요?
           </SmallText>
           <BigText>
             리뷰를 등록해보세요.
@@ -71,6 +88,7 @@ const ArrowImg = styled.div`
 `
 
 const SmallText = styled.a`
+  white-space: pre-wrap;
 `
 
 const BigText = styled.div`

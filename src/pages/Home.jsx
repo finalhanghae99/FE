@@ -8,14 +8,16 @@ import HomeReserve from "../components/Home/HomeReserve";
 import HomeSearch from "../components/Home/HomeSearch";
 
 import nightImg from "../img/night_star.png" 
-import keyimg from "../img/MainCampImg.svg"
-
+import keyimg from "../img/KeyVisual.svg"
+import keytext from "../img/CampingZipText.svg"
+ 
 function Home() {
   return (
     <div>
       <SearchVisual>
         <ImgFrame>
           <KeyImg src={keyimg}/>
+          <KeyImg src={keytext} />
         </ImgFrame>
         <SearchWindow>
           <HomeSearch />
@@ -53,8 +55,10 @@ const MainMsg = styled.div`
 
 const ImgFrame = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-top: 37px;
+  margin-bottom: 16px;
 `
 
 const SearchWindow = styled.div`

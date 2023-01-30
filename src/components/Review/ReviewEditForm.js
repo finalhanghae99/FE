@@ -13,14 +13,13 @@ import { FiSearch } from "react-icons/fi";
 import Button from "../elements/Button";
 
 const ReviewEditForm = () => {
-  const [score1, setScore1] = useState();
-  const [score2, setScore2] = useState();
-  const [score3, setScore3] = useState();
-  const [score4, setScore4] = useState();
-  const [score5, setScore5] = useState();
-
   const location = useLocation();
   const reviewDetail = location.state.reviewDetail;
+  const [score1, setScore1] = useState(reviewDetail?.score1);
+  const [score2, setScore2] = useState(reviewDetail?.score2);
+  const [score3, setScore3] = useState(reviewDetail?.score3);
+  const [score4, setScore4] = useState(reviewDetail?.score4);
+  const [score5, setScore5] = useState(reviewDetail?.score5);
 
   const campName = useModal();
   if (campName.isOpen) {
@@ -163,7 +162,7 @@ const ReviewEditForm = () => {
           <DetailInfo>홈페이지에 나온 정보랑 일치한가요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore1} />
+          <PostStar setScore={setScore1} initialScore={score1} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -171,7 +170,7 @@ const ReviewEditForm = () => {
           <DetailInfo>주변에 편의점, 마트 등 편의시설이 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore2} />
+          <PostStar setScore={setScore2} initialScore={score2}/>
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -179,7 +178,7 @@ const ReviewEditForm = () => {
           <DetailInfo>위험한 부분없이 관리가 잘되어 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore3} />
+          <PostStar setScore={setScore3} initialScore={score3}/>
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -187,7 +186,7 @@ const ReviewEditForm = () => {
           <DetailInfo>접근하기 좋은 위치에 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore4} />
+          <PostStar setScore={setScore4} initialScore={score4}/>
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -197,7 +196,7 @@ const ReviewEditForm = () => {
           </DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore5} />
+          <PostStar setScore={setScore5} initialScore={score5}/>
         </StarBox>
       </ItemBox>
       <GrayLine />

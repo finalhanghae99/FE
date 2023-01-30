@@ -297,6 +297,7 @@ const Content = styled.div`
 const Contents = styled.div`
   margin: 0px 24px 0px 24px;
   word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 const NameDiv = styled.div`
