@@ -68,7 +68,6 @@ const ReviewAddForm = () => {
     curImg.splice(index, 1);
     setImages(curImg);
   };
-  console.log(Boolean(images.length))
 
   const onReviewadd = (e) => {
     const token = getCookies("id");
