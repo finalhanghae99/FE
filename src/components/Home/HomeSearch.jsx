@@ -40,7 +40,13 @@ function HomeSearch({color}) {
         {/* <MapBtn>지도 검색</MapBtn> */}
       </BtnBox>
       <InputBox>
-        <WordInput name="keyword" value={keyword} onChange={(event)=>{setKeyword(event.target.value)}} placeholder="캠핑장" color={color}/>
+        <WordInput 
+          name="keyword" 
+          value={keyword} 
+          onChange={(event)=>{setKeyword(event.target.value)}} 
+          placeholder="캠핑장" 
+          color={color}
+          maxLength="12" />
         <SeartchBtn onClick={searchHandler}><FiSearch /></SeartchBtn>
       </InputBox>
       <InputBox onClick={region.onOpen}>
