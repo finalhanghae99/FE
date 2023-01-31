@@ -13,7 +13,7 @@ const ReviewListForm = () => {
 
   const fetchreviewList = async () => {
     try {
-      const { data } = await instance.get(`review/reviewall/${id}`);
+      const { data } = await instance.get(`/reviewlookup/reviewall/${id}`);
       setReviewList(data.data.responseReviewListDtos);
     } catch (error) {
       console.log(error);

@@ -11,7 +11,7 @@ const RecentViewCampForm = () => {
   const [history, setHistory] = useState(null);
   const fetchHistory = async (record) => {
     try {
-      const { data } = await instance.post("/review/listten", {
+      const { data } = await instance.post("/camping/permit/listten", {
         campingIdList: record,
       });
       setHistory(data.data);

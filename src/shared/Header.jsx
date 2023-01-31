@@ -49,9 +49,10 @@ const MainBox = styled.div`
 `;
 
 const LogoBox = styled.div`
-  margin: 0px 0px 8px 24px;
+  margin: 0px 24px 8px 24px;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -77,5 +78,5 @@ const SearchBtn = styled.button`
   background-color: rgba(0, 0, 0, 0);
   height: 19px;
   font-size: 19px;
-  margin-left: 175px;
+  /* margin-left: 175px; */
 `;
