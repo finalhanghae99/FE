@@ -20,9 +20,7 @@ function MyCamping() {
   console.log(myCamp)
   return (
     <ItemBox>
-        <ItemBox>
           <ItemName>내가 찜한 캠핑장</ItemName>
-        </ItemBox>
       {myCamp?.map((v) => {
         return (
           <CampListElement key={v.campingId} camp={v} />

@@ -307,8 +307,7 @@ const MainSignUp = styled.div`
 
 const Title = styled.div`
   width: 100%;
-  border-bottom: 1px solid var(--Brand4);
-  margin: 89px 0px 16px 0px;
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
