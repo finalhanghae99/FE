@@ -37,7 +37,7 @@ function CampDetailForm() {
   };
   const fetchCampDetail = async () => {
     try {
-      const { data } = await instance.get(`/camping/${id}`);
+      const { data } = await instance.get(`/camping/permit/${id}`);
       if (data.statusCode === 200) {
         return setCampDetail(data.data);
       }
@@ -47,7 +47,7 @@ function CampDetailForm() {
   };
   const fetchReviewDetail = async () => {
     try {
-      const { data } = await instance.get(`/review/listfive/${id}`);
+      const { data } = await instance.get(`/reviewlookup/listfive/${id}`);
       if (data.statusCode === 200) {
         return setReviewList(data.data.responseReviewListDtos);
       }
@@ -95,13 +95,7 @@ function CampDetailForm() {
     <MainDiv>
       <StDiv>
         <div style={{ position: "relative", height: "414px" }}>
-          {campDetail?.imageUrl ? (
             <CampImgView img={campDetail?.imageUrl} />
-          ) : (
-            <div style={{ textAlign: "center", lineHeight: "414px" }}>
-              이미지를 준비중이에요.
-            </div>
-          )}
           <BookmarkBtn onClick={() => clickBMK(id)}>
             {isBMK ? <img src={bmkFill} /> : <img src={bmkLine} />}
           </BookmarkBtn>

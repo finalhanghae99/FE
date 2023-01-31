@@ -32,7 +32,7 @@ function CampingSearch() {
 
   const fetchSearchList = async () => {
     try {
-      const { data } = await instance.get(`/camping/search?${searchWord}`);
+      const { data } = await instance.get(`/camping/permit/search?${searchWord}`);
       setSearchList(data.data);
     } catch (error) { console.log(error); }
   };

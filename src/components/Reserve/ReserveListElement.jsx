@@ -13,7 +13,9 @@ function ReserveListElement({reserve}) {
   return (
     <ReserveCard
       onClick={() => { navigate(`../reserve/detail/${reserve.reservationId}`) }}>
-      <CardImg src={reserve.imageUrl} />
+      {reserve.imageUrl === "" ? 
+        <CardDiv>이미지 준비중</CardDiv>  : <CardImg src={reserve.imageUrl} />
+      }
       <CardDetail>
         <CardTitle>{reserve.campingName}</CardTitle>
         <CardRegion>{reserve.address1} {reserve.address2}</CardRegion>
@@ -38,6 +40,19 @@ const CardImg = styled.img`
   object-fit: cover;
   width: 100%;
   height: 156px;
+  background-position: center;
+  border-radius: 6px;
+`
+
+const CardDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  width: 100%;
+  height: 156px;
+  /* border: 1px solid var(--Gray2); */
+  background-color: var(--Gray2);
   background-position: center;
   border-radius: 6px;
 `

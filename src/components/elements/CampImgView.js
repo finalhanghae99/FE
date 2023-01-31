@@ -9,7 +9,12 @@ function CampImgView(props) {
   return (
     // <ImageWindow style={{position:"relative"}} className={props.className}>
       <ImgFrame className={props.className}>
-        <ImgView src={img} />
+        {img === "" ? 
+          <div style={{ backgroundColor: "var(--Gray2)", textAlign: "center", lineHeight: "414px" }}>
+          이미지를 준비중이에요.
+        </div>
+          : <ImgView src={img} />
+        }
       </ImgFrame>
       // {/* <BackBtn /> */}
     // </ImageWindow>

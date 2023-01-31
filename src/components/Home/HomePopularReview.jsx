@@ -10,7 +10,7 @@ function HomePopularReview() {
   const [review, setReview] = useState(null);
   const fetchReview = async () => {
     try {
-      const { data } = await instance.get("/review/bestsix");
+      const { data } = await instance.get("/reviewlookup/bestsix");
       setReview(data.data.responseReviewSixDtos);
     } catch (error) {
       console.log(error);
