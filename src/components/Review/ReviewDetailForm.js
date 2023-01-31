@@ -38,7 +38,7 @@ const ReviewDetailForm = () => {
 
   const fetchreviewDetail = async () => {
     try {
-      const { data } = await instance.get(`/review/reviewone/${param.id}`);
+      const { data } = await instance.get(`/reviewlookup/reviewone/${param.id}`);
       if (data.statusCode === 200) {
         return setReviewDetail(data.data);
       }

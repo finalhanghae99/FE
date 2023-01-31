@@ -136,10 +136,16 @@ const ReviewAddForm = () => {
             </BtnCircle>
           </PicAdd2>
         );
-      } else {
+      } else if(images.length === i){
         imgArr.push(
           <PicAdd key={i}>
             <ImgPlus />
+          </PicAdd>
+        );
+      } else {
+        imgArr.push(
+          <PicAdd key={i}>
+            {/* <ImgPlus /> */}
           </PicAdd>
         );
       }
@@ -265,7 +271,7 @@ const MainDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--BackColor2);
+  /* background-color: var(--BackColor2); */
 `;
 
 const InputBox = styled.div`
@@ -326,6 +332,7 @@ const PictureBox = styled.div`
   display: flex;
   gap: 6px;
   justify-content: space-between;
+  margin: auto;
 `;
 
 const PicBtnBox = styled.div`
@@ -340,8 +347,8 @@ const PicAdd = styled.div`
   justify-content: center;
   width: 60px;
   height: 60px;
-  background-color: var(--Gray4);
-  color: white;
+  /* background-color: var(--Gray4); */
+  /* color: white; */
   border: 1px solid #a8a8a8;
   font-size: 32px;
 `;
@@ -369,7 +376,7 @@ const ImgBtn = styled.button`
   height: 100%;
   border: none;
   background-color: rgba(0, 0, 0, 0);
-  color: white;
+  color: var(--Gray3);
   font-size: 35px;
 `;
 

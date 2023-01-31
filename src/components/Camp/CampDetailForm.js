@@ -37,7 +37,7 @@ function CampDetailForm() {
   };
   const fetchCampDetail = async () => {
     try {
-      const { data } = await instance.get(`/camping/${id}`);
+      const { data } = await instance.get(`/camping/permit/${id}`);
       if (data.statusCode === 200) {
         return setCampDetail(data.data);
       }
@@ -47,7 +47,7 @@ function CampDetailForm() {
   };
   const fetchReviewDetail = async () => {
     try {
-      const { data } = await instance.get(`/review/listfive/${id}`);
+      const { data } = await instance.get(`/reviewlookup/listfive/${id}`);
       if (data.statusCode === 200) {
         return setReviewList(data.data.responseReviewListDtos);
       }

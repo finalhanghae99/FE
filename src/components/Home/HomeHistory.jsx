@@ -13,7 +13,7 @@ function HomeHistory() {
   const [history, setHistory] = useState(null);
   const fetchHistory = async (record) => {
     try {
-      const { data } = await instance.post("/camping/listfive", {"campingIdList":record });
+      const { data } = await instance.post("/camping/permit/listfive", {"campingIdList":record });
       setHistory(data.data);
     } catch (error) { console.log(error); }
   };

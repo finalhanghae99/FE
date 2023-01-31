@@ -47,7 +47,7 @@ function ReserveHeader() {
     const city2 = (address2 === "")? ("") : (`&address2=${address2}`)
     try {
       const data = instance.get(
-        `/reservation?startDate=${condition.startDate}&endDate=${condition.endDate}&address1=${address1}${city2}`);
+        `/reservation/findall?startDate=${condition.startDate}&endDate=${condition.endDate}&address1=${address1}${city2}`);
       return (data);
     } catch (error) { console.log(error); }
   }
