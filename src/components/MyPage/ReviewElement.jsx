@@ -4,13 +4,14 @@ import { BoxHeader, ItemBox } from "../elements/ItemBox";
 import moment from "moment";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import styled from "styled-components";
-import testImg from "../../img/test_camp_img.jpg";
 import { useNavigate } from "react-router-dom";
-import { instance } from "../../api/axiosApi";
+import { useDispatch } from "react-redux";
+import { __delMyReviews } from "../../redux/modules/myReviewsSlice";
 
-function ReviewElement(props) {
+function ReviewElement({review}) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { review } = props;
+
   const starRender = (score) => {
     let stars = [];
     for (let i = 0; i < score; i++) {
@@ -30,8 +31,6 @@ function ReviewElement(props) {
     return stars;
   };
 
-  const imgArr2 = [testImg, testImg, testImg];
-  console.log(review);
   const [isShowMore, setIsShowMore] = useState(false); // 더보기 열고 닫는 스위치
   const textLimit = useRef(50); // 글자수 제한 선언
 
@@ -59,12 +58,13 @@ function ReviewElement(props) {
     if (!isConfirm) {
       return null;
     } else {
-      try {
-        const data = await instance.delete(`/review/${review.reviewId}`);
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
+      dispatch(__delMyReviews(review.reviewId))
+      // try {
+      //   const data = await instance.delete(`/review/${review.reviewId}`);
+      //   console.log(data);
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
   };
 

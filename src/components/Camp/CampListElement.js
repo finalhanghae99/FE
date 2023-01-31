@@ -4,12 +4,11 @@ import styled from "styled-components";
 import { BoxHeader, BoxName, ItemBox } from "../elements/ItemBox";
 import CampImgView from "../elements/CampImgView";
 import { instance } from "../../api/axiosApi";
-import BMKFill from "../../img/icons/bmkFill.svg";
-import BMKLine from "../../img/icons/bmkLine.svg";
+import BMKFill from "../../img/icons/bmkFill.svg"
+import BMKLine from "../../img/icons/bmkLine.svg"
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
 
-// /camping/{campingId}/like
 function CampListElement(props) {
   const navigate = useNavigate();
   const { camp } = props;
@@ -51,7 +50,7 @@ function CampListElement(props) {
           {isBMK ? <img src={BMKFill} /> : <img src={BMKLine} />}
         </BookmarkBtn>
       </div>
-      <ItemBox>
+      <CradsDetail>
         <DetailHeader>
           <DetailName>{camp.campingName}</DetailName>
         </DetailHeader>
@@ -67,12 +66,19 @@ function CampListElement(props) {
             return <CategoryTag key={i}>{v}</CategoryTag>;
           })}
         </TagBox>
-      </ItemBox>
+      </CradsDetail>
     </ListBox>
   );
 }
 
 export default CampListElement;
+
+const CradsDetail = styled.div`
+  margin: var(--interval);
+  box-sizing: border-box;
+  height: 110px;
+  overflow: hidden;
+`
 
 const ListBox = styled.div`
   border-radius: 8px;
@@ -97,25 +103,25 @@ const CategoryTag = styled.div`
   border-radius: 50px;
   line-height: 24px;
   height: 24px;
-  /* font-size: 12px; */
-  /* border: 1px solid black; */
   background-color: var(--BackColor2);
-  padding: var(--pad1) var(--pad2) var(--pad1) var(--pad2);
-  flex-wrap: wrap;
+  padding: var(--pad1) var(--pad2)  var(--pad1)  var(--pad2) ;
+  flex-wrap: nowrap; 
   font-size: 12px;
-`;
+  text-overflow: ellipsis;
+  margin-bottom:12px;
+`
 
 const TagBox = styled.div`
-  /* display: flex; */
-  display: inline-flex;
+  display: flex;
   gap: var(--pad2);
   padding-top: var(--interval);
-  /* height: 60px; */
-  flex-wrap: nowrap;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
+  width: 100%;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  /* display: -webkit-box; */
+  /* -webkit-box-orient: vertical; */
+  /* -webkit-line-clamp: 1; */
+`
 
 const DetailHeader = styled.div`
   padding-bottom: 8px;
@@ -142,20 +148,19 @@ const CountView = styled.div`
 `;
 
 const AddressBox = styled.div`
-  /* padding: var(--pad1); */
+  height: 20px;
   font-size: 14px;
   color: gray;
-`;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
 
 const BookmarkBtn = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: white;
-  /* transform: translate(-50%,-50%); */
-  /* padding:0; */
-  /* margin:0; */
-  /* font-size:30px; */
-  /* box-shadow: 0px 0px 10px 0px black; */
-  z-index: 5;
-`;
+    position: absolute;
+    top:20px; 
+    right:20px;
+    color: white;
+
+    z-index: 5;
+`
