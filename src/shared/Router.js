@@ -21,6 +21,7 @@ import NotFount from "./NotFound";
 import ScrollTop from "./ScrollTop";
 import ReserveEdit from "../pages/reserve/ReserveEdit";
 import MyReserve from "../pages/myPage/MyReserve";
+import MyChat from "../pages/myPage/MyChat";
 
 function Router() {
   return (
@@ -51,6 +52,8 @@ function Router() {
             <Route path="/mypage/mycamp" element={<MyCamp />} />
             <Route path="/mypage/myreview" element={<MyReview />} />
             <Route path="/mypage/myreserve" element={<MyReserve />} />
+            <Route path="/mypage/mychat" element={<MyChat />} />
+
             <Route path="*" element={<NotFount />} />
           </Routes>
         </Layout>
