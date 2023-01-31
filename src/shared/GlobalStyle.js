@@ -23,15 +23,23 @@ const GlobalStyle = createGlobalStyle`
     --interval : 24px;
   }
   body {
-    font-family: 'Noto Sans KR';
+    font-family: 'Noto Sans KR', 'Roboto';
+    
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      unicode-range: U+0041-005A, U+0061-007A;
+    }
+    
     /* width: 100%; */
     @media (min-width: 414px) {
       width : 414px;
       margin :auto;
     }
   }
+  textarea, input, select, button {
+    font-family: 'Roboto';
+  }
 `;
-
-
 
 export default GlobalStyle;

@@ -73,7 +73,7 @@ function DetailHeader() {
         <Name>{reserve?.campingName}</Name>
         <SubText>{reserve?.address3}</SubText>
         <div>
-          {startDate} ~ {endDate.slice(10, 13)}
+          {startDate} ~ {endDate}
         </div>
       </ItemBox>
       <Line />

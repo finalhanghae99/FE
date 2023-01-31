@@ -15,6 +15,7 @@ function MyReview() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchReview();
   }, []);
@@ -25,9 +26,7 @@ function MyReview() {
       <Title>내가 작성한 리뷰</Title>
       <ItemBox>
         {review?.map((v) => {
-          return (
-              <ReviewElement key={v.reviewId} review={v} />
-          );
+          return <ReviewElement key={v.reviewId} review={v} />;
         })}
       </ItemBox>
     </div>
@@ -38,9 +37,7 @@ export default MyReview;
 
 const Title = styled.div`
   width: 100%;
-  border-top: 1px solid var(--Brand4);
-  margin-top: 103px;
-  padding-top: 40px;
+  padding-top: 24px;
   display: flex;
   align-items: center;
   justify-content: center;

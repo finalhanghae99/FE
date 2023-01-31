@@ -10,10 +10,10 @@ const initialState = {
 export const __postreviewadd = createAsyncThunk(
   "reviewadd",
   async (payload, thunkAPI) => {
-    console.log("payload", payload)
+    console.log("payload", payload);
     try {
-      const data = await instance.post(`/review/${payload.id}`, payload.data,{
-        headers :{"Content-Type": `multipart/form-data`}
+      const data = await instance.post(`/review/${payload.id}`, payload.data, {
+        headers: { "Content-Type": `multipart/form-data` },
       });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -25,10 +25,10 @@ export const __postreviewadd = createAsyncThunk(
 export const __putreviewadd = createAsyncThunk(
   "reviewput",
   async (payload, thunkAPI) => {
-    console.log("payload", payload)
+    console.log("payload", payload);
     try {
-      const data = await instance.put(`/review/${payload.id}`, payload.data,{
-        headers :{"Content-Type": `multipart/form-data`}
+      const data = await instance.put(`/review/${payload.id}`, payload.data, {
+        headers: { "Content-Type": `multipart/form-data` },
       });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -42,21 +42,22 @@ const reviewAddSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(__postreviewadd.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(__postreviewadd.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.review = action.payload;
-    });
-    builder.addCase(__postreviewadd.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
-    builder.addCase(__putreviewadd.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.review = action.payload;
-    });
+    builder
+      .addCase(__postreviewadd.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__postreviewadd.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.review = action.payload;
+      })
+      .addCase(__postreviewadd.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(__putreviewadd.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.review = action.payload;
+      });
   },
 });
 

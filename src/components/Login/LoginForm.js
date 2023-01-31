@@ -119,12 +119,11 @@ const MainLogin = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: var(--interval);
+  margin-top: 0px;
   box-sizing: border-box;
 `;
 
 const Title = styled.div`
-  border-bottom: 1px solid var(--Brand4);
-  margin: 103px 0px 0px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
