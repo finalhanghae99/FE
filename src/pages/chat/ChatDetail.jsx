@@ -23,13 +23,15 @@ function ChatDetail() {
     instance.get('/chat/room/' + roomId).then(response => { setRoomInfo(response.data); });
   }
   const sendMsg = () => {
+    if(msg.trim() === "") return null;
     ws.send("/app/chat/message", {}, JSON.stringify({ type: 'TALK', roomId: roomId, sender: sender, message: msg }));
     setMsg("")
   }
-  // const recvMsg = (recv) => {
+  // const recvMsg = async(recv) => {
   //   console.log(messages)
-  //   const newMsg = [...messages , { "type": recv.type, "sender": recv.type == 'ENTER' ? '[알림]' : recv.sender, "message": recv.message }]
-  //   setMessages(newMsg);
+  //   // const newMsg = [...messages , { "type": recv.type, "sender": recv.type == 'ENTER' ? '[알림]' : recv.sender, "message": recv.message }]
+  //   await messages.unshift(recv)
+  //   setMessages(messages);
   // }
 
   // sendMessage: function() {
@@ -40,14 +42,15 @@ function ChatDetail() {
   //     this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message})
   // }
 
+  console.log(messages)
   const connect = () => {
     // pub/sub event
     ws.connect({}, function (frame) {
       ws.subscribe("/topic/chat/room/" + roomId, function (message) {
         const recv = JSON.parse(message.body);
-        console.log("recover",recv);
-        // setMessages([recv, ...messages])
+        console.log("recover",recv, messages);
         messages.unshift(recv)
+        // setMessages([recv, ...messages])
         setMessages(messages)
         // recvMsg(recv);
       });
@@ -69,6 +72,9 @@ function ChatDetail() {
     findRoom();
     connect();
   }, [])
+  useEffect(()=>{
+    setMessages(messages)
+  },[messages])
 
 
   return (
@@ -88,7 +94,6 @@ function ChatDetail() {
             <div key={i}>
               <div>User: {v.sender}</div>
               <div>Comments: {v.message}</div>
-              <br />
               <br />
             </div>
           )
