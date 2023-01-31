@@ -11,7 +11,7 @@ function MyChatting() {
   const [myCamp, setMyCamp] = useState(null);
   const fetchMyChat = async () => {
     try {
-      const { data } = await instance.get(`/mypage/chatting`);
+      const data  = await instance.get(`chat/mypage/chatting`);
       console.log(data)
     } catch (error) { console.log(error); }
   };

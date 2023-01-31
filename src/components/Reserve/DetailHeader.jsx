@@ -16,6 +16,7 @@ function DetailHeader() {
   const startDate = moment(reserve?.startDate).format("YYYY년 MM월 DD일");
   const endDate = moment(reserve?.endDate).format("YYYY년 MM월 DD일");
 
+
   const fetchReserve = async () => {
     try {
       const { data } = await instance.get(`reservation/${id}`);
@@ -24,7 +25,6 @@ function DetailHeader() {
       console.log(error);
     }
   };
-  console.log(reserve);
   const onDeleteReserve = async () => {
     try {
       const data = await instance.delete(`/reservation/${id}`);
@@ -48,10 +48,18 @@ function DetailHeader() {
     }
   };
 
+  const beginChat = async() =>{
+    try{
+      const data = await instance.post(`/chat/${id}`)
+      console.log(data)
+    } catch (error){
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     fetchReserve();
   }, []);
-  console.log(reserve);
   return (
     <div>
       <CampImgView img={reserve?.imageUrl} />
@@ -59,7 +67,6 @@ function DetailHeader() {
         <MiddleBox>
           <UserImg src={reserve?.profileImageUrl} />
           <Nickname>{reserve?.nickname}</Nickname>
-
           {reserve?.ownerCheck ? (
             reserve?.tradeState ? (
               ""
@@ -91,7 +98,7 @@ function DetailHeader() {
           </DelBox>
         </>
       ) : reserve?.tradeState ? (
-        <ChatBtn>채팅하기</ChatBtn>
+        <ChatBtn onClick={beginChat}>채팅하기</ChatBtn>
       ) : (
         <EndBtn>양도완료</EndBtn>
       )}
