@@ -11,15 +11,6 @@ function MyReview() {
   const [review, serReview] = useState(null);
   const { isLoading, error, myReviews } = useSelector((state) => state.myReviews);
 
-  // const fetchReview = async () => {
-  //   try {
-  //     const { data } = await instance.get(`/mypage/review`);
-  //     console.log(data);
-  //     serReview(data.data.responseReviewOneDtoList);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   useEffect(() => {
     // fetchReview();
     dispatch(__getMyReviews());
@@ -44,9 +35,7 @@ export default MyReview;
 
 const Title = styled.div`
   width: 100%;
-  border-top: 1px solid var(--Brand4);
-  margin-top: 103px;
-  padding-top: 40px;
+  padding-top: 24px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,37 +1,37 @@
-import React,{useState, useEffect} from "react";
-import { AiOutlineLeft } from "react-icons/ai";
-import { BsBookmark } from "react-icons/bs";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CampListElement from "./CampListElement";
-
 import { instance } from "../../api/axiosApi";
 import { getCookies } from "../../api/cookieControler";
 import { ItemBox } from "../elements/ItemBox";
-
 
 const RecentViewCampForm = () => {
   const navigate = useNavigate();
   const [history, setHistory] = useState(null);
   const fetchHistory = async (record) => {
     try {
-      const { data } = await instance.post("/review/listten", {"campingIdList":record });
+      const { data } = await instance.post("/camping/permit/listten", {
+        campingIdList: record,
+      });
       setHistory(data.data);
-    } catch (error) { console.log(error); }
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
-    let record = getCookies("history")
-    if(record === undefined) record = []
+    let record = getCookies("history");
+    if (record === undefined) record = [];
     fetchHistory(record);
-  }, [])
-  console.log(history)
+  }, []);
+  console.log(history);
   return (
     <ItemBox>
       <ItemBox>
         <ItemName>최근 본 캠핑장 입니다.</ItemName>
       </ItemBox>
       <Main>
-      {/* <Main>
+        {/* <Main>
         <BackBtn
           onClick={() => {
             navigate(`/`);
@@ -59,11 +59,9 @@ const RecentViewCampForm = () => {
           </Tag>
         </Suv>
       </Box> */}
-      {history?.map((v)=>{
-        return(
-          <CampListElement key={v.campingId} camp={v}/>
-        )
-      })}
+        {history?.map((v) => {
+          return <CampListElement key={v.campingId} camp={v} />;
+        })}
       </Main>
     </ItemBox>
   );
@@ -85,4 +83,4 @@ const ItemName = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: bold;
-`
+`;

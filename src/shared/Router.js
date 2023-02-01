@@ -22,6 +22,7 @@ import ScrollTop from "./ScrollTop";
 import ReserveEdit from "../pages/reserve/ReserveEdit";
 import MyReserve from "../pages/myPage/MyReserve";
 import MyChat from "../pages/myPage/MyChat";
+import Header from "./Header";
 
 function Router() {
   return (
@@ -31,10 +32,8 @@ function Router() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/camp/search"
-              element={<CampSearch />}
-            />
+            <Route element={<Header />}>
+            <Route path="/camp/search" element={<CampSearch />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/campdetail/:id" element={<CampDetail />} />
@@ -53,8 +52,8 @@ function Router() {
             <Route path="/mypage/myreview" element={<MyReview />} />
             <Route path="/mypage/myreserve" element={<MyReserve />} />
             <Route path="/mypage/mychat" element={<MyChat />} />
-
             <Route path="*" element={<NotFount />} />
+            </Route>
           </Routes>
         </Layout>
       </BrowserRouter>

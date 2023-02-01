@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams , useSearchParams} from "react-router-dom";
 import styled from "styled-components";
-
 import { instance } from "../../api/axiosApi";
 import CampListElement from "../Camp/CampListElement";
-
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 
 function CampingSearch() {
@@ -34,7 +32,7 @@ function CampingSearch() {
 
   const fetchSearchList = async () => {
     try {
-      const { data } = await instance.get(`/camping/search?${searchWord}`);
+      const { data } = await instance.get(`/camping/permit/search?${searchWord}`);
       setSearchList(data.data);
     } catch (error) { console.log(error); }
   };

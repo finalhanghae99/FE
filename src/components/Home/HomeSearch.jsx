@@ -16,24 +16,11 @@ function HomeSearch({color}) {
   } else {
     document.body.style.overflow = '';
   }
-  // const initalCondtion = {
-  //   keyword: "",
-  //   address1: "",
-  //   address2: "",
-  // }
-  // const [condition, setCondition] = useState(initalCondtion)
+
   const [keyword, setKeyword] = useState("")
   const [address1, setAddress1] = useState("")
   const [address2, setAddress2] = useState("")
 
-  // useEffect(() => {
-  //   setCondition({ ...condition, address2: "" })
-  // }, [condition.address1])
-
-  // const changeHandler = (event) => {
-  //   const { name, value } = event.target;
-  //   setCondition({ ...condition, [name]: value })
-  // }
   const searchHandler = () => {
     const word1 = (keyword.trim() === "") ? null : keyword;
     const word2 = (address1.trim() === "") ? null : address1;
@@ -98,7 +85,7 @@ const WordInput = styled.input`
   box-sizing: border-box;
   padding-left: 24px;
   padding-right: 24px;
-  height: 56px;
+  height: 52px;
   font-size: 14px;
   display: flex;
   box-sizing: border-box;
@@ -115,12 +102,12 @@ const RegionBtn = styled.div`
   box-sizing: border-box;
   padding-left: 24px;
   padding-right: 24px;
-  height: 56px;
+  height: 52px;
   font-size: 14px;
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  line-height: 56px;
+  line-height: 52px;
   /* overflow: hidden; */
 `
 

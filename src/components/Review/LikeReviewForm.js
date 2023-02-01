@@ -10,7 +10,7 @@ const LikeReviewForm = () => {
   const [review, setReview] = useState(null);
   const fetchReview = async () => {
     try {
-      const { data } = await instance.get(`/review/likerank`);
+      const { data } = await instance.get(`/reviewlookup/likerank`);
       setReview(data.data.responseReviewListDtos);
     } catch (error) {
       console.log(error);

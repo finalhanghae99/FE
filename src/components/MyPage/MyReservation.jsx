@@ -35,11 +35,8 @@ const ListBox = styled.div`
   gap: 8px;
 `
 const Title = styled.div`
-  /* margin: 35px 0px 12px 0px; */
   width: 100%;
-  border-top: 1px solid var(--Brand4);
-  margin-top: 103px;
-  padding-top: 40px;
+  padding-top: 24px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -11,7 +11,6 @@ import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
 import LikeListElement from "../Review/LikeListElement";
 import { ItemBox } from "../elements/ItemBox";
-
 import Button from "../elements/Button";
 
 function CampDetailForm() {
@@ -38,7 +37,7 @@ function CampDetailForm() {
   };
   const fetchCampDetail = async () => {
     try {
-      const { data } = await instance.get(`/camping/${id}`);
+      const { data } = await instance.get(`/camping/permit/${id}`);
       if (data.statusCode === 200) {
         return setCampDetail(data.data);
       }
@@ -48,7 +47,7 @@ function CampDetailForm() {
   };
   const fetchReviewDetail = async () => {
     try {
-      const { data } = await instance.get(`/review/listfive/${id}`);
+      const { data } = await instance.get(`/reviewlookup/listfive/${id}`);
       if (data.statusCode === 200) {
         return setReviewList(data.data.responseReviewListDtos);
       }
@@ -56,7 +55,7 @@ function CampDetailForm() {
       console.log(error);
     }
   };
-  console.log(campDetail)
+  console.log(campDetail);
   useEffect(() => {
     // 캠핑장 열람 이력 저장
     let history = getCookies("history");
@@ -100,7 +99,7 @@ function CampDetailForm() {
             <CampImgView img={campDetail?.imageUrl} />
           ) : (
             <div style={{ textAlign: "center", lineHeight: "414px" }}>
-              Image Not Found
+              이미지를 준비중이에요.
             </div>
           )}
           <BookmarkBtn onClick={() => clickBMK(id)}>
@@ -113,10 +112,17 @@ function CampDetailForm() {
         <Address>{campDetail?.address3}</Address>
         <SDiv>
           <div>{campDetail?.phoneNumber}</div>
-          {campDetail?.homepageUrl === "" ?
-          "" : <a href={campDetail?.homepageUrl} target='_blank'>홈페이지 바로가기</a>
-          }
-          
+          {campDetail?.homepageUrl === "" ? (
+            ""
+          ) : campDetail?.homepageUrl.startsWith("http") ? (
+            <a href={campDetail?.homepageUrl} target="_blank">
+              홈페이지 바로가기
+            </a>
+          ) : (
+            <a href={"http://" + campDetail?.homepageUrl} target="_blank">
+              홈페이지 바로가기
+            </a>
+          )}
         </SDiv>
       </SuvDiv>
       <Environment>
