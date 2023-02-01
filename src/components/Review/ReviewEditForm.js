@@ -122,10 +122,16 @@ const ReviewEditForm = () => {
             </BtnCircle>
           </PicAdd2>
         );
-      } else {
+      } else if(images.length === i){
         imgArr.push(
           <PicAdd key={i}>
             <ImgPlus />
+          </PicAdd>
+        );
+      } else {
+        imgArr.push(
+          <PicAdd key={i}>
+            {/* <ImgPlus /> */}
           </PicAdd>
         );
       }
@@ -337,11 +343,12 @@ const PicAdd = styled.div`
   justify-content: center;
   width: 60px;
   height: 60px;
-  background-color: var(--Gray4);
-  color: white;
+  /* background-color: var(--Gray4); */
+  /* color: white; */
   border: 1px solid #a8a8a8;
   font-size: 32px;
 `;
+
 
 const PicAdd2 = styled.div`
   display: flex;
@@ -365,8 +372,8 @@ const ImgBtn = styled.button`
   width: 100%;
   height: 100%;
   border: none;
-  background: none;
-  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--Gray3);
   font-size: 35px;
 `;
 
