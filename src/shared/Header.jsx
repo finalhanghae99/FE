@@ -20,7 +20,7 @@ function Headbox() {
           <Logo src={HeaderLogo} />
           <CampZip src={CampingZip} />
         </SuvBox>
-        <SearchBtn>
+        <SearchBtn onClick={()=>{navigate("/camp/search")}}>
           <FiSearch />
         </SearchBtn>
       </LogoBox>

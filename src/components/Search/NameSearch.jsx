@@ -13,7 +13,7 @@ function NameSearch({ setCampingName, setCampingId , onClose }) {
   const fetchSearchList = async () => {
     try {
       const { data } = await instance.get(`/camping/permit/search?campingname=${keyword}`);
-      // const { data } = await instance.get(`camp?campingName=${keyword}`);
+      console.log(data)
       setSearchList(data.data);
     } catch (error) { console.log(error); }
   };

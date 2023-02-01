@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { BoxHeader, ItemBox } from "./ItemBox";
-
+import { setAddress1 , setAddress2} from "../../redux/modules/searchConditionSlice";
 import { CityObj} from "./regionData";
 
 function RegionPicker(props) {
-  const {setAddress1, setAddress2, onClose } = props;
+  const {onClose} = props;
   const [selectCity, setSelectCity] = useState(null)
   const [checked , setChecked] = useState(null)
+  const dispatch = useDispatch();
+  
 
   const city1 = []
   Object.keys(CityObj).forEach((key, i) => {
@@ -19,10 +22,10 @@ function RegionPicker(props) {
           id={key} 
           value={CityObj[key].official} 
           onClick={(event) => { 
-            setAddress1(event.target.value)
+            dispatch(setAddress1(event.target.value))
             setSelectCity(key);
             setChecked(null); 
-            setAddress2("");
+            dispatch(setAddress2(""));
           }} 
         />
         <RadioLabel htmlFor={key}>{key}</RadioLabel>
@@ -40,7 +43,7 @@ function RegionPicker(props) {
           setAddress1("")
           setSelectCity("all");
           setChecked(null); 
-          setAddress2("")
+          setAddress2("");
         }} 
       />
       <RadioLabel htmlFor="all">없음</RadioLabel>
@@ -49,7 +52,7 @@ function RegionPicker(props) {
 
 
   const cityDiv = CityObj[`${selectCity}`]?.data
-  const city2 = cityDiv?.map((v, i) => {
+  let city2 = cityDiv?.map((v, i) => {
     return (
       <SelectItem key={i}>
         <RadioInput 
@@ -59,14 +62,31 @@ function RegionPicker(props) {
           id={v} 
           value={v}
           onChange={(event) => { 
-            setAddress2(v)
+            dispatch(setAddress2(v));
             setChecked(v);
           }} 
+          onClick={onClose}
         />
         <RadioLabel htmlFor={v}>{v}</RadioLabel>
       </SelectItem>
     )
   })
+  city2?.unshift(
+    <SelectItem key="all2">
+      <RadioInput 
+        name="address2" 
+        type="radio" 
+        id="all2"
+        value="all2"
+        onChange={(event) => { 
+          setAddress2("")
+          setChecked("all2");
+        }} 
+        onClick={onClose}
+      />
+      <RadioLabel htmlFor="all2">전체</RadioLabel>
+    </SelectItem>
+  )
   return (
     <div>
       <OutOfModal onClick={onClose} />
@@ -78,7 +98,7 @@ function RegionPicker(props) {
           <SelectBox>
             {city1}
           </SelectBox>
-          <hr />
+          <GrayLine />
           <SelectBox2>
             {city2}
           </SelectBox2>
@@ -114,6 +134,7 @@ const PopWindow = styled.div`
   }
 `
 
+
 const OutOfModal = styled.div`
   background-color: rgba(0,0,0,0.5);
   position: fixed;
@@ -137,9 +158,18 @@ const OutOfModal = styled.div`
 //   margin: auto;
 // `
 
+const GrayLine = styled.div`
+  background-color:var(--Gray1);
+  margin: 30px 0px 30px 0px;
+  height: 1px;
+  width: 100%;
+  content: "";
+`
+
 const RegionBox = styled(ItemBox)`
-  height: 70%;
+  /* height: 70%; */
   margin-top: var(--pad2);
+  margin-bottom: var(--pad2);
   /* position: fixed; */
 `
 
@@ -165,10 +195,11 @@ const SelectBox2 = styled.div`
   /* overflow-y: scroll; */
   /* width: 90%; */
   height: 30%;
-  margin: var(--pad2) auto var(--pad2) auto;
-  padding: var(--pad2);
+  padding: var(--pad2) auto var(--pad2) auto;
+  /* padding: var(--pad2); */
   gap : var(--pad2);
   z-index: 10;
+  box-sizing: border-box;
 `
 
 

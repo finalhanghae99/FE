@@ -343,6 +343,7 @@ const PicAdd = styled.div`
   font-size: 32px;
 `;
 
+
 const PicAdd2 = styled.div`
   display: flex;
   align-items: center;
