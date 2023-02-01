@@ -46,9 +46,7 @@ function PostStar({setScore , initialScore}) {
 export default PostStar;
 
 const Star = styled.div`
-  /* margin-left: 10px; */
 `;
-
 
 const RatingBox = styled.div`
   margin: 0 auto;

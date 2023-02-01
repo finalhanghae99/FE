@@ -24,11 +24,10 @@ function DetailHeader() {
       console.log(error);
     }
   };
-  console.log(reserve);
+
   const onDeleteReserve = async () => {
     try {
       const data = await instance.delete(`/reservation/${id}`);
-      console.log(data);
       if (reserve?.ownerCheck === false) {
         Alert({ body: "삭제 권한이 없습니다." });
       } else if (reserve?.ownerCheck === true) {
@@ -51,7 +50,7 @@ function DetailHeader() {
   useEffect(() => {
     fetchReserve();
   }, []);
-  console.log(reserve);
+
   return (
     <div>
       <CampImgView img={reserve?.imageUrl} />
@@ -59,7 +58,6 @@ function DetailHeader() {
         <MiddleBox>
           <UserImg src={reserve?.profileImageUrl} />
           <Nickname>{reserve?.nickname}</Nickname>
-
           {reserve?.ownerCheck ? (
             reserve?.tradeState ? (
               ""

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LikeListElement from "./LikeListElement";
 import { instance } from "../../api/axiosApi";
 import { ItemBox } from "../elements/ItemBox";
 
 const LikeReviewForm = () => {
-  const navigate = useNavigate();
   const [review, setReview] = useState(null);
   const fetchReview = async () => {
     try {
@@ -19,7 +17,7 @@ const LikeReviewForm = () => {
   useEffect(() => {
     fetchReview();
   }, []);
-  console.log(review)
+
   return (
     <>
       <Main>

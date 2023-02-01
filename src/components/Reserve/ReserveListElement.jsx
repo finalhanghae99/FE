@@ -33,7 +33,6 @@ export default ReserveListElement;
 const ReserveCard = styled.div`
   min-width: 156px;
   max-width: 156px;
-  /* border: 2px solid gray; */
 `
 
 const CardImg = styled.img`
@@ -51,7 +50,6 @@ const CardDiv = styled.div`
   object-fit: cover;
   width: 100%;
   height: 156px;
-  /* border: 1px solid var(--Gray2); */
   background-color: var(--Gray2);
   background-position: center;
   border-radius: 6px;

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BoxHeader, BoxName, ItemBox } from "../elements/ItemBox";
+import { BoxName } from "../elements/ItemBox";
 import CampImgView from "../elements/CampImgView";
 import { instance } from "../../api/axiosApi";
-import BMKFill from "../../img/icons/bmkFill.svg"
-import BMKLine from "../../img/icons/bmkLine.svg"
+import BMKFill from "../../img/icons/bmkFill.svg";
+import BMKLine from "../../img/icons/bmkLine.svg";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
 
@@ -78,7 +78,7 @@ const CradsDetail = styled.div`
   box-sizing: border-box;
   height: 110px;
   overflow: hidden;
-`
+`;
 
 const ListBox = styled.div`
   border-radius: 8px;
@@ -104,12 +104,12 @@ const CategoryTag = styled.div`
   line-height: 24px;
   height: 24px;
   background-color: var(--BackColor2);
-  padding: var(--pad1) var(--pad2)  var(--pad1)  var(--pad2) ;
-  flex-wrap: nowrap; 
+  padding: var(--pad1) var(--pad2) var(--pad1) var(--pad2);
+  flex-wrap: nowrap;
   font-size: 12px;
   text-overflow: ellipsis;
-  margin-bottom:12px;
-`
+  margin-bottom: 12px;
+`;
 
 const TagBox = styled.div`
   display: flex;
@@ -118,10 +118,7 @@ const TagBox = styled.div`
   width: 100%;
   flex-wrap: wrap;
   box-sizing: border-box;
-  /* display: -webkit-box; */
-  /* -webkit-box-orient: vertical; */
-  /* -webkit-line-clamp: 1; */
-`
+`;
 
 const DetailHeader = styled.div`
   padding-bottom: 8px;
@@ -154,13 +151,12 @@ const AddressBox = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-`
+`;
 
 const BookmarkBtn = styled.div`
-    position: absolute;
-    top:20px; 
-    right:20px;
-    color: white;
-
-    z-index: 5;
-`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  z-index: 5;
+`;

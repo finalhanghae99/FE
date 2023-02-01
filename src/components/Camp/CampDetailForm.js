@@ -29,7 +29,6 @@ function CampDetailForm() {
     }
     try {
       const { data } = await instance.post(`/camping/${id}/like`);
-      console.log(data);
       setIsBMK(!isBMK);
     } catch (error) {
       console.log(error);
@@ -55,7 +54,7 @@ function CampDetailForm() {
       console.log(error);
     }
   };
-  console.log(campDetail);
+
   useEffect(() => {
     // 캠핑장 열람 이력 저장
     let history = getCookies("history");

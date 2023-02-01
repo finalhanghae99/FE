@@ -6,6 +6,7 @@ import DatePicker from "../elements/DatePicker";
 import { instance } from "../../api/axiosApi";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../elements/Button";
+import Confirm from "../elements/Confirm";
 
 function ReserveEditForm() {
   const initialState = {
@@ -60,17 +61,19 @@ function ReserveEditForm() {
   const editHandler = async (event) => {
     event.preventDefault();
     if (reserve.price === "" || reserve.price === 0) {
-      if (
-        window.confirm(
-          "현재 양도금액을 설정되어 있지 않습니다. \n무료로 양도 하시겠습니까?"
-        )
-      ) {
+      const isConfirm = await Confirm({
+        body: "현재 양도금액을 설정되어 있지 않습니다. \n무료로 양도 하시겠습니까?",
+      });
+      if (isConfirm) {
         editFunc();
       } else {
         return null;
       }
     } else {
-      if (window.confirm("양도글을 수정하시겠습니까?")) {
+      const elseConfirm = await Confirm({
+        body: "수정하시겠습니까?",
+      });
+      if (elseConfirm) {
         editFunc();
         navigate("../");
       } else {
@@ -141,7 +144,6 @@ const PriceInput = styled.input`
   font-size: 14px;
 `;
 const PostForm = styled.form`
-  /* padding: var(--pad2); */
 `;
 const PostContent = styled.textarea`
   border: 0.5px solid black;
@@ -155,15 +157,15 @@ const PostContent = styled.textarea`
   height: 240px;
   margin-bottom: 56px;
 `;
+
 const InputBox = styled.div`
   padding-bottom: 16px;
   display: flex;
   align-items: center;
   position: relative;
 `;
+
 const WordInput = styled.div`
-  /* background: ${(props) => props.color}; */
-  /* color: white; */
   border: 1px solid var(--Gray1);
   border-radius: 50px;
   box-sizing: border-box;

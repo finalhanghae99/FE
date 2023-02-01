@@ -7,7 +7,6 @@ import {AiFillHeart, AiOutlineHeart} from "react-icons/ai"
 import { instance } from "../../api/axiosApi";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
-// likeState
 
 function LikeListElement(props) {
   const navigate = useNavigate();
@@ -143,5 +142,4 @@ const LikeCount = styled.div`
   width: 15px;
   justify-content: right;
   font-weight:bold;
-  /* filter: drop-shadow(10px 10px 10px 10px green); */
 `

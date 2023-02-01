@@ -3,11 +3,8 @@ import styled from "styled-components";
 import Alert from "../elements/Alert";
 import { instance } from "../../api/axiosApi";
 import { FiSearch } from "react-icons/fi"
-
 import {ReactComponent as xIcon} from "../../img/icons/x-mark.svg"
-
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
-
 
 function NameSearch({ setCampingName, setCampingId , onClose }) {
   const [keyword, setKeyword] = useState("");

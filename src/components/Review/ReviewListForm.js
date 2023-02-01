@@ -19,7 +19,6 @@ const ReviewListForm = () => {
       console.log(error);
     }
   };
-  console.log(reviewList);
 
   useEffect(() => {
     fetchreviewList();
@@ -62,6 +61,7 @@ const Main = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const CampName = styled.div`
   margin: var(--interval) auto var(--interval)  auto;
 `;
