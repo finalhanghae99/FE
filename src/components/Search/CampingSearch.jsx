@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams , useSearchParams} from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
 import CampListElement from "../Camp/CampListElement";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 import { setCookies, getCookies } from "../../api/cookieControler";
-import {ReactComponent as xMark} from "../../img/icons/x-mark.svg"
+import { ReactComponent as xMark } from "../../img/icons/x-mark.svg"
+import { useDispatch } from "react-redux";
+import { setKeyword } from "../../redux/modules/searchConditionSlice";
 
 function CampingSearch() {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword");
   const address1 = searchParams.get("address1");
   const address2 = searchParams.get("address2");
+  const dispatch = useDispatch();
 
-  let word = getCookies("word");
-  if (word === undefined) word = [];
- 
+  let words = getCookies("words");
+  if (words === undefined) words = [];
+
+  const [history, setHistory] = useState()
+
   // let {keyword, address1, address2} = useParams();
   const [searchList, setSearchList] = useState(null);
 
+  console.log(keyword, address1,address2)
   // null 값 제거
-  const search1 = (keyword)?
+  const search1 = (keyword) ?
     (`campingname=${keyword}&`) : ("");
-  const search2 = (address1)?
+  const search2 = (address1) ?
     (`address1=${address1}&`) : ("");
-  const search3 = (address2)? 
+  const search3 = (address2) ?
     (`address2=${address2}&`) : ("");
 
   // 검색 조건 합치기
@@ -32,19 +38,20 @@ function CampingSearch() {
   searchWord = searchWord.slice(0, searchWord.length - 1)
 
   const fetchSearchList = async () => {
-    if(!searchWord) {
+    console.log(keyword, address1, address2)
+    if (!searchWord) {
       return null
     } else {
       console.log("fetch")
       try {
         const { data } = await instance.get(`/camping/permit/search?${searchWord}`);
         setSearchList(data.data);
-        word = word.filter((v) => {
+        words = words.filter((v) => {
           return v !== keyword;
         });
-        word.unshift(keyword);
-        word.splice(10);
-        setCookies("word", word, {
+        (keyword) && (words.unshift(keyword));
+        words.splice(10);
+        setCookies("words", words, {
           path: "/",
           maxAge: 604800,
         });
@@ -53,46 +60,75 @@ function CampingSearch() {
   };
   useEffect(() => {
     fetchSearchList();
+    setHistory(words)
   }, [keyword, address1, address2])
-  console.log(searchWord, Boolean(searchWord))
 
+  const delWord = (word) =>{
+    words = words.filter((v)=>{
+      return v !== word
+    })
+    console.log(words)
+    setHistory(words)
+    setCookies("words", words, {
+      path: "/",
+      maxAge: 604800,
+    });
+  }
+
+  const delAllWord = () =>{
+    setHistory([]);
+    setCookies("words", [], {
+      path: "/",
+      maxAge: 604800,
+    });
+  }
 
   return (
     <ItemBox>
-      {(searchWord)? (
-        (searchList?.length === 0) ? (<SearchCount>검색 결과가 없습니다</SearchCount>):(
+      {(searchWord) ? (
+        (searchList?.length === 0) ? (<MsgCenter>검색 결과가 없습니다</MsgCenter>) : (
           <>
             <SearchCount>{searchList?.length}개의 검색 결과가 있어요.</SearchCount>
             <SearchList>
-              {searchList?.map((v)=>{
-                return(
-                  <CampListElement key={v.campingId} camp={v}/>
+              {searchList?.map((v) => {
+                return (
+                  <CampListElement key={v.campingId} camp={v} />
                 )
               })}
             </SearchList>
           </>
         )
-      ):(
+      ) : (
         <>
-          {word.map(v => {
-            return <WordList>{v} <XBtn></XBtn></WordList>
-          })}
+          {(history?.length === 0) ? (
+            <WordBox>
+              <MsgCenter>최근 검색 내역이 없습니다.</MsgCenter>
+            </WordBox>
+          ) : (
+            <WordBox>
+              <AllDel onClick={delAllWord}>전체삭제</AllDel>
+              {history?.map((v,i) => {
+                return (
+                  <WordList 
+                    key={i} 
+                    onClick={()=>dispatch(setKeyword(v))}>
+                    <div>{v}</div> 
+                    <XBtn onClick={()=>{delWord(v)}}></XBtn>
+                  </WordList>
+                )
+              })}
+            </WordBox>
+          )}
         </>
       )}
-      
     </ItemBox>
   )
 }
 export default CampingSearch;
 
-
-
-
-
 const SearchCount = styled.div`
   margin-bottom: 16px;
 `
-
 const SearchList = styled.div`
   /* border: 1px solid black; */
   /* border-radius: 10px; */
@@ -101,43 +137,28 @@ const SearchList = styled.div`
   flex-direction: column;
   gap: 32px;
 `
-
-const SearchElement = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: var(--pad2);
-`
-
-const Line = styled.div`
-  border-bottom : 1px solid gray;
-  content: "";
-  height: 1px;
-`
-
-const SearchDetail = styled.div`
-  margin: auto 0 auto var(--pad2);
-  width: 70%;
-`
-const SearchName = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
-const SearchAddress = styled.div`
-  font-size: 12px;
-  color: gray;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
-
 const WordList = styled.div`
-  display: "flex";
+  display: flex;
+  /* width: 100%; */
   justify-content: space-between;
+  /* flex-direction: row; */
+  text-align: center;
+  align-items: center;
+  margin-bottom: 16px;
 `
-
 const XBtn = styled(xMark)`
-  
+`
+const WordBox = styled.div`
+  width: 100%;
+`
+const AllDel = styled.div`
+  text-decoration: underline;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--interval);
+  color: var(--Gray3);
+`
+const MsgCenter = styled.div`
+  /* margin: auto; */
+  text-align: center;
 `

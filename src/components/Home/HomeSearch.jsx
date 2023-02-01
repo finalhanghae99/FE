@@ -8,18 +8,24 @@ import { HiOutlineMap } from "react-icons/hi"
 import { AiOutlineDown } from "react-icons/ai";
 import { Navigate, useNavigate } from "react-router-dom";
 
+import { useSelector , useDispatch} from "react-redux";
+import { setAddress1, setKeyword , setAddress2} from "../../redux/modules/searchConditionSlice";
+
 function HomeSearch({color}) {
   const region = useModal();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   if (region.isOpen) {
     document.body.style.overflow = "hidden"
   } else {
     document.body.style.overflow = '';
   }
-
-  const [keyword, setKeyword] = useState("")
-  const [address1, setAddress1] = useState("")
-  const [address2, setAddress2] = useState("")
+  const { keyword, address1, address2} = useSelector((state) => state.searchCondition);
+  console.log(keyword, address1 ,address2)
+  
+  // const [address1, setAddress1] = useState("")
+  // const [address2, setAddress2] = useState("")
 
   const searchHandler = () => {
     const word1 = (keyword.trim() === "") ? null : keyword;
@@ -31,6 +37,18 @@ function HomeSearch({color}) {
       alert("캠핑장 이름 또는 지역을 입력 해주세요")
     }
   }
+  const changeWordHandler = (e) =>{
+    dispatch(setKeyword(e.target.value))
+  }
+  useEffect(()=>{
+    dispatch(setKeyword(""))
+    dispatch(setAddress1(""))
+    dispatch(setAddress2(""))
+  },[])
+  // useEffect(()=>{
+  //   dispatch(setKeyword(word))
+  // },[word])
+
   return (
     <SearchBox>
       <BtnBox>
@@ -43,7 +61,7 @@ function HomeSearch({color}) {
         <WordInput 
           name="keyword" 
           value={keyword} 
-          onChange={(event)=>{setKeyword(event.target.value)}} 
+          onChange={(event)=>{changeWordHandler(event)}} 
           placeholder="캠핑장" 
           color={color}
           maxLength="12" />
@@ -58,7 +76,10 @@ function HomeSearch({color}) {
         </SeartchBtn>
       </InputBox>
       {region.isOpen &&
-        <RegionPicker setAddress1={setAddress1} setAddress2={setAddress2} onClose={region.onClose} />
+        <RegionPicker 
+        // setAddress1={setAddress1} 
+        // setAddress2={setAddress2}
+        onClose={region.onClose}/>
       }
     </SearchBox>
   )
