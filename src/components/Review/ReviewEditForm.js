@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -86,7 +86,7 @@ const ReviewEditForm = () => {
         data: data,
       })
     );
-    Alert({ body: "수정 완료!" })
+    Alert({ body: "수정 완료!" });
     navigate("/");
   };
 
@@ -106,7 +106,7 @@ const ReviewEditForm = () => {
     );
   };
 
-  const ImgPreview = () => {
+  const ImgPreview = useCallback(() => {
     const imgArr = [];
     for (let i = 0; i < 5; i++) {
       if (images[i]) {
@@ -122,22 +122,18 @@ const ReviewEditForm = () => {
             </BtnCircle>
           </PicAdd2>
         );
-      } else if(images.length === i){
+      } else if (images.length === i) {
         imgArr.push(
           <PicAdd key={i}>
             <ImgPlus />
           </PicAdd>
         );
       } else {
-        imgArr.push(
-          <PicAdd key={i}>
-            {/* <ImgPlus /> */}
-          </PicAdd>
-        );
+        imgArr.push(<PicAdd key={i}>{/* <ImgPlus /> */}</PicAdd>);
       }
     }
     return imgArr;
-  };
+  }, [images]);
 
   return (
     <MainDiv>
@@ -176,7 +172,7 @@ const ReviewEditForm = () => {
           <DetailInfo>주변에 편의점, 마트 등 편의시설이 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore2} initialScore={score2}/>
+          <PostStar setScore={setScore2} initialScore={score2} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -184,7 +180,7 @@ const ReviewEditForm = () => {
           <DetailInfo>위험한 부분없이 관리가 잘되어 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore3} initialScore={score3}/>
+          <PostStar setScore={setScore3} initialScore={score3} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -192,7 +188,7 @@ const ReviewEditForm = () => {
           <DetailInfo>접근하기 좋은 위치에 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore4} initialScore={score4}/>
+          <PostStar setScore={setScore4} initialScore={score4} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -202,7 +198,7 @@ const ReviewEditForm = () => {
           </DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore5} initialScore={score5}/>
+          <PostStar setScore={setScore5} initialScore={score5} />
         </StarBox>
       </ItemBox>
       <GrayLine />
@@ -343,8 +339,6 @@ const PicAdd = styled.div`
   justify-content: center;
   width: 60px;
   height: 60px;
-  /* background-color: var(--Gray4); */
-  /* color: white; */
   border: 1px solid #a8a8a8;
   font-size: 32px;
 `;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment"
+import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
@@ -10,15 +10,14 @@ import Button from "../elements/Button";
 import { ItemBox } from "../elements/ItemBox";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
-
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const ReviewDetailForm = () => {
   const [reviewDetail, setReviewDetail] = useState();
   const param = useParams();
   const navigate = useNavigate();
   const [isLike, setIsLike] = useState();
-  const [likeCount, setLikeCount] = useState(0)
+  const [likeCount, setLikeCount] = useState(0);
 
   const settings = {
     dots: true, // 슬라이더 밑에 버튼
@@ -27,18 +26,19 @@ const ReviewDetailForm = () => {
     slidersToShow: 1, // 보이는 컨텐츠 개수 1개
     slidesToScroll: 1, // 한번에 넘어가는 컨텐츠 수 1개
     centerPadding: "0px",
-    // centerMode: true,
     arrows: false,
-    // variableWidth: false
   };
+
   useEffect(() => {
-    setIsLike(reviewDetail?.likeState)
-    setLikeCount(reviewDetail?.likeCount)
-  }, [reviewDetail])
+    setIsLike(reviewDetail?.likeState);
+    setLikeCount(reviewDetail?.likeCount);
+  }, [reviewDetail]);
 
   const fetchreviewDetail = async () => {
     try {
-      const { data } = await instance.get(`/reviewlookup/reviewone/${param.id}`);
+      const { data } = await instance.get(
+        `/reviewlookup/reviewone/${param.id}`
+      );
       if (data.statusCode === 200) {
         return setReviewDetail(data.data);
       }
@@ -46,11 +46,10 @@ const ReviewDetailForm = () => {
       console.log(error);
     }
   };
-  
+
   const onDeleteReview = async () => {
     try {
       const data = await instance.delete(`/review/${param.id}`);
-      console.log(data);
       if (reviewDetail?.ownerCheck === false) {
         Alert({ body: "삭제 권한이 없습니다." });
       } else if (reviewDetail?.ownerCheck === true) {
@@ -73,27 +72,36 @@ const ReviewDetailForm = () => {
   const starRender = (score) => {
     let stars = [];
     for (let i = 0; i < score; i++) {
-      stars.push(<StarText key={i} style={{color:"var(--Brand6)"}}>★</StarText>);
+      stars.push(
+        <StarText key={i} style={{ color: "var(--Brand6)" }}>
+          ★
+        </StarText>
+      );
     }
-    for(let i = score; i < 5 ; i++){
-      stars.push(<StarText key={i} style={{color:"var(--Gray1)"}}>★</StarText>)
+    for (let i = score; i < 5; i++) {
+      stars.push(
+        <StarText key={i} style={{ color: "var(--Gray1)" }}>
+          ★
+        </StarText>
+      );
     }
     return stars;
   };
 
-  const clickLike = async(id) =>{
-    const token = getCookies("id")
-    if(!token) {
-      Alert({ body: "로그인이 필요 합니다." })
-      return ;
+  const clickLike = async (id) => {
+    const token = getCookies("id");
+    if (!token) {
+      Alert({ body: "로그인이 필요 합니다." });
+      return;
     }
     try {
-      const {data} = await instance.post(`/review/${id}/like`);
-      console.log(data);
-      (isLike)? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
-      setIsLike(!isLike)
-    } catch (error) { console.log(error); }
-  }
+      const { data } = await instance.post(`/review/${id}/like`);
+      isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);
+      setIsLike(!isLike);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     fetchreviewDetail();
@@ -108,13 +116,15 @@ const ReviewDetailForm = () => {
           })}
         </StyledSlider>
         <LikeBox>
-        <div onClick={()=>{clickLike(reviewDetail?.reviewId)}}>
-          {isLike ? <AiFillHeart /> : <AiOutlineHeart />}
-        </div>
-        <LikeCount>
-          {likeCount}
-        </LikeCount>
-      </LikeBox>
+          <div
+            onClick={() => {
+              clickLike(reviewDetail?.reviewId);
+            }}
+          >
+            {isLike ? <AiFillHeart /> : <AiOutlineHeart />}
+          </div>
+          <LikeCount>{likeCount}</LikeCount>
+        </LikeBox>
       </ViewWindow>
       <ItemBox>
         <Title>
@@ -155,7 +165,6 @@ const ReviewDetailForm = () => {
           </StarBox2>
         </Stars>
       </ItemBox>
-
       <Content>
         <Contents>{reviewDetail?.content}</Contents>
       </Content>
@@ -175,7 +184,7 @@ const ViewWindow = styled.div`
   position: relative;
   &:after {
     height: 100px;
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 0;
@@ -183,21 +192,26 @@ const ViewWindow = styled.div`
     bottom: 0;
     left: 0;
     opacity: 0.5;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0)  40% ,rgba(0, 0, 0, 0.5)  60% , black 100%);
-  };
-`
+    background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0.5) 60%,
+      black 100%
+    );
+  }
+`;
 
 const StyledSlider = styled(Slider)`
   width: 100%;
   .slick-list {
-  } 
-  .slick-dots{
+  }
+  .slick-dots {
     bottom: 25px;
   }
-  .slick-dots li button:before{
+  .slick-dots li button:before {
     color: white;
   }
-  .slick-dots li.slick-active button:before{
+  .slick-dots li.slick-active button:before {
     color: black;
   }
 `;
@@ -230,7 +244,7 @@ const Title = styled.div`
 const UserInfo = styled.div`
   display: flex;
   line-height: 40px;
-`
+`;
 
 const CampName = styled.div`
   width: 100%;
@@ -278,13 +292,12 @@ const StarBox2 = styled.div`
   line-height: 18px;
 `;
 
-const Starr = styled.span`
-`;
+const Starr = styled.span``;
 const StarText = styled.span`
-  color: ${props=>props.color};
+  color: ${(props) => props.color};
   font-size: 18px;
   line-height: 18px;
-`
+`;
 
 const Content = styled.div`
   width: 100%;
@@ -320,21 +333,21 @@ const DelBtn = styled.button`
 
 const LikeCount = styled.div`
   display: flex;
-  font-size:16px;
+  font-size: 16px;
   line-height: 30px;
   padding-left: 6px;
   width: 15px;
   justify-content: right;
-  font-weight:bold;
-`
+  font-weight: bold;
+`;
 const LikeBox = styled.div`
   position: absolute;
   display: flex;
   justify-content: right;
   line-height: 30px;
-  top:20px; 
-  right:20px;
-  font-size:30px;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
   z-index: 5;
   color: white;
-`
+`;

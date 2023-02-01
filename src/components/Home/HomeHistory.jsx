@@ -41,7 +41,9 @@ function HomeHistory() {
       {history?.map((v) => {
         return (
           <HistoryBox key={v.campingId} onClick={()=>{navigate(`campdetail/${v.campingId}`)}}>
-            <HistoryImg src={v.imageUrl} />
+            {v.imageUrl === "" ? 
+            <HistoryDiv>이미지 준비중</HistoryDiv> : <HistoryImg src={v.imageUrl} />
+            }
             <HistoryDetail>
               <HistoryName>{v.campingName}</HistoryName>
               <HistoryAddress>{v.address3}</HistoryAddress>
@@ -79,6 +81,21 @@ border-radius: 12px;
   padding: 4px;
   background-position: center;
 `
+
+const HistoryDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  object-fit: cover;
+  max-width: 96px;
+  min-width: 96px;
+  height: 96px;
+  padding: 4px;
+  font-size: 12px;
+  background-color: var(--Gray2);
+`
+
 const HistoryDetail = styled.div`
   margin: auto 16px auto var(--pad2);
   overflow: hidden;

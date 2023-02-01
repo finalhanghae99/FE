@@ -15,7 +15,6 @@ function MyInfoModify(props) {
   const onUploadImg = (e) => {
     setProfileImg(e.target.files[0]);
   };
-  console.log(profileImg);
 
   const ImgPlus = () => {
     return (
