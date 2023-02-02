@@ -30,7 +30,6 @@ function HomeSearch({ color }) {
   );
 
   const searchHandler = (event) => {
-    event.stopPropagation();
     const word1 = keyword.trim() === "" ? null : keyword;
     const word2 = address1.trim() === "" ? null : address1;
     const word3 = address2.trim() === "" ? null : address2;

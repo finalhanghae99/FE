@@ -99,6 +99,7 @@ const ReviewAddForm = () => {
         data: data,
       })
     );
+    Alert({body:"등록 되었습나다"})
     navigate(`/reviewdetail/${reviewNum}`);
   };
 
