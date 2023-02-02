@@ -5,14 +5,16 @@ import { useDispatch } from "react-redux";
 import { __putProfile } from "../../redux/modules/profileSlice";
 import Alert from "../elements/Alert";
 import { __getMyInfo } from "../../redux/modules/myPageSlice";
+import { ItemBox } from "../elements/ItemBox";
 
 function MyInfoModify(props) {
   const imgRef = useRef("");
   const dispatch = useDispatch();
   const { userInfo, onClose } = props;
-  const [nickname2, setNickname2] = useState("");
+  const [nickname2, setNickname2] = useState(userInfo.nickname);
   const [profileImg, setProfileImg] = useState(null);
-
+  console.log(userInfo);
+  console.log(nickname2);
   const onFileUpload = () => {
     imgRef.current.click();
   };
@@ -60,10 +62,15 @@ function MyInfoModify(props) {
       "requestUserInfoDto",
       new Blob([JSON.stringify(nickname)], { type: "application/json" })
     );
-    await dispatch(__putProfile({ data }));
-    Alert({ body: "프로필 수정 완료!" });
-    onClose();
-    dispatch(__getMyInfo());
+    if (profileImg === null && nickname2 === userInfo?.nickname) {
+      Alert({ body: "수정 사항이 없습니다." });
+      return;
+    } else {
+      await dispatch(__putProfile({ data }));
+      Alert({ body: "프로필 수정 완료!" });
+      onClose();
+      dispatch(__getMyInfo());
+    }
   };
 
   useEffect(() => {
@@ -72,20 +79,24 @@ function MyInfoModify(props) {
 
   return (
     <OutOfModal>
-      <BtnBox>
-        <Xbtn onClick={onClose}>취소</Xbtn>
-        <Xbtn onClick={() => onEditProfile()}>완료</Xbtn>
-      </BtnBox>
-      <UserForm>
-        <ImgPreview />
-        <ImgPlus />
-        <NameInput
-          value={nickname2}
-          onChange={(event) => setNickname2(event.target.value)}
-          maxLength="6"
-        />
-        <NameLength>{nickname2.length} / 6</NameLength>
-      </UserForm>
+      <ItemBox>
+        <SubBox>
+          <BtnBox>
+            <Xbtn onClick={onClose}>취소</Xbtn>
+            <Xbtn onClick={() => onEditProfile()}>완료</Xbtn>
+          </BtnBox>
+        </SubBox>
+        <UserForm>
+          <ImgPreview />
+          <ImgPlus />
+          <NameInput
+            value={nickname2}
+            onChange={(event) => setNickname2(event.target.value)}
+            maxLength="6"
+          />
+          <NameLength>{nickname2.length} / 6</NameLength>
+        </UserForm>
+      </ItemBox>
     </OutOfModal>
   );
 }
@@ -106,10 +117,19 @@ const OutOfModal = styled.div`
 `;
 
 const UserForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 50%;
   margin: auto;
   margin-top: 120px;
   text-align: center;
+`;
+
+const SubBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const UserImg = styled.img`
@@ -123,6 +143,7 @@ const UserImg = styled.img`
 `;
 
 const NameInput = styled.input`
+  width: 160px;
   background: none;
   border: none;
   border-bottom: 2px solid white;
@@ -138,9 +159,11 @@ const NameLength = styled.div`
 `;
 
 const BtnBox = styled.div`
+  width: 380px;
   display: flex;
   justify-content: space-between;
-  margin: 60px 24px 0px 24px;
+  align-items: center;
+  margin-top: 36px;
 `;
 
 const Xbtn = styled.button`
@@ -159,6 +182,6 @@ const AddBtn = styled.button`
   border: 1px solid transparent;
   border-radius: 100%;
   position: absolute;
-  top: 270px;
-  right: 145px;
+  top: 248px;
+  margin: 20px 0px 0px 20px;
 `;

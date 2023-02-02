@@ -24,6 +24,7 @@ function DetailHeader() {
       console.log(error);
     }
   };
+
   const onDeleteReserve = async () => {
     try {
       const data = await instance.delete(`/reservation/${id}`);
@@ -80,7 +81,13 @@ function DetailHeader() {
             ""
           )}
         </MiddleBox>
-        <Name>{reserve?.campingName}</Name>
+        <Name
+          onClick={() => {
+            navigate(`/campdetail/${reserve?.campingId}`);
+          }}
+        >
+          {reserve?.campingName}
+        </Name>
         <SubText>{reserve?.address3}</SubText>
         <div>
           {startDate} ~ {endDate}

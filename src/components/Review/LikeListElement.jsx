@@ -47,7 +47,7 @@ function LikeListElement(props) {
       <Comm>
         <ComDiv>
           <ListTop>
-            <ProfileImg img={review.profileImageUrl} />
+            <ProfileImg src={review.profileImageUrl} />
             <div>{review.nickname}</div>
           </ListTop>
           <DateText>{moment(review.modifiedAt).format(dateFormat)}</DateText>

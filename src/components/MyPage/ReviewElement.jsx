@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __delMyReviews } from "../../redux/modules/myReviewsSlice";
 
-function ReviewElement({review}) {
+function ReviewElement({ review }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -58,20 +58,24 @@ function ReviewElement({review}) {
     if (!isConfirm) {
       return null;
     } else {
-      dispatch(__delMyReviews(review.reviewId))
+      dispatch(__delMyReviews(review.reviewId));
     }
   };
 
   return (
     <div>
       <ItemBox>
-        <div onClick={() => navigate(`/reviewdetail/${review.reviewId}`)}>
+        <div>
           <BoxHeader>
-            <CampName>{review.campingName}</CampName>
-            <div>
+            <CampName
+              onClick={() => navigate(`/reviewdetail/${review.reviewId}`)}
+            >
+              {review.campingName}
+            </CampName>
+            <LikeBox>
               {review.likeState ? <AiFillHeart /> : <AiOutlineHeart />}
-              {review.likeCount}
-            </div>
+              <Count>{review.likeCount}</Count>
+            </LikeBox>
           </BoxHeader>
           <Date>{moment(review.modifiedAt).format("YYYY.MM.DD")}</Date>
           <ScoreLists>
@@ -166,8 +170,8 @@ const ImgLists = styled.div`
 
 const ImgView = styled.img`
   object-fit: cover;
-  width: 15vw;
-  height: 15vw;
+  width: 60px;
+  height: 60px;
   background-position: center;
 `;
 
@@ -224,3 +228,15 @@ const StarBox2 = styled.div`
 `;
 
 const Starr = styled.span``;
+
+const LikeBox = styled.div`
+  display: flex;
+  align-items: center;
+  line-height: 30px;
+  font-size: 18px;
+  color: #000000;
+`;
+
+const Count = styled.div`
+  margin-left: 2px;
+`;

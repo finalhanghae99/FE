@@ -133,7 +133,7 @@ const ReviewDetailForm = () => {
           <Date>{moment(reviewDetail?.modifiedAt).format("YYYY.MM.DD")}</Date>
         </Title>
         <Suv>
-          <CampName>{reviewDetail?.campingName}</CampName>
+          <CampName onClick={()=> {navigate(`/campdetail/${reviewDetail?.campingId}`)}}>{reviewDetail?.campingName}</CampName>
         </Suv>
         <Stars>
           <StarBox2>
@@ -166,15 +166,16 @@ const ReviewDetailForm = () => {
       <Content>
         <Contents>{reviewDetail?.content}</Contents>
       </Content>
-      <BtnBox>
+      {reviewDetail?.ownerCheck ?
+        <BtnBox>
         <EditBtn
           onClick={() => onEditReview(reviewDetail?.reviewId, reviewDetail)}
         >
           수정하기
         </EditBtn>
         <DelBtn onClick={onDeleteReview}>삭제하기</DelBtn>
-      </BtnBox>
-
+      </BtnBox> : ""
+      }
     </MainDiv>
   );
 };

@@ -53,7 +53,7 @@ const SignUpForm = () => {
     if (
       nicknameRegex.test(userNickName) ||
       e.target.value < 2 ||
-      e.target.value > 8
+      e.target.value > 6
     ) {
       setNickNameMsg(`올바르지 않은 닉네임 형식 입니다.`);
       setIsNickName(false);
@@ -142,10 +142,6 @@ const SignUpForm = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const onClickLogin = () => {
-    navigate(`/login`);
   };
 
   const onClickSignUpBtn = () => {
@@ -276,13 +272,6 @@ const SignUpForm = () => {
         >
           회원가입 완료
         </SignUpBtn>
-        <Back
-          onClick={() => {
-            onClickLogin();
-          }}
-        >
-          뒤로가기
-        </Back>
       </MainSignUp>
     </>
   );
@@ -351,16 +340,6 @@ const StInput = styled(Input)`
 
 const SignUpBtn = styled(Button)`
   margin: 62px 0px 36px 0px;
-`;
-
-const Back = styled.button`
-  border: none;
-  border-bottom: 1px solid var(--Brand6);
-  background-color: white;
-  font-size: 14px;
-  padding-bottom: 4px;
-  font-weight: 700;
-  color: var(--Brand6);
 `;
 
 const Span = styled.span`

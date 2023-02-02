@@ -94,7 +94,7 @@ function CampDetailForm() {
     <MainDiv>
       <StDiv>
         <div style={{ position: "relative", height: "414px" }}>
-            <CampImgView img={campDetail?.imageUrl} />
+          <CampImgView img={campDetail?.imageUrl} />
           <BookmarkBtn onClick={() => clickBMK(id)}>
             {isBMK ? <img src={bmkFill} /> : <img src={bmkLine} />}
           </BookmarkBtn>
@@ -108,11 +108,19 @@ function CampDetailForm() {
           {campDetail?.homepageUrl === "" ? (
             ""
           ) : campDetail?.homepageUrl.startsWith("http") ? (
-            <a href={campDetail?.homepageUrl} target="_blank">
+            <a
+              href={campDetail?.homepageUrl}
+              target="_blank"
+              style={{ color: "#999999" }}
+            >
               홈페이지 바로가기
             </a>
           ) : (
-            <a href={"http://" + campDetail?.homepageUrl} target="_blank">
+            <a
+              href={"http://" + campDetail?.homepageUrl}
+              target="_blank"
+              style={{ color: "#999999" }}
+            >
               홈페이지 바로가기
             </a>
           )}

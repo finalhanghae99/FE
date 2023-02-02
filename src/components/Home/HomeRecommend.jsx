@@ -39,7 +39,7 @@ function HomeRecommend(){
         <ImgView src={campBtn}/>
         <BtnText>
           <SmallText>
-            {(nickname)&& (nickname)}캠핑 다녀오셨나요?
+            <Nick>{(nickname)&& (nickname)}</Nick>캠핑 다녀오셨나요?
           </SmallText>
           <BigText>
             리뷰를 등록해보세요.
@@ -95,5 +95,9 @@ const BigText = styled.div`
   padding-top: 8px;
   color: var(--Brand6);
   font-size: 18px;
+  font-weight: bold;
+`
+
+const Nick = styled.div`
   font-weight: bold;
 `

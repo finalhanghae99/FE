@@ -14,6 +14,7 @@ const LikeReviewForm = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchReview();
   }, []);
@@ -27,10 +28,10 @@ const LikeReviewForm = () => {
       </Main>
       {review?.map((v) => {
         return (
-          <ItemBox key={v.reviewId} >
+          <ItemBox key={v.reviewId}>
             <LikeListElement review={v} />
           </ItemBox>
-        )
+        );
       })}
     </>
   );
@@ -49,4 +50,4 @@ const ItemName = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: bold;
-`
+`;
