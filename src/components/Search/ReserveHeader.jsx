@@ -11,13 +11,14 @@ import { ItemBox } from "../elements/ItemBox";
 import { AiOutlineDown } from "react-icons/ai";
 import { instance } from "../../api/axiosApi";
 import ReserveListElement from "../Reserve/ReserveListElement";
-
+import { useSelector } from "react-redux";
 
 function ReserveHeader() {
   const [reserve, setReserve] = useState([])
   const navigate = useNavigate();
   const region = useModal();
   const calendar = useModal();
+  const { address1, address2 } = useSelector((state)=>state.searchCondition)
 
   if (region.isOpen || calendar.isOpen) {
     document.body.style.overflow = "hidden"
@@ -28,8 +29,8 @@ function ReserveHeader() {
     startDate: "",
     endDate: "",
   }
-  const [address1, setAddress1] = useState("")
-  const [address2, setAddress2] = useState("")
+  // const [address1, setAddress1] = useState("")
+  // const [address2, setAddress2] = useState("")
 
   const [condition, setCondition] = useState(initialCondition);
 
@@ -89,7 +90,7 @@ function ReserveHeader() {
         </InputBox>
       </ItemBox>
       {region.isOpen &&
-        <RegionPicker setAddress1={setAddress1} setAddress2={setAddress2} onClose={region.onClose} />
+        <RegionPicker onClose={region.onClose} />
       }
       {calendar.isOpen &&
         <DatePicker condition={condition} setCondition={setCondition} onClose={calendar.onClose} />

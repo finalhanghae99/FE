@@ -16,7 +16,6 @@ function DetailHeader() {
   const startDate = moment(reserve?.startDate).format("YYYY년 MM월 DD일");
   const endDate = moment(reserve?.endDate).format("YYYY년 MM월 DD일");
 
-
   const fetchReserve = async () => {
     try {
       const { data } = await instance.get(`reservation/${id}`);
@@ -95,16 +94,20 @@ function DetailHeader() {
         </Price>
       </ItemBox>
       {reserve?.ownerCheck ? (
-        <>
+        <ItemBox>
           <ChatBtn onClick={onEditReserve}>수정하기</ChatBtn>
           <DelBox>
             <DelBtn onClick={onDeleteReserve}>삭제하기</DelBtn>
           </DelBox>
-        </>
+        </ItemBox>
       ) : reserve?.tradeState ? (
-        <ChatBtn onClick={beginChat}>채팅하기</ChatBtn>
+        <ItemBox>
+          <ChatBtn onClick={beginChat}>채팅하기</ChatBtn>
+        </ItemBox>
       ) : (
-        <EndBtn>양도완료</EndBtn>
+        <ItemBox>
+          <EndBtn>양도완료</EndBtn>
+        </ItemBox>
       )}
     </div>
   );
@@ -119,6 +122,9 @@ const SubText = styled.div`
 `;
 const ChatBtn = styled(Button)`
   font-weight: bold;
+  /* margin: 0px 24px 0px 24px; */
+  box-sizing: border-box;
+  width: 100%;
 `;
 
 const MiddleBox = styled.div`

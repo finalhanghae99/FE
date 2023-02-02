@@ -95,8 +95,8 @@ const ReviewDetailForm = () => {
       return;
     }
     try {
-      const {data} = await instance.post(`/review/${id}/like`);
-      (isLike)? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
+      const { data } = await instance.post(`/review/${id}/like`);
+      (isLike) ? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
       setIsLike(!isLike)
     } catch (error) { console.log(error); }
   }
@@ -166,12 +166,15 @@ const ReviewDetailForm = () => {
       <Content>
         <Contents>{reviewDetail?.content}</Contents>
       </Content>
-      <EditBtn
-        onClick={() => onEditReview(reviewDetail?.reviewId, reviewDetail)}
-      >
-        수정하기
-      </EditBtn>
-      <DelBtn onClick={onDeleteReview}>삭제하기</DelBtn>
+      <BtnBox>
+        <EditBtn
+          onClick={() => onEditReview(reviewDetail?.reviewId, reviewDetail)}
+        >
+          수정하기
+        </EditBtn>
+        <DelBtn onClick={onDeleteReview}>삭제하기</DelBtn>
+      </BtnBox>
+
     </MainDiv>
   );
 };
@@ -316,7 +319,7 @@ const NameDiv = styled.div`
 `;
 
 const EditBtn = styled(Button)`
-  margin: 40px 24px 24px 24px;
+  margin: 40px 0px 24px 0px;
 `;
 
 const DelBtn = styled.button`
@@ -349,3 +352,8 @@ const LikeBox = styled.div`
   z-index: 5;
   color: white;
 `;
+
+const BtnBox = styled(ItemBox)`
+  text-align: center;
+  justify-content: center;
+`

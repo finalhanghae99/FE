@@ -38,12 +38,12 @@ function RegionPicker(props) {
         name="address1" 
         type="radio" 
         id="all"
-        value="all"
+        value=""
         onClick={(event) => { 
-          setAddress1("")
+          dispatch(setAddress1(event.target.value))
           setSelectCity("all");
           setChecked(null); 
-          setAddress2("");
+          dispatch(setAddress2(""));
         }} 
       />
       <RadioLabel htmlFor="all">없음</RadioLabel>
@@ -77,7 +77,7 @@ function RegionPicker(props) {
         name="address2" 
         type="radio" 
         id="all2"
-        value="all2"
+        value=""
         onChange={(event) => { 
           setAddress2("")
           setChecked("all2");
