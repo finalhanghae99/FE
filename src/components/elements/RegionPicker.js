@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { BoxHeader, ItemBox } from "./ItemBox";
+import { ItemBox } from "./ItemBox";
 import { setAddress1 , setAddress2} from "../../redux/modules/searchConditionSlice";
 import { CityObj} from "./regionData";
 
@@ -91,9 +91,6 @@ function RegionPicker(props) {
     <div>
       <OutOfModal onClick={onClose} />
       <PopWindow>
-        {/* <ModalTop>
-          <TopBar></TopBar>
-        </ModalTop> */}
         <RegionBox>
           <SelectBox>
             {city1}
@@ -127,7 +124,6 @@ const PopWindow = styled.div`
   z-index: 60;
   @media (min-width: 414px) {
     width : 414px;
-    /* top: 50%; */
     height: 50vh;
     left: 50%;
     transform: translate(-50%, 0%);
@@ -145,18 +141,6 @@ const OutOfModal = styled.div`
   overflow: hidden;
   z-index: 10;
 `
-// const ModalTop = styled.div`
-//   height: 50px;
-//   display: flex;
-//   justify-content: center;
-// `
-// const TopBar = styled.div`
-//   background-color: var(--Brand6);
-//   border-radius: 50px;
-//   height: 10px;
-//   width: 100px;
-//   margin: auto;
-// `
 
 const GrayLine = styled.div`
   background-color:var(--Gray1);
@@ -167,17 +151,14 @@ const GrayLine = styled.div`
 `
 
 const RegionBox = styled(ItemBox)`
-  /* height: 70%; */
   margin-top: var(--pad2);
   margin-bottom: var(--pad2);
-  /* position: fixed; */
 `
 
 const SelectBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 30px;
-  /* margin: auto; */
   text-align: center;
   line-height: 30px;
   width: 90%;
@@ -189,24 +170,16 @@ const SelectBox2 = styled.div`
   display:  grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows:repeat(auto-fill, 30px);
-  /* flex-wrap: wrap; */
   text-align: center;
   line-height: 30px;
-  /* overflow-y: scroll; */
-  /* width: 90%; */
   height: 30%;
   padding: var(--pad2) auto var(--pad2) auto;
-  /* padding: var(--pad2); */
   gap : var(--pad2);
   z-index: 10;
   box-sizing: border-box;
 `
 
-
 const SelectItem = styled.div`
-  /* width: 25%; */
-  /* height: 50px; */
-  /* margin: var(--pad2); */
 `
 const RadioLabel = styled.label`
   border: 1px solid var(--Gray3);

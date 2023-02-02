@@ -13,8 +13,7 @@ function MyInfoModify(props) {
   const { userInfo, onClose } = props;
   const [nickname2, setNickname2] = useState(userInfo.nickname);
   const [profileImg, setProfileImg] = useState(null);
-  console.log(userInfo);
-  console.log(nickname2);
+  
   const onFileUpload = () => {
     imgRef.current.click();
   };

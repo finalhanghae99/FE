@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { BsXLg } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { __putreviewadd } from "../../redux/modules/reviewAddSlice";
 import NameSearch from "../Search/NameSearch";
@@ -20,6 +20,7 @@ const ReviewEditForm = () => {
   const [score3, setScore3] = useState(reviewDetail?.score3);
   const [score4, setScore4] = useState(reviewDetail?.score4);
   const [score5, setScore5] = useState(reviewDetail?.score5);
+  // const reviewNum = useSelector((state) => state?.review?.review?.data)
 
   const campName = useModal();
   if (campName.isOpen) {
@@ -57,7 +58,7 @@ const ReviewEditForm = () => {
     setImages(curImg);
   };
 
-  const onReviewEdit = (id) => {
+  const onReviewEdit = async (id) => {
     const data = new FormData();
     images.map((v) => {
       data.append("multipartFile", v);
@@ -74,14 +75,14 @@ const ReviewEditForm = () => {
       "requestReviewWriteDto",
       new Blob([JSON.stringify(contentss)], { type: "application/json" })
     );
-    dispatch(
+    await dispatch(
       __putreviewadd({
         id: id,
         data: data,
       })
     );
     Alert({ body: "수정 완료!" });
-    navigate("/");
+    navigate(`/reviewdetail/${reviewDetail.reviewId}`);
   };
 
   const ImgPlus = () => {
@@ -336,7 +337,6 @@ const PicAdd = styled.div`
   border: 1px solid #a8a8a8;
   font-size: 32px;
 `;
-
 
 const PicAdd2 = styled.div`
   display: flex;
