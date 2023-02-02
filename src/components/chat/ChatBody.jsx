@@ -55,7 +55,9 @@ function ChatBody({ nickname }) {
   const findRoom = () => {
     instance.get('/chat/room/' + id).then(response => { setRoomInfo(response.data); });
   }
-  const sendMsg = () => {
+  const sendMsg = (event) => {
+    event.preventDefault();
+    if(msg.trim()==="") return null;
     let curr = new Date();
     // console.log(curr)
     // const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
@@ -153,7 +155,7 @@ function ChatBody({ nickname }) {
 }
 export default ChatBody;
 
-const InputFrame = styled.div`
+const InputFrame = styled.form`
   background-color: white;
   display: flex;
   position: fixed;
@@ -185,7 +187,7 @@ const MsgInput = styled.textarea`
   line-height: 16px;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  &:-webkit-scrollbar{
+  &::-webkit-scrollbar{
     display: none;
   }
 `

@@ -24,9 +24,6 @@ function HomeSearch({color}) {
   }
   const { keyword, address1, address2} = useSelector((state) => state.searchCondition);
   
-  // const [address1, setAddress1] = useState("")
-  // const [address2, setAddress2] = useState("")
-
   const searchHandler = () => {
     const word1 = (keyword.trim() === "") ? null : keyword;
     const word2 = (address1.trim() === "") ? null : address1;
@@ -45,9 +42,11 @@ function HomeSearch({color}) {
     dispatch(setAddress1(""))
     dispatch(setAddress2(""))
   },[])
-  // useEffect(()=>{
-  //   dispatch(setKeyword(word))
-  // },[word])
+  useEffect(()=>{
+    !(address2 === "") && (
+      searchHandler()
+    )
+  },[address2])
 
   return (
     <SearchBox>
