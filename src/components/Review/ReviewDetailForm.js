@@ -50,7 +50,6 @@ const ReviewDetailForm = () => {
   const onDeleteReview = async () => {
     try {
       const data = await instance.delete(`/review/${param.id}`);
-      console.log(data);
       if (reviewDetail?.ownerCheck === false) {
         Alert({ body: "삭제 권한이 없습니다." });
       } else if (reviewDetail?.ownerCheck === true) {
@@ -89,7 +88,6 @@ const ReviewDetailForm = () => {
     }
     try {
       const {data} = await instance.post(`/review/${id}/like`);
-      console.log(data);
       (isLike)? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
       setIsLike(!isLike)
     } catch (error) { console.log(error); }

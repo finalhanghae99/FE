@@ -44,10 +44,11 @@ function ReserveHeader() {
     // })
   }, [region.isOpen, calendar.isOpen])
   const setResult = () => {
+    const city1 = (address1 === "")? ("") : (`&address1=${address1}`)
     const city2 = (address2 === "")? ("") : (`&address2=${address2}`)
     try {
       const data = instance.get(
-        `/reservation/findall?startDate=${condition.startDate}&endDate=${condition.endDate}&address1=${address1}${city2}`);
+        `/reservation/findall?startDate=${condition.startDate}&endDate=${condition.endDate}${city1}${city2}`);
       return (data);
     } catch (error) { console.log(error); }
   }
@@ -97,7 +98,7 @@ function ReserveHeader() {
         <PostBtn onClick={postNavigate} ><BsPencilFill style={{ color: "white" }} /></PostBtn>
       </BtnPostition>
       <ItemBox>
-        {(reserve.length===0) ? (
+        {(reserve?.length===0) ? (
           <NoneMsg>
             게시글이 없습니다.
           </NoneMsg>

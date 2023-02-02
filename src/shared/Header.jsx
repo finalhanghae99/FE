@@ -43,9 +43,18 @@ export default Header;
 const MainBox = styled.div`
   width: 100%;
   display: flex;
+  position: fixed;
+  top:0;
   align-items: flex-start;
-  margin-top: 61px;
+  padding-top: 61px;
   border-bottom: 1px solid var(--Brand4);
+  background-color: white;
+  z-index: 5;
+  @media (min-width: 414px) {
+    width : 414px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
 `;
 
 const LogoBox = styled.div`

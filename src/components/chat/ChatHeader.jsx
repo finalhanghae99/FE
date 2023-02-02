@@ -8,7 +8,7 @@ import { ItemBox } from "../elements/ItemBox";
 
 import numeral from "numeral";
 
-function ChatHeader(){
+function ChatHeader({nickname}){
   const {id} = useParams();
   const [opponent, setOpponent] = useState();
   const [reserve, setReserve] = useState();
@@ -18,11 +18,14 @@ function ChatHeader(){
 
   const fetchInfo = async() =>{
     try{
-      const reserveInfo = await instance.get(`/chat/room/${reservationId}/${id}`);
+      const reserveInfo = await instance.get(`/chat/room/reservation/${id}`);
       const chatter = await instance.get(`/chat/${id}`);
-      console.log(reserveInfo, chatter)
-      setOpponent(chatter.data.data.seller)
       setReserve(reserveInfo.data.data)
+      if(chatter.data.data.seller === nickname){
+        setOpponent(chatter.data.data.buyer)
+      }else {
+        setOpponent(chatter.data.data.seller)
+      }
     }catch (error){
       console.log(error)
     }
@@ -32,20 +35,41 @@ function ChatHeader(){
   },[])
 
   return(
-    <ItemBox>
-      <Oppnent>{opponent}</Oppnent>
-      <ReserveInfo>
-        <ReserveImg src={reserve?.imageUrl}></ReserveImg>
-        <ReserveDetail>
-          <ReserveName>{reserve?.campingName}</ReserveName>
-          <ReservePrice>{numeral(reserve?.price).format('0,0')} 원</ReservePrice>
-        </ReserveDetail>
-      </ReserveInfo>
-    </ItemBox>
+    <ChatHead>
+      <ItemBox>
+        <Oppnent>{opponent}</Oppnent>
+        <ReserveInfo>
+          <ReserveImg src={reserve?.imageUrl}></ReserveImg>
+          <ReserveDetail>
+            <ReserveName>{reserve?.campingName}</ReserveName>
+            <ReservePrice>{numeral(reserve?.price).format('0,0')} 원</ReservePrice>
+          </ReserveDetail>
+        </ReserveInfo>
+      </ItemBox>
+      <GrayLine />
+    </ChatHead>
   )
 }
 
 export default ChatHeader;
+const GrayLine = styled.div`
+  height: 8px;
+  width: 100%;
+  background-color: var(--Gray2);
+`
+
+const ChatHead = styled.div`
+  position: fixed;
+  top: 106px;
+  background-color: white;
+  width: 100%;
+    @media (min-width: 414px) {
+    width : 414px;
+    /* top: 50%; */
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+`
 
 const Oppnent = styled.div`
   font-size: 18px;

@@ -4,29 +4,118 @@ import { instance } from "../../api/axiosApi";
 import styled from "styled-components";
 import { ItemBox } from "../elements/ItemBox";
 import CampImgView from "../elements/CampImgView";
-import CampListElement from "../Camp/CampListElement";
-
+import moment from 'moment';
+import { useNavigate } from "react-router-dom";
 
 function MyChatting() {
+  const navigate= useNavigate();
   const [myCamp, setMyCamp] = useState(null);
+  const [nickname, setNickname] = useState();
+  const setName = async () =>{
+    try{
+      const {data} = await instance.get('/usernick');
+      if(data.statusCode === 200 ) setNickname(data.data.nickname)
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   const fetchMyChat = async () => {
     try {
-      const data  = await instance.get(`chat/mypage/chatting`);
-      console.log(data)
+      const {data}  = await instance.get(`chat/mypage/chatting`);
+      setMyCamp(data.data.responseChattingDtoList);
     } catch (error) { console.log(error); }
   };
+
   useEffect(() => {
+    setName();
     fetchMyChat();
   }, [])
+  const dateCalc = (postDate) =>{
+    const current = moment();
+    let date = moment(postDate);
+    const diff = current - date
+    if(diff < 86400000){
+      date = date.format("hh:mm a")
+    }else {
+      date = date.format("MM.DD")
+    }
+    return date;
+  }
   return (
-    <ItemBox>
-      나의 채팅방
-    </ItemBox>
+    <div>
+      <Title>나의 채팅방</Title>
+      <ChatLists>
+        {myCamp?.map((v,i)=>{
+          let opponentName, imgUrl
+          if(v.buyer===nickname){
+             opponentName = v.seller;
+             imgUrl = v.sellerProfileImageUrl;
+          } else{
+             opponentName = v.buyer;
+             imgUrl = v.buyerProfileImageUrl;
+          }
+          return(
+            <ChatCard key={i}>
+              <ProfileImg src={imgUrl}/>
+              <div onClick={()=>navigate(`../../chatting/${v.roomId}`)}>
+                <CampName>{v.campingName}</CampName>
+                <UserName>{opponentName}</UserName>
+                <LastMsg>{v.lastChatMessage}</LastMsg>
+              </div>
+              <MsgDate>{dateCalc(v.lastSendDate)}</MsgDate>
+            </ChatCard>
+          )
+        })}
+      </ChatLists>
+    </div>
   )
 }
 
 export default MyChatting;
 
+const ChatLists = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap:1px;
+  background-color: var(--Gray1);
+`
+const ChatCard = styled(ItemBox)`
+  display: flex;
+  background-color: white;
+  gap:12px;
+`
+const ProfileImg = styled.img`
+  height: 73px;
+  width: 73px;
+  border-radius: 100%;
+`
+const CampName = styled.div`
+  font-size: 14px;
+  margin-bottom: 4px;
+`
+const UserName = styled.div`
+  font-size: 12px;
+  color: var(--Gray4);
+  margin-bottom: 8px;
+`
+const LastMsg = styled.div`
+  font-size: 16px;
+`
+const MsgDate = styled.div`
+  font-size: 12px;
+  color: var(--Gray3);
+  flex: 1;
+  text-align: right;
+`
+
+const Title = styled.div`
+  /* display: inline; */
+  /* margin: auto; */
+  text-align: center;
+  font-size: 18px;
+  margin: 24px 0 12px 0;
+`
 const ListImg = styled(CampImgView)`
   height: 150px;
 `

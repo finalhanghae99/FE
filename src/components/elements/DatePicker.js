@@ -67,6 +67,7 @@ const OutOfModal = styled.div`
   height: 100vh;
   overflow: hidden;
   justify-content: center;
+  z-index: 10;
 `
 
 const DayPickerWindow = styled.div`
@@ -84,4 +85,5 @@ const DayPickerWindow = styled.div`
   border-top-right-radius: 50px;
   overscroll-behavior: contain;
   overflow-y: scroll;
+  z-index: 10;
 `
