@@ -33,7 +33,7 @@ function HomeHistory() {
            <BoxMoreLink to="/recentviewcamp"></BoxMoreLink>
         ):(
           <div onClick={()=>alert("로그인이 필요 합니다.")}>
-            <BoxMoreLink></BoxMoreLink>
+            <BoxMoreLink to="" ></BoxMoreLink>
           </div>
         )}
       </BoxHeader>

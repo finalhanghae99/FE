@@ -46,19 +46,19 @@ function DetailHeader() {
     }
   };
 
-  const beginChat = async() =>{
-    try{
-      const {data} = await instance.post(`/chat/${id}`)
-      if(data.statusCode === 200){
-        navigate(`../../chatting/${data.data}`, { state: id })
+  const beginChat = async () => {
+    try {
+      const { data } = await instance.post(`/chat/${id}`);
+      if (data.statusCode === 200) {
+        navigate(`../../chatting/${data.data}`, { state: id });
       } else {
-        Alert({body: "로그인 정보를 확인 해주세요"})
+        Alert({ body: "로그인 정보를 확인 해주세요" });
       }
-    } catch (error){
-      console.log(error)
-      Alert({body : error.response.data.msg})
+    } catch (error) {
+      console.log(error);
+      Alert({ body: error.response.data.msg });
     }
-  }
+  };
 
   useEffect(() => {
     fetchReserve();

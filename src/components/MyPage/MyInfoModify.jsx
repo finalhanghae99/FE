@@ -95,6 +95,7 @@ export default MyInfoModify;
 const OutOfModal = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
+  z-index: 99;
   top: 0;
   bottom: 0;
   left: 0;

@@ -60,7 +60,7 @@ function HomePopularReview() {
         })}
         {(review?.length === 0) && (
         <NotFount>
-          리뷰가 없습니다.
+          등록된 리뷰가 없습니다.
         </NotFount>
       )}
       </ReviewBox>
