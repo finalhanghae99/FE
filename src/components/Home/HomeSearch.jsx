@@ -22,7 +22,6 @@ function HomeSearch({color}) {
     document.body.style.overflow = '';
   }
   const { keyword, address1, address2} = useSelector((state) => state.searchCondition);
-  console.log(keyword, address1 ,address2)
   
   // const [address1, setAddress1] = useState("")
   // const [address2, setAddress2] = useState("")

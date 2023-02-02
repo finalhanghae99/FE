@@ -29,7 +29,6 @@ function HomePopularReview() {
   };
 
   const onReviewDetail = (id) => {
-    console.log("id", id);
     navigate(`reviewdetail/${id}`);
   };
 

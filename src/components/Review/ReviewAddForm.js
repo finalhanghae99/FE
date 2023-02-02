@@ -92,10 +92,6 @@ const ReviewAddForm = () => {
       "requestReviewWriteDto",
       new Blob([JSON.stringify(contents)], { type: "application/json" })
     );
-    console.log(data);
-    for (let value of data.values()) {
-      console.log(value);
-    }
     dispatch(
       __postreviewadd({
         id: campingId,

@@ -9,7 +9,7 @@ import { __getMyReserves } from "../../redux/modules/reservesSlice";
 function MyReservation() {
   const dispatch = useDispatch()
   const { isLoading, error, reserves } = useSelector((state) => state.reserves);
-  console.log(reserves)
+
   useEffect(() => {
     // fetchCamp();
     dispatch(__getMyReserves());

@@ -59,12 +59,6 @@ function ReviewElement({review}) {
       return null;
     } else {
       dispatch(__delMyReviews(review.reviewId))
-      // try {
-      //   const data = await instance.delete(`/review/${review.reviewId}`);
-      //   console.log(data);
-      // } catch (error) {
-      //   console.log(error);
-      // }
     }
   };
 

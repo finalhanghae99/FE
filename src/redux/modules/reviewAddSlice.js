@@ -10,7 +10,6 @@ const initialState = {
 export const __postreviewadd = createAsyncThunk(
   "reviewadd",
   async (payload, thunkAPI) => {
-    console.log("payload", payload);
     try {
       const data = await instance.post(`/review/${payload.id}`, payload.data, {
         headers: { "Content-Type": `multipart/form-data` },
@@ -25,7 +24,6 @@ export const __postreviewadd = createAsyncThunk(
 export const __putreviewadd = createAsyncThunk(
   "reviewput",
   async (payload, thunkAPI) => {
-    console.log("payload", payload);
     try {
       const data = await instance.put(`/review/${payload.id}`, payload.data, {
         headers: { "Content-Type": `multipart/form-data` },
