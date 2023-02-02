@@ -36,7 +36,7 @@ function MyChatting() {
     let date = moment(postDate);
     const diff = current - date
     if(diff < 86400000){
-      date = date.format("hh:mm a")
+      date = date.format("a hh:mm")
     }else {
       date = date.format("MM.DD")
     }
@@ -58,11 +58,11 @@ function MyChatting() {
           return(
             <ChatCard key={i}>
               <ProfileImg src={imgUrl}/>
-              <div onClick={()=>navigate(`../../chatting/${v.roomId}`)}>
+              <InfoDetail onClick={()=>navigate(`../../chatting/${v.roomId}`)}>
                 <CampName>{v.campingName}</CampName>
                 <UserName>{opponentName}</UserName>
                 <LastMsg>{v.lastChatMessage}</LastMsg>
-              </div>
+              </InfoDetail>
               <MsgDate>{dateCalc(v.lastSendDate)}</MsgDate>
             </ChatCard>
           )
@@ -79,11 +79,14 @@ const ChatLists = styled.div`
   flex-direction: column;
   gap:1px;
   background-color: var(--Gray1);
+  flex-wrap: wrap;
 `
 const ChatCard = styled(ItemBox)`
   display: flex;
   background-color: white;
   gap:12px;
+  box-sizing: border-box;
+  overflow: hidden;
 `
 const ProfileImg = styled.img`
   height: 73px;
@@ -91,22 +94,31 @@ const ProfileImg = styled.img`
   border-radius: 100%;
 `
 const CampName = styled.div`
+  width: 100%;
   font-size: 14px;
   margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 const UserName = styled.div`
+width: fit-content;
   font-size: 12px;
   color: var(--Gray4);
   margin-bottom: 8px;
 `
 const LastMsg = styled.div`
   font-size: 16px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 const MsgDate = styled.div`
   font-size: 12px;
   color: var(--Gray3);
-  flex: 1;
   text-align: right;
+  min-width: 55px;
 `
 
 const Title = styled.div`
@@ -116,6 +128,12 @@ const Title = styled.div`
   font-size: 18px;
   margin: 24px 0 12px 0;
 `
+const InfoDetail = styled.div`
+  flex: auto;
+  overflow: hidden;
+  /* flex-wrap: wrap; */
+`
+
 const ListImg = styled(CampImgView)`
   height: 150px;
 `

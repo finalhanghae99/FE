@@ -6,12 +6,11 @@ import { setAddress1 , setAddress2} from "../../redux/modules/searchConditionSli
 import { CityObj} from "./regionData";
 
 function RegionPicker(props) {
-  const {onClose} = props;
+  const {onClose, searchHandler} = props;
   const [selectCity, setSelectCity] = useState(null)
   const [checked , setChecked] = useState(null)
   const dispatch = useDispatch();
   
-
   const city1 = []
   Object.keys(CityObj).forEach((key, i) => {
     city1.push(
@@ -163,18 +162,20 @@ const SelectBox = styled.div`
   line-height: 30px;
   width: 90%;
   margin: auto;
-  gap : var(--pad2);
+  gap : 12px;
 `
 
 const SelectBox2 = styled.div`
   display:  grid;
+  width: 90%;
+  margin: auto;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows:repeat(auto-fill, 30px);
   text-align: center;
   line-height: 30px;
   height: 30%;
   padding: var(--pad2) auto var(--pad2) auto;
-  gap : var(--pad2);
+  gap : 12px;
   z-index: 10;
   box-sizing: border-box;
 `
@@ -182,10 +183,16 @@ const SelectBox2 = styled.div`
 const SelectItem = styled.div`
 `
 const RadioLabel = styled.label`
-  border: 1px solid var(--Gray3);
+  display: flex;
+  text-align: center;
+  justify-content: center;
   border-radius:50px;
-  padding: var(--pad1) 15px var(--pad1) 15px;
+  border: 1px solid var(--Gray3);
+  font-size: 14px;
+  /* border-radius:50px; */
+  /* padding: var(--pad1) 15px var(--pad1) 15px; */
 `
+
 const RadioInput = styled.input`
   display: none;
   &:checked + ${RadioLabel}{

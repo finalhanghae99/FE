@@ -24,6 +24,7 @@ function HomeSearch({ color }) {
   } else {
     document.body.style.overflow = "";
   }
+
   const { keyword, address1, address2 } = useSelector(
     (state) => state.searchCondition
   );
@@ -40,15 +41,20 @@ function HomeSearch({ color }) {
     } else {
       Alert({ body: "캠핑장 이름 또는 지역을 입력 해주세요" });
     }
-  };
-  const changeWordHandler = (e) => {
-    dispatch(setKeyword(e.target.value));
-  };
-  useEffect(() => {
-    dispatch(setKeyword(""));
-    dispatch(setAddress1(""));
-    dispatch(setAddress2(""));
-  }, []);
+  }
+  const changeWordHandler = (e) =>{
+    dispatch(setKeyword(e.target.value))
+  }
+  useEffect(()=>{
+    dispatch(setKeyword(""))
+    dispatch(setAddress1(""))
+    dispatch(setAddress2(""))
+  },[])
+  useEffect(()=>{
+    !(address2 === "") && (
+      searchHandler()
+    )
+  },[address2])
 
   return (
     <SearchBox>
