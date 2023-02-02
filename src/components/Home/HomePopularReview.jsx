@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
-
 import { instance } from "../../api/axiosApi";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function HomePopularReview() {
   const navigate = useNavigate();
