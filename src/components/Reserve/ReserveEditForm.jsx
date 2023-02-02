@@ -25,7 +25,6 @@ function ReserveEditForm() {
   const fetchReserve = async () => {
     try {
       const { data } = await instance.get(`reservation/${id}`);
-      console.log(data)
       setReserve(data.data);
     } catch (error) {
       console.log(error);

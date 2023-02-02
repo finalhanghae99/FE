@@ -49,7 +49,6 @@ const ReviewEditForm = () => {
 
   const onChangeExp = (e) => {
     setContents(e.target.value);
-    console.log(contents);
   };
 
   const onDeleteImg = (index) => {
@@ -59,7 +58,6 @@ const ReviewEditForm = () => {
   };
 
   const onReviewEdit = (id) => {
-    console.log("e", id);
     const data = new FormData();
     images.map((v) => {
       data.append("multipartFile", v);
@@ -76,10 +74,6 @@ const ReviewEditForm = () => {
       "requestReviewWriteDto",
       new Blob([JSON.stringify(contentss)], { type: "application/json" })
     );
-    console.log(data);
-    for (let value of data.values()) {
-      console.log(value);
-    }
     dispatch(
       __putreviewadd({
         id: id,

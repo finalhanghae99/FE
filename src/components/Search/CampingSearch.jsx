@@ -24,7 +24,6 @@ function CampingSearch() {
   // let {keyword, address1, address2} = useParams();
   const [searchList, setSearchList] = useState(null);
 
-  console.log(keyword, address1,address2)
   // null 값 제거
   const search1 = (keyword) ?
     (`campingname=${keyword}&`) : ("");
@@ -38,11 +37,9 @@ function CampingSearch() {
   searchWord = searchWord.slice(0, searchWord.length - 1)
 
   const fetchSearchList = async () => {
-    console.log(keyword, address1, address2)
     if (!searchWord) {
       return null
     } else {
-      console.log("fetch")
       try {
         const { data } = await instance.get(`/camping/permit/search?${searchWord}`);
         setSearchList(data.data);
@@ -67,7 +64,6 @@ function CampingSearch() {
     words = words.filter((v)=>{
       return v !== word
     })
-    console.log(words)
     setHistory(words)
     setCookies("words", words, {
       path: "/",

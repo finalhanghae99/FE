@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import numeral from "numeral";
-
 import { instance } from "../../api/axiosApi";
 import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
-
 import testImg from "../../img/test_camp_img.jpg"
 import { useNavigate } from "react-router-dom";
 import ReserveListElement from "../Reserve/ReserveListElement";
