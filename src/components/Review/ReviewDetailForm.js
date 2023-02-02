@@ -96,10 +96,12 @@ const ReviewDetailForm = () => {
     }
     try {
       const { data } = await instance.post(`/review/${id}/like`);
-      (isLike) ? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
-      setIsLike(!isLike)
-    } catch (error) { console.log(error); }
-  }
+      isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);
+      setIsLike(!isLike);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     fetchreviewDetail();
@@ -133,7 +135,13 @@ const ReviewDetailForm = () => {
           <Date>{moment(reviewDetail?.modifiedAt).format("YYYY.MM.DD")}</Date>
         </Title>
         <Suv>
-          <CampName onClick={()=> {navigate(`/campdetail/${reviewDetail?.campingId}`)}}>{reviewDetail?.campingName}</CampName>
+          <CampName
+            onClick={() => {
+              navigate(`/campdetail/${reviewDetail?.campingId}`);
+            }}
+          >
+            {reviewDetail?.campingName}
+          </CampName>
         </Suv>
         <Stars>
           <StarBox2>
@@ -166,16 +174,18 @@ const ReviewDetailForm = () => {
       <Content>
         <Contents>{reviewDetail?.content}</Contents>
       </Content>
-      {reviewDetail?.ownerCheck ?
+      {reviewDetail?.ownerCheck ? (
         <BtnBox>
-        <EditBtn
-          onClick={() => onEditReview(reviewDetail?.reviewId, reviewDetail)}
-        >
-          수정하기
-        </EditBtn>
-        <DelBtn onClick={onDeleteReview}>삭제하기</DelBtn>
-      </BtnBox> : ""
-      }
+          <EditBtn
+            onClick={() => onEditReview(reviewDetail?.reviewId, reviewDetail)}
+          >
+            수정하기
+          </EditBtn>
+          <DelBtn onClick={onDeleteReview}>삭제하기</DelBtn>
+        </BtnBox>
+      ) : (
+        ""
+      )}
     </MainDiv>
   );
 };
@@ -196,8 +206,8 @@ const ViewWindow = styled.div`
     opacity: 0.5;
     background-image: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0) 40%,
-      rgba(0, 0, 0, 0.5) 60%,
+      rgba(0, 0, 0, 0) 30%,
+      rgba(0, 0, 0, 0.5) 50%,
       black 100%
     );
   }
@@ -357,4 +367,4 @@ const LikeBox = styled.div`
 const BtnBox = styled(ItemBox)`
   text-align: center;
   justify-content: center;
-`
+`;

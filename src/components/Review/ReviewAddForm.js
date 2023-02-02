@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { BsXLg } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { __postreviewadd } from "../../redux/modules/reviewAddSlice";
 import NameSearch from "../Search/NameSearch";
@@ -19,6 +19,7 @@ const ReviewAddForm = () => {
   const [score3, setScore3] = useState(0);
   const [score4, setScore4] = useState(0);
   const [score5, setScore5] = useState(0);
+  const reviewNum = useSelector((state) => state?.review?.review?.data)
 
   const campName = useModal();
   if (campName.isOpen) {
@@ -70,7 +71,7 @@ const ReviewAddForm = () => {
     setImages(curImg);
   };
 
-  const onReviewadd = (e) => {
+  const onReviewadd = async (e) => {
     const token = getCookies("id");
     if (!token) {
       Alert({ body: "로그인 정보가 없습니다. 로그인후 다시 시도 해주세요." });
@@ -92,13 +93,13 @@ const ReviewAddForm = () => {
       "requestReviewWriteDto",
       new Blob([JSON.stringify(contents)], { type: "application/json" })
     );
-    dispatch(
+    await dispatch(
       __postreviewadd({
         id: campingId,
         data: data,
       })
     );
-    navigate("/");
+    navigate(`/reviewdetail/${reviewNum}`);
   };
 
   const ImgPlus = () => {

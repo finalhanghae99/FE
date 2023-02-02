@@ -47,6 +47,7 @@ const reviewAddSlice = createSlice({
       .addCase(__postreviewadd.fulfilled, (state, action) => {
         state.isLoading = false;
         state.review = action.payload;
+        console.log(state.review)
       })
       .addCase(__postreviewadd.rejected, (state, action) => {
         state.isLoading = false;
@@ -59,4 +60,5 @@ const reviewAddSlice = createSlice({
   },
 });
 
+export const {} = reviewAddSlice.actions;
 export default reviewAddSlice.reducer;

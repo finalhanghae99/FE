@@ -37,7 +37,6 @@ const BoxMoreLink = (props) => {
 }
 
 export {ItemBox, BoxHeader, BoxName, BoxMoreLink};
-// export default ItemBox;
 
 const StBox = styled.div`
   padding: var(--interval);
@@ -48,7 +47,6 @@ const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding-top: px; */
   padding-bottom: var(--interval);
 `
 const StName = styled.div`

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
-
-import testImg from "../../img/test_camp_img.jpg"
 import { getCookies } from "../../api/cookieControler";
 
 function HomeHistory() {
@@ -65,10 +62,8 @@ export default HomeHistory;
 
 const HistoryBox = styled.div`
   display: flex;
-  /* border: 2px solid gray; */
   border-radius: 8px;
   background-color: white;
-  /* margin-bottom: var(--pad2); */
 `
 
 const HistoryList = styled.div`
@@ -114,7 +109,6 @@ const HistoryName = styled.div`
 `
 const HistoryAddress = styled.div`
   font-size: 12px;
-  /* width: 0%; */
   color: gray;
   overflow: hidden;
   text-overflow: ellipsis;

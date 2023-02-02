@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
-import { BsPencilFill, BsBookmark } from "react-icons/bs";
 import { AiOutlineLeft } from "react-icons/ai";
 
 function CampImgView(props) {
@@ -61,5 +59,4 @@ const BackBtn = styled(AiOutlineLeft)`
     margin:0;
     font-size:30px;
     filter: drop-shadow(10px 10px 10px 10px green);
-    /* box-shadow: 0px 0px 10px 0px black; */
 `
