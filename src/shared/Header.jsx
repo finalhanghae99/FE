@@ -20,7 +20,7 @@ function Headbox() {
           <Logo src={HeaderLogo} />
           <CampZip src={CampingZip} />
         </SuvBox>
-        <SearchBtn>
+        <SearchBtn onClick={()=>{navigate("/camp/search")}}>
           <FiSearch />
         </SearchBtn>
       </LogoBox>
@@ -33,7 +33,6 @@ function Header() {
     <div>
       <Headbox />
       <Outlet />
-      {/* {children} */}
     </div>
   );
 }
@@ -87,5 +86,4 @@ const SearchBtn = styled.button`
   background-color: rgba(0, 0, 0, 0);
   height: 19px;
   font-size: 19px;
-  /* margin-left: 175px; */
 `;

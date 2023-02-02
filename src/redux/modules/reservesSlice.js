@@ -39,7 +39,6 @@ export const __delMyReserves = createAsyncThunk(
   async (payload, thunkAPI) =>{
     try {
       const { data } = await instance.delete(`/reservation/${payload.id}`);
-      console.log(data);
       if(data.statusCode === 200) {
         return thunkAPI.fulfillWithValue(payload.id)
       } else {
@@ -121,7 +120,6 @@ export const reservesSlice = createSlice({
       })
       .addCase(__compMyReserves.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log("comp", action.payload)
         state.reserves = state.reserves.map((v => 
           (v.reservationId === action.payload) ? (
             {...v , tradeState : false}

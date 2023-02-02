@@ -17,7 +17,7 @@ function MyCamping() {
   useEffect(() => {
     fetchCamp();
   }, [])
-  console.log(myCamp)
+  
   return (
     <ItemBox>
           <ItemName>내가 찜한 캠핑장</ItemName>

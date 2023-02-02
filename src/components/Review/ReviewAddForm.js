@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { BsXLg } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ import { FiSearch } from "react-icons/fi";
 import Button from "../elements/Button";
 import { useNavigate } from "react-router-dom";
 import { getCookies } from "../../api/cookieControler";
+import Alert from "../elements/Alert";
 
 const ReviewAddForm = () => {
   const [score1, setScore1] = useState(0);
@@ -36,15 +37,15 @@ const ReviewAddForm = () => {
 
   useEffect(() => {
     setIsComp(
-      Boolean(campingName) && 
-      Boolean(images.length) && 
-      content.trim() !== "" &&
-      score1 !== 0 && 
-      score2 !== 0 && 
-      score3 !== 0 && 
-      score4 !== 0 && 
-      score5 !== 0
-      );
+      Boolean(campingName) &&
+        Boolean(images.length) &&
+        content.trim() !== "" &&
+        score1 !== 0 &&
+        score2 !== 0 &&
+        score3 !== 0 &&
+        score4 !== 0 &&
+        score5 !== 0
+    );
   }, [campingId, content, images, score1, score2, score3, score4, score5]);
 
   const onFileUpload = () => {
@@ -53,7 +54,7 @@ const ReviewAddForm = () => {
 
   const onUploadImg = (e) => {
     if (images.length + e.target.files.length > 5) {
-      alert("최대 5장까지 등록가능합니다.");
+      Alert({ body: "최대 5장까지 등록가능합니다." });
       return;
     }
     setImages([...images, ...e.target.files]);
@@ -72,7 +73,7 @@ const ReviewAddForm = () => {
   const onReviewadd = (e) => {
     const token = getCookies("id");
     if (!token) {
-      alert("로그인 정보가 없습니다. 로그인후 다시 시도 해주세요.");
+      Alert({ body: "로그인 정보가 없습니다. 로그인후 다시 시도 해주세요." });
       return;
     }
     const data = new FormData();
@@ -91,10 +92,6 @@ const ReviewAddForm = () => {
       "requestReviewWriteDto",
       new Blob([JSON.stringify(contents)], { type: "application/json" })
     );
-    console.log(data);
-    for (let value of data.values()) {
-      console.log(value);
-    }
     dispatch(
       __postreviewadd({
         id: campingId,
@@ -120,7 +117,7 @@ const ReviewAddForm = () => {
     );
   };
 
-  const ImgPreview = () => {
+  const ImgPreview = useCallback(() => {
     const imgArr = [];
     for (let i = 0; i < 5; i++) {
       if (images[i]) {
@@ -136,22 +133,18 @@ const ReviewAddForm = () => {
             </BtnCircle>
           </PicAdd2>
         );
-      } else if(images.length === i){
+      } else if (images.length === i) {
         imgArr.push(
           <PicAdd key={i}>
             <ImgPlus />
           </PicAdd>
         );
       } else {
-        imgArr.push(
-          <PicAdd key={i}>
-            {/* <ImgPlus /> */}
-          </PicAdd>
-        );
+        imgArr.push(<PicAdd key={i}>{/* <ImgPlus /> */}</PicAdd>);
       }
     }
     return imgArr;
-  };
+  }, [images]);
 
   return (
     <MainDiv>
@@ -188,7 +181,7 @@ const ReviewAddForm = () => {
           <DetailInfo>주변에 편의점, 마트 등 편의시설이 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore2} initialScore={score2}/>
+          <PostStar setScore={setScore2} initialScore={score2} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -196,7 +189,7 @@ const ReviewAddForm = () => {
           <DetailInfo>위험한 부분없이 관리가 잘되어 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore3} initialScore={score3}/>
+          <PostStar setScore={setScore3} initialScore={score3} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -204,7 +197,7 @@ const ReviewAddForm = () => {
           <DetailInfo>접근하기 좋은 위치에 있었나요?</DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore4} initialScore={score4}/>
+          <PostStar setScore={setScore4} initialScore={score4} />
         </StarBox>
         <GrayHr />
         <ScoreTop>
@@ -214,7 +207,7 @@ const ReviewAddForm = () => {
           </DetailInfo>
         </ScoreTop>
         <StarBox>
-          <PostStar setScore={setScore5} initialScore={score5}/>
+          <PostStar setScore={setScore5} initialScore={score5} />
         </StarBox>
       </ItemBox>
       <GrayLine />
@@ -271,7 +264,6 @@ const MainDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* background-color: var(--BackColor2); */
 `;
 
 const InputBox = styled.div`
@@ -347,8 +339,6 @@ const PicAdd = styled.div`
   justify-content: center;
   width: 60px;
   height: 60px;
-  /* background-color: var(--Gray4); */
-  /* color: white; */
   border: 1px solid #a8a8a8;
   font-size: 32px;
 `;

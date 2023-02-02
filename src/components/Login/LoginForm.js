@@ -20,7 +20,6 @@ const LoginForm = () => {
       Alert({
         body:"아이디, 비밀번호를 확인해주세요."
       })
-      // alert("아이디, 비밀번호를 확인해주세요."); 
       return;
     } else {
     }
@@ -61,7 +60,6 @@ const LoginForm = () => {
 
   return (
     <MainLogin>
-      <Title></Title>
       <Logo>로그인</Logo>
       <Id>아이디</Id>
       <StInput
@@ -123,19 +121,12 @@ const MainLogin = styled.div`
   box-sizing: border-box;
 `;
 
-const Title = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
 const Logo = styled.div`
   font-size: 18px;
   font-weight: 500;
   line-height: 120%;
   color: #000000;
-  margin-top: 40px;
+  margin-top: var(--interval);
 `;
 
 const Id = styled.div`

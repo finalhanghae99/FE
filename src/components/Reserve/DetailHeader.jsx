@@ -28,7 +28,6 @@ function DetailHeader() {
   const onDeleteReserve = async () => {
     try {
       const data = await instance.delete(`/reservation/${id}`);
-      console.log(data);
       if (reserve?.ownerCheck === false) {
         Alert({ body: "삭제 권한이 없습니다." });
       } else if (reserve?.ownerCheck === true) {

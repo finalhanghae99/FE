@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineCamera } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { __putProfile } from "../../redux/modules/profileSlice";
+import Alert from "../elements/Alert";
+import { __getMyInfo } from "../../redux/modules/myPageSlice";
 
 function MyInfoModify(props) {
   const imgRef = useRef("");
+  const dispatch = useDispatch();
   const { userInfo, onClose } = props;
-  const [nickname, setNickame] = useState("");
-  const [profileImg, setProfileImg] = useState();
+  const [nickname2, setNickname2] = useState("");
+  const [profileImg, setProfileImg] = useState(null);
 
   const onFileUpload = () => {
     imgRef.current.click();
@@ -15,7 +20,6 @@ function MyInfoModify(props) {
   const onUploadImg = (e) => {
     setProfileImg(e.target.files[0]);
   };
-  console.log(profileImg);
 
   const ImgPlus = () => {
     return (
@@ -48,25 +52,39 @@ function MyInfoModify(props) {
     }
   };
 
+  const onEditProfile = async () => {
+    const data = new FormData();
+    data.append("profileImageUrl", profileImg);
+    const nickname = { nickname: nickname2, changePro: Boolean(profileImg) };
+    data.append(
+      "requestUserInfoDto",
+      new Blob([JSON.stringify(nickname)], { type: "application/json" })
+    );
+    await dispatch(__putProfile({ data }));
+    Alert({ body: "프로필 수정 완료!" });
+    onClose();
+    dispatch(__getMyInfo());
+  };
+
   useEffect(() => {
-    setNickame(userInfo.nickname);
+    setNickname2(userInfo.nickname);
   }, [userInfo]);
 
   return (
     <OutOfModal>
       <BtnBox>
         <Xbtn onClick={onClose}>취소</Xbtn>
-        <Xbtn>완료</Xbtn>
+        <Xbtn onClick={() => onEditProfile()}>완료</Xbtn>
       </BtnBox>
       <UserForm>
         <ImgPreview />
         <ImgPlus />
         <NameInput
-          value={nickname}
-          onChange={(event) => setNickame(event.target.value)}
+          value={nickname2}
+          onChange={(event) => setNickname2(event.target.value)}
           maxLength="6"
         />
-        <NameLength>{nickname.length} / 6</NameLength>
+        <NameLength>{nickname2.length} / 6</NameLength>
       </UserForm>
     </OutOfModal>
   );
@@ -80,6 +98,7 @@ const OutOfModal = styled.div`
   top: 0;
   bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
   height: 100vh;
   overflow: hidden;

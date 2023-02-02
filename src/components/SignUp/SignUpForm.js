@@ -158,7 +158,6 @@ const SignUpForm = () => {
 
   return (
     <>
-      <Title></Title>
       <MainSignUp>
         <Logo>회원가입</Logo>
         <Id>아이디</Id>
@@ -210,7 +209,6 @@ const SignUpForm = () => {
               중복확인
             </CheckBtn>
           </StDiv>
-
           {nickname.length > 1 && (
             <Span
               style={{
@@ -303,15 +301,6 @@ const MainSignUp = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: var(--interval);
-`;
-
-const Title = styled.div`
-  width: 100%;
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 `;
 
 const Logo = styled.div`

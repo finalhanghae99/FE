@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { instance } from "../../api/axiosApi";
 import styled from "styled-components";
 import { ItemBox } from "../elements/ItemBox";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,26 +12,16 @@ import myCamp from "../../img/MyCamp.svg";
 import myChat from "../../img/MyChat.svg";
 import Confirm from "../elements/Confirm";
 import { ReactComponent as logout } from "../../img/User_Icon.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { __getMyInfo } from "../../redux/modules/myPageSlice";
 
 function MyInfo() {
   const modify = useModal();
-  const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { myInfo } = useSelector((state) => state.myInfo);
   const [cookie, setCookie, removeCookie] = useCookies();
   const token = getCookies("id");
-
-  const fetchUser = async () => {
-    if (!token) {
-      navigate("/login")
-    } else {
-      try {
-        const { data } = await instance.get(`/mypage`);
-        setUserInfo(data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
 
   const logOut = async () => {
     const isConfirm = await Confirm({
@@ -47,18 +36,22 @@ function MyInfo() {
   };
 
   useEffect(() => {
-      fetchUser();
+    if (!token) {
+      navigate("/login");
+    } else {
+      dispatch(__getMyInfo());
+    }
   }, []);
-  console.log(userInfo);
+
   return (
     <>
       <ItemBox>
         <UserHeader>
-          <UserImg src={userInfo?.profileImageUrl} />
+          <UserImg src={myInfo?.profileImageUrl} />
           <ModifyIcon onClick={modify.onOpen}>수정하기</ModifyIcon>
         </UserHeader>
       </ItemBox>
-      <UserName>{userInfo?.nickname}</UserName>
+      <UserName>{myInfo?.nickname}</UserName>
       <ItemBox2>
         <LinkList>
           <UserLinks to="/mypage/mycamp">
@@ -103,7 +96,7 @@ function MyInfo() {
         </LinkList>
       </ItemBox2>
       {modify.isOpen ? (
-        <MyInfoModify userInfo={userInfo} onClose={modify.onClose} />
+        <MyInfoModify userInfo={myInfo} onClose={modify.onClose} />
       ) : null}
     </>
   );

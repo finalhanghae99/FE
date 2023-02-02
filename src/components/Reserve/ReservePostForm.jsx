@@ -22,13 +22,15 @@ function ReservePostForm() {
   const [campingName, setCampingName] = useState("");
   const [campingId, setCampingId] = useState("");
   const [reserve, setReserve] = useState(initialState);
+  const [isComp, setIsComp] = useState(false);
+  const datePick = useModal();
+  const campName = useModal();
+
   const changeHandler = (event) => {
     const { name, value } = event.target;
     setReserve({ ...reserve, [name]: value });
   };
-  const [isComp, setIsComp] = useState(false);
-  const datePick = useModal();
-  const campName = useModal();
+
   if (campName.isOpen) {
     document.body.style.overflow = "hidden";
   } else {
@@ -140,6 +142,7 @@ const EventBox = styled.div`
   margin-bottom: var(--pad2);
   box-sizing: border-box;
 `;
+
 const PriceInput = styled.input`
   border: 0.5px solid black;
   border-radius: 5px;
@@ -151,9 +154,8 @@ const PriceInput = styled.input`
   width: 100%;
   font-size: 14px;
 `;
-const PostForm = styled.form`
-  /* padding: var(--pad2); */
-`;
+const PostForm = styled.form``;
+
 const PostContent = styled.textarea`
   border: 0.5px solid black;
   box-sizing: border-box;
@@ -166,15 +168,15 @@ const PostContent = styled.textarea`
   height: 240px;
   margin-bottom: 56px;
 `;
+
 const InputBox = styled.form`
   padding-bottom: 16px;
   display: flex;
   align-items: center;
   position: relative;
 `;
+
 const WordInput = styled.div`
-  /* background: ${(props) => props.color}; */
-  /* color: white; */
   border: 1px solid var(--Gray1);
   border-radius: 50px;
   box-sizing: border-box;
@@ -187,8 +189,8 @@ const WordInput = styled.div`
   width: 100%;
   line-height: 52px;
 `;
+
 const SeartchBtn = styled.div`
-  /* width: 80px; */
   border: none;
   background-color: rgba(0, 0, 0, 0);
   height: 19px;
@@ -196,6 +198,4 @@ const SeartchBtn = styled.div`
   position: absolute;
   right: 24px;
   line-height: 19px;
-  /* top : 50% */
-  /* transform: translateY(100%); */
 `;

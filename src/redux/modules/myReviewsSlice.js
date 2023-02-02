@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { instance } from "../../api/axiosApi";
-
 import Alert from "../../components/elements/Alert";
 
 const initialState = {
@@ -15,7 +14,6 @@ export const __getMyReviews = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.get(`/mypage/review`);
-      console.log(data)
       return thunkAPI.fulfillWithValue(data.data.responseReviewOneDtoList)
     } catch (error) {
       console.log(error)
