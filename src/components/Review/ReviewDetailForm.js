@@ -95,13 +95,11 @@ const ReviewDetailForm = () => {
       return;
     }
     try {
-      const { data } = await instance.post(`/review/${id}/like`);
-      isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);
-      setIsLike(!isLike);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      const {data} = await instance.post(`/review/${id}/like`);
+      (isLike)? (setLikeCount(likeCount - 1)) : (setLikeCount(likeCount + 1))
+      setIsLike(!isLike)
+    } catch (error) { console.log(error); }
+  }
 
   useEffect(() => {
     fetchreviewDetail();

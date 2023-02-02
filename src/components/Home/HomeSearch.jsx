@@ -7,6 +7,7 @@ import { FiSearch } from "react-icons/fi"
 import { HiOutlineMap } from "react-icons/hi"
 import { AiOutlineDown } from "react-icons/ai";
 import { Navigate, useNavigate } from "react-router-dom";
+import Alert from "../elements/Alert";
 
 import { useSelector , useDispatch} from "react-redux";
 import { setAddress1, setKeyword , setAddress2} from "../../redux/modules/searchConditionSlice";
@@ -33,7 +34,7 @@ function HomeSearch({color}) {
     if(word1 || word2 || word3){
       navigate(`../camp/search?keyword=${keyword}&address1=${address1}&address2=${address2}`);
     } else {
-      alert("캠핑장 이름 또는 지역을 입력 해주세요")
+      Alert({body : "캠핑장 이름 또는 지역을 입력 해주세요"})
     }
   }
   const changeWordHandler = (e) =>{

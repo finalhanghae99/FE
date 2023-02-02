@@ -16,6 +16,7 @@ function DetailHeader() {
   const startDate = moment(reserve?.startDate).format("YYYY년 MM월 DD일");
   const endDate = moment(reserve?.endDate).format("YYYY년 MM월 DD일");
 
+
   const fetchReserve = async () => {
     try {
       const { data } = await instance.get(`reservation/${id}`);
@@ -24,7 +25,6 @@ function DetailHeader() {
       console.log(error);
     }
   };
-
   const onDeleteReserve = async () => {
     try {
       const data = await instance.delete(`/reservation/${id}`);
@@ -47,10 +47,23 @@ function DetailHeader() {
     }
   };
 
+  const beginChat = async() =>{
+    try{
+      const {data} = await instance.post(`/chat/${id}`)
+      if(data.statusCode === 200){
+        navigate(`../../chatting/${data.data}`, { state: id })
+      } else {
+        Alert({body: "로그인 정보를 확인 해주세요"})
+      }
+    } catch (error){
+      console.log(error)
+      Alert({body : error.response.data.msg})
+    }
+  }
+
   useEffect(() => {
     fetchReserve();
   }, []);
-
   return (
     <div>
       <CampImgView img={reserve?.imageUrl} />
@@ -89,7 +102,7 @@ function DetailHeader() {
           </DelBox>
         </>
       ) : reserve?.tradeState ? (
-        <ChatBtn>채팅하기</ChatBtn>
+        <ChatBtn onClick={beginChat}>채팅하기</ChatBtn>
       ) : (
         <EndBtn>양도완료</EndBtn>
       )}

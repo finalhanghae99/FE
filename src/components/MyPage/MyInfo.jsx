@@ -78,7 +78,7 @@ function MyInfo() {
           </UserLinks>
         </LinkList>
         <LinkList style={{ border: "none" }}>
-          <UserLinks>
+          <UserLinks to="/mypage/mychat">
             <IconBox>
               <img src={myChat} />
             </IconBox>

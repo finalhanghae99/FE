@@ -3,7 +3,7 @@ import Router from './shared/Router';
 
 function App() {
   return (
-    <div>
+    <div style={{paddingTop:"106px"}}>
       <Router />
       <GlobalStyle />
     </div>

@@ -51,6 +51,11 @@ function HomeHistory() {
           </HistoryBox>
         )
       })}
+      {(history?.length === 0) && (
+        <NotFount>
+          이력이 없습니다.
+        </NotFount>
+      )}
       </HistoryList>
     </ItemBox>
   )
@@ -114,4 +119,8 @@ const HistoryAddress = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`
+
+const NotFount = styled.div`
+  text-align: center;
 `

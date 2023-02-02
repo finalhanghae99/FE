@@ -58,6 +58,11 @@ function HomePopularReview() {
             </ReviewCard>
           );
         })}
+        {(review?.length === 0) && (
+        <NotFount>
+          리뷰가 없습니다.
+        </NotFount>
+      )}
       </ReviewBox>
     </ItemBox>
   );
@@ -134,3 +139,7 @@ const ReviewScore = styled.div`
   font-size: 12px;
   letter-spacing: 0.2em;
 `;
+
+const NotFount = styled.div`
+  text-align: center;
+`
