@@ -108,7 +108,6 @@ function ReviewElement({ review }) {
             </Stars>
           </ScoreLists>
           <ContentsBox>{commenter}</ContentsBox>
-          {/* <BoxMoreLink>...더보기</BoxMoreLink> */}
           <div onClick={() => setIsShowMore(!isShowMore)}>
             {review.content.length > textLimit.current && // 버튼명은 조건에 따라 달라진다
               (isShowMore ? "[닫기]" : "...[더보기]")}
@@ -163,7 +162,7 @@ const ContentsBox = styled.div`
 const ImgLists = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  padding: var(--pad2);
+  padding-left: var(--pad2);
   box-sizing: border-box;
   margin-left: 15px;
 `;
