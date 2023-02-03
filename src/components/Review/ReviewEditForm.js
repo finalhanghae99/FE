@@ -82,7 +82,9 @@ const ReviewEditForm = () => {
       })
     );
     Alert({ body: "수정 완료!" });
-    navigate(`/reviewdetail/${reviewDetail.reviewId}`);
+    setTimeout(()=>{
+      navigate(`/reviewdetail/${reviewDetail.reviewId}`);
+    },[1000])
   };
 
   const ImgPlus = () => {

@@ -12,6 +12,7 @@ import Button from "../elements/Button";
 import { useNavigate } from "react-router-dom";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
+import { instance } from "../../api/axiosApi";
 
 const ReviewAddForm = () => {
   const [score1, setScore1] = useState(0);
@@ -71,6 +72,19 @@ const ReviewAddForm = () => {
     setImages(curImg);
   };
 
+  const postReviewAdd = async (campingId, setDate) =>{
+    try {
+      const data = await instance.post(`/review/${campingId}`,setDate, {
+        headers: { "Content-Type": `multipart/form-data` },
+      });
+      console.log(data)
+      return data.data.data;
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+
+
   const onReviewadd = async (e) => {
     const token = getCookies("id");
     if (!token) {
@@ -93,16 +107,19 @@ const ReviewAddForm = () => {
       "requestReviewWriteDto",
       new Blob([JSON.stringify(contents)], { type: "application/json" })
     );
-    await dispatch(
-      __postreviewadd({
-        id: campingId,
-        data: data,
-      })
-    );
+    // await dispatch(
+    //   __postreviewadd({
+    //     id: campingId,
+    //     data: data,
+    //   })
+    // );
+    postReviewAdd(
+      campingId,
+      data
+    ).then(res =>{
+      navigate(`/reviewdetail/${res}`);
+    })
     Alert({body:"등록 되었습나다"})
-    setTimeout(() => {
-      navigate(`/reviewdetail/${reviewNum}`);
-    }, "1000")
   };
 
   const ImgPlus = () => {

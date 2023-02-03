@@ -162,9 +162,9 @@ const ContentsBox = styled.div`
 const ImgLists = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  padding-left: var(--pad2);
+  /* padding-left: var(--pad2); */
   box-sizing: border-box;
-  margin-left: 15px;
+  /* margin-left: 15px; */
 `;
 
 const ImgView = styled.img`
