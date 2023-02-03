@@ -261,7 +261,7 @@ const MainDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--BackColor1);
+  /* background-color: var(--BackColor1); */
 `;
 
 const InputBox = styled.div`
@@ -414,10 +414,11 @@ const CanBox = styled.div`
 `;
 
 const CanBtn = styled.button`
-  width: 38px;
+  /* width: 38px; */
   border: none;
   border-bottom: 1px solid var(--Brand6);
-  background-color: var(--BackColor1);
+  /* background-color: var(--BackColor1); */
+  background-color: white;
   font-size: 14px;
   padding-bottom: 4px;
   font-weight: 700;

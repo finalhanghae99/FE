@@ -4,14 +4,12 @@ import ReviewEditForm from "../../components/Review/ReviewEditForm";
 
 function ReviewEdit() {
   return (
-    <ReviewPage>
-      <ReviewEditForm />
-    </ReviewPage>
+    <ReviewEditForm />
   );
 }
 
 export default ReviewEdit;
 
 const ReviewPage = styled.div`
-  background-color: var(--BackColor2);
+  /* background-color: var(--BackColor2); */
 `;
