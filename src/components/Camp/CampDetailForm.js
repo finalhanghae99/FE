@@ -44,6 +44,7 @@ function CampDetailForm() {
       console.log(error);
     }
   };
+
   const fetchReviewDetail = async () => {
     try {
       const { data } = await instance.get(`/reviewlookup/listfive/${id}`);
@@ -130,25 +131,41 @@ function CampDetailForm() {
         <EleName>캠핑장 환경</EleName>
         <EleDiv>
           {campDetail?.campingEnv.map((a, i) => {
-            return <Ele key={i}>{a}</Ele>;
+            if (a.length === 0) {
+              return <Ele2 key={i}></Ele2>;
+            } else {
+              return <Ele key={i}>{a}</Ele>;
+            }
           })}
         </EleDiv>
         <EleName>캠핑 유형</EleName>
         <EleDiv>
           {campDetail?.campingType.map((b, i) => {
-            return <Ele key={i}>{b}</Ele>;
+            if (b.length === 0) {
+              return <Ele2 key={i}></Ele2>;
+            } else {
+              return <Ele key={i}>{b}</Ele>;
+            }
           })}
         </EleDiv>
         <EleName>캠핑장 시설 정보</EleName>
         <EleDiv>
           {campDetail?.campingFac.map((c, i) => {
-            return <Ele key={i}>{c}</Ele>;
+            if (c.length === 0) {
+              return <Ele2 key={i}></Ele2>;
+            } else {
+              return <Ele key={i}>{c}</Ele>;
+            }
           })}
         </EleDiv>
         <EleName>주변 이용가능 시설</EleName>
         <EleDiv2>
           {campDetail?.campingSurroundFac.map((d, i) => {
-            return <Ele key={i}>{d}</Ele>;
+            if (d.length === 0) {
+              return <Ele2 key={i}></Ele2>;
+            } else {
+              return <Ele key={i}>{d}</Ele>;
+            }
           })}
         </EleDiv2>
       </Environment>
@@ -278,6 +295,16 @@ const Ele = styled.div`
   gap: 8px;
   border-radius: 24px;
   background-color: var(--BackColor2);
+`;
+
+const Ele2 = styled.div`
+  height: 29px;
+  margin: 10px 0px 5px 0px;
+  font-size: 14px;
+  padding: 1px 12px;
+  gap: 8px;
+  border-radius: 24px;
+  background-color: White;
 `;
 
 const Map = styled.div`
