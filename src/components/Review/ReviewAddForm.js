@@ -100,7 +100,9 @@ const ReviewAddForm = () => {
       })
     );
     Alert({body:"등록 되었습나다"})
-    navigate(`/reviewdetail/${reviewNum}`);
+    setTimeout(() => {
+      navigate(`/reviewdetail/${reviewNum}`);
+    }, "1000")
   };
 
   const ImgPlus = () => {

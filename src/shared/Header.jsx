@@ -10,21 +10,24 @@ function Headbox() {
   const navigate = useNavigate();
 
   return (
-    <MainBox>
-      <LogoBox>
-        <SuvBox
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <Logo src={HeaderLogo} />
-          <CampZip src={CampingZip} />
-        </SuvBox>
-        <SearchBtn onClick={()=>{navigate("/camp/search")}}>
-          <FiSearch />
-        </SearchBtn>
-      </LogoBox>
-    </MainBox>
+    <div style={{ paddingTop: "106px" }}>
+      <MainBox>
+        <LogoBox>
+          <SuvBox
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <Logo src={HeaderLogo} />
+            <CampZip src={CampingZip} />
+          </SuvBox>
+          <SearchBtn onClick={() => { navigate("/camp/search") }}>
+            <FiSearch />
+          </SearchBtn>
+        </LogoBox>
+      </MainBox>
+    </div>
+
   );
 }
 

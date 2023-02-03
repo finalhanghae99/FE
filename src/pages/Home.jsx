@@ -8,16 +8,16 @@ import HomeReserve from "../components/Home/HomeReserve";
 import HomeSearch from "../components/Home/HomeSearch";
 
 import nightImg from "../img/night_star.png" 
-import keyimg from "../img/KeyVisual.svg"
+import keyimg from "../img/KeyVisual.png"
 import keytext from "../img/CampingZipText.svg"
  
 function Home() {
   return (
-    <div>
+    <div style={{paddingTop:"-106px"}}>
       <SearchVisual>
         <ImgFrame>
           <KeyImg src={keyimg}/>
-          <KeyImg src={keytext} />
+          {/* <KeyImg src={keytext} /> */}
         </ImgFrame>
         <SearchWindow>
           <HomeSearch />
@@ -37,6 +37,7 @@ const SearchVisual = styled.div`
   /* color: ; */
 `
 const KeyImg = styled.img`
+width: 210px;
   object-fit: cover;
   object-position: center;
   /* position: absolute; */

@@ -14,6 +14,7 @@ export const __postreviewadd = createAsyncThunk(
       const data = await instance.post(`/review/${payload.id}`, payload.data, {
         headers: { "Content-Type": `multipart/form-data` },
       });
+      console.log(data)
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
