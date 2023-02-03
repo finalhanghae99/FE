@@ -1,0 +1,41 @@
+.DayPicker{
+  /* border: none; */
+  box-shadow: none;
+  background-color: white;
+  position: fixed;
+  margin: auto;
+}
+
+.CalendarDay{
+  border: none;
+  border-color: var(--Brand6);
+}
+
+
+/* 指定した日付範囲の開始日・終了日 */
+.CalendarDay__selected,
+.CalendarDay__selected:active,
+.CalendarDay__selected:hover {
+  background: var(--Brand6); /* 最も濃い青 */
+}
+
+/* 指定した日付範囲の開始日+1 ~ 終了日-1 */
+.CalendarDay__selected_span,
+.CalendarDay__selected_span:active,
+.CalendarDay__selected_span:hover {
+  background: var(--Brand2); /* 少し濃いめの青 */
+}
+
+/* 日付範囲の終了日を指定中 */
+.CalendarDay__hovered_span,
+.CalendarDay__hovered_span:hover {
+  color: #fff;
+  background: var(--Brand3); /* 薄めの青 */
+}
+.CalendarDay__selected, 
+.CalendarDay__selected:active, 
+.CalendarDay__selected:hover {
+  /* background: #00a699; */
+  border: none;
+  color: #fff;
+}

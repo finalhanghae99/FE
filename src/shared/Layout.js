@@ -1,19 +1,22 @@
 import React from "react";
+import styled from "styled-components";
+import BottomBar from "./BottomBar";
 
-function Header() {
-  return <div>Header</div>;
-
-}
 function Footer() {
-  return <div>Footer</div>;
+  return <Foot></Foot>;
 }
 function Layout({ children }) {
   return (
     <div>
-      <Header />
       {children}
       <Footer />
+      <BottomBar />
     </div>
   );
 }
 export default Layout;
+
+const Foot = styled.div`
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0);
+`;
