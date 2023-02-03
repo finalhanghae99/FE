@@ -10,7 +10,6 @@ import { setMessages, __getPrevMsg } from "../../redux/modules/chattingSlice";
 import moment from 'moment';
 import 'moment/locale/ko';
 
-
 import styled from "styled-components";
 
 import { ReactComponent as arrowUp } from "../../img/icons/arrowUp.svg"
@@ -32,8 +31,6 @@ function ChatBody({ nickname }) {
 
   const [roomInfo, setRoomInfo] = useState();
   const [msg, setMsg] = useState("");
-  // const [messages, setMessages] = useState([]);
-  // console.log(messages)
   const textRef = useRef();
   const handleResize = useCallback(() => {
     textRef.current.style.height = "auto"
@@ -59,31 +56,16 @@ function ChatBody({ nickname }) {
     event.preventDefault();
     if(msg.trim()==="") return null;
     let curr = new Date();
-    // console.log(curr)
-    // const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
-    // console.log(utc)
-    // const kr_curr = new Date(utc + (KR_TIME_DIFF));
-    // curr = new Date(JSON.parse(curr))
     ws.send("/app/chat/message/" + id, headers, JSON.stringify(
       { type: 'TALK', roomId: id, sender: sender, message: msg, sendDate : curr}));
     setMsg("")
   }
-  // const recvMsg = (recv) => {
-  //   console.log(messages)
-  //   const newMsg = [...messages , { "type": recv.type, "sender": recv.type == 'ENTER' ? '[알림]' : recv.sender, "message": recv.message }]
-  //   setMessages(newMsg);
-  // }
 
   const connect = () => {
-    // pub/sub event
     ws.connect(headers, function (frame) {
       ws.subscribe("/topic/chat/room/" + id, function (message) {
         const recv = JSON.parse(message.body);
-        // setMessages([recv, ...messages])
-        // messages.unshift(recv)
-        // setMessages(messages)
         dispatch(setMessages(recv))
-        // recvMsg(recv);
       });
       ws.send("/app/chat/message", headers, JSON.stringify({ type: 'ENTER', roomId: id, sender: sender }));
     }, function (error) {
@@ -120,7 +102,6 @@ function ChatBody({ nickname }) {
             value={msg}
             onChange={(event) => {
               setMsg(event.target.value)
-              // handleResize()
             }}
           />
           <SendBtn onClick={sendMsg}><ArrowIcon /></SendBtn>
@@ -167,17 +148,14 @@ const InputFrame = styled.form`
   gap: 6px;
   @media (min-width: 414px) {
     width : 414px;
-    /* top: 50%; */
     left: 50%;
     transform: translate(-50%, 0%);
   }
 `
 const MsgInput = styled.textarea`
   border-radius: 26px;
-  /* height: 40px; */
   border-color: var(--Gray1);
   width: 100%;
-  /* padding: 6px; */
   resize: none;
   min-height: 40px;
   max-height: 100px;
@@ -214,8 +192,6 @@ const OrangeMsg = styled.div`
   color: white;
   margin-bottom:8px ;
   white-space: pre-wrap;
-
-  /* align-items: flex-start; */
 `
 const GrayMsg = styled.div`
   display: inline-block;
@@ -224,11 +200,9 @@ const GrayMsg = styled.div`
   padding: 6px 12px;
   margin-bottom:8px ;
   white-space: pre-wrap;
-  /* color: white; */
-  /* align-items: flex-end; */
+
 `
 const SenderChat = styled.div`
-  /* display: inline; */
   text-align: right;
 `
 

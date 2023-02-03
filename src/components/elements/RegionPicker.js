@@ -191,8 +191,6 @@ const RadioLabel = styled.label`
   height: 36px;
   line-height: 36px;
   font-size: 14px;
-  /* border-radius:50px; */
-  /* padding: var(--pad1) 15px var(--pad1) 15px; */
 `
 
 const RadioInput = styled.input`
