@@ -156,21 +156,21 @@ const RegionBox = styled(ItemBox)`
 
 const SelectBox = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 30px;
+  grid-template-columns: 70px 70px 70px 70px;
+  grid-template-rows: 36px;
   text-align: center;
   line-height: 30px;
-  width: 90%;
+  width: 316px;
   margin: auto;
   gap : 12px;
 `
 
 const SelectBox2 = styled.div`
   display:  grid;
-  width: 90%;
+  width: 312px;
   margin: auto;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows:repeat(auto-fill, 30px);
+  grid-template-columns: 96px 96px 96px;
+  grid-template-rows:repeat(auto-fill, 36px);
   text-align: center;
   line-height: 30px;
   height: 30%;
@@ -188,6 +188,8 @@ const RadioLabel = styled.label`
   justify-content: center;
   border-radius:50px;
   border: 1px solid var(--Gray3);
+  height: 36px;
+  line-height: 36px;
   font-size: 14px;
   /* border-radius:50px; */
   /* padding: var(--pad1) 15px var(--pad1) 15px; */
