@@ -13,9 +13,6 @@ function ChatHeader({nickname}){
   const [opponent, setOpponent] = useState();
   const [reserve, setReserve] = useState();
 
-  const location = useLocation();
-  const reservationId = location.state;
-
   const fetchInfo = async() =>{
     try{
       const reserveInfo = await instance.get(`/chat/room/reservation/${id}`);

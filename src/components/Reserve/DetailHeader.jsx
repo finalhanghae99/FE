@@ -129,7 +129,6 @@ const SubText = styled.div`
 `;
 const ChatBtn = styled(Button)`
   font-weight: bold;
-  /* margin: 0px 24px 0px 24px; */
   box-sizing: border-box;
   width: 100%;
 `;
@@ -160,6 +159,7 @@ const Name = styled.div`
 const Nickname = styled.div`
   font-size: 14px;
   font-weight: 400;
+  flex: 1;
 `;
 
 const Price = styled.div`
@@ -214,7 +214,4 @@ const StateDiv = styled.div`
   border: 1px solid var(--Brand6);
   background-color: white;
   color: var(--Brand6);
-  position: absolute;
-  top: 439px;
-  left: 284px;
 `;
