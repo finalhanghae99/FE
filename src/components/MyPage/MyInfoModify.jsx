@@ -13,7 +13,7 @@ function MyInfoModify(props) {
   const { userInfo, onClose } = props;
   const [nickname2, setNickname2] = useState(userInfo.nickname);
   const [profileImg, setProfileImg] = useState(null);
-  
+
   const onFileUpload = () => {
     imgRef.current.click();
   };
@@ -162,7 +162,7 @@ const BtnBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 36px;
+  margin-top: 80px;
 `;
 
 const Xbtn = styled.button`
@@ -181,6 +181,6 @@ const AddBtn = styled.button`
   border: 1px solid transparent;
   border-radius: 100%;
   position: absolute;
-  top: 248px;
+  top: 290px;
   margin: 20px 0px 0px 20px;
 `;
