@@ -50,16 +50,19 @@ const ReviewDetailForm = () => {
   };
 
   const onDeleteReview = async () => {
-    try {
-      const data = await instance.delete(`/review/${param.id}`);
-      if (reviewDetail?.ownerCheck === false) {
-        Alert({ body: "삭제 권한이 없습니다." });
-      } else if (reviewDetail?.ownerCheck === true) {
+    const isConfirm = await Confirm({
+      body: "삭제 하시겠습니까?",
+    });
+    if (!isConfirm) {
+      return null;
+    } else {
+      try {
+        const data = await instance.delete(`/review/${param.id}`);
         Alert({ body: "삭제 완료!" });
         navigate("/");
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
