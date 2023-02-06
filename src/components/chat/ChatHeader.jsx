@@ -57,7 +57,7 @@ const GrayLine = styled.div`
 
 const ChatHead = styled.div`
   position: fixed;
-  top: 106px;
+  top: 72px;
   background-color: white;
   width: 100%;
     @media (min-width: 414px) {
