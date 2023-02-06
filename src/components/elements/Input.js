@@ -12,6 +12,7 @@ const StInput = styled.input`
   font-family: var(--font);
   outline: none;
   box-sizing: border-box;
+  border-radius: 0;
 `;
 
 const Input = (props) => {
