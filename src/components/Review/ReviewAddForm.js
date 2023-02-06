@@ -120,7 +120,7 @@ const ReviewAddForm = () => {
       navigate(`/reviewdetail/${res}`);
     })
     Alert({body:"등록 되었습니다"})
-  };
+  }; // 리스폰스 결과를 받고 then안에 내용이 실행된다.
 
   const ImgPlus = () => {
     return (
