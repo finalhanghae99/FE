@@ -22,6 +22,8 @@ const Input = (props) => {
       type={props.type}
       disabled={props.disabled}
       placeholder={props.placeholder}
+      maxLength={props.maxLength}
+      minLength={props.minLength}
     >
       {props.children}
     </StInput>

@@ -7,6 +7,9 @@ import {AiFillHeart, AiOutlineHeart} from "react-icons/ai"
 import { instance } from "../../api/axiosApi";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
+import Confirm from "../elements/Confirm"
+import LoginCheck from "../elements/LoginCheck";
+import UserImgView from "../elements/UserImgView"
 
 function LikeListElement(props) {
   const navigate = useNavigate();
@@ -19,7 +22,14 @@ function LikeListElement(props) {
     event.stopPropagation();
     const token = getCookies("id")
     if(!token) {
-      Alert({ body: "로그인이 필요 합니다." })
+      const isConfirm = await Confirm({
+        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
+      })
+      if(!isConfirm){
+        return null;
+      } else {
+        navigate("../../login");
+      }
       return ;
     }
     try {
@@ -77,7 +87,7 @@ const DateText = styled.div`
   padding-right: 10px;
 `
 
-const ProfileImg = styled.img`
+const ProfileImg = styled(UserImgView)`
   height: 40px;
   width: 40px;
   border-radius: 100%;

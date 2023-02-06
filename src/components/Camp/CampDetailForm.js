@@ -5,8 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 import { getCookies, setCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
-import bmkFill from "../../img/icons/bmkFill.svg";
-import bmkLine from "../../img/icons/bmkLine.svg";
+import Confirm from "../elements/Confirm";
+import { ReactComponent as bmkFill } from "../../img/icons/bmkFill.svg";
+import { ReactComponent as bmkLine } from "../../img/icons/bmkLine.svg";
 import CampImgView from "../elements/CampImgView";
 import DetailMap from "../KakaoMap/DetailMap";
 import LikeListElement from "../Review/LikeListElement";
@@ -24,7 +25,14 @@ function CampDetailForm() {
   const clickBMK = async (id) => {
     const token = getCookies("id");
     if (!token) {
-      Alert({ body: "로그인이 필요 합니다." });
+      const isConfirm = await Confirm({
+        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
+      })
+      if (!isConfirm) {
+        return null;
+      } else {
+        navigate("../../login");
+      }
       return;
     }
     try {
@@ -90,15 +98,51 @@ function CampDetailForm() {
       navigate(`/reviewlist/${id}`);
     }
   };
+  const addReview = async () => {
+    const token = getCookies("id");
+    if (!token) {
+      const isConfirm = await Confirm({
+        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
+      })
+      if (!isConfirm) {
+        return null;
+      } else {
+        navigate("../../login");
+      }
+      return;
+    } else {
+      navigate(`/reviewadd`)
+    }
+  }
 
   return (
     <MainDiv>
       <StDiv>
         <div style={{ position: "relative", height: "414px" }}>
+          {campDetail?.imageUrl === "" ? (
+            <>
+              <ListDiv>이미지를 준비중이에요.</ListDiv>
+              <BookmarkBtn
+                onClick={() => clickBMK(id)}
+              >
+                {isBMK ? (<BMKFill color="black" />) : (<BMKLine color="black" />)}
+              </BookmarkBtn>
+            </>
+          ) : (
+            <>
+              <CampImgView img={campDetail?.imageUrl} />
+              <BookmarkBtn
+                onClick={() => clickBMK(id)}
+              >
+                {isBMK ? (<BMKFill color="white" />) : (<BMKLine color="white" />)}
+              </BookmarkBtn>
+            </>
+          )}
+          {/* 
           <CampImgView img={campDetail?.imageUrl} />
           <BookmarkBtn onClick={() => clickBMK(id)}>
-            {isBMK ? <img src={bmkFill} /> : <img src={bmkLine} />}
-          </BookmarkBtn>
+            {isBMK ? <BMKFill /> : <BMKLine />}
+          </BookmarkBtn> */}
         </div>
       </StDiv>
       <SuvDiv>
@@ -186,9 +230,7 @@ function CampDetailForm() {
           <div>리뷰({campDetail?.reviewList.length})</div>
           <div>
             <ReviewBtn
-              onClick={() => {
-                navigate(`/reviewadd`);
-              }}
+              onClick={addReview}
             >
               <HiOutlinePencilAlt />
             </ReviewBtn>
@@ -202,13 +244,15 @@ function CampDetailForm() {
           );
         })}
       </ItemBox>
-      <Button
-        onClick={() => {
-          moreNavigate();
-        }}
-      >
-        전체보기
-      </Button>
+      <ItemBox>
+        <Button
+          onClick={() => {
+            moreNavigate();
+          }}
+        >
+          전체보기
+        </Button>
+      </ItemBox>
     </MainDiv>
   );
 }
@@ -341,9 +385,10 @@ const ReviewBtn = styled.button`
 
 const BookmarkBtn = styled.div`
   position: absolute;
-  color: white;
-  top: 20px;
-  right: 20px;
+  display: flex;
+  color: black;
+  top: 26px;
+  right: 28px;
   font-size: 30px;
   filter: drop-shadow(10px 10px 10px 10px green);
   z-index: 5;
@@ -351,4 +396,23 @@ const BookmarkBtn = styled.div`
 
 const ReviewBox = styled.div`
   margin-top: var(--interval);
+`;
+const BMKFill = styled(bmkFill)`
+  & path{
+  stroke: ${props => props.color};
+  fill: ${props => props.color};
+  }
+`
+const BMKLine = styled(bmkLine)`
+  & path{
+    stroke: ${props => props.color};
+  }
+`
+
+const ListDiv = styled.div`
+  height: 414px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Gray2);
 `;

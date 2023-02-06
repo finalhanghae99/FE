@@ -26,6 +26,9 @@ function MyCamping() {
           <CampListElement key={v.campingId} camp={v} />
         )
       })}
+      {(myCamp?.length === 0) &&(
+        <NonData>찜한 내역이 없습니다.</NonData>
+      )}
     </ItemBox>
   )
 }
@@ -80,4 +83,8 @@ const ItemName = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: bold;
+`
+
+const NonData = styled(ItemBox)`
+  text-align: center;
 `

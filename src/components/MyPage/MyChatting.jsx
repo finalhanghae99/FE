@@ -6,24 +6,25 @@ import { ItemBox } from "../elements/ItemBox";
 import CampImgView from "../elements/CampImgView";
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
+import UserImgView from "../elements/UserImgView";
 
 function MyChatting() {
-  const navigate= useNavigate();
-  const [myCamp, setMyCamp] = useState(null);
+  const navigate = useNavigate();
+  const [myChat, setMyChat] = useState(null);
   const [nickname, setNickname] = useState();
-  const setName = async () =>{
-    try{
-      const {data} = await instance.get('/usernick');
-      if(data.statusCode === 200 ) setNickname(data.data.nickname)
-    }catch(error){
+  const setName = async () => {
+    try {
+      const { data } = await instance.get('/usernick');
+      if (data.statusCode === 200) setNickname(data.data.nickname)
+    } catch (error) {
       console.log(error);
     }
   }
 
   const fetchMyChat = async () => {
     try {
-      const {data}  = await instance.get(`chat/mypage/chatting`);
-      setMyCamp(data.data.responseChattingDtoList);
+      const { data } = await instance.get(`chat/mypage/chatting`);
+      setMyChat(data.data.responseChattingDtoList);
     } catch (error) { console.log(error); }
   };
 
@@ -31,13 +32,13 @@ function MyChatting() {
     setName();
     fetchMyChat();
   }, [])
-  const dateCalc = (postDate) =>{
+  const dateCalc = (postDate) => {
     const current = moment();
     let date = moment(postDate);
     const diff = current - date
-    if(diff < 86400000){
+    if (diff < 86400000) {
       date = date.format("a hh:mm")
-    }else {
+    } else {
       date = date.format("MM.DD")
     }
     return date;
@@ -46,19 +47,19 @@ function MyChatting() {
     <div>
       <Title>나의 채팅방</Title>
       <ChatLists>
-        {myCamp?.map((v,i)=>{
+        {myChat?.map((v, i) => {
           let opponentName, imgUrl
-          if(v.buyer===nickname){
-             opponentName = v.seller;
-             imgUrl = v.sellerProfileImageUrl;
-          } else{
-             opponentName = v.buyer;
-             imgUrl = v.buyerProfileImageUrl;
+          if (v.buyer === nickname) {
+            opponentName = v.seller;
+            imgUrl = v.sellerProfileImageUrl;
+          } else {
+            opponentName = v.buyer;
+            imgUrl = v.buyerProfileImageUrl;
           }
-          return(
+          return (
             <ChatCard key={i}>
-              <ProfileImg src={imgUrl}/>
-              <InfoDetail onClick={()=>navigate(`../../chatting/${v.roomId}`)}>
+              <ProfileImg src={imgUrl} />
+              <InfoDetail onClick={() => navigate(`../../chatting/${v.roomId}`)}>
                 <CampName>{v.campingName}</CampName>
                 <UserName>{opponentName}</UserName>
                 <LastMsg>{v.lastChatMessage}</LastMsg>
@@ -68,6 +69,9 @@ function MyChatting() {
           )
         })}
       </ChatLists>
+      {(myChat?.length === 0) && (
+        <NonData>채팅 내역 없습니다.</NonData>
+      )}
     </div>
   )
 }
@@ -88,7 +92,7 @@ const ChatCard = styled(ItemBox)`
   box-sizing: border-box;
   overflow: hidden;
 `
-const ProfileImg = styled.img`
+const ProfileImg = styled(UserImgView)`
   height: 73px;
   width: 73px;
   border-radius: 100%;
@@ -127,6 +131,7 @@ const Title = styled.div`
   text-align: center;
   font-size: 18px;
   margin: 24px 0 12px 0;
+  font-weight: bold;
 `
 const InfoDetail = styled.div`
   flex: auto;
@@ -182,4 +187,7 @@ const ItemName = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: bold;
+`
+const NonData = styled(ItemBox)`
+  text-align: center;
 `

@@ -10,7 +10,9 @@ import Button from "../elements/Button";
 import { ItemBox } from "../elements/ItemBox";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
+import Confirm from "../elements/Confirm";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import UserImgView from "../elements/UserImgView";
 
 const ReviewDetailForm = () => {
   const [reviewDetail, setReviewDetail] = useState();
@@ -48,16 +50,19 @@ const ReviewDetailForm = () => {
   };
 
   const onDeleteReview = async () => {
-    try {
-      const data = await instance.delete(`/review/${param.id}`);
-      if (reviewDetail?.ownerCheck === false) {
-        Alert({ body: "삭제 권한이 없습니다." });
-      } else if (reviewDetail?.ownerCheck === true) {
+    const isConfirm = await Confirm({
+      body: "삭제 하시겠습니까?",
+    });
+    if (!isConfirm) {
+      return null;
+    } else {
+      try {
+        const data = await instance.delete(`/review/${param.id}`);
         Alert({ body: "삭제 완료!" });
         navigate("/");
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -91,8 +96,15 @@ const ReviewDetailForm = () => {
   const clickLike = async (id) => {
     const token = getCookies("id");
     if (!token) {
-      Alert({ body: "로그인이 필요 합니다." });
-      return;
+      const isConfirm = await Confirm({
+        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
+      })
+      if(!isConfirm){
+        return null;
+      } else {
+        navigate("../../login");
+      }
+      return ;
     }
     try {
       const { data } = await instance.post(`/review/${id}/like`);
@@ -280,11 +292,12 @@ const Nick = styled.div`
   margin-left: 8px;
 `;
 
-const Pro = styled.img`
+const Pro = styled(UserImgView)`
   width: 40px;
   height: 40px;
   border: 1px solid black;
   border-radius: 100%;
+  border: none;
 `;
 
 const Stars = styled.div`

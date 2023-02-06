@@ -10,7 +10,7 @@ function Headbox() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ paddingTop: "106px" }}>
+    <div style={{ paddingTop: "72px" }}>
       <MainBox>
         <LogoBox>
           <SuvBox
@@ -48,7 +48,7 @@ const MainBox = styled.div`
   position: fixed;
   top:0;
   align-items: flex-start;
-  padding-top: 61px;
+  padding-top: 27px;
   border-bottom: 1px solid var(--Brand4);
   background-color: white;
   z-index: 5;
@@ -89,4 +89,5 @@ const SearchBtn = styled.button`
   background-color: rgba(0, 0, 0, 0);
   height: 19px;
   font-size: 19px;
+  color: black;
 `;
