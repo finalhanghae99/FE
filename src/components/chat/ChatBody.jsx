@@ -55,7 +55,9 @@ function ChatBody({ nickname }) {
   const sendMsg = (event) => {
     event.preventDefault();
     if(msg.trim()==="") return null;
-    let curr = new Date();
+    let curr = new moment();
+    curr = curr.format("YYYY-MM-DDTHH:mm:ss")
+    console.log(curr)
     ws.send("/app/chat/message/" + id, headers, JSON.stringify(
       { type: 'TALK', roomId: id, sender: sender, message: msg, sendDate : curr}));
     setMsg("")
@@ -108,12 +110,13 @@ function ChatBody({ nickname }) {
         </InputFrame>
       {(messages !== []) && (
         messages?.map((v, i) => {
+          console.log(v.sendDate)
           if (v.sender === sender) {
             return (
               <SenderChat key={i}>
                 {/* <div>User: {v.sender}</div> */}
                 <OrangeMsg>{v.message}</OrangeMsg>
-                {/* <ChatDate>{dateCalc(v.sendDate)}</ChatDate> */}
+                <ChatDate>{dateCalc(v.sendDate)}</ChatDate>
                 <br />
               </SenderChat>
             )
@@ -122,7 +125,7 @@ function ChatBody({ nickname }) {
               <div key={i}>
                 {/* <div>User: {v.sender}</div> */}
                 <GrayMsg>{v.message}</GrayMsg>
-                {/* <ChatDate>{dateCalc(v.sendDate)}</ChatDate> */}
+                <ChatDate>{dateCalc(v.sendDate)}</ChatDate>
                 <br />
               </div>
             )
