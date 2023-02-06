@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { BoxName } from "../elements/ItemBox";
 import CampImgView from "../elements/CampImgView";
 import { instance } from "../../api/axiosApi";
-import BMKFill from "../../img/icons/bmkFill.svg";
-import BMKLine from "../../img/icons/bmkLine.svg";
+import { ReactComponent as bmkFill } from "../../img/icons/bmkFill.svg";
+import { ReactComponent as bmkLine } from "../../img/icons/bmkLine.svg";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
+import Confirm from "../elements/Confirm";
 
 function CampListElement(props) {
   const navigate = useNavigate();
@@ -17,7 +18,14 @@ function CampListElement(props) {
     event.stopPropagation();
     const token = getCookies("id");
     if (!token) {
-      Alert({ body: "로그인이 필요 합니다." });
+      const isConfirm = await Confirm({
+        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
+      })
+      if (!isConfirm) {
+        return null;
+      } else {
+        navigate("../../login");
+      }
       return;
     }
     try {
@@ -36,19 +44,30 @@ function CampListElement(props) {
     >
       <div style={{ position: "relative" }}>
         {camp.imageUrl === "" ? (
-          <ListDiv>이미지를 준비중이에요.</ListDiv>
+          <>
+            <ListDiv>이미지를 준비중이에요.</ListDiv>
+            <BookmarkBtn
+              onClick={(event) => {
+                clickBMK(event, camp.campingId);
+              }}
+            >
+              {isBMK ? (<BMKFill color="black" />) : (<BMKLine color="black" />)}
+            </BookmarkBtn>
+          </>
         ) : (
-          <ListImg img={camp.imageUrl} />
+          <>
+            <ListImg img={camp.imageUrl} />
+            <BookmarkBtn
+              onClick={(event) => {
+                clickBMK(event, camp.campingId);
+              }}
+            >
+              {isBMK ? (<BMKFill color="white" />) : (<BMKLine color="white" />)}
+            </BookmarkBtn>
+          </>
         )}
 
         <CountView>{camp.reviewCount}개 리뷰</CountView>
-        <BookmarkBtn
-          onClick={(event) => {
-            clickBMK(event, camp.campingId);
-          }}
-        >
-          {isBMK ? <img src={BMKFill} /> : <img src={BMKLine} />}
-        </BookmarkBtn>
       </div>
       <CradsDetail>
         <DetailHeader>
@@ -160,3 +179,17 @@ const BookmarkBtn = styled.div`
   color: white;
   z-index: 5;
 `;
+
+const BMKFill = styled(bmkFill)`
+  & path{
+  stroke: ${props => props.color};
+  fill: ${props => props.color};
+  }
+
+`
+
+const BMKLine = styled(bmkLine)`
+  & path{
+    stroke: ${props => props.color};
+  }
+`

@@ -33,7 +33,6 @@ function ReserveHeader() {
   // const [address2, setAddress2] = useState("")
 
   const [condition, setCondition] = useState(initialCondition);
-
   useEffect(() => {
     setResult().then(res => {
       setReserve(res.data.data.responseSearchDtoList);
@@ -44,6 +43,17 @@ function ReserveHeader() {
     //   setReserve(res.data.data.responseSearchDtoList)
     // })
   }, [region.isOpen, calendar.isOpen])
+  useEffect(()=>{
+    fetchReserve();
+  },[])
+  const fetchReserve = async () => {
+    try {
+      const { data } = await instance.get("reservation/listsix");
+      setReserve(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const setResult = () => {
     const city1 = (address1 === "")? ("") : (`&address1=${address1}`)
     const city2 = (address2 === "")? ("") : (`&address2=${address2}`)
@@ -114,8 +124,6 @@ function ReserveHeader() {
             })}
           </ReserveBox>
         )}
-
-
       </ItemBox>
     </SearchBox>
   )

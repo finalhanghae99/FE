@@ -8,14 +8,11 @@ import { __getMyReviews } from "../../redux/modules/myReviewsSlice";
 
 function MyReview() {
   const dispatch = useDispatch();
-  const [review, serReview] = useState(null);
   const { isLoading, error, myReviews } = useSelector((state) => state.myReviews);
 
   useEffect(() => {
-    // fetchReview();
     dispatch(__getMyReviews());
   }, []);
-  console.log(myReviews);
 
   return (
     <div>
@@ -23,9 +20,12 @@ function MyReview() {
       <ItemBox>
         {myReviews?.map((v) => {
           return (
-              <ReviewElement key={v.reviewId} review={v} />
+            <ReviewElement key={v.reviewId} review={v} />
           );
         })}
+        {(myReviews?.length === 0)&&(
+          <NonData>아직 리뷰가 없습니다.</NonData>
+        )}
       </ItemBox>
     </div>
   );
@@ -42,3 +42,7 @@ const Title = styled.div`
   font-size: 18px;
   font-weight: 500;
 `;
+
+const NonData = styled(ItemBox)`
+  text-align: center;
+`

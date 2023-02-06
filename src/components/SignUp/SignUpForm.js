@@ -65,12 +65,12 @@ const SignUpForm = () => {
 
   const onChangePassword = useCallback(
     (e) => {
-      const passwordRegex = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,25}$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,25}$/;
       const passwordCurrent = e.target.value;
       setPassword(passwordCurrent);
 
       if (!passwordRegex.test(passwordCurrent)) {
-        setPasswordMsg("영문자+숫자+특수문자 조합으로 8자리 이상");
+        setPasswordMsg("영문자+숫자+특수문자 조합으로  8 ~ 25 자리");
         setIsPassword(false);
       } else {
         setPasswordMsg("안전한 비밀번호입니다.");
@@ -125,10 +125,15 @@ const SignUpForm = () => {
       Alert({ body: "닉네임을 입력해주세요." });
       return;
     }
+    if(nickname.length < 2){
+      Alert({body:"2글자 이상\n6글자 이하 이어야 합니다."})
+      return null;
+    }
     nickCheck({ nickname });
   };
 
   const nickCheck = async (post) => {
+
     try {
       const data = await instance.post("users/checknickname", post);
       if (data.data.statusCode === 200) {
@@ -156,7 +161,7 @@ const SignUpForm = () => {
     <>
       <MainSignUp>
         <Logo>회원가입</Logo>
-        <Id>아이디</Id>
+        <Id>이메일</Id>
         <InputBox>
           <div style={{ position: "relative" }}>
             <StDiv>
@@ -192,6 +197,8 @@ const SignUpForm = () => {
           <StDiv>
             <Inp
               type="text"
+              minLength="2"
+              maxLength="6"
               disabled={isNickNameCheck}
               placeholder="닉네임을 입력해주세요."
               onChange={onChangeNickname}
@@ -211,8 +218,13 @@ const SignUpForm = () => {
                 color: isNickName ? "#000000" : "#f85032",
                 position: "absolute",
               }}
-            >
+            ><div>
               {nicknameMsg}
+              </div>
+              <div>
+              {nickname.length} / 6
+
+              </div>
             </Span>
           )}
         </div>
@@ -232,7 +244,12 @@ const SignUpForm = () => {
                 position: "absolute",
               }}
             >
-              {passwordMsg}
+              <div>
+                {passwordMsg}
+              </div>
+              <div>
+                {password.length} / 25
+              </div>
             </Span>
           )}
         </div>
@@ -251,8 +268,12 @@ const SignUpForm = () => {
                 color: isCheckPassword ? "#000000" : "#f85032",
                 position: "absolute",
               }}
-            >
+            ><div>
               {checkPasswordMsg}
+            </div>
+              <div>
+                {checkPassword.length} / 25
+              </div>
             </Span>
           )}
         </div>
@@ -343,6 +364,11 @@ const SignUpBtn = styled(Button)`
 `;
 
 const Span = styled.span`
-  padding: 4px 0px 0px 7px;
+  padding: 4px 7px 0px 7px;
   font-size: 13px;
+  white-space: pre-wrap;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 `;

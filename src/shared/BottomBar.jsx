@@ -7,16 +7,41 @@ import CampIcon from "../img/Camp_Icon.svg"
 import StarIcon from "../img/Star_Icon.svg"
 import {ReactComponent as UserImg} from "../img/User_Icon.svg"
 
+import Confirm from "../components/elements/Confirm";
+
 function BottomBar() {
   const navigate = useNavigate();
   const token = getCookies("id")
 
-  const UserCheck = () => {
-    (token) ? (
+  const UserCheck = async () => {
+    if(token){
       navigate("/mypage")
-    ) : (
-      navigate("/login")
-    )
+    }else{
+      const isConfirm = await Confirm({
+        body: "로그인이 필요합니다.\n 로그인 하시겠습니까?"
+      })
+      if(!isConfirm){
+        return null;
+      } else {
+        navigate("../../login");
+      }
+      return ;
+    }
+  }
+  const addCheck = async () =>{
+    if(token){
+      navigate("/reviewadd")
+    }else{
+      const isConfirm = await Confirm({
+        body: "로그인이 필요합니다.\n 로그인 하시겠습니까?"
+      })
+      if(!isConfirm){
+        return null;
+      } else {
+        navigate("../../login");
+      }
+      return ;
+    }
   }
 
   return (
@@ -25,7 +50,7 @@ function BottomBar() {
           onClick={() => { navigate("/") }}
           src={CampIcon} />
         <BarIcon
-          onClick={() => { navigate("/reviewadd") }}
+          onClick={addCheck}
           src={StarIcon} />
         <UserIcon onClick={UserCheck}/>
     </BarBody>
