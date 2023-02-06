@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
-import { setCookies } from "../../api/cookieControler";
+import { getCookies, setCookies } from "../../api/cookieControler";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 import Alert from "../elements/Alert";
@@ -18,8 +18,8 @@ const LoginForm = () => {
     e.preventDefault();
     if (useremail === "" || password === "") {
       Alert({
-        body:"아이디, 비밀번호를 확인해주세요."
-      })
+        body: "아이디, 비밀번호를 확인해주세요.",
+      });
       return;
     } else {
     }
@@ -36,8 +36,8 @@ const LoginForm = () => {
           maxAge: 3600,
         });
         Alert({
-          body: "로그인 완료!"
-        })
+          body: "로그인 완료!",
+        });
         navigate("/");
       }
     });
@@ -50,14 +50,21 @@ const LoginForm = () => {
         return data;
       } else {
         Alert({
-          body:"아이디 비밀번호를 확인해주세요."
-        })
+          body: "아이디 비밀번호를 확인해주세요.",
+        });
       }
     } catch (error) {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    const token = getCookies("id");
+    if (!token) {
+      return;
+    } else {
+      navigate("/");
+    }
+  }, []);
   return (
     <MainLogin>
       <Logo>로그인</Logo>

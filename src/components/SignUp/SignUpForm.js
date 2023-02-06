@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -65,10 +65,10 @@ const SignUpForm = () => {
 
   const onChangePassword = useCallback(
     (e) => {
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,25}$/;
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,25}$/;
       const passwordCurrent = e.target.value;
       setPassword(passwordCurrent);
-
       if (!passwordRegex.test(passwordCurrent)) {
         setPasswordMsg("영문자+숫자+특수문자 조합으로  8 ~ 25 자리");
         setIsPassword(false);
@@ -83,14 +83,17 @@ const SignUpForm = () => {
   const onChangeCheckPassword = useCallback((e) => {
     const checkPasswordCurrent = e.target.value;
     setCheckPassword(checkPasswordCurrent);
-    if (password === checkPasswordCurrent) {
+  }, []);
+
+  useEffect(() => {
+    if (password === checkPassword) {
       setCheckPasswordMsg("비밀번호가 일치합니다.");
       setIscheckPassword(true);
     } else {
       setCheckPasswordMsg("비밀번호가 일치하지 않습니다. 확인해주세요.");
       setIscheckPassword(false);
     }
-  });
+  }, [password, checkPassword]);
 
   const onEmailCheck = (e) => {
     e.preventDefault();
@@ -125,15 +128,14 @@ const SignUpForm = () => {
       Alert({ body: "닉네임을 입력해주세요." });
       return;
     }
-    if(nickname.length < 2){
-      Alert({body:"2글자 이상\n6글자 이하 이어야 합니다."})
+    if (nickname.length < 2) {
+      Alert({ body: "2글자 이상\n6글자 이하 이어야 합니다." });
       return null;
     }
     nickCheck({ nickname });
   };
 
   const nickCheck = async (post) => {
-
     try {
       const data = await instance.post("users/checknickname", post);
       if (data.data.statusCode === 200) {
@@ -218,13 +220,9 @@ const SignUpForm = () => {
                 color: isNickName ? "#000000" : "#f85032",
                 position: "absolute",
               }}
-            ><div>
-              {nicknameMsg}
-              </div>
-              <div>
-              {nickname.length} / 6
-
-              </div>
+            >
+              <div>{nicknameMsg}</div>
+              <div>{nickname.length} / 6</div>
             </Span>
           )}
         </div>
@@ -244,12 +242,8 @@ const SignUpForm = () => {
                 position: "absolute",
               }}
             >
-              <div>
-                {passwordMsg}
-              </div>
-              <div>
-                {password.length} / 25
-              </div>
+              <div>{passwordMsg}</div>
+              <div>{password.length} / 25</div>
             </Span>
           )}
         </div>
@@ -268,12 +262,9 @@ const SignUpForm = () => {
                 color: isCheckPassword ? "#000000" : "#f85032",
                 position: "absolute",
               }}
-            ><div>
-              {checkPasswordMsg}
-            </div>
-              <div>
-                {checkPassword.length} / 25
-              </div>
+            >
+              <div>{checkPasswordMsg}</div>
+              <div>{checkPassword.length} / 25</div>
             </Span>
           )}
         </div>
