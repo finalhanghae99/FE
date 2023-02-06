@@ -14,6 +14,7 @@ import Confirm from "../elements/Confirm";
 import { ReactComponent as logout } from "../../img/User_Icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { __getMyInfo } from "../../redux/modules/myPageSlice";
+import UserImgView from "../elements/UserImgView";
 
 function MyInfo() {
   const modify = useModal();
@@ -119,7 +120,7 @@ const GrayBorder = styled.div`
   width: 100%;
 `;
 
-const UserImg = styled.img`
+const UserImg = styled(UserImgView)`
   object-fit: cover;
   width: 72px;
   height: 72px;

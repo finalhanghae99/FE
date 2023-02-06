@@ -8,6 +8,7 @@ import { ItemBox } from "../elements/ItemBox";
 import Button from "../elements/Button";
 import Alert from "../elements/Alert";
 import moment from "moment";
+import UserImgView from "../elements/UserImgView";
 
 function DetailHeader() {
   const { id } = useParams();
@@ -139,7 +140,7 @@ const MiddleBox = styled.div`
   margin-bottom: 32px;
 `;
 
-const UserImg = styled.img`
+const UserImg = styled(UserImgView)`
   object-fit: cover;
   width: 50px;
   height: 50px;

@@ -61,7 +61,7 @@ const LoginForm = () => {
   return (
     <MainLogin>
       <Logo>로그인</Logo>
-      <Id>아이디</Id>
+      <Id>이메일</Id>
       <StInput
         name="useremail"
         type="text"

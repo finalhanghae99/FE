@@ -58,9 +58,9 @@ function HomeSearch({ color }) {
   return (
     <SearchBox>
       <BtnBox>
-        <MapIcon>
+        {/* <MapIcon>
           <HiOutlineMap />
-        </MapIcon>
+        </MapIcon> */}
         {/* <MapBtn>지도 검색</MapBtn> */}
       </BtnBox>
       <InputBox>

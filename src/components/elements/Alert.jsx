@@ -87,6 +87,7 @@ const MsgBox = styled.div`
   font-size: 18px;
   text-align: center;
   align-content: center;
+  white-space: pre-wrap;
 `
 
 const BtnBox = styled.div`

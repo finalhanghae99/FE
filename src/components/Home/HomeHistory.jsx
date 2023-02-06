@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../api/axiosApi";
-import {ItemBox, BoxHeader, BoxName, BoxMoreLink} from "../elements/ItemBox"; 
+import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 import { getCookies } from "../../api/cookieControler";
 
 function HomeHistory() {
@@ -10,13 +10,13 @@ function HomeHistory() {
   const [history, setHistory] = useState(null);
   const fetchHistory = async (record) => {
     try {
-      const { data } = await instance.post("/camping/permit/listfive", {"campingIdList":record });
+      const { data } = await instance.post("/camping/permit/listfive", { "campingIdList": record });
       setHistory(data.data);
     } catch (error) { console.log(error); }
   };
   useEffect(() => {
     let record = getCookies("history")
-    if(record === undefined) record = []
+    if (record === undefined) record = []
     record.splice(5)
     fetchHistory(record);
   }, [])
@@ -26,33 +26,27 @@ function HomeHistory() {
     <ItemBox>
       <BoxHeader>
         <BoxName>최근 본 캠핑장</BoxName>
-        {(token)? (
-           <BoxMoreLink to="/recentviewcamp"></BoxMoreLink>
-        ):(
-          <div onClick={()=>alert("로그인이 필요 합니다.")}>
-            <BoxMoreLink to="" ></BoxMoreLink>
-          </div>
-        )}
+        <BoxMoreLink to="/recentviewcamp"></BoxMoreLink>
       </BoxHeader>
       <HistoryList>
-      {history?.map((v) => {
-        return (
-          <HistoryBox key={v.campingId} onClick={()=>{navigate(`campdetail/${v.campingId}`)}}>
-            {v.imageUrl === "" ? 
-            <HistoryDiv>이미지 준비중</HistoryDiv> : <HistoryImg src={v.imageUrl} />
-            }
-            <HistoryDetail>
-              <HistoryName>{v.campingName}</HistoryName>
-              <HistoryAddress>{v.address3}</HistoryAddress>
-            </HistoryDetail>
-          </HistoryBox>
-        )
-      })}
-      {(history?.length === 0) && (
-        <NotFount>
-          이력이 없습니다.
-        </NotFount>
-      )}
+        {history?.map((v) => {
+          return (
+            <HistoryBox key={v.campingId} onClick={() => { navigate(`campdetail/${v.campingId}`) }}>
+              {v.imageUrl === "" ?
+                <HistoryDiv>이미지 준비중</HistoryDiv> : <HistoryImg src={v.imageUrl} />
+              }
+              <HistoryDetail>
+                <HistoryName>{v.campingName}</HistoryName>
+                <HistoryAddress>{v.address3}</HistoryAddress>
+              </HistoryDetail>
+            </HistoryBox>
+          )
+        })}
+        {(history?.length === 0) && (
+          <NotFount>
+            이력이 없습니다.
+          </NotFount>
+        )}
       </HistoryList>
     </ItemBox>
   )

@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     --interval : 24px;
   }
   body {
-    font-family: 'Noto Sans KR', 'Roboto'; 
+    font-family: 'Noto Sans KR', 'Roboto';
     @font-face {
       font-family: 'Roboto';
       font-style: normal;

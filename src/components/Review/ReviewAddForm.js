@@ -119,7 +119,7 @@ const ReviewAddForm = () => {
     ).then(res =>{
       navigate(`/reviewdetail/${res}`);
     })
-    Alert({body:"등록 되었습나다"})
+    Alert({body:"등록 되었습니다"})
   };
 
   const ImgPlus = () => {
@@ -248,9 +248,11 @@ const ReviewAddForm = () => {
           캠핑장 경험에 대해 알려주세요.<MinText>(필수)</MinText>
         </Detail>
         <ExpInput
+          maxLength={5000}
           placeholder="다른 캠퍼들이 참고 할 수 있도록 캠핑장에 대해 알려주세요."
           onChange={onChangeExp}
         ></ExpInput>
+        <ContentCount> {content.length} / 5000</ContentCount>
         <AddBtn disabled={!isComp} onClick={() => onReviewadd()}>
           등록하기
         </AddBtn>
@@ -397,10 +399,14 @@ const ExpInput = styled.textarea`
   height: 158px;
   border: 1px solid var(--Gray3);
   border-radius: 10px;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   padding: 16px;
   resize: none;
 `;
+const ContentCount = styled.div`
+  text-align: right;
+  margin-bottom: 25px;
+`
 
 const AddBtn = styled(Button)`
   width: 100%;

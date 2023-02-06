@@ -4,6 +4,7 @@ import styled from "styled-components";
 import MyReserveList from "../Reserve/MyReserveList";
 import { useDispatch, useSelector } from "react-redux";
 import { __getMyReserves } from "../../redux/modules/reservesSlice";
+import { ItemBox } from "../elements/ItemBox";
 
 
 function MyReservation() {
@@ -22,6 +23,9 @@ function MyReservation() {
         return <MyReserveList key={v.reservationId} reserve={v}/>
       })}
       </ListBox>
+      {(reserves?.length === 0) && (
+          <NonData>양도글이 없습니다.</NonData>
+        )}
     </div>
   )
 }
@@ -42,4 +46,9 @@ const Title = styled.div`
   justify-content: center;
   font-size: 18px;
   font-weight: 500;
+  font-weight: bold;
+`
+
+const NonData = styled(ItemBox)`
+  text-align: center;
 `

@@ -219,7 +219,9 @@ const ReviewEditForm = () => {
           placeholder="다른 캠퍼들이 참고 할 수 있도록 캠핑장에 대해 알려주세요."
           onChange={onChangeExp}
           value={contents}
+          maxLength={5000}
         ></ExpInput>
+        <ContentCount> {contents.length} / 5000</ContentCount>
         <AddBtn onClick={() => onReviewEdit(reviewDetail.reviewId)}>
           수정하기
         </AddBtn>
@@ -373,11 +375,14 @@ const ExpInput = styled.textarea`
   height: 158px;
   border: 1px solid var(--Gray3);
   border-radius: 10px;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   padding: 16px;
   resize: none;
 `;
-
+const ContentCount = styled.div`
+  text-align: right;
+  margin-bottom: 25px;
+`
 const AddBtn = styled(Button)`
   width: 100%;
 `;
