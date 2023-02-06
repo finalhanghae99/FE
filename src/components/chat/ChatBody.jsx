@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { instance, baseUrl } from "../../api/axiosApi";
-import { getCookies } from "../../api/cookieControler";
+import { getCookies, setCookies } from "../../api/cookieControler";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessages, __getPrevMsg } from "../../redux/modules/chattingSlice";
 import moment from 'moment';
@@ -19,6 +19,7 @@ function ChatBody({ nickname }) {
   const dispatch = useDispatch();
   let sock = new SockJS(`${baseUrl}/ws/chat`);
   let ws = Stomp.over(sock);
+  ws.debug= null;
   let reconnect = 0;
   const token = getCookies("id");
   let headers = { token: token };
@@ -57,7 +58,6 @@ function ChatBody({ nickname }) {
     if(msg.trim()==="") return null;
     let curr = new moment();
     curr = curr.format("YYYY-MM-DDTHH:mm:ss")
-    console.log(curr)
     ws.send("/app/chat/message/" + id, headers, JSON.stringify(
       { type: 'TALK', roomId: id, sender: sender, message: msg, sendDate : curr}));
     setMsg("")
@@ -195,6 +195,7 @@ const OrangeMsg = styled.div`
   color: white;
   margin-bottom:8px ;
   white-space: pre-wrap;
+  text-align: left;
 `
 const GrayMsg = styled.div`
   display: inline-block;

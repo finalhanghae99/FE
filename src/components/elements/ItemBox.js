@@ -21,7 +21,7 @@ const BoxHeader = (props) => {
 
 const BoxName = (props) => {
   return (
-    <StName className={props.className}>
+    <StName className={props.className} onClick={props.onClick}>
       {props.children}
     </StName>
   )

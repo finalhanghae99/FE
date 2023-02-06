@@ -100,6 +100,8 @@ function CampDetailForm() {
   };
   const addReview = async () => {
     const token = getCookies("id");
+    const campId = id;
+    const campName = campDetail?.campingName
     if (!token) {
       const isConfirm = await Confirm({
         body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
@@ -111,7 +113,7 @@ function CampDetailForm() {
       }
       return;
     } else {
-      navigate(`/reviewadd`)
+      navigate(`/reviewadd`, {state :{campId, campName}})
     }
   }
 
@@ -232,7 +234,7 @@ function CampDetailForm() {
             <ReviewBtn
               onClick={addReview}
             >
-              <HiOutlinePencilAlt />
+              <HiOutlinePencilAlt color="black"/>
             </ReviewBtn>
           </div>
         </Review>
@@ -250,7 +252,7 @@ function CampDetailForm() {
             moreNavigate();
           }}
         >
-          전체보기
+          리뷰 전체보기
         </Button>
       </ItemBox>
     </MainDiv>
