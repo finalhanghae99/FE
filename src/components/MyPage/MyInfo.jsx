@@ -89,15 +89,6 @@ function MyInfo() {
       </ItemBox2>
       <GrayBorder />
       <ItemBox2>
-        <LinkList>
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf2Ad1NSXV__4abyodfEWv7RZM8i2pyZ5sAxYPSBglJtsNE9Q/viewform"
-            target="_blank"
-            style={{ color: "black", textDecoration:"none" }}
-          >
-            설문 조사 이벤트
-          </a>
-        </LinkList>
         <LinkList style={{ border: "none" }}>
           <UserBtn type="button" onClick={logOut}>
             <Logout />
