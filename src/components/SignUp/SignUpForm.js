@@ -7,6 +7,7 @@ import { __postsignup } from "../../redux/modules/signUpSlice";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 import Alert from "../elements/Alert";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const SignUpForm = () => {
   const [isCheckPassword, setIscheckPassword] = useState(false);
   const [isUserEmailCheck, setIsUserEmailCheck] = useState(false);
   const [isNickNameCheck, setIsNickNameCheck] = useState(false);
+  const [viewPassword, setViewPassword] = useState(true);
+  const [viewCheckPassword, setViewCheckPassword] = useState(true);
 
   const useremailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -70,7 +73,7 @@ const SignUpForm = () => {
       const passwordCurrent = e.target.value;
       setPassword(passwordCurrent);
       if (!passwordRegex.test(passwordCurrent)) {
-        setPasswordMsg("영문자+숫자+특수문자 조합으로  8 ~ 25 자리");
+        setPasswordMsg("대,소문자,숫자,특수문자 조합으로  8 ~ 25 자리");
         setIsPassword(false);
       } else {
         setPasswordMsg("안전한 비밀번호입니다.");
@@ -228,13 +231,37 @@ const SignUpForm = () => {
         </div>
         <Id>비밀번호</Id>
         <div style={{ position: "relative" }}>
-          <StDivv>
-            <StInput
-              type="password"
-              placeholder="비밀번호를 입력해주세요."
-              onChange={onChangePassword}
-            />
-          </StDivv>
+          {viewPassword ? (
+            <StDivv>
+              <StInput
+                type="password"
+                placeholder="비밀번호를 입력해주세요."
+                onChange={onChangePassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewPassword(false);
+                }}
+              >
+                <AiFillEyeInvisible />
+              </EyesBtn>
+            </StDivv>
+          ) : (
+            <StDivv>
+              <StInput
+                type="text"
+                placeholder="비밀번호를 입력해주세요."
+                onChange={onChangePassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewPassword(true);
+                }}
+              >
+                <AiFillEye />
+              </EyesBtn>
+            </StDivv>
+          )}
           {password.length > 0 && (
             <Span
               style={{
@@ -249,13 +276,38 @@ const SignUpForm = () => {
         </div>
         <Id>비밀번호 확인</Id>
         <div style={{ position: "relative" }}>
-          <StDivv>
-            <StInput
-              type="password"
-              placeholder="비밀번호를 확인해주세요."
-              onChange={onChangeCheckPassword}
-            />
-          </StDivv>
+          {viewCheckPassword ? (
+            <StDivv>
+              <StInput
+                type="password"
+                placeholder="비밀번호를 확인해주세요."
+                onChange={onChangeCheckPassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewCheckPassword(false);
+                }}
+              >
+                <AiFillEyeInvisible />
+              </EyesBtn>
+            </StDivv>
+          ) : (
+            <StDivv>
+              <StInput
+                type="text"
+                placeholder="비밀번호를 확인해주세요."
+                onChange={onChangeCheckPassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewCheckPassword(true);
+                }}
+              >
+                <AiFillEye />
+              </EyesBtn>
+            </StDivv>
+          )}
+
           {checkPassword.length > 0 && (
             <Span
               style={{
@@ -328,9 +380,11 @@ const StDiv = styled.div`
 `;
 
 const StDivv = styled.div`
-  width: 303px;
+  width: 308px;
   height: 36px;
   margin-top: 10px;
+  display: flex;
+  border-bottom: 1px solid var(--Brand6);
 `;
 
 const Inp = styled(Input)`
@@ -347,7 +401,7 @@ const CheckBtn = styled.button`
 `;
 
 const StInput = styled(Input)`
-  border-bottom: 1px solid var(--Brand6);
+  border: none;
 `;
 
 const SignUpBtn = styled(Button)`
@@ -362,4 +416,11 @@ const Span = styled.span`
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
+`;
+
+const EyesBtn = styled.button`
+  width: 50px;
+  font-size: 22px;
+  background-color: white;
+  border: none;
 `;
