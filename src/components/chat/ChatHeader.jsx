@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect , useState} from "react";
-import { useParams , useLocation} from "react-router-dom";
+import { useParams , useLocation, useNavigate} from "react-router-dom";
 import { instance } from "../../api/axiosApi";
 
 import styled from "styled-components";
@@ -12,11 +12,12 @@ function ChatHeader({nickname}){
   const {id} = useParams();
   const [opponent, setOpponent] = useState();
   const [reserve, setReserve] = useState();
-
+  const navigate = useNavigate();
   const fetchInfo = async() =>{
     try{
       const reserveInfo = await instance.get(`/chat/room/reservation/${id}`);
       const chatter = await instance.get(`/chat/${id}`);
+      console.log(reserveInfo, chatter)
       setReserve(reserveInfo.data.data)
       if(chatter.data.data.seller === nickname){
         setOpponent(chatter.data.data.buyer)
@@ -35,7 +36,7 @@ function ChatHeader({nickname}){
     <ChatHead>
       <ItemBox>
         <Oppnent>{opponent}</Oppnent>
-        <ReserveInfo>
+        <ReserveInfo onClick={()=>{navigate(`../reserve/detail/${reserve?.reservationId}`)}}>
           <ReserveImg src={reserve?.imageUrl}></ReserveImg>
           <ReserveDetail>
             <ReserveName>{reserve?.campingName}</ReserveName>

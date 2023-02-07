@@ -55,9 +55,9 @@ export const __compMyReserves = createAsyncThunk(
   "reserves/complete",
   async (payload, thunkAPI) =>{
     try {
-      const { data } = await instance.post(`/reservation/changestate/${payload}`);
+      const { data } = await instance.post(`/reservation/changestate/${payload.id}`);
       if(data.statusCode === 200) {
-        return thunkAPI.fulfillWithValue(payload)
+        return thunkAPI.fulfillWithValue(payload.id)
       } else {
         Alert({body: "로그인 정보를 확인 해주세요."})
         return null

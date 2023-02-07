@@ -23,7 +23,6 @@ function ChatBody({ nickname }) {
   let reconnect = 0;
   const token = getCookies("id");
   let headers = { token: token };
-  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
 
   const { id } = useParams();
   const sender = nickname;
@@ -33,10 +32,6 @@ function ChatBody({ nickname }) {
   const [roomInfo, setRoomInfo] = useState();
   const [msg, setMsg] = useState("");
   const textRef = useRef();
-  const handleResize = useCallback(() => {
-    textRef.current.style.height = "auto"
-    textRef.current.style.height = textRef.current.scrollHeight + "px";
-  }, []);
 
   const dateCalc = (postDate) => {
     const current = moment();
@@ -110,11 +105,9 @@ function ChatBody({ nickname }) {
         </InputFrame>
       {(messages !== []) && (
         messages?.map((v, i) => {
-          console.log(v.sendDate)
           if (v.sender === sender) {
             return (
               <SenderChat key={i}>
-                {/* <div>User: {v.sender}</div> */}
                 <OrangeMsg>{v.message}</OrangeMsg>
                 <ChatDate>{dateCalc(v.sendDate)}</ChatDate>
                 <br />
@@ -123,7 +116,6 @@ function ChatBody({ nickname }) {
           } else {
             return (
               <div key={i}>
-                {/* <div>User: {v.sender}</div> */}
                 <GrayMsg>{v.message}</GrayMsg>
                 <ChatDate>{dateCalc(v.sendDate)}</ChatDate>
                 <br />
