@@ -20,7 +20,6 @@ const ReviewEditForm = () => {
   const [score3, setScore3] = useState(reviewDetail?.score3);
   const [score4, setScore4] = useState(reviewDetail?.score4);
   const [score5, setScore5] = useState(reviewDetail?.score5);
-  // const reviewNum = useSelector((state) => state?.review?.review?.data)
 
   const campName = useModal();
   if (campName.isOpen) {
@@ -70,6 +69,7 @@ const ReviewEditForm = () => {
       score3,
       score4,
       score5,
+      changeReview : !(images.length === 0)
     };
     data.append(
       "requestReviewWriteDto",
@@ -263,7 +263,6 @@ const MainDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* background-color: var(--BackColor1); */
 `;
 
 const InputBox = styled.div`

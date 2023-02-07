@@ -15,7 +15,6 @@ import { useDispatch } from "react-redux";
 
 function MyReserveList({ reserve }) {
   const navigate = useNavigate();
-  const [isTrade, setIsTrade] = useState(reserve.tradeState);
   const startDate = moment(reserve.startDate).format("YYYY년 MM월 DD일");
   const endDate = moment(reserve.endDate).format("YYYY년 MM월 DD일");
   const dispatch = useDispatch();
@@ -28,7 +27,6 @@ function MyReserveList({ reserve }) {
       return null;
     } else {
       dispatch(__compMyReserves({ id: reserve.reservationId }));
-      setIsTrade(!isTrade);
     }
   };
 
@@ -76,7 +74,7 @@ function MyReserveList({ reserve }) {
             <ReservePrice>{numeral(reserve.price).format("0,0")}</ReservePrice>
           </ReserveDetail>
         </ReserveBox>
-        {isTrade ? (
+        {reserve.tradeState ?(
           <BtnBox>
             <WhiteBtn
               onClick={() => {
