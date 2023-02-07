@@ -34,7 +34,7 @@ function HomePopularReview() {
   return (
     <ItemBox>
       <BoxHeader>
-        <BoxName>인기있는 리뷰</BoxName>
+        <BoxName onClick={()=>{navigate("/likereview")}}>인기있는 리뷰</BoxName>
         <BoxMoreLink to="likereview"></BoxMoreLink>
       </BoxHeader>
       <ReviewBox>

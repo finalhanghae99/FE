@@ -20,12 +20,12 @@ function HomeHistory() {
     record.splice(5)
     fetchHistory(record);
   }, [])
-  const token = getCookies("id")
+  
 
   return (
     <ItemBox>
       <BoxHeader>
-        <BoxName>최근 본 캠핑장</BoxName>
+        <BoxName onClick={()=>navigate(`/recentviewcamp`)}>최근 본 캠핑장</BoxName>
         <BoxMoreLink to="/recentviewcamp"></BoxMoreLink>
       </BoxHeader>
       <HistoryList>

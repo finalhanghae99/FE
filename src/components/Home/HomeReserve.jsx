@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import {useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { instance } from "../../api/axiosApi";
 import { ItemBox, BoxHeader, BoxName, BoxMoreLink } from "../elements/ItemBox";
 import ReserveListElement from "../Reserve/ReserveListElement";
 
 function HomeReserve() {
+  const navigate = useNavigate();
   const [reserve, setReserve] = useState(null);
   const fetchReserve = async () => {
     try {
@@ -20,7 +22,7 @@ function HomeReserve() {
   return (
     <ItemBox>
       <BoxHeader>
-        <BoxName>캠핑장 양도</BoxName>
+        <BoxName onClick={()=>{navigate("/reserve/search")}}>캠핑장 양도</BoxName>
         <BoxMoreLink to="reserve/search"></BoxMoreLink>
       </BoxHeader>
       <ReserveBox>

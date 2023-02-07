@@ -26,8 +26,8 @@ function CampDetailForm() {
     const token = getCookies("id");
     if (!token) {
       const isConfirm = await Confirm({
-        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
-      })
+        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?",
+      });
       if (!isConfirm) {
         return null;
       } else {
@@ -100,10 +100,12 @@ function CampDetailForm() {
   };
   const addReview = async () => {
     const token = getCookies("id");
+    const campId = id;
+    const campName = campDetail?.campingName;
     if (!token) {
       const isConfirm = await Confirm({
-        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?"
-      })
+        body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?",
+      });
       if (!isConfirm) {
         return null;
       } else {
@@ -111,9 +113,9 @@ function CampDetailForm() {
       }
       return;
     } else {
-      navigate(`/reviewadd`)
+      navigate(`/reviewadd`, { state: { campId, campName } });
     }
-  }
+  };
 
   return (
     <MainDiv>
@@ -122,19 +124,15 @@ function CampDetailForm() {
           {campDetail?.imageUrl === "" ? (
             <>
               <ListDiv>이미지를 준비중이에요.</ListDiv>
-              <BookmarkBtn
-                onClick={() => clickBMK(id)}
-              >
-                {isBMK ? (<BMKFill color="black" />) : (<BMKLine color="black" />)}
+              <BookmarkBtn onClick={() => clickBMK(id)}>
+                {isBMK ? <BMKFill color="black" /> : <BMKLine color="black" />}
               </BookmarkBtn>
             </>
           ) : (
             <>
               <CampImgView img={campDetail?.imageUrl} />
-              <BookmarkBtn
-                onClick={() => clickBMK(id)}
-              >
-                {isBMK ? (<BMKFill color="white" />) : (<BMKLine color="white" />)}
+              <BookmarkBtn onClick={() => clickBMK(id)}>
+                {isBMK ? <BMKFill color="white" /> : <BMKLine color="white" />}
               </BookmarkBtn>
             </>
           )}
@@ -176,7 +174,7 @@ function CampDetailForm() {
         <EleDiv>
           {campDetail?.campingEnv.map((a, i) => {
             if (a.length === 0) {
-              return <Ele2 key={i}></Ele2>;
+              return <Ele2 key={i}>정보가 없습니다.</Ele2>;
             } else {
               return <Ele key={i}>{a}</Ele>;
             }
@@ -186,7 +184,7 @@ function CampDetailForm() {
         <EleDiv>
           {campDetail?.campingType.map((b, i) => {
             if (b.length === 0) {
-              return <Ele2 key={i}></Ele2>;
+              return <Ele2 key={i}>정보가 없습니다.</Ele2>;
             } else {
               return <Ele key={i}>{b}</Ele>;
             }
@@ -196,7 +194,7 @@ function CampDetailForm() {
         <EleDiv>
           {campDetail?.campingFac.map((c, i) => {
             if (c.length === 0) {
-              return <Ele2 key={i}></Ele2>;
+              return <Ele2 key={i}>정보가 없습니다.</Ele2>;
             } else {
               return <Ele key={i}>{c}</Ele>;
             }
@@ -206,7 +204,7 @@ function CampDetailForm() {
         <EleDiv2>
           {campDetail?.campingSurroundFac.map((d, i) => {
             if (d.length === 0) {
-              return <Ele2 key={i}></Ele2>;
+              return <Ele2 key={i}>정보가 없습니다.</Ele2>;
             } else {
               return <Ele key={i}>{d}</Ele>;
             }
@@ -229,10 +227,8 @@ function CampDetailForm() {
         <Review>
           <div>리뷰({campDetail?.reviewList.length})</div>
           <div>
-            <ReviewBtn
-              onClick={addReview}
-            >
-              <HiOutlinePencilAlt />
+            <ReviewBtn onClick={addReview}>
+              <HiOutlinePencilAlt color="black" />
             </ReviewBtn>
           </div>
         </Review>
@@ -250,7 +246,7 @@ function CampDetailForm() {
             moreNavigate();
           }}
         >
-          전체보기
+          리뷰 전체보기
         </Button>
       </ItemBox>
     </MainDiv>
@@ -398,16 +394,16 @@ const ReviewBox = styled.div`
   margin-top: var(--interval);
 `;
 const BMKFill = styled(bmkFill)`
-  & path{
-  stroke: ${props => props.color};
-  fill: ${props => props.color};
+  & path {
+    stroke: ${(props) => props.color};
+    fill: ${(props) => props.color};
   }
-`
+`;
 const BMKLine = styled(bmkLine)`
-  & path{
-    stroke: ${props => props.color};
+  & path {
+    stroke: ${(props) => props.color};
   }
-`
+`;
 
 const ListDiv = styled.div`
   height: 414px;

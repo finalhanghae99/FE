@@ -109,7 +109,9 @@ function ReservePostForm() {
           name="content"
           placeholder="게시글 내용을 작성해주세요"
           onChange={changeHandler}
+          maxLength={5000}
         />
+        <ContentCount>{reserve.content.length} / 5000</ContentCount>
         <Button disabled={!isComp}>등록하기</Button>
       </PostForm>
       {campName.isOpen && (
@@ -166,8 +168,11 @@ const PostContent = styled.textarea`
   resize: none;
   padding: 16px;
   height: 240px;
-  margin-bottom: 56px;
 `;
+const ContentCount = styled.div`
+  text-align: right;
+  margin-bottom: 56px;
+`
 
 const InputBox = styled.form`
   padding-bottom: 16px;

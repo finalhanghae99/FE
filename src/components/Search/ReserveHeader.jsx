@@ -6,6 +6,7 @@ import RegionPicker from "../elements/RegionPicker";
 import { BsPencilFill } from "react-icons/bs"
 import { useNavigate } from "react-router-dom";
 import Alert from "../elements/Alert";
+import Confirm from "../elements/Confirm";
 import { getCookies } from "../../api/cookieControler";
 import { ItemBox } from "../elements/ItemBox";
 import { AiOutlineDown } from "react-icons/ai";
@@ -68,15 +69,20 @@ function ReserveHeader() {
     const { name, value } = event.target;
     setCondition({ ...condition, [name]: value })
   }
-  const postNavigate = () => {
+  const postNavigate = async () => {
     const token = getCookies("id")
     if (!token) {
-      Alert({ body: "로그인이 필요 합니다." })
-      return;
+      const isConfirm = await Confirm({ body: "로그인이 필요 합니다.\n 로그인 하시겠습니까?" })
+      if(isConfirm) {
+        navigate("../../login")
+      } else {
+        return null;
+      }
     } else {
       navigate("../reserve/post")
     }
   }
+  
   return (
     <SearchBox>
       <HeadTitle>캠핑장 양도</HeadTitle>

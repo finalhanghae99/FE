@@ -10,7 +10,8 @@ const StButton = styled.button`
   color: white;
   background-color: var(--Brand6);
   border-radius: 36px;
-  border: 1px solid #d9d9d9;
+  border: none;
+  /* border: 1px solid #d9d9d9; */
   &:disabled{
     background-color: var(--Gray3);
   }

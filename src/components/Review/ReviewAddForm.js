@@ -9,12 +9,16 @@ import PostStar from "./PostStar";
 import { ItemBox } from "../elements/ItemBox";
 import { FiSearch } from "react-icons/fi";
 import Button from "../elements/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation } from "react-router-dom";
 import { getCookies } from "../../api/cookieControler";
 import Alert from "../elements/Alert";
 import { instance } from "../../api/axiosApi";
 
+
+
 const ReviewAddForm = () => {
+  const {state} = useLocation();
+
   const [score1, setScore1] = useState(0);
   const [score2, setScore2] = useState(0);
   const [score3, setScore3] = useState(0);
@@ -36,6 +40,17 @@ const ReviewAddForm = () => {
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
   const [isComp, setIsComp] = useState(false);
+
+  const checkCamp = () =>{
+    if(state){
+      console.log("true")
+      setCampingId(state.campId)
+      setCampingName(state.campName)
+    }
+  }
+  useEffect(()=>{
+    checkCamp()
+  },[])
 
   useEffect(() => {
     setIsComp(
@@ -120,7 +135,7 @@ const ReviewAddForm = () => {
       navigate(`/reviewdetail/${res}`);
     })
     Alert({body:"등록 되었습니다"})
-  };
+  }; // 리스폰스 결과를 받고 then안에 내용이 실행된다.
 
   const ImgPlus = () => {
     return (

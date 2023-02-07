@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { instance, baseUrl } from "../../api/axiosApi";
-import { getCookies } from "../../api/cookieControler";
+import { getCookies, setCookies } from "../../api/cookieControler";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessages, __getPrevMsg } from "../../redux/modules/chattingSlice";
 import moment from 'moment';
@@ -19,10 +19,10 @@ function ChatBody({ nickname }) {
   const dispatch = useDispatch();
   let sock = new SockJS(`${baseUrl}/ws/chat`);
   let ws = Stomp.over(sock);
+  ws.debug= null;
   let reconnect = 0;
   const token = getCookies("id");
   let headers = { token: token };
-  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
 
   const { id } = useParams();
   const sender = nickname;
@@ -32,10 +32,6 @@ function ChatBody({ nickname }) {
   const [roomInfo, setRoomInfo] = useState();
   const [msg, setMsg] = useState("");
   const textRef = useRef();
-  const handleResize = useCallback(() => {
-    textRef.current.style.height = "auto"
-    textRef.current.style.height = textRef.current.scrollHeight + "px";
-  }, []);
 
   const dateCalc = (postDate) => {
     const current = moment();
@@ -57,7 +53,6 @@ function ChatBody({ nickname }) {
     if(msg.trim()==="") return null;
     let curr = new moment();
     curr = curr.format("YYYY-MM-DDTHH:mm:ss")
-    console.log(curr)
     ws.send("/app/chat/message/" + id, headers, JSON.stringify(
       { type: 'TALK', roomId: id, sender: sender, message: msg, sendDate : curr}));
     setMsg("")
@@ -110,11 +105,9 @@ function ChatBody({ nickname }) {
         </InputFrame>
       {(messages !== []) && (
         messages?.map((v, i) => {
-          console.log(v.sendDate)
           if (v.sender === sender) {
             return (
               <SenderChat key={i}>
-                {/* <div>User: {v.sender}</div> */}
                 <OrangeMsg>{v.message}</OrangeMsg>
                 <ChatDate>{dateCalc(v.sendDate)}</ChatDate>
                 <br />
@@ -123,7 +116,6 @@ function ChatBody({ nickname }) {
           } else {
             return (
               <div key={i}>
-                {/* <div>User: {v.sender}</div> */}
                 <GrayMsg>{v.message}</GrayMsg>
                 <ChatDate>{dateCalc(v.sendDate)}</ChatDate>
                 <br />
@@ -195,6 +187,7 @@ const OrangeMsg = styled.div`
   color: white;
   margin-bottom:8px ;
   white-space: pre-wrap;
+  text-align: left;
 `
 const GrayMsg = styled.div`
   display: inline-block;

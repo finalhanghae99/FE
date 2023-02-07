@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import numeral from "numeral";
 import moment from "moment";
@@ -6,12 +6,18 @@ import { ItemBox } from "../elements/ItemBox";
 import { instance } from "../../api/axiosApi";
 import Confirm from "../elements/Confirm";
 import { useNavigate } from "react-router-dom";
+import { BsPencilFill } from "react-icons/bs";
+import {
+  __compMyReserves,
+  __delMyReserves,
+} from "../../redux/modules/reservesSlice";
+import { useDispatch } from "react-redux";
 
 function MyReserveList({ reserve }) {
   const navigate = useNavigate();
-  const [isTrade, setIsTrade] = useState(reserve.tradeState);
   const startDate = moment(reserve.startDate).format("YYYY년 MM월 DD일");
   const endDate = moment(reserve.endDate).format("YYYY년 MM월 DD일");
+  const dispatch = useDispatch();
 
   const compReserve = async () => {
     const isConfirm = await Confirm({
@@ -20,16 +26,10 @@ function MyReserveList({ reserve }) {
     if (!isConfirm) {
       return null;
     } else {
-      try {
-        const { data } = await instance.post(
-          `/reservation/changestate/${reserve.reservationId}`
-        );
-      } catch (error) {
-        console.log(error);
-      }
-      setIsTrade(!isTrade);
+      dispatch(__compMyReserves({ id: reserve.reservationId }));
     }
   };
+
   const delReserve = async () => {
     const isConfirm = await Confirm({
       body: "양도글을 삭제하시겠습니까?",
@@ -37,19 +37,22 @@ function MyReserveList({ reserve }) {
     if (!isConfirm) {
       return null;
     } else {
-      try {
-        const { data } = await instance.delete(
-          `/reservation/${reserve.reservationId}`
-        );
-      } catch (error) {
-        console.log(error);
-      }
+      dispatch(__delMyReserves({ id: reserve.reservationId }));
     }
+  };
+
+  const postNavigate = async () => {
+    navigate("../reserve/post");
   };
 
   return (
     <ListElement>
       <ItemBox>
+        <BtnPostition>
+          <PostBtn onClick={postNavigate}>
+            <BsPencilFill style={{ color: "white" }} />
+          </PostBtn>
+        </BtnPostition>
         <ReserveBox
           onClick={() => {
             navigate(`/reserve/detail/${reserve.reservationId}`);
@@ -71,7 +74,7 @@ function MyReserveList({ reserve }) {
             <ReservePrice>{numeral(reserve.price).format("0,0")}</ReservePrice>
           </ReserveDetail>
         </ReserveBox>
-        {isTrade ? (
+        {reserve.tradeState ?(
           <BtnBox>
             <WhiteBtn
               onClick={() => {
@@ -209,4 +212,26 @@ const GrayBtn = styled.button`
   color: var(--Gray3);
   border: none;
   flex: 1;
+`;
+
+const PostBtn = styled.div`
+  background-color: var(--Brand6);
+  border-radius: 100%;
+  line-height: 52px;
+  height: 52px;
+  width: 52px;
+  content: "";
+  text-align: center;
+  line-height: 30px;
+  position: fixed;
+  bottom: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+`;
+
+const BtnPostition = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;

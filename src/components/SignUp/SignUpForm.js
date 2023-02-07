@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import { __postsignup } from "../../redux/modules/signUpSlice";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 import Alert from "../elements/Alert";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const SignUpForm = () => {
   const [isCheckPassword, setIscheckPassword] = useState(false);
   const [isUserEmailCheck, setIsUserEmailCheck] = useState(false);
   const [isNickNameCheck, setIsNickNameCheck] = useState(false);
+  const [viewPassword, setViewPassword] = useState(true);
+  const [viewCheckPassword, setViewCheckPassword] = useState(true);
 
   const useremailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -65,12 +68,12 @@ const SignUpForm = () => {
 
   const onChangePassword = useCallback(
     (e) => {
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,25}$/;
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,25}$/;
       const passwordCurrent = e.target.value;
       setPassword(passwordCurrent);
-
       if (!passwordRegex.test(passwordCurrent)) {
-        setPasswordMsg("영문자+숫자+특수문자 조합으로  8 ~ 25 자리");
+        setPasswordMsg("대,소문자,숫자,특수문자 조합으로  8 ~ 25 자리");
         setIsPassword(false);
       } else {
         setPasswordMsg("안전한 비밀번호입니다.");
@@ -83,14 +86,17 @@ const SignUpForm = () => {
   const onChangeCheckPassword = useCallback((e) => {
     const checkPasswordCurrent = e.target.value;
     setCheckPassword(checkPasswordCurrent);
-    if (password === checkPasswordCurrent) {
+  }, []);
+
+  useEffect(() => {
+    if (password === checkPassword) {
       setCheckPasswordMsg("비밀번호가 일치합니다.");
       setIscheckPassword(true);
     } else {
       setCheckPasswordMsg("비밀번호가 일치하지 않습니다. 확인해주세요.");
       setIscheckPassword(false);
     }
-  });
+  }, [password, checkPassword]);
 
   const onEmailCheck = (e) => {
     e.preventDefault();
@@ -125,15 +131,14 @@ const SignUpForm = () => {
       Alert({ body: "닉네임을 입력해주세요." });
       return;
     }
-    if(nickname.length < 2){
-      Alert({body:"2글자 이상\n6글자 이하 이어야 합니다."})
+    if (nickname.length < 2) {
+      Alert({ body: "2글자 이상\n6글자 이하 이어야 합니다." });
       return null;
     }
     nickCheck({ nickname });
   };
 
   const nickCheck = async (post) => {
-
     try {
       const data = await instance.post("users/checknickname", post);
       if (data.data.statusCode === 200) {
@@ -218,25 +223,45 @@ const SignUpForm = () => {
                 color: isNickName ? "#000000" : "#f85032",
                 position: "absolute",
               }}
-            ><div>
-              {nicknameMsg}
-              </div>
-              <div>
-              {nickname.length} / 6
-
-              </div>
+            >
+              <div>{nicknameMsg}</div>
+              <div>{nickname.length} / 6</div>
             </Span>
           )}
         </div>
         <Id>비밀번호</Id>
         <div style={{ position: "relative" }}>
-          <StDivv>
-            <StInput
-              type="password"
-              placeholder="비밀번호를 입력해주세요."
-              onChange={onChangePassword}
-            />
-          </StDivv>
+          {viewPassword ? (
+            <StDivv>
+              <StInput
+                type="password"
+                placeholder="비밀번호를 입력해주세요."
+                onChange={onChangePassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewPassword(false);
+                }}
+              >
+                <AiFillEyeInvisible />
+              </EyesBtn>
+            </StDivv>
+          ) : (
+            <StDivv>
+              <StInput
+                type="text"
+                placeholder="비밀번호를 입력해주세요."
+                onChange={onChangePassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewPassword(true);
+                }}
+              >
+                <AiFillEye />
+              </EyesBtn>
+            </StDivv>
+          )}
           {password.length > 0 && (
             <Span
               style={{
@@ -244,36 +269,54 @@ const SignUpForm = () => {
                 position: "absolute",
               }}
             >
-              <div>
-                {passwordMsg}
-              </div>
-              <div>
-                {password.length} / 25
-              </div>
+              <div>{passwordMsg}</div>
+              <div>{password.length} / 25</div>
             </Span>
           )}
         </div>
         <Id>비밀번호 확인</Id>
         <div style={{ position: "relative" }}>
-          <StDivv>
-            <StInput
-              type="password"
-              placeholder="비밀번호를 확인해주세요."
-              onChange={onChangeCheckPassword}
-            />
-          </StDivv>
+          {viewCheckPassword ? (
+            <StDivv>
+              <StInput
+                type="password"
+                placeholder="비밀번호를 확인해주세요."
+                onChange={onChangeCheckPassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewCheckPassword(false);
+                }}
+              >
+                <AiFillEyeInvisible />
+              </EyesBtn>
+            </StDivv>
+          ) : (
+            <StDivv>
+              <StInput
+                type="text"
+                placeholder="비밀번호를 확인해주세요."
+                onChange={onChangeCheckPassword}
+              />
+              <EyesBtn
+                onClick={() => {
+                  setViewCheckPassword(true);
+                }}
+              >
+                <AiFillEye />
+              </EyesBtn>
+            </StDivv>
+          )}
+
           {checkPassword.length > 0 && (
             <Span
               style={{
                 color: isCheckPassword ? "#000000" : "#f85032",
                 position: "absolute",
               }}
-            ><div>
-              {checkPasswordMsg}
-            </div>
-              <div>
-                {checkPassword.length} / 25
-              </div>
+            >
+              <div>{checkPasswordMsg}</div>
+              <div>{checkPassword.length} / 25</div>
             </Span>
           )}
         </div>
@@ -337,9 +380,11 @@ const StDiv = styled.div`
 `;
 
 const StDivv = styled.div`
-  width: 303px;
+  width: 308px;
   height: 36px;
   margin-top: 10px;
+  display: flex;
+  border-bottom: 1px solid var(--Brand6);
 `;
 
 const Inp = styled(Input)`
@@ -356,7 +401,7 @@ const CheckBtn = styled.button`
 `;
 
 const StInput = styled(Input)`
-  border-bottom: 1px solid var(--Brand6);
+  border: none;
 `;
 
 const SignUpBtn = styled(Button)`
@@ -371,4 +416,11 @@ const Span = styled.span`
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
+`;
+
+const EyesBtn = styled.button`
+  width: 50px;
+  font-size: 22px;
+  background-color: white;
+  border: none;
 `;

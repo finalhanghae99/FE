@@ -6,6 +6,7 @@ import { __putProfile } from "../../redux/modules/profileSlice";
 import Alert from "../elements/Alert";
 import { __getMyInfo } from "../../redux/modules/myPageSlice";
 import { ItemBox } from "../elements/ItemBox";
+import { instance } from "../../api/axiosApi";
 
 function MyInfoModify(props) {
   const imgRef = useRef("");
@@ -72,6 +73,38 @@ function MyInfoModify(props) {
     }
   };
 
+  const onDelNickname = () => {
+    setNickname2("");
+  };
+
+  const onNicknameCheck = (e) => {
+    e.preventDefault();
+    if (nickname2.length === 0) {
+      Alert({ body: "닉네임을 입력해주세요." });
+      return;
+    }
+    if (nickname2.length < 2) {
+      Alert({ body: "2글자 이상\n6글자 이하 이어야 합니다." });
+      return null;
+    }
+    nickCheck({ nickname: nickname2 });
+  };
+
+  const nickCheck = async (post) => {
+    try {
+      const data = await instance.post("users/checknickname", post);
+      if (data.data.statusCode === 200) {
+        Alert({ body: "사용 가능한 닉네임 입니다!" });
+      } else {
+        Alert({ body: "중복된 닉네임 입니다." });
+        return data;
+      }
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     setNickname2(userInfo.nickname);
   }, [userInfo]);
@@ -88,11 +121,15 @@ function MyInfoModify(props) {
         <UserForm>
           <ImgPreview />
           <ImgPlus />
-          <NameInput
-            value={nickname2}
-            onChange={(event) => setNickname2(event.target.value)}
-            maxLength="6"
-          />
+          <InputDiv>
+            <NameInput
+              value={nickname2}
+              onChange={(event) => setNickname2(event.target.value)}
+              maxLength="6"
+            />
+            <CheckBtn onClick={onNicknameCheck}>중복확인</CheckBtn>
+            <DelBtn onClick={onDelNickname}>x</DelBtn>
+          </InputDiv>
           <NameLength>{nickname2.length} / 6</NameLength>
         </UserForm>
       </ItemBox>
@@ -103,7 +140,7 @@ function MyInfoModify(props) {
 export default MyInfoModify;
 
 const OutOfModal = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
   z-index: 99;
   top: 0;
@@ -121,7 +158,7 @@ const UserForm = styled.div`
   align-items: center;
   width: 50%;
   margin: auto;
-  margin-top: 120px;
+  margin-top: 60px;
   text-align: center;
 `;
 
@@ -142,15 +179,15 @@ const UserImg = styled.img`
 `;
 
 const NameInput = styled.input`
-  width: 160px;
+  width: 120px;
   background: none;
   border: none;
-  border-bottom: 2px solid white;
   text-align: center;
   color: white;
-  margin: var(--interval) 0 var(--interval) 0;
   padding: var(--pad1);
   box-sizing: border-box;
+  font-size: 15px;
+  outline: none;
 `;
 
 const NameLength = styled.div`
@@ -175,12 +212,40 @@ const Xbtn = styled.button`
 const AddBtn = styled.button`
   width: 36px;
   height: 36px;
-  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
   color: white;
   background-color: var(--Brand6);
   border: 1px solid transparent;
   border-radius: 100%;
   position: absolute;
-  top: 290px;
+  top: 235px;
   margin: 20px 0px 0px 20px;
+`;
+
+const CheckBtn = styled.button`
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-bottom: 1px solid white;
+`;
+
+const DelBtn = styled.button`
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  margin-bottom: 5px;
+  font-size: 20px;
+  margin-left: 10px;
+`;
+
+const InputDiv = styled.div`
+  width: 300px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 2px solid white;
+  margin: var(--interval) 0 var(--interval) 0;
 `;
