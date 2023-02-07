@@ -67,7 +67,15 @@ function DetailHeader() {
   }, []);
   return (
     <div>
-      <CampImgView img={reserve?.imageUrl} />
+      {reserve?.imageUrl === "" ? (
+            <>
+              <ListDiv>이미지를 준비중이에요.</ListDiv>
+            </>
+          ) : (
+            <>
+              <CampImgView img={reserve?.imageUrl} />
+            </>
+          )}
       <ItemBox>
         <MiddleBox>
           <UserImg src={reserve?.profileImageUrl} />
@@ -215,4 +223,11 @@ const StateDiv = styled.div`
   border: 1px solid var(--Brand6);
   background-color: white;
   color: var(--Brand6);
+`;
+const ListDiv = styled.div`
+  height: 414px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Gray2);
 `;
