@@ -24,7 +24,7 @@
 2. 캠핑장에 대한 리뷰생성 및 즐겨찾기 기능
 3. 캠핑장 양도글 게시기능 및 채팅기능 제공
 
-## 기슬스택
+## 기술스택
 
 ### 프론트 기술스택
 <!-- <img src="https://img.shields.io/badge/표시할이름-색상?style=for-the-badge&logo=기술스택아이콘&logoColor=white"> -->
@@ -167,4 +167,9 @@ sender는 양도 받길 원하는 사람 receiver는 양도글을 작성한 사�
  
 </div>
 </details>
+
+### 레퍼런스
+<a href="https://www.figma.com/file/g0FYpNqsg3aAhMPu1O1dCD/CampingZip?node-id=0%3A1&t=LhlHY8QwlaFuHsd3-0">
+Figma
+</a>
 
