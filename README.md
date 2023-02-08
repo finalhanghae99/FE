@@ -32,6 +32,12 @@
 </div>
 
 #### 전체 아키텍처
+![서비스 아키텍처](https://user-images.githubusercontent.com/49892292/217412803-f73c1678-5f28-43ae-80bb-9bee084b227f.png)
 
 #### 프론트엔드 아키텍처
+
+
+#### API 설계
+<img width="960" alt="API" src="https://user-images.githubusercontent.com/49892292/217412987-6a517408-1ab8-4d47-bf55-3b30445a058b.png">
+
 
