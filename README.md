@@ -1,12 +1,10 @@
 # 캠핑집 프로젝트(CampingZip) (수정중)
 
-
 ### 프로젝트 기간
 2022.12.30 ~ 2023.02.10
 
 
 ### 멤버 정보
-
 |Name|Role|Github|
 |------|---|---|
 |이원문|FE|https://github.com/dnjsans|
@@ -16,7 +14,7 @@
 |진효제|BE|https://github.com/jinhyoje|
 |오은지|Design||
 
-### 서비스 소개
+## 서비스 소개
  행복한 캠핑을 위해 캠핑장의 정보를 제공하는 저희 서비스의 이름은 캠핑집(CAMPINGZIP)입니다. 
  <br />
  텐트를 열고 캠핑의 세상을 열어보자는 의미로 캠핑집(CAMPINGZIP)으로 서비스의 이름을 정했습니다.
@@ -26,7 +24,9 @@
 2. 캠핑장에 대한 리뷰생성 및 즐겨찾기 기능
 3. 캠핑장 양도글 게시기능 및 채팅기능 제공
 
-### 프론트 기술 스택
+## 기슬스택
+
+### 프론트 기술스택
 <!-- <img src="https://img.shields.io/badge/표시할이름-색상?style=for-the-badge&logo=기술스택아이콘&logoColor=white"> -->
 <div>
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
@@ -46,7 +46,7 @@
 </div>
 
 
-### 벡엔드 기술 스택
+### 벡엔드 기술스택
 <div>
 <img src="https://img.shields.io/badge/Java-cd0000?style=for-the-badge&logo=&logoColor=white">
 <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
